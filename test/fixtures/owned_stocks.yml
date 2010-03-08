@@ -1,0 +1,24 @@
+# == Schema Information
+# Schema version: 20100304214922
+#
+# Table name: owned_stocks
+#
+#  id           :integer         not null, primary key
+#  portfolio_id :integer
+#  stock_id     :integer
+#  shares       :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  portfolio_id: 1
+  stock_id: 1
+  shares: 1
+
+two:
+  portfolio_id: 1
+  stock_id: 1
+  shares: 1

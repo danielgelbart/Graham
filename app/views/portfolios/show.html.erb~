@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @portfolio.user_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @portfolio.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_portfolio_path(@portfolio) %> |
+<%= link_to 'Back', portfolios_path %>

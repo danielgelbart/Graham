@@ -1,0 +1,5 @@
+<td><%= property.ref %></td>
+<td><%= property.total_rent %> <%= property.currency %></td>
+<td><%= property.size %>m2</td>
+<td><%= property.property_type.name %></td>
+<td><%= property.status.name %></td>

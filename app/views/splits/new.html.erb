@@ -1,0 +1,30 @@
+<h1>New stock Split</h1>
+
+<% form_for(@split) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :stock_id %><br />
+    <%= f.collection_select :stock_id, Stock.all, :id, :ticker %>
+  </p>
+  <p>
+    <%= f.label :old, "Nuber of old shares" %><br />
+    <%= f.text_field :old %>
+  </p>
+
+<p>
+    <%= f.label :new, "Now are this many shares" %><br />
+    <%= f.text_field :new %>
+  </p>
+
+ <p>
+    <%= f.label :date, "Date od the split" %><br />
+    <%= f.date_select :date %>
+  </p>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', splits_path %>

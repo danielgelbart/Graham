@@ -1,0 +1,36 @@
+<h1>Editing transaction</h1>
+
+<% form_for(@transaction) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </p>
+  <p>
+    <%= f.label :comission %><br />
+    <%= f.text_field :comission %>
+  </p>
+  <p>
+    <%= f.label :stock_id %><br />
+    <%= f.text_field :stock_id %>
+  </p>
+  <p>
+    <%= f.label :shares %><br />
+    <%= f.text_field :shares %>
+  </p>
+  <p>
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @transaction %> |
+<%= link_to 'Back', transactions_path %>

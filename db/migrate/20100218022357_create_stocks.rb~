@@ -1,0 +1,19 @@
+class CreateStocks < ActiveRecord::Migration
+  def self.up
+    create_table :stocks do |t|
+      t.integer :shares
+      t.date :buy_date
+      t.decimal :buy_price, :precision => 10, :scale => 2
+      t.date :sell_date
+      t.decimal :sell_price, :precision => 10, :scale => 2
+      t.decimal :market_price, :precision => 10, :scale => 2
+      t.string :ticker
+      t.string :name
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :stocks
+  end
+end

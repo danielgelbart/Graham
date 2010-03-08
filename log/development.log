@@ -1,0 +1,1978 @@
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (4.5ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (1.3ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStocks (20100218022357)
+  [4;36;1mSQL (0.4ms)[0m   [0;1mCREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "shares" integer, "buy_date" date, "buy_price" decimal, "sell_date" date, "sell_price" decimal(10,2), "market_price" decimal(10,2), "ticker" varchar(255), "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100218022357')[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("stocks")[0m
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-17 21:47:09) [GET]
+  [4;36;1mStock Load (0.5ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 86ms (View: 81, DB: 0) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#new (for 127.0.0.1 at 2010-02-17 21:47:11) [GET]
+Rendering template within layouts/stocks
+Rendering stocks/new
+Completed in 267ms (View: 250, DB: 0) | 200 OK [http://localhost/stocks/new]
+
+
+Processing StocksController#create (for 127.0.0.1 at 2010-02-17 21:47:32) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"nK3L4XNM4AhLGqATCT3h/vjWliFbaUrIxLMLDFMFwoY=", "stock"=>{"name"=>"Freddie Mac", "shares"=>"100", "buy_date(1i)"=>"2010", "buy_date(2i)"=>"2", "buy_price"=>"10.2", "buy_date(3i)"=>"18", "ticker"=>"FRE"}}
+  [4;35;1mStock Create (0.8ms)[0m   [0mINSERT INTO "stocks" ("shares", "name", "created_at", "updated_at", "buy_price", "sell_date", "buy_date", "sell_price", "market_price", "ticker") VALUES(100, 'Freddie Mac', '2010-02-18 02:47:32', '2010-02-18 02:47:32', 10.2, NULL, '2010-02-18', NULL, NULL, 'FRE')[0m
+Redirected to http://localhost:3000/stocks/1
+Completed in 35ms (DB: 1) | 302 Found [http://localhost/stocks]
+
+
+Processing StocksController#show (for 127.0.0.1 at 2010-02-17 21:47:32) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mStock Load (1.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Rendering template within layouts/stocks
+Rendering stocks/show
+Completed in 39ms (View: 16, DB: 1) | 200 OK [http://localhost/stocks/1]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-17 21:47:35) [GET]
+  [4;35;1mStock Load (0.5ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 13ms (View: 8, DB: 1) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#new (for 127.0.0.1 at 2010-02-17 21:48:41) [GET]
+Rendering template within layouts/stocks
+Rendering stocks/new
+Completed in 18ms (View: 12, DB: 0) | 200 OK [http://localhost/stocks/new]
+
+
+Processing StocksController#create (for 127.0.0.1 at 2010-02-17 21:49:07) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"nK3L4XNM4AhLGqATCT3h/vjWliFbaUrIxLMLDFMFwoY=", "stock"=>{"name"=>"Citibank", "shares"=>"120", "buy_date(1i)"=>"2010", "buy_date(2i)"=>"2", "buy_price"=>"12", "buy_date(3i)"=>"18", "ticker"=>"C"}}
+  [4;36;1mStock Create (0.3ms)[0m   [0;1mINSERT INTO "stocks" ("shares", "name", "created_at", "updated_at", "buy_price", "sell_date", "buy_date", "sell_price", "market_price", "ticker") VALUES(120, 'Citibank', '2010-02-18 02:49:07', '2010-02-18 02:49:07', 12.0, NULL, '2010-02-18', NULL, NULL, 'C')[0m
+Redirected to http://localhost:3000/stocks/2
+Completed in 29ms (DB: 0) | 302 Found [http://localhost/stocks]
+
+
+Processing StocksController#show (for 127.0.0.1 at 2010-02-17 21:49:07) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 2) [0m
+Rendering template within layouts/stocks
+Rendering stocks/show
+Completed in 11ms (View: 4, DB: 0) | 200 OK [http://localhost/stocks/2]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-17 21:49:09) [GET]
+  [4;36;1mStock Load (1.7ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 46ms (View: 31, DB: 2) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#edit (for 127.0.0.1 at 2010-02-17 21:49:16) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mStock Load (0.8ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Rendering template within layouts/stocks
+Rendering stocks/edit
+Completed in 48ms (View: 31, DB: 1) | 200 OK [http://localhost/stocks/1/edit]
+
+
+Processing StocksController#update (for 127.0.0.1 at 2010-02-17 21:50:21) [PUT]
+  Parameters: {"commit"=>"Update", "authenticity_token"=>"nK3L4XNM4AhLGqATCT3h/vjWliFbaUrIxLMLDFMFwoY=", "stock"=>{"name"=>"Freddie Mac", "shares"=>"100", "buy_date(1i)"=>"2010", "sell_date(1i)"=>"2010", "buy_date(2i)"=>"2", "sell_date(2i)"=>"2", "buy_price"=>"10.2", "buy_date(3i)"=>"18", "sell_date(3i)"=>"18", "ticker"=>"FRE", "market_price"=>"", "sell_price"=>""}, "id"=>"1"}
+  [4;36;1mStock Load (1.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mStock Update (0.7ms)[0m   [0mUPDATE "stocks" SET "sell_date" = '2010-02-18', "updated_at" = '2010-02-18 02:50:21' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/stocks/1
+Completed in 37ms (DB: 2) | 302 Found [http://localhost/stocks/1]
+
+
+Processing StocksController#show (for 127.0.0.1 at 2010-02-17 21:50:21) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Rendering template within layouts/stocks
+Rendering stocks/show
+Completed in 11ms (View: 4, DB: 0) | 200 OK [http://localhost/stocks/1]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-17 21:50:23) [GET]
+  [4;35;1mStock Load (1.8ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 47ms (View: 33, DB: 2) | 200 OK [http://localhost/stocks]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-02-21 13:12:12) [GET]
+
+ActionController::RoutingError (No route matches "/store_products" with {:method=>:get}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 13:12:26) [GET]
+  [4;36;1mStock Load (0.8ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 144ms (View: 138, DB: 1) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#destroy (for 127.0.0.1 at 2010-02-21 13:12:30) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"1"}
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mStock Destroy (0.3ms)[0m   [0;1mDELETE FROM "stocks" WHERE "id" = 1[0m
+Redirected to http://localhost:3000/stocks
+Completed in 13ms (DB: 1) | 302 Found [http://localhost/stocks/1]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 13:12:30) [GET]
+  [4;35;1mStock Load (0.6ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 12ms (View: 8, DB: 1) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#destroy (for 127.0.0.1 at 2010-02-21 13:12:32) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"2"}
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 2) [0m
+  [4;35;1mStock Destroy (0.2ms)[0m   [0mDELETE FROM "stocks" WHERE "id" = 2[0m
+Redirected to http://localhost:3000/stocks
+Completed in 24ms (DB: 1) | 302 Found [http://localhost/stocks/2]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 13:12:33) [GET]
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 5ms (View: 1, DB: 0) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#new (for 127.0.0.1 at 2010-02-21 13:12:43) [GET]
+Rendering template within layouts/stocks
+Rendering stocks/new
+Completed in 168ms (View: 162, DB: 0) | 200 OK [http://localhost/stocks/new]
+
+
+Processing StocksController#create (for 127.0.0.1 at 2010-02-21 13:13:03) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "stock"=>{"name"=>"Citigroup", "shares"=>"100", "buy_date(1i)"=>"2010", "buy_date(2i)"=>"2", "buy_price"=>"10", "buy_date(3i)"=>"21", "ticker"=>"C"}}
+  [4;35;1mStock Create (0.3ms)[0m   [0mINSERT INTO "stocks" ("shares", "name", "created_at", "updated_at", "buy_price", "sell_date", "buy_date", "sell_price", "market_price", "ticker") VALUES(100, 'Citigroup', '2010-02-21 18:13:03', '2010-02-21 18:13:03', 10.0, NULL, '2010-02-21', NULL, NULL, 'C')[0m
+Redirected to http://localhost:3000/stocks/3
+Completed in 29ms (DB: 0) | 302 Found [http://localhost/stocks]
+
+
+Processing StocksController#show (for 127.0.0.1 at 2010-02-21 13:13:03) [GET]
+  Parameters: {"id"=>"3"}
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 3) [0m
+Rendering template within layouts/stocks
+Rendering stocks/show
+Completed in 13ms (View: 7, DB: 0) | 200 OK [http://localhost/stocks/3]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 13:13:04) [GET]
+  [4;35;1mStock Load (1.4ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 28ms (View: 15, DB: 1) | 200 OK [http://localhost/stocks]
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStocks (20100218022357)
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "splits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "stock_id" integer, "old" integer, "new" integer, "split_mul_factor" decimal(10,2), "date" date, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100221182018')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (4.2ms)[0m   [0;1mDROP TABLE "stocks"[0m
+  [4;35;1mSQL (1.8ms)[0m   [0mDELETE FROM schema_migrations WHERE version = '20100218022357'[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (5.4ms)[0m   [0mCREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "shares" integer, "buy_date" date, "buy_price" decimal(10,2), "sell_date" date, "sell_price" decimal(10,2), "market_price" decimal(10,2), "ticker" varchar(255), "name" varchar(255), "comission" decimal(10,2), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100218022357')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("stocks")[0m
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 13:34:44) [GET]
+  [4;36;1mStock Load (0.9ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 73ms (View: 4, DB: 1) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#new (for 127.0.0.1 at 2010-02-21 13:34:48) [GET]
+Rendering template within layouts/stocks
+Rendering stocks/new
+Completed in 40ms (View: 20, DB: 0) | 200 OK [http://localhost/stocks/new]
+
+
+Processing StocksController#create (for 127.0.0.1 at 2010-02-21 13:34:54) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "stock"=>{"name"=>"", "shares"=>"1234", "buy_date(1i)"=>"2010", "buy_date(2i)"=>"2", "buy_price"=>"123", "buy_date(3i)"=>"21", "ticker"=>"sdf"}}
+  [4;35;1mStock Create (0.2ms)[0m   [0mINSERT INTO "stocks" ("shares", "name", "comission", "created_at", "updated_at", "buy_price", "sell_date", "buy_date", "sell_price", "market_price", "ticker") VALUES(1234, '', NULL, '2010-02-21 18:34:54', '2010-02-21 18:34:54', 123.0, NULL, '2010-02-21', NULL, NULL, 'sdf')[0m
+Redirected to http://localhost:3000/stocks/1
+Completed in 18ms (DB: 0) | 302 Found [http://localhost/stocks]
+
+
+Processing StocksController#show (for 127.0.0.1 at 2010-02-21 13:34:54) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Rendering template within layouts/stocks
+Rendering stocks/show
+Completed in 10ms (View: 4, DB: 0) | 200 OK [http://localhost/stocks/1]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 13:34:56) [GET]
+  [4;35;1mStock Load (1.7ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 38ms (View: 22, DB: 2) | 200 OK [http://localhost/stocks]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-02-21 14:00:09) [GET]
+
+ActionController::RoutingError (No route matches "/splits/new" with {:method=>:get}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-02-21 14:01:04) [GET]
+
+ActionController::RoutingError (No route matches "/splits/new" with {:method=>:get}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing SplitsController#new (for 127.0.0.1 at 2010-02-21 14:01:14) [GET]
+Rendering splits/new
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Completed in 30ms (View: 21, DB: 0) | 200 OK [http://localhost/splits/new]
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:02:36) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;35;1mSplit Create (0.6ms)[0m   [0mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id") VALUES(3, '2010-02-21 19:02:36', '2010-02-21 19:02:36', NULL, '2010-02-21', 2, 1)[0m
+
+NoMethodError (undefined method `adjust_stock' for #<Split:0x7f5ca967fe50>):
+  app/controllers/splits_controller.rb:9:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (62.5ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:02:55) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.3ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id") VALUES(3, '2010-02-21 19:02:55', '2010-02-21 19:02:55', NULL, '2010-02-21', 2, 1)[0m
+
+NoMethodError (undefined method `adjust_stock' for #<Split:0x7f5ca9843570>):
+  app/controllers/splits_controller.rb:9:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (42.9ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:03:02) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;35;1mSplit Create (0.6ms)[0m   [0mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id") VALUES(3, '2010-02-21 19:03:02', '2010-02-21 19:03:02', NULL, '2010-02-21', 2, 1)[0m
+
+NoMethodError (undefined method `adjust_stock' for #<Split:0x7f5ca95c2aa8>):
+  app/controllers/splits_controller.rb:9:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (122.9ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:03:12) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.3ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id") VALUES(3, '2010-02-21 19:03:12', '2010-02-21 19:03:12', NULL, '2010-02-21', 2, 1)[0m
+
+ActiveRecord::UnknownAttributeError (unknown attribute: stock_adjusted_for_split):
+  app/models/split.rb:11:in `adjust_stock!'
+  app/controllers/splits_controller.rb:9:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (43.4ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mDROP TABLE "splits"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100221182018'[0m
+Migrating to CreateStocks (20100218022357)
+  [4;35;1mSQL (0.3ms)[0m   [0mDROP TABLE "stocks"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100218022357'[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStocks (20100218022357)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "shares" integer, "buy_date" date, "buy_price" decimal(10,2), "sell_date" date, "sell_price" decimal(10,2), "market_price" decimal(10,2), "ticker" varchar(255), "name" varchar(255), "comission" decimal(10,2), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100218022357')[0m
+Migrating to CreateSplits (20100221182018)
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "splits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "stock_id" integer, "old" integer, "new" integer, "split_mul_factor" decimal(10,2), "date" date, "stock_adjusted_for_split" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100221182018')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("stocks")[0m
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 14:03:49) [GET]
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#new (for 127.0.0.1 at 2010-02-21 14:03:51) [GET]
+Rendering template within layouts/stocks
+Rendering stocks/new
+Completed in 54ms (View: 34, DB: 0) | 200 OK [http://localhost/stocks/new]
+
+
+Processing StocksController#create (for 127.0.0.1 at 2010-02-21 14:04:03) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "stock"=>{"name"=>"", "shares"=>"100", "buy_date(1i)"=>"2010", "buy_date(2i)"=>"2", "buy_price"=>"123", "buy_date(3i)"=>"21", "ticker"=>"FRE"}}
+Rendering template within layouts/stocks
+Rendering stocks/new
+Completed in 21ms (View: 11, DB: 0) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#create (for 127.0.0.1 at 2010-02-21 14:04:29) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "stock"=>{"name"=>"", "shares"=>"100", "buy_date(1i)"=>"2010", "buy_date(2i)"=>"2", "buy_price"=>"123", "buy_date(3i)"=>"21", "ticker"=>"FRE"}}
+  [4;36;1mStock Create (0.8ms)[0m   [0;1mINSERT INTO "stocks" ("shares", "name", "comission", "created_at", "updated_at", "buy_price", "sell_date", "buy_date", "sell_price", "market_price", "ticker") VALUES(100, '', NULL, '2010-02-21 19:04:29', '2010-02-21 19:04:29', 123.0, NULL, '2010-02-21', NULL, NULL, 'FRE')[0m
+Redirected to http://localhost:3000/stocks/1
+Completed in 40ms (DB: 1) | 302 Found [http://localhost/stocks]
+
+
+Processing StocksController#show (for 127.0.0.1 at 2010-02-21 14:04:29) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mStock Load (0.9ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Rendering template within layouts/stocks
+Rendering stocks/show
+Completed in 31ms (View: 10, DB: 1) | 200 OK [http://localhost/stocks/1]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 14:04:31) [GET]
+  [4;36;1mStock Load (1.5ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 37ms (View: 22, DB: 1) | 200 OK [http://localhost/stocks]
+
+
+Processing SplitsController#new (for 127.0.0.1 at 2010-02-21 14:04:42) [GET]
+Rendering splits/new
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" [0m
+Completed in 23ms (View: 17, DB: 0) | 200 OK [http://localhost/splits/new]
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:06:25) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.2ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:06:25', '2010-02-21 19:06:25', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Update (0.1ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:06:25', "created_at" = '2010-02-21 19:06:25', "new" = 3, "stock_adjusted_for_split" = 't', "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 1[0m
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+NoMethodError (undefined method `adjust_for_split!' for #<ActiveRecord::Associations::BelongsToAssociation:0x7f5ca97ef858>):
+  app/models/split.rb:14:in `adjust_stock!'
+  app/models/split.rb:13:in `adjust_stock!'
+  app/controllers/splits_controller.rb:9:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (41.4ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:07:39) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;35;1mSplit Create (0.6ms)[0m   [0mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:07:39', '2010-02-21 19:07:39', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;36;1mSplit Update (0.3ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:07:39', "created_at" = '2010-02-21 19:07:39', "new" = 3, "stock_adjusted_for_split" = 't', "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 1[0m
+  [4;35;1mStock Load (0.9ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+TypeError (nil can't be coerced into BigDecimal):
+  app/models/stock.rb:9:in `adjust_for_split!'
+  app/models/split.rb:14:in `adjust_stock!'
+  app/models/split.rb:13:in `adjust_stock!'
+  app/controllers/splits_controller.rb:9:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (112.9ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:08:23) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.2ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:08:23', '2010-02-21 19:08:23', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Update (0.1ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:08:23', "created_at" = '2010-02-21 19:08:23', "new" = 3, "stock_adjusted_for_split" = 't', "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 1[0m
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+TypeError (nil can't be coerced into BigDecimal):
+  app/models/stock.rb:9:in `adjust_for_split!'
+  app/models/split.rb:14:in `adjust_stock!'
+  app/models/split.rb:13:in `adjust_stock!'
+  app/controllers/splits_controller.rb:9:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (41.9ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:11:43) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;35;1mSplit Create (0.3ms)[0m   [0mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:11:43', '2010-02-21 19:11:43', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;36;1mSplit Update (0.1ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:11:43', "created_at" = '2010-02-21 19:11:43', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 1[0m
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mSplit Update (0.1ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:11:43', "stock_adjusted_for_split" = 't' WHERE "id" = 1[0m
+
+NoMethodError (undefined method `index_url' for #<SplitsController:0x7f5ca9865210>):
+  app/controllers/splits_controller.rb:11:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (30.2ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:15:41) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.4ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:15:41', '2010-02-21 19:15:41', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Update (0.2ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:15:41', "created_at" = '2010-02-21 19:15:41', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 2[0m
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mSplit Update (0.1ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:15:41', "stock_adjusted_for_split" = 't' WHERE "id" = 2[0m
+
+NoMethodError (undefined method `index_url' for #<SplitsController:0x7fa4b0f6b948>):
+  app/controllers/splits_controller.rb:11:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (29.7ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:15:44) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.7ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:15:44', '2010-02-21 19:15:44', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Update (0.4ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:15:44', "created_at" = '2010-02-21 19:15:44', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 3[0m
+  [4;36;1mStock Load (0.9ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mSplit Update (0.4ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:15:44', "stock_adjusted_for_split" = 't' WHERE "id" = 3[0m
+
+NoMethodError (undefined method `index_url' for #<SplitsController:0x7fa4ac1706a8>):
+  app/controllers/splits_controller.rb:11:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (125.4ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:16:36) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.3ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:16:36', '2010-02-21 19:16:36', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Update (0.1ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:16:36', "created_at" = '2010-02-21 19:16:36', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 4[0m
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mSplit Update (0.1ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:16:36', "stock_adjusted_for_split" = 't' WHERE "id" = 4[0m
+Rendering splits/index
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.each) on line #10 of app/views/splits/index.html.erb:
+7:     <th>Ratio</th>
+8:   </tr>
+9: 
+10: <% @splits.each do |split| %>
+11:   <tr>
+12:     <td><%=h split.stock.ticker %></td>
+13:     <td><%=h split.date %></td>
+
+    app/views/splits/index.html.erb:10
+    app/controllers/splits_controller.rb:11:in `create'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (35.5ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:16:59) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.3ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:16:59', '2010-02-21 19:16:59', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Update (0.2ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:16:59', "created_at" = '2010-02-21 19:16:59', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 5[0m
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mSplit Update (0.2ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:16:59', "stock_adjusted_for_split" = 't' WHERE "id" = 5[0m
+
+NoMethodError (undefined method `rendirect_to' for #<SplitsController:0x7fa4ac3a8678>):
+  app/controllers/splits_controller.rb:11:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (28.0ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:17:09) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Create (0.3ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:17:09', '2010-02-21 19:17:09', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Update (0.2ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:17:09', "created_at" = '2010-02-21 19:17:09', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 6[0m
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mSplit Update (0.2ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:17:09', "stock_adjusted_for_split" = 't' WHERE "id" = 6[0m
+
+NoMethodError (undefined method `rendirect_to' for #<SplitsController:0x7fa4ac19f110>):
+  app/controllers/splits_controller.rb:11:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (86.5ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:17:59) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSQL (1.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `validates_uniquness_of' for #<Class:0x7fa4ac2aee98>):
+  app/models/split.rb:5
+  app/controllers/splits_controller.rb:7:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (65.2ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:18:12) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Load (0.6ms)[0m   [0;1mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-21' AND "splits".stock_id = 1) LIMIT 1[0m
+Rendering splits/new
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" [0m
+Completed in 58ms (View: 29, DB: 1) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:18:18) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"6", "old"=>"2", "stock_id"=>"1"}}
+  [4;36;1mSplit Load (0.1ms)[0m   [0;1mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-06' AND "splits".stock_id = 1) LIMIT 1[0m
+  [4;35;1mSplit Create (0.2ms)[0m   [0mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:18:18', '2010-02-21 19:18:18', NULL, '2010-02-06', 2, 1, 'f')[0m
+  [4;36;1mSplit Load (0.2ms)[0m   [0;1mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-06' AND "splits".stock_id = 1 AND "splits".id <> 7) LIMIT 1[0m
+  [4;35;1mSplit Update (0.1ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:18:18', "created_at" = '2010-02-21 19:18:18', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-06' WHERE "id" = 7[0m
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mSplit Load (0.2ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-06' AND "splits".stock_id = 1 AND "splits".id <> 7) LIMIT 1[0m
+  [4;36;1mSplit Update (0.2ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:18:18', "stock_adjusted_for_split" = 't' WHERE "id" = 7[0m
+Redirected to http://localhost:3000/splits
+Completed in 30ms (DB: 1) | 302 Found [http://localhost/splits]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:18:18) [GET]
+  [4;35;1mSplit Load (1.2ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+ActionView::TemplateError (undefined local variable or method `stock' for #<ActionView::Base:0x7fa4ac2a6720>) on line #15 of app/views/splits/index.html.erb:
+12:     <td><%=h split.stock.ticker %></td>
+13:     <td><%=h split.date %></td>
+14:     <td><%=h split.ratio_string %></td>
+15:     <td><%= link_to 'Show', stock %></td>
+16:     <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
+17:     <td><%= link_to 'Destroy', stock, :confirm => 'Are you sure?', :method => :delete %></td>
+18:   </tr>
+
+    app/views/splits/index.html.erb:15
+    app/views/splits/index.html.erb:10:in `each'
+    app/views/splits/index.html.erb:10
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (33.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:18:55) [GET]
+  [4;35;1mSplit Load (1.1ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+ActionView::TemplateError (undefined local variable or method `stock' for #<ActionView::Base:0x7fa4ac3ace08>) on line #15 of app/views/splits/index.html.erb:
+12:     <td><%=h split.stock.ticker %></td>
+13:     <td><%=h split.date %></td>
+14:     <td><%=h split.ratio_string %></td>
+15:     <td><%= link_to 'Show', stock %></td>
+16:     <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
+17:     <td><%= link_to 'Destroy', stock, :confirm => 'Are you sure?', :method => :delete %></td>
+18:   </tr>
+
+    app/views/splits/index.html.erb:15
+    app/views/splits/index.html.erb:10:in `each'
+    app/views/splits/index.html.erb:10
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (34.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:19:02) [GET]
+  [4;35;1mSplit Load (3.2ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+ActionView::TemplateError (undefined local variable or method `stock' for #<ActionView::Base:0x7fa4ac0ec2b8>) on line #16 of app/views/splits/index.html.erb:
+13:     <td><%=h split.date %></td>
+14:     <td><%=h split.ratio_string %></td>
+15:     <td><%= link_to 'Show', split %></td>
+16:     <td><%= link_to 'Edit', edit_split_path(stock) %></td>
+17:     <td><%= link_to 'Destroy', split, :confirm => 'Are you sure?', :method => :delete %></td>
+18:   </tr>
+19: <% end %>
+
+    app/views/splits/index.html.erb:16
+    app/views/splits/index.html.erb:10:in `each'
+    app/views/splits/index.html.erb:10
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (96.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:19:40) [GET]
+  [4;35;1mSplit Load (3.2ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 56ms (View: 38, DB: 4) | 200 OK [http://localhost/splits]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 14:19:51) [GET]
+  [4;35;1mStock Load (0.6ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 24ms (View: 18, DB: 1) | 200 OK [http://localhost/stocks]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:20:14) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"1"}
+
+ActionController::UnknownAction (No action responded to destroy. Actions: create, index, and new):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:09) [GET]
+  [4;36;1mSplit Load (1.2ms)[0m   [0;1mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;35;1mStock Load (0.3ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 49ms (View: 41, DB: 2) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:21:12) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"1"}
+  [4;36;1mSplit Load (0.9ms)[0m   [0;1mSELECT * FROM "splits" WHERE ("splits"."id" = 1) [0m
+  [4;35;1mSplit Destroy (0.4ms)[0m   [0mDELETE FROM "splits" WHERE "id" = 1[0m
+Redirected to http://localhost:3000/splits
+Completed in 39ms (DB: 1) | 302 Found [http://localhost/splits/1]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:12) [GET]
+  [4;36;1mSplit Load (3.1ms)[0m   [0;1mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;35;1mStock Load (1.1ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 78ms (View: 59, DB: 4) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:21:15) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"2"}
+  [4;35;1mSplit Load (0.9ms)[0m   [0mSELECT * FROM "splits" WHERE ("splits"."id" = 2) [0m
+  [4;36;1mSplit Destroy (0.4ms)[0m   [0;1mDELETE FROM "splits" WHERE "id" = 2[0m
+Redirected to http://localhost:3000/splits
+Completed in 26ms (DB: 1) | 302 Found [http://localhost/splits/2]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:15) [GET]
+  [4;35;1mSplit Load (1.1ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 37ms (View: 29, DB: 1) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:21:17) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"3"}
+  [4;35;1mSplit Load (1.0ms)[0m   [0mSELECT * FROM "splits" WHERE ("splits"."id" = 3) [0m
+  [4;36;1mSplit Destroy (0.6ms)[0m   [0;1mDELETE FROM "splits" WHERE "id" = 3[0m
+Redirected to http://localhost:3000/splits
+Completed in 27ms (DB: 2) | 302 Found [http://localhost/splits/3]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:17) [GET]
+  [4;35;1mSplit Load (2.3ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 48ms (View: 31, DB: 3) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:21:18) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"4"}
+  [4;36;1mSplit Load (0.9ms)[0m   [0;1mSELECT * FROM "splits" WHERE ("splits"."id" = 4) [0m
+  [4;35;1mSplit Destroy (0.5ms)[0m   [0mDELETE FROM "splits" WHERE "id" = 4[0m
+Redirected to http://localhost:3000/splits
+Completed in 27ms (DB: 1) | 302 Found [http://localhost/splits/4]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:18) [GET]
+  [4;36;1mSplit Load (2.2ms)[0m   [0;1mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;35;1mStock Load (1.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 135ms (View: 118, DB: 3) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:21:20) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"5"}
+  [4;36;1mSplit Load (0.9ms)[0m   [0;1mSELECT * FROM "splits" WHERE ("splits"."id" = 5) [0m
+  [4;35;1mSplit Destroy (0.6ms)[0m   [0mDELETE FROM "splits" WHERE "id" = 5[0m
+Redirected to http://localhost:3000/splits
+Completed in 33ms (DB: 2) | 302 Found [http://localhost/splits/5]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:21) [GET]
+  [4;36;1mSplit Load (1.7ms)[0m   [0;1mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;35;1mStock Load (1.1ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 62ms (View: 44, DB: 3) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:21:23) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"6"}
+  [4;35;1mSplit Load (0.8ms)[0m   [0mSELECT * FROM "splits" WHERE ("splits"."id" = 6) [0m
+  [4;36;1mSplit Destroy (0.4ms)[0m   [0;1mDELETE FROM "splits" WHERE "id" = 6[0m
+Redirected to http://localhost:3000/splits
+Completed in 27ms (DB: 1) | 302 Found [http://localhost/splits/6]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:23) [GET]
+  [4;35;1mSplit Load (2.0ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 36ms (View: 20, DB: 2) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#destroy (for 127.0.0.1 at 2010-02-21 14:21:25) [DELETE]
+  Parameters: {"authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "id"=>"7"}
+  [4;35;1mSplit Load (0.9ms)[0m   [0mSELECT * FROM "splits" WHERE ("splits"."id" = 7) [0m
+  [4;36;1mSplit Destroy (0.4ms)[0m   [0;1mDELETE FROM "splits" WHERE "id" = 7[0m
+Redirected to http://localhost:3000/splits
+Completed in 31ms (DB: 1) | 302 Found [http://localhost/splits/7]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:26) [GET]
+  [4;35;1mSplit Load (0.4ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/splits]
+
+
+Processing SplitsController#new (for 127.0.0.1 at 2010-02-21 14:21:27) [GET]
+Rendering splits/new
+  [4;36;1mStock Load (0.6ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Completed in 63ms (View: 57, DB: 1) | 200 OK [http://localhost/splits/new]
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:21:36) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"21", "old"=>"2", "stock_id"=>"1"}}
+  [4;35;1mSplit Load (0.4ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-21' AND "splits".stock_id = 1) LIMIT 1[0m
+  [4;36;1mSplit Create (0.6ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:21:36', '2010-02-21 19:21:36', NULL, '2010-02-21', 2, 1, 'f')[0m
+  [4;35;1mSplit Load (0.3ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-21' AND "splits".stock_id = 1 AND "splits".id <> 8) LIMIT 1[0m
+  [4;36;1mSplit Update (0.3ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:21:36', "created_at" = '2010-02-21 19:21:36', "new" = 3, "split_mul_factor" = 1.0, "stock_id" = 1, "old" = 2, "date" = '2010-02-21' WHERE "id" = 8[0m
+  [4;35;1mStock Load (0.9ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mSplit Load (0.4ms)[0m   [0;1mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-21' AND "splits".stock_id = 1 AND "splits".id <> 8) LIMIT 1[0m
+  [4;35;1mSplit Update (0.3ms)[0m   [0mUPDATE "splits" SET "updated_at" = '2010-02-21 19:21:36', "stock_adjusted_for_split" = 't' WHERE "id" = 8[0m
+Redirected to http://localhost:3000/splits
+Completed in 81ms (DB: 3) | 302 Found [http://localhost/splits]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:21:36) [GET]
+  [4;36;1mSplit Load (1.5ms)[0m   [0;1mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 87ms (View: 71, DB: 2) | 200 OK [http://localhost/splits]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 14:21:43) [GET]
+  [4;36;1mStock Load (1.5ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 39ms (View: 24, DB: 2) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 14:21:46) [GET]
+  [4;35;1mStock Load (1.5ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 38ms (View: 23, DB: 2) | 200 OK [http://localhost/stocks]
+
+
+Processing SplitsController#new (for 127.0.0.1 at 2010-02-21 14:24:44) [GET]
+Rendering splits/new
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Completed in 25ms (View: 18, DB: 0) | 200 OK [http://localhost/splits/new]
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:24:57) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"2", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"12", "old"=>"1", "stock_id"=>"1"}}
+  [4;35;1mSplit Load (0.4ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-12' AND "splits".stock_id = 1) LIMIT 1[0m
+  [4;36;1mSplit Create (0.5ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(2, '2010-02-21 19:24:57', '2010-02-21 19:24:57', NULL, '2010-02-12', 1, 1, 'f')[0m
+  [4;35;1mSplit Load (0.3ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-12' AND "splits".stock_id = 1 AND "splits".id <> 9) LIMIT 1[0m
+  [4;36;1mSplit Update (0.3ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:24:57', "created_at" = '2010-02-21 19:24:57', "new" = 2, "split_mul_factor" = 2.0, "stock_id" = 1, "old" = 1, "date" = '2010-02-12' WHERE "id" = 9[0m
+  [4;35;1mStock Load (0.9ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+***** Debugger requested, but was not available: Start server with --debugger to enable *****
+  [4;36;1mStock Update (0.2ms)[0m   [0;1mUPDATE "stocks" SET "updated_at" = '2010-02-21 19:24:57', "buy_price" = 61.5, "shares" = 200 WHERE "id" = 1[0m
+  [4;35;1mSplit Load (0.1ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-12' AND "splits".stock_id = 1 AND "splits".id <> 9) LIMIT 1[0m
+  [4;36;1mSplit Update (0.1ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:24:57', "stock_adjusted_for_split" = 't' WHERE "id" = 9[0m
+Redirected to http://localhost:3000/splits
+Completed in 66ms (DB: 3) | 302 Found [http://localhost/splits]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:24:57) [GET]
+  [4;35;1mSplit Load (0.7ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 23ms (View: 16, DB: 1) | 200 OK [http://localhost/splits]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 14:25:15) [GET]
+  [4;36;1mStock Load (1.5ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 38ms (View: 23, DB: 2) | 200 OK [http://localhost/stocks]
+
+
+Processing SplitsController#create (for 127.0.0.1 at 2010-02-21 14:26:41) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"jh8/dFmqz7QJKYaE3/B1zMDSxzcNWiUtW8gHe+FmDFg=", "split"=>{"new"=>"3", "date(1i)"=>"2010", "date(2i)"=>"2", "date(3i)"=>"3", "old"=>"2", "stock_id"=>"1"}}
+  [4;35;1mSplit Load (0.4ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-03' AND "splits".stock_id = 1) LIMIT 1[0m
+  [4;36;1mSplit Create (0.5ms)[0m   [0;1mINSERT INTO "splits" ("new", "created_at", "updated_at", "split_mul_factor", "date", "old", "stock_id", "stock_adjusted_for_split") VALUES(3, '2010-02-21 19:26:41', '2010-02-21 19:26:41', NULL, '2010-02-03', 2, 1, 'f')[0m
+  [4;35;1mSplit Load (0.3ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-03' AND "splits".stock_id = 1 AND "splits".id <> 10) LIMIT 1[0m
+  [4;36;1mSplit Update (0.3ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:26:41', "created_at" = '2010-02-21 19:26:41', "new" = 3, "split_mul_factor" = 1.5, "stock_id" = 1, "old" = 2, "date" = '2010-02-03' WHERE "id" = 10[0m
+  [4;35;1mStock Load (0.9ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+***** Debugger requested, but was not available: Start server with --debugger to enable *****
+  [4;36;1mStock Update (0.4ms)[0m   [0;1mUPDATE "stocks" SET "updated_at" = '2010-02-21 19:26:41', "buy_price" = 41.0, "shares" = 300 WHERE "id" = 1[0m
+  [4;35;1mSplit Load (0.3ms)[0m   [0mSELECT "splits".id FROM "splits" WHERE ("splits"."date" = '2010-02-03' AND "splits".stock_id = 1 AND "splits".id <> 10) LIMIT 1[0m
+  [4;36;1mSplit Update (0.3ms)[0m   [0;1mUPDATE "splits" SET "updated_at" = '2010-02-21 19:26:41', "stock_adjusted_for_split" = 't' WHERE "id" = 10[0m
+Redirected to http://localhost:3000/splits
+Completed in 79ms (DB: 3) | 302 Found [http://localhost/splits]
+
+
+Processing SplitsController#index (for 127.0.0.1 at 2010-02-21 14:26:41) [GET]
+  [4;35;1mSplit Load (2.1ms)[0m   [0mSELECT * FROM "splits" [0m
+Rendering splits/index
+  [4;36;1mStock Load (0.9ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+Completed in 52ms (View: 36, DB: 3) | 200 OK [http://localhost/splits]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-21 14:26:49) [GET]
+  [4;35;1mStock Load (0.6ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 14ms (View: 8, DB: 1) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-25 12:13:25) [GET]
+  [4;36;1mStock Load (2.0ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 147ms (View: 109, DB: 2) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#destroy (for 127.0.0.1 at 2010-02-25 12:13:35) [DELETE]
+  Parameters: {"authenticity_token"=>"xJL56tCTvXycY2cM32vRzSZDH6re2+Yem5YqvOefht8=", "id"=>"1"}
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;36;1mStock Destroy (0.3ms)[0m   [0;1mDELETE FROM "stocks" WHERE "id" = 1[0m
+Redirected to http://localhost:3000/stocks
+Completed in 17ms (DB: 1) | 302 Found [http://localhost/stocks/1]
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-25 12:13:35) [GET]
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/stocks]
+
+
+Processing StocksController#new (for 127.0.0.1 at 2010-02-25 12:13:37) [GET]
+Rendering template within layouts/stocks
+Rendering stocks/new
+Completed in 299ms (View: 280, DB: 0) | 200 OK [http://localhost/stocks/new]
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+Migrating to CreateStocks (20100225172626)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: table "stocks" already exists: CREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ticker" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mDROP TABLE "splits"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100221182018'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mCREATE TABLE "splits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "stock_id" integer, "old" integer, "new" integer, "split_mul_factor" decimal(10,2), "date" date, "stock_adjusted_for_split" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100221182018')[0m
+Migrating to CreateStocks (20100225172626)
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: table "stocks" already exists: CREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ticker" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+Migrating to CreateStocks (20100225172626)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: table "stocks" already exists: CREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ticker" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mDROP TABLE "splits"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100221182018'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mCREATE TABLE "splits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "stock_id" integer, "old" integer, "new" integer, "split_mul_factor" decimal(10,2), "date" date, "stock_adjusted_for_split" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100221182018')[0m
+Migrating to CreateStocks (20100225172626)
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: table "stocks" already exists: CREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ticker" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mDROP TABLE "splits"[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mDROP TABLE "stocks"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mDELETE FROM schema_migrations WHERE version = '20100221182018'[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mCREATE TABLE "splits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "stock_id" integer, "old" integer, "new" integer, "split_mul_factor" decimal(10,2), "date" date, "stock_adjusted_for_split" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100221182018')[0m
+Migrating to CreateStocks (20100225172626)
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ticker" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100225172626')[0m
+Migrating to CreateTransactions (20100225172857)
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "transactions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "comission" decimal(10,2), "stock_id" integer, "shares" integer, "price" decimal(10,2), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100225172857')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-02-25 12:33:54) [GET]
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 19ms (View: 12, DB: 0) | 200 OK [http://localhost/stocks]
+  [4;36;1mSQL (19.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSELECT version FROM schema_migrations[0m
+
+
+Processing StocksController#index (for 127.0.0.1 at 2010-03-04 16:42:49) [GET]
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendering template within layouts/stocks
+Rendering stocks/index
+Completed in 162ms (View: 151, DB: 0) | 200 OK [http://localhost/stocks]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-03-04 16:43:05) [GET]
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" [0m
+Rendering template within layouts/transactions
+Rendering transactions/index
+Completed in 43ms (View: 35, DB: 0) | 200 OK [http://localhost/transactions]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-04 16:43:17) [GET]
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 263ms (View: 246, DB: 0) | 200 OK [http://localhost/transactions/new]
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+Migrating to CreateStocks (20100225172626)
+Migrating to CreateTransactions (20100225172857)
+Migrating to CreateUsers (20100304214409)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100304214409')[0m
+Migrating to CreatePortfolios (20100304214632)
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "portfolios" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100304214632')[0m
+Migrating to CreateOwnedStocks (20100304214922)
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "owned_stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "portfolio_id" integer, "stock_id" integer, "shares" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100304214922')[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("owned_stocks")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("portfolios")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("users")[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+Migrating to CreateStocks (20100225172626)
+Migrating to CreateTransactions (20100225172857)
+Migrating to CreateUsers (20100304214409)
+Migrating to CreatePortfolios (20100304214632)
+Migrating to CreateOwnedStocks (20100304214922)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("owned_stocks")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("portfolios")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("users")[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.7ms)[0m   [0;1mCREATE TABLE "owned_stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "portfolio_id" integer, "stock_id" integer, "shares" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.5ms)[0m   [0;1mCREATE TABLE "portfolios" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1mCREATE TABLE "splits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "stock_id" integer, "old" integer, "new" integer, "split_mul_factor" decimal(10,2), "date" date, "stock_adjusted_for_split" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mCREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ticker" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "transactions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "comission" decimal(10,2), "stock_id" integer, "shares" integer, "price" decimal(10,2), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.7ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (1.4ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100304214922')[0m
+  [4;35;1mSQL (1.2ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100304214409')[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100225172626')[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100221182018')[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100225172857')[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100304214632')[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (3.2ms)[0m   [0;1mCREATE TABLE "owned_stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "portfolio_id" integer, "stock_id" integer, "shares" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.7ms)[0m   [0;1mCREATE TABLE "portfolios" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1mCREATE TABLE "splits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "stock_id" integer, "old" integer, "new" integer, "split_mul_factor" decimal(10,2), "date" date, "stock_adjusted_for_split" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1mCREATE TABLE "stocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ticker" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1mCREATE TABLE "transactions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "comission" decimal(10,2), "stock_id" integer, "shares" integer, "price" decimal(10,2), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.6ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.1ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (1.5ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (1.2ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100304214922')[0m
+  [4;35;1mSQL (1.2ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100304214409')[0m
+  [4;36;1mSQL (1.3ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100225172626')[0m
+  [4;35;1mSQL (1.2ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100221182018')[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100225172857')[0m
+  [4;35;1mSQL (1.3ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100304214632')[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-04 17:21:43) [GET]
+
+ActionController::RoutingError (No route matches "/portfolios" with {:method=>:get}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing PortfoliosController#index (for 127.0.0.1 at 2010-03-04 17:22:20) [GET]
+  [4;36;1mPortfolio Load (0.4ms)[0m   [0;1mSELECT * FROM "portfolios" [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/index
+Completed in 16ms (View: 10, DB: 0) | 200 OK [http://localhost/portfolios]
+
+
+Processing PortfoliosController#new (for 127.0.0.1 at 2010-03-04 17:26:27) [GET]
+Rendering template within layouts/portfolios
+Rendering portfolios/new
+Completed in 93ms (View: 9, DB: 0) | 200 OK [http://localhost/portfolios/new]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2010-03-04 17:26:39) [GET]
+  [4;35;1mUser Load (1.1ms)[0m   [0mSELECT * FROM "users" [0m
+Rendering template within layouts/users
+Rendering users/index
+Completed in 47ms (View: 31, DB: 1) | 200 OK [http://localhost/users]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2010-03-04 17:26:41) [GET]
+Rendering template within layouts/users
+Rendering users/new
+Completed in 37ms (View: 20, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2010-03-04 17:26:46) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"KyCj1VDgbJYLdcWhWGCesGpWmR8hpniuhsrLpXO4QdA=", "user"=>{"name"=>"Dani"}}
+  [4;36;1mUser Create (0.8ms)[0m   [0;1mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES('Dani', '2010-03-04 22:26:46', '2010-03-04 22:26:46')[0m
+Redirected to http://localhost:3000/users/1
+Completed in 33ms (DB: 1) | 302 Found [http://localhost/users]
+
+
+Processing UsersController#show (for 127.0.0.1 at 2010-03-04 17:26:46) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/users
+Rendering users/show
+Completed in 89ms (View: 72, DB: 1) | 200 OK [http://localhost/users/1]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2010-03-04 17:26:47) [GET]
+  [4;36;1mUser Load (1.4ms)[0m   [0;1mSELECT * FROM "users" [0m
+Rendering template within layouts/users
+Rendering users/index
+Completed in 26ms (View: 11, DB: 1) | 200 OK [http://localhost/users]
+
+
+Processing PortfoliosController#index (for 127.0.0.1 at 2010-03-04 17:26:53) [GET]
+
+NameError (undefined local variable or method `current_user' for #<PortfoliosController:0x7fd5b2e8a118>):
+  app/controllers/portfolios_controller.rb:6:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (45.4ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#new (for 127.0.0.1 at 2010-03-04 17:27:05) [GET]
+Rendering template within layouts/portfolios
+Rendering portfolios/new
+Completed in 25ms (View: 8, DB: 0) | 200 OK [http://localhost/portfolios/new]
+
+
+Processing PortfoliosController#create (for 127.0.0.1 at 2010-03-04 17:27:25) [POST]
+  Parameters: {"portfolio"=>{"name"=>"A", "user_id"=>"1"}, "commit"=>"Create", "authenticity_token"=>"KyCj1VDgbJYLdcWhWGCesGpWmR8hpniuhsrLpXO4QdA="}
+  [4;35;1mPortfolio Create (0.3ms)[0m   [0mINSERT INTO "portfolios" ("name", "created_at", "updated_at", "user_id") VALUES('A', '2010-03-04 22:27:25', '2010-03-04 22:27:25', 1)[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 46ms (DB: 0) | 302 Found [http://localhost/portfolios]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 17:27:25) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+Completed in 14ms (View: 6, DB: 0) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing PortfoliosController#index (for 127.0.0.1 at 2010-03-04 17:27:27) [GET]
+
+NameError (undefined local variable or method `current_user' for #<PortfoliosController:0x7fd5b2d67b28>):
+  app/controllers/portfolios_controller.rb:6:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (28.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-04 17:27:47) [GET]
+
+SyntaxError (/home/dani/rails/graham/app/controllers/portfolios_controller.rb:75: syntax error, unexpected $end, expecting kEND):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (35.0ms)
+Rendered rescues/_request_and_response (11.6ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#index (for 127.0.0.1 at 2010-03-04 17:27:57) [GET]
+  [4;35;1mPortfolio Load (0.6ms)[0m   [0mSELECT * FROM "portfolios" [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/index
+Completed in 16ms (View: 6, DB: 1) | 200 OK [http://localhost/portfolios]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 17:28:01) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.6ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+Completed in 28ms (View: 7, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 17:29:50) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Completed in 103ms (View: 13, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 17:30:10) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.7ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (1.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Completed in 53ms (View: 29, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 17:57:41) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+ActionView::TemplateError (undefined method `owned_stock' for #<Portfolio:0x7fd5b2d47b98>) on line #16 of app/views/portfolios/show.html.erb:
+13:                 <th> Value </th>
+14:                 <th> Total Gain% </th>
+15: 
+16:                 <% @portfolio.owned_stock.each do |stock| %>
+17:                         <tr id=<%= "property_#{property.id}" %> class="<%= cycle('odd', 'even') %>">
+18:                                <%= render :partial => 'stock' %>
+19:                         </tr>
+
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (105.2ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 17:57:57) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.8ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mSQL (1.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+ActionView::TemplateError (undefined local variable or method `stock' for #<Class:0x7fd5b2d52868>) on line #16 of app/views/portfolios/show.html.erb:
+13:                 <th> Value </th>
+14:                 <th> Total Gain% </th>
+15: 
+16:                 <% @portfolio.owned_stocks.each do |stock| %>
+17:                         <tr id=<%= "property_#{property.id}" %> class="<%= cycle('odd', 'even') %>">
+18:                                <%= render :partial => 'stock' %>
+19:                         </tr>
+
+    app/models/owned_stock.rb:4
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (117.6ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 17:59:00) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.7ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+ActionView::TemplateError (undefined local variable or method `stock' for #<Class:0x7fd5b2cfe060>) on line #16 of app/views/portfolios/show.html.erb:
+13:                 <th> Value </th>
+14:                 <th> Total Gain% </th>
+15: 
+16:                 <% for stock in @portfolio.owned_stocks do %>
+17:                         <tr id=<%= "property_#{property.id}" %> class="<%= cycle('odd', 'even') %>">
+18:                                <%= render :partial => 'stock' %>
+19:                         </tr>
+
+    app/models/owned_stock.rb:4
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (117.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+Migrating to CreateStocks (20100225172626)
+Migrating to CreateTransactions (20100225172857)
+Migrating to CreateUsers (20100304214409)
+Migrating to CreatePortfolios (20100304214632)
+Migrating to CreateOwnedStocks (20100304214922)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("owned_stocks")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("portfolios")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("users")[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-04 18:04:09) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.6ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.4ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 62ms (View: 40, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing PortfoliosController#edit (for 127.0.0.1 at 2010-03-04 18:04:19) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.7ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/edit
+Completed in 46ms (View: 25, DB: 1) | 200 OK [http://localhost/portfolios/1/edit]

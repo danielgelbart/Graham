@@ -1,0 +1,43 @@
+<h1>New stock</h1>
+
+<% form_for(@stock) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :shares %><br />
+    <%= f.text_field :shares %>
+  </p>
+  <p>
+    <%= f.label :buy_date %><br />
+    <%= f.date_select :buy_date %>
+  </p>
+  <p>
+    <%= f.label :buy_price %><br />
+    <%= f.text_field :buy_price %>
+  </p>
+  <p>
+    <%= f.label :sell_date %><br />
+    <%= f.date_select :sell_date %>
+  </p>
+  <p>
+    <%= f.label :sell_price %><br />
+    <%= f.text_field :sell_price %>
+  </p>
+  <p>
+    <%= f.label :market_price %><br />
+    <%= f.text_field :market_price %>
+  </p>
+  <p>
+    <%= f.label :ticker %><br />
+    <%= f.text_field :ticker %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', stocks_path %>

@@ -1,0 +1,24 @@
+<h1>Splits#index</h1>
+
+<table>
+  <tr>
+    <th>Stock</th>
+    <th>Date</th>
+    <th>Ratio</th>
+  </tr>
+
+<% @splits.each do |split| %>
+  <tr>
+    <td><%=h split.stock.ticker %></td>
+    <td><%=h split.date %></td>
+    <td><%=h split.ratio_string %></td>
+    <td><%= link_to 'Show', split %></td>
+    <td><%= link_to 'Edit', edit_split_path(split) %></td>
+    <td><%= link_to 'Destroy', split, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New split', new_split_path %>

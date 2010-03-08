@@ -1,0 +1,31 @@
+# == Schema Information
+# Schema version: 20100304214922
+#
+# Table name: splits
+#
+#  id                       :integer         not null, primary key
+#  stock_id                 :integer
+#  old                      :integer
+#  new                      :integer
+#  split_mul_factor         :decimal(10, 2)
+#  date                     :date
+#  stock_adjusted_for_split :boolean
+#  created_at               :datetime
+#  updated_at               :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  stock_id: 1
+  old: 1
+  new: 1
+  split_mul_factor: 9.99
+  date: 2010-02-21
+
+two:
+  stock_id: 1
+  old: 1
+  new: 1
+  split_mul_factor: 9.99
+  date: 2010-02-21

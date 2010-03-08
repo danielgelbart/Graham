@@ -1,0 +1,22 @@
+<h1>Listing portfolios</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Name</th>
+  </tr>
+
+<% @portfolios.each do |portfolio| %>
+  <tr>
+    <td><%=h portfolio.user_id %></td>
+    <td><%=h portfolio.name %></td>
+    <td><%= link_to 'Show', portfolio %></td>
+    <td><%= link_to 'Edit', edit_portfolio_path(portfolio) %></td>
+    <td><%= link_to 'Destroy', portfolio, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New portfolio', new_portfolio_path %>

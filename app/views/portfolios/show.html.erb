@@ -1,0 +1,24 @@
+<p>
+  <b>User:</b>
+  <%=h @portfolio.user.name %>
+  <b>Portfolio:</b>
+  <%=h @portfolio.name %>
+</p>
+
+        <table class="portfolio-list">
+                <th> Stock </th>
+                <th> Ticker </th>
+                <th> Shares </th>
+                <th> price </th>
+                <th> Value </th>
+                <th> Total Gain% </th>
+
+                <% @portfolio.owned_stocks.each do |stock| %>
+                        <tr id=<%= "property_#{property.id}" %> class="<%= cycle('odd', 'even') %>">
+                               <%= render :partial => 'stock' %>
+                        </tr>
+                <% end %>
+        </table>
+
+<%= link_to 'Buy', edit_portfolio_path(@portfolio) %> |
+
