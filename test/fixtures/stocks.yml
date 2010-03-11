@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100304214922
+# Schema version: 20100309193254
 #
 # Table name: stocks
 #

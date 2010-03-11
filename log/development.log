@@ -1976,3 +1976,2156 @@ Processing PortfoliosController#edit (for 127.0.0.1 at 2010-03-04 18:04:19) [GET
 Rendering template within layouts/portfolios
 Rendering portfolios/edit
 Completed in 46ms (View: 25, DB: 1) | 200 OK [http://localhost/portfolios/1/edit]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-08 16:00:41) [GET]
+
+ActionController::RoutingError (No route matches "/store_products" with {:method=>:get}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:00:54) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.4ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 293ms (View: 219, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:46:48) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.3ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 23ms (View: 15, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new to #<portfolio:0x7f78c28e6d08> (for 127.0.0.1 at 2010-03-08 16:46:50) [GET]
+Completed in 108ms (View: 3, DB: 0) | 406 Not Acceptable [http://localhost/transactions/new.%23%3Cportfolio:0x7f78c28e6d08%3E]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:52:10) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 19ms (View: 11, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new to #<portfolio:0x7f78c279a918> (for 127.0.0.1 at 2010-03-08 16:52:14) [GET]
+Completed in 20ms (View: 1, DB: 0) | 406 Not Acceptable [http://localhost/transactions/new.%23%3Cportfolio:0x7f78c279a918%3E]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:52:38) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 106ms (View: 92, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new to #<portfolio:0x7ff705766b60> (for 127.0.0.1 at 2010-03-08 16:52:41) [GET]
+Completed in 21ms (View: 3, DB: 0) | 406 Not Acceptable [http://localhost/transactions/new.%23%3Cportfolio:0x7ff705766b60%3E]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:53:07) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.6ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+ActionView::TemplateError (undefined method `new_buy_trnasaction' for #<ActionView::Base:0x7ff7058c82d8>) on line #23 of app/views/portfolios/show.html.erb:
+20:                 <% end %>
+21:         </table>
+22: 
+23: <%= link_to 'Add a new stock', new_buy_trnasaction(@portfolio) %> |
+
+    app/views/portfolios/show.html.erb:23
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (96.2ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:53:38) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+ActionView::TemplateError (undefined method `new_buy_trnasaction' for #<ActionView::Base:0x7f1de9db2898>) on line #23 of app/views/portfolios/show.html.erb:
+20:                 <% end %>
+21:         </table>
+22: 
+23: <%= link_to 'Add a new stock', new_buy_trnasaction(@portfolio) %> |
+
+    app/views/portfolios/show.html.erb:23
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (35.9ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:55:01) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.3ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 90ms (View: 82, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing ApplicationController#new (for 127.0.0.1 at 2010-03-08 16:55:04) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+
+NameError (uninitialized constant TransactionController):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (30.1ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:55:27) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 86ms (View: 78, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-08 16:55:29) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 201ms (View: 195, DB: 0) | 200 OK [http://localhost/1/buy]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:56:26) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.3ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 24ms (View: 15, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-08 16:56:30) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 30ms (View: 12, DB: 0) | 200 OK [http://localhost/buy?portfolio_id=1]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-08 16:56:41) [GET]
+
+ActionController::RoutingError (No route matches "/store_products" with {:method=>:get}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-08 16:56:59) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 58ms (View: 37, DB: 0) | 200 OK [http://localhost/buy?portfolio_id=1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-08 16:57:03) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 54ms (View: 34, DB: 0) | 200 OK [http://localhost/buy?portfolio_id=1]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:57:07) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (1.0ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.4ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+ActionView::TemplateError (undefined method `to_sym' for nil:NilClass) on line #23 of app/views/portfolios/show.html.erb:
+20:                 <% end %>
+21:         </table>
+22: 
+23: <%= link_to 'Add a new stock', new_buy_trnasaction_path(@portfolio) %> |
+
+    (eval):20:in `new_buy_trnasaction_path'
+    app/views/portfolios/show.html.erb:23
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (109.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:57:24) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.8ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+ActionView::TemplateError (undefined method `to_sym' for nil:NilClass) on line #23 of app/views/portfolios/show.html.erb:
+20:                 <% end %>
+21:         </table>
+22: 
+23: <%= link_to 'Add a new stock', new_buy_trnasaction_path(@portfolio) %> |
+
+    (eval):20:in `new_buy_trnasaction_path'
+    app/views/portfolios/show.html.erb:23
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (108.5ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:57:29) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+ActionView::TemplateError (undefined method `to_sym' for nil:NilClass) on line #23 of app/views/portfolios/show.html.erb:
+20:                 <% end %>
+21:         </table>
+22: 
+23: <%= link_to 'Add a new stock', new_buy_trnasaction_path(@portfolio) %> |
+
+    (eval):20:in `new_buy_trnasaction_path'
+    app/views/portfolios/show.html.erb:23
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (44.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-08 16:57:58) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 17ms (View: 10, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing ApplicationController#new (for 127.0.0.1 at 2010-03-08 16:58:00) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+
+NameError (uninitialized constant TransactionController):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (61.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-08 16:58:08) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 18ms (View: 12, DB: 0) | 200 OK [http://localhost/1/buy]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 09:52:25) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 20ms (View: 12, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 09:52:28) [GET]
+  Parameters: {"portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 22ms (View: 13, DB: 0) | 200 OK [http://localhost/1/buy]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 12:03:40) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.3ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 20ms (View: 12, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-09 12:05:47) [GET]
+
+ActionController::RoutingError (No route matches "/1/buy" with {:method=>:get}):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 12:06:38) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 24ms (View: 16, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 12:06:39) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 39ms (View: 19, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:28:30) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.6ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.4ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 51ms (View: 29, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:28:32) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Completed in 96ms (View: 76, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:43:01) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.7ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.4ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 51ms (View: 29, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:43:02) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 18ms (View: 11, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:43:05) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+
+ActionView::TemplateError (Missing template transactions/_sell_transaction.erb in view path app/views) on line #5 of app/views/transactions/new.html.erb:
+2: <% if type == "BUY" %>
+3:   <%= render 'buy_transaction'%>
+4: <% else %>
+5:   <%= render 'sell_transaction'%>
+6: <% end %>
+
+    app/views/transactions/new.html.erb:5
+    app/controllers/transactions_controller.rb:29:in `new'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (42.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:43:42) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (3.7ms)
+Completed in 39ms (View: 21, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:43:47) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 8ms (View: 2, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:45:15) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.8ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.8ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 50ms (View: 28, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:45:17) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 11ms (View: 5, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:45:31) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 89ms (View: 2, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:45:35) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 49ms (View: 34, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:45:42) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 24ms (View: 2, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:47:06) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.7ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.4ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 61ms (View: 40, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:47:08) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 12ms (View: 6, DB: 0) | 200 OK [http://localhost/1/new_transaction/BUY]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:47:35) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 9ms (View: 2, DB: 0) | 200 OK [http://localhost/1/new_transaction/BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:48:06) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.7ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.4ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 63ms (View: 42, DB: 2) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:48:09) [GET]
+  Parameters: {"type"=>"type=BUY", "portfolio_id"=>"1"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 85ms (View: 2, DB: 0) | 200 OK [http://localhost/1/new_transaction/type=BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:50:46) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.6ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+ActionView::TemplateError (undefined method `new_trnasaction_path' for #<ActionView::Base:0x7f1dea2e5978>) on line #23 of app/views/portfolios/show.html.erb:
+20:                 <% end %>
+21:         </table>
+22: 
+23: <%= link_to 'Add a new stock purchase', new_trnasaction_path(@portfolio, :type => "BUY") %> |
+
+    app/views/portfolios/show.html.erb:23
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (34.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:51:01) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 133ms (View: 16, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:51:06) [GET]
+  Parameters: {"type"=>"BUY"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+Rendered transactions/_sell_transaction (0.1ms)
+Completed in 8ms (View: 1, DB: 0) | 200 OK [http://localhost/transactions/new?type=BUY]
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 13:51:51) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 27ms (View: 10, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:51:53) [GET]
+  Parameters: {"type"=>"BUY"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;35;1mStock Load (0.2ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendered transactions/_buy_transaction (51.1ms)
+Completed in 169ms (View: 151, DB: 0) | 200 OK [http://localhost/transactions/new?type=BUY]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 13:53:06) [GET]
+  Parameters: {"type"=>"BUY"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendered transactions/_buy_transaction (43.8ms)
+Completed in 74ms (View: 55, DB: 0) | 200 OK [http://localhost/transactions/new?type=BUY]
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."ticker" = 'BRK') [0m
+  [4;35;1mStock Create (0.4ms)[0m   [0mINSERT INTO "stocks" ("name", "created_at", "updated_at", "ticker") VALUES('Berkshire Hathaway', '2010-03-09 19:00:54', '2010-03-09 19:00:54', 'BRK')[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."ticker" = 'TEVA') [0m
+  [4;35;1mStock Create (0.2ms)[0m   [0mINSERT INTO "stocks" ("name", "created_at", "updated_at", "ticker") VALUES('Teva Pharmasutical industries.', '2010-03-09 19:00:54', '2010-03-09 19:00:54', 'TEVA')[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 14:03:04) [GET]
+  Parameters: {"type"=>"BUY"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendered transactions/_buy_transaction (88.2ms)
+Completed in 110ms (View: 91, DB: 0) | 200 OK [http://localhost/transactions/new?type=BUY]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 14:12:32) [GET]
+  Parameters: {"type"=>"BUY"}
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendered transactions/_buy_transaction (19.8ms)
+Completed in 32ms (View: 24, DB: 0) | 200 OK [http://localhost/transactions/new?type=BUY]
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:18:53) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"12", "shares"=>"12", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mTransaction Create (1.0ms)[0m   [0mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id") VALUES(12.0, 12, 12.0, '2010-03-09 19:18:53', '2010-03-09 19:18:53', '2010-03-09', 1)[0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+NoMethodError (undefined method `get_owned_stock' for nil:NilClass):
+  app/models/transaction.rb:23:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:46:in `create'
+  app/controllers/transactions_controller.rb:45:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (106.6ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:31:26) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"12", "shares"=>"12", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mTransaction Create (0.7ms)[0m   [0mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id") VALUES(12.0, 12, 12.0, '2010-03-09 19:31:26', '2010-03-09 19:31:26', '2010-03-09', 1)[0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+NoMethodError (undefined method `get_owned_stock' for nil:NilClass):
+  app/models/transaction.rb:23:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:37:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (40.3ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+Migrating to CreateStocks (20100225172626)
+Migrating to CreateTransactions (20100225172857)
+Migrating to CreateUsers (20100304214409)
+Migrating to CreatePortfolios (20100304214632)
+Migrating to CreateOwnedStocks (20100304214922)
+Migrating to AddPortfolioIdToTransactions (20100309193254)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mALTER TABLE "transactions" ADD "portfolio_id" integer[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100309193254')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("owned_stocks")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("portfolios")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("splits")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("stocks")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("users")[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:35:17) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"12", "shares"=>"12", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mTransaction Create (0.3ms)[0m   [0mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id", "portfolio_id") VALUES(12.0, 12, 12.0, '2010-03-09 19:35:17', '2010-03-09 19:35:17', '2010-03-09', 1, NULL)[0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+NoMethodError (undefined method `get_owned_stock' for nil:NilClass):
+  app/models/transaction.rb:24:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:37:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (41.6ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 14:37:14) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Load (0.3ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 20ms (View: 12, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 14:37:16) [GET]
+  Parameters: {"type"=>"BUY"}
+
+ActiveRecord::RecordNotFound (Couldn't find Portfolio without an ID):
+  app/controllers/transactions_controller.rb:25:in `new'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (29.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (not_found)
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 14:39:52) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+Completed in 30ms (View: 15, DB: 1) | 200 OK [http://localhost/portfolios/1]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 14:39:55) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;35;1mPortfolio Load (0.3ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;36;1mStock Load (0.4ms)[0m   [0;1mSELECT * FROM "stocks" [0m
+Rendered transactions/_buy_transaction (20.5ms)
+Completed in 124ms (View: 25, DB: 1) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:40:03) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"34", "shares"=>"23", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mTransaction Create (0.7ms)[0m   [0mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id", "portfolio_id") VALUES(34.0, 23, 12.0, '2010-03-09 19:40:03', '2010-03-09 19:40:03', '2010-03-09', 1, 1)[0m
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+  [4;35;1mStock Load (0.2ms)[0m   [0mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find OwnedStock without an ID):
+  app/models/portfolio.rb:22:in `get_owned_stock'
+  app/models/transaction.rb:24:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (111.6ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (not_found)
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:42:18) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"34", "shares"=>"23", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id", "portfolio_id") VALUES(34.0, 23, 12.0, '2010-03-09 19:42:18', '2010-03-09 19:42:18', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+RuntimeError (This stock is not owned, so cannot be sold):
+  app/models/transaction.rb:35:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (42.0ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:43:29) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"34", "shares"=>"23", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id", "portfolio_id") VALUES(34.0, 23, 12.0, '2010-03-09 19:43:29', '2010-03-09 19:43:29', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+RuntimeError (This stock is not owned, so cannot be sold):
+  app/models/transaction.rb:35:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (41.1ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:48:50) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"34", "shares"=>"23", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id", "portfolio_id") VALUES(34.0, 23, 12.0, '2010-03-09 19:48:51', '2010-03-09 19:48:51', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+  [4;36;1mStock Load (0.8ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+RuntimeError (This stock is not owned, so cannot be sold):
+  app/models/transaction.rb:47:in `sell_owned_stock'
+  app/models/transaction.rb:30:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (57.7ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 14:49:36) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;35;1mStock Load (0.3ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendered transactions/_buy_transaction (19.6ms)
+Completed in 36ms (View: 24, DB: 1) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 14:49:38) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"34", "shares"=>"23", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id", "portfolio_id") VALUES(34.0, 23, 12.0, '2010-03-09 19:49:38', '2010-03-09 19:49:38', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+RuntimeError (This stock is not owned, so cannot be sold):
+  app/models/transaction.rb:47:in `sell_owned_stock'
+  app/models/transaction.rb:30:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (40.8ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 17:04:52) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;36;1mPortfolio Load (0.3ms)[0m   [0;1mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;35;1mStock Load (0.4ms)[0m   [0mSELECT * FROM "stocks" [0m
+Rendered transactions/_buy_transaction (22.1ms)
+Completed in 101ms (View: 84, DB: 1) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:04:54) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"34", "shares"=>"23", "price"=>"12", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mTransaction Create (0.2ms)[0m   [0;1mINSERT INTO "transactions" ("comission", "shares", "price", "created_at", "updated_at", "date", "stock_id", "portfolio_id") VALUES(34.0, 23, 12.0, '2010-03-09 22:04:54', '2010-03-09 22:04:54', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM "portfolios" WHERE ("portfolios"."id" = 1) [0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM "stocks" WHERE ("stocks"."id" = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM "owned_stocks" WHERE ("owned_stocks".portfolio_id = 1) [0m
+
+RuntimeError (This stock is not owned, so cannot be sold):
+  app/models/transaction.rb:47:in `sell_owned_stock'
+  app/models/transaction.rb:30:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (39.3ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (16.3ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (922.1ms)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (200.5ms)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (9.4ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (5.8ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;36;1mSQL (107.9ms)[0m   [0;1mCREATE TABLE `splits` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `stock_id` int(11), `old` int(11), `new` int(11), `split_mul_factor` decimal(10,2), `date` date, `stock_adjusted_for_split` tinyint(1) DEFAULT 0, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (20.6ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100221182018')[0m
+Migrating to CreateStocks (20100225172626)
+  [4;36;1mSQL (59.9ms)[0m   [0;1mCREATE TABLE `stocks` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `ticker` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100225172626')[0m
+Migrating to CreateTransactions (20100225172857)
+  [4;36;1mSQL (35.8ms)[0m   [0;1mCREATE TABLE `transactions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `date` date, `comission` decimal(10,2), `stock_id` int(11), `shares` int(11), `price` decimal(10,2), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (1.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100225172857')[0m
+Migrating to CreateUsers (20100304214409)
+  [4;36;1mSQL (23.4ms)[0m   [0;1mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100304214409')[0m
+Migrating to CreatePortfolios (20100304214632)
+  [4;36;1mSQL (16.4ms)[0m   [0;1mCREATE TABLE `portfolios` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int(11), `name` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100304214632')[0m
+Migrating to CreateOwnedStocks (20100304214922)
+  [4;36;1mSQL (40.0ms)[0m   [0;1mCREATE TABLE `owned_stocks` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `portfolio_id` int(11), `stock_id` int(11), `shares` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100304214922')[0m
+Migrating to AddPortfolioIdToTransactions (20100309193254)
+  [4;36;1mSQL (42.9ms)[0m   [0;1mALTER TABLE `transactions` ADD `portfolio_id` int(11)[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100309193254')[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (19.4ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mSQL (34.6ms)[0m   [0;1mdescribe `owned_stocks`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW KEYS FROM `owned_stocks`[0m
+  [4;36;1mSQL (89.8ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mSQL (27.6ms)[0m   [0mdescribe `portfolios`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW KEYS FROM `portfolios`[0m
+  [4;35;1mSQL (7.5ms)[0m   [0mSHOW FIELDS FROM `splits`[0m
+  [4;36;1mSQL (4.9ms)[0m   [0;1mdescribe `splits`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW KEYS FROM `splits`[0m
+  [4;36;1mSQL (16.9ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mSQL (5.2ms)[0m   [0mdescribe `stocks`[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSHOW KEYS FROM `stocks`[0m
+  [4;35;1mSQL (24.4ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+  [4;36;1mSQL (4.9ms)[0m   [0;1mdescribe `transactions`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW KEYS FROM `transactions`[0m
+  [4;36;1mSQL (30.8ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (5.1ms)[0m   [0mdescribe `users`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mStock Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (37.2ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`ticker` = 'BRK') [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mStock Create (0.3ms)[0m   [0;1mINSERT INTO `stocks` (`name`, `created_at`, `updated_at`, `ticker`) VALUES('Berkshire Hathaway', '2010-03-09 22:41:19', '2010-03-09 22:41:19', 'BRK')[0m
+  [4;35;1mSQL (4.1ms)[0m   [0mCOMMIT[0m
+  [4;36;1mStock Load (0.3ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`ticker` = 'TEVA') [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mStock Create (0.2ms)[0m   [0;1mINSERT INTO `stocks` (`name`, `created_at`, `updated_at`, `ticker`) VALUES('Teva Pharmasutical industries.', '2010-03-09 22:41:19', '2010-03-09 22:41:19', 'TEVA')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 17:42:52) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;35;1mTransaction Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+  [4;36;1mPortfolio Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find Portfolio with ID=1):
+  app/controllers/transactions_controller.rb:25:in `new'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (87.3ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mUser Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`name` = 'Dani' AND `users`.`id` = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mUser Create (0.2ms)[0m   [0;1mINSERT INTO `users` (`name`, `created_at`, `updated_at`, `id`) VALUES('Dani', '2010-03-09 22:47:35', '2010-03-09 22:47:35', 1)[0m
+  [4;35;1mSQL (5.8ms)[0m   [0mCOMMIT[0m
+  [4;36;1mPortfolio Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPortfolio Create (0.2ms)[0m   [0mINSERT INTO `portfolios` (`name`, `created_at`, `updated_at`, `id`, `user_id`) VALUES('A', '2010-03-09 22:47:35', '2010-03-09 22:47:35', 1, 1)[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mStock Columns (1.7ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`ticker` = 'BRK') [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mStock Load (0.2ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`ticker` = 'TEVA') [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mUser Columns (0.5ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`name` = 'Dani' AND `users`.`id` = 1) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mPortfolio Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mStock Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`ticker` = 'BRK') [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mStock Load (0.1ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`ticker` = 'TEVA') [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 17:49:34) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (1.7ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.3ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+Completed in 71ms (View: 49, DB: 4) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 17:49:36) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (2.9ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+Completed in 133ms (View: 108, DB: 5) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 17:49:38) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;35;1mTransaction Columns (3.4ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+  [4;36;1mPortfolio Columns (3.4ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM `stocks` [0m
+  [4;35;1mStock Columns (1.8ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+Rendered transactions/_buy_transaction (70.8ms)
+Completed in 145ms (View: 106, DB: 9) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:49:47) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"1", "shares"=>"22", "price"=>"123", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;35;1mTransaction Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mTransaction Create (0.2ms)[0m   [0mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(1.0, 22, 123.0, '2010-03-09 22:49:47', '2010-03-09 22:49:47', '2010-03-09', 1, 1)[0m
+  [4;36;1mPortfolio Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;36;1mStock Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.2ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mSQL (6.7ms)[0m   [0mROLLBACK[0m
+
+RuntimeError (This stock is not owned, so cannot be sold):
+  app/models/transaction.rb:47:in `sell_owned_stock'
+  app/models/transaction.rb:30:in `adjust_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (40.6ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:51:33) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"1", "shares"=>"22", "price"=>"123", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;35;1mTransaction Columns (1.9ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mSQL (0.2ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mTransaction Create (0.4ms)[0m   [0mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(1.0, 22, 123.0, '2010-03-09 22:51:33', '2010-03-09 22:51:33', '2010-03-09', 1, 1)[0m
+  [4;36;1mSQL (9.3ms)[0m   [0;1mROLLBACK[0m
+
+NoMethodError (undefined method `add_owend_stock' for #<Transaction:0x7fcdc86f96c0>):
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (161.6ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:51:56) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"1", "shares"=>"22", "price"=>"123", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (1.9ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.4ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.5ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(1.0, 22, 123.0, '2010-03-09 22:51:56', '2010-03-09 22:51:56', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (2.5ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (2.9ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mSQL (6.5ms)[0m   [0;1mROLLBACK[0m
+
+NoMethodError (undefined method `owned_stock' for #<ActiveRecord::Associations::BelongsToAssociation:0x7fcdc8839800>):
+  app/models/transaction.rb:30:in `add_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (108.6ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:52:37) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"1", "shares"=>"22", "price"=>"123", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (1.9ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.4ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(1.0, 22, 123.0, '2010-03-09 22:52:37', '2010-03-09 22:52:37', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (2.7ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.2ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (3.3ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (4.5ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mSQL (4.8ms)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 91ms (DB: 18) | 302 Found [http://localhost/transactions]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 17:52:37) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+Completed in 29ms (View: 17, DB: 3) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:52:51) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"1", "shares"=>"22", "price"=>"123", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;35;1mTransaction Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mTransaction Create (0.2ms)[0m   [0mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(1.0, 22, 123.0, '2010-03-09 22:52:51', '2010-03-09 22:52:51', '2010-03-09', 1, 1)[0m
+  [4;36;1mPortfolio Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;36;1mStock Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.1ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mSQL (2.8ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 39ms (DB: 8) | 302 Found [http://localhost/transactions]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 17:52:51) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+Completed in 20ms (View: 12, DB: 2) | 200 OK [http://localhost/portfolios/1]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 17:55:49) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;36;1mTransaction Columns (1.8ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+  [4;35;1mPortfolio Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;35;1mStock Load (0.1ms)[0m   [0mSELECT * FROM `stocks` [0m
+  [4;36;1mStock Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+Rendered transactions/_buy_transaction (80.7ms)
+Completed in 109ms (View: 80, DB: 5) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:55:57) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"1", "shares"=>"22", "price"=>"500", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (1.9ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.7ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(1.0, 22, 500.0, '2010-03-09 22:55:57', '2010-03-09 22:55:57', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mSQL (5.3ms)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 59ms (DB: 13) | 302 Found [http://localhost/transactions]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 17:55:57) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+Completed in 19ms (View: 11, DB: 2) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 17:57:27) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;35;1mTransaction Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+  [4;36;1mPortfolio Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` [0m
+  [4;35;1mStock Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+Rendered transactions/_buy_transaction (20.3ms)
+Completed in 36ms (View: 21, DB: 3) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:57:54) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"555", "shares"=>"555", "price"=>"555", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;35;1mTransaction Columns (1.8ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mTransaction Create (0.4ms)[0m   [0mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(555.0, 555, 555.0, '2010-03-09 22:57:54', '2010-03-09 22:57:54', '2010-03-09', 1, 1)[0m
+  [4;36;1mPortfolio Columns (2.5ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;36;1mStock Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.1ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mSQL (7.0ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 67ms (DB: 15) | 302 Found [http://localhost/transactions]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 17:57:54) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+Completed in 82ms (View: 73, DB: 2) | 200 OK [http://localhost/portfolios/1]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 17:58:59) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"555", "shares"=>"555", "price"=>"555", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.5ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(555.0, 555, 555.0, '2010-03-09 22:58:59', '2010-03-09 22:58:59', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (3.3ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mOwnedStock Create (0.7ms)[0m   [0mINSERT INTO `owned_stocks` (`shares`, `created_at`, `updated_at`, `stock_id`, `portfolio_id`) VALUES(555, '2010-03-09 23:01:02', '2010-03-09 23:01:02', 1, 1)[0m
+  [4;36;1mOwnedStock Create (2.7ms)[0m   [0;1mINSERT INTO `owned_stocks` (`shares`, `created_at`, `updated_at`, `stock_id`, `portfolio_id`) VALUES(555, '2010-03-09 23:01:57', '2010-03-09 23:01:57', 1, 1)[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 18:03:31) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"555", "shares"=>"555", "price"=>"555", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;35;1mTransaction Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mTransaction Create (0.2ms)[0m   [0mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(555.0, 555, 555.0, '2010-03-09 23:03:31', '2010-03-09 23:03:31', '2010-03-09', 1, 1)[0m
+  [4;36;1mPortfolio Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;36;1mStock Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.1ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.3ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (1.8ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mOwnedStock Create (0.2ms)[0m   [0;1mINSERT INTO `owned_stocks` (`shares`, `created_at`, `updated_at`, `stock_id`, `portfolio_id`) VALUES(555, '2010-03-09 23:03:31', '2010-03-09 23:03:31', 1, 1)[0m
+  [4;35;1mSQL (2.6ms)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 111ms (DB: 9) | 302 Found [http://localhost/transactions]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 18:03:31) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.3ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+
+ActionView::TemplateError (undefined local variable or method `property' for #<ActionView::Base:0x7f44431f54f8>) on line #17 of app/views/portfolios/show.html.erb:
+14:                 <th> Total Gain% </th>
+15: 
+16:                 <% @portfolio.owned_stocks.each do |stock| %>
+17:                         <tr id=<%= "property_#{property.id}" %> class="<%= cycle('odd', 'even') %>">
+18:                                <%= render :partial => 'stock' %>
+19:                         </tr>
+20:                 <% end %>
+
+    app/views/portfolios/show.html.erb:17
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (106.1ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 18:04:47) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (2.4ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.2ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (3.3ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+
+ActionView::TemplateError (undefined method `name' for nil:NilClass) on line #1 of app/views/portfolios/_stock.html.erb:
+1: <td><%= stock.name %></td>
+2: <td><%= stock.ticker %></td>
+3: <td><%= stock.shares %></td>
+4: <td> price </td>
+
+    app/views/portfolios/_stock.html.erb:1
+    app/views/portfolios/show.html.erb:18
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (115.1ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 18:06:37) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+
+ActionView::TemplateError (Missing template owned_stocks/_owned_stock.erb in view path app/views) on line #18 of app/views/portfolios/show.html.erb:
+15: 
+16:                 <% @portfolio.owned_stocks.each do |stock| %>
+17:                         <tr id=<%= "stock_#{stock.id}" %> class="<%= cycle('odd', 'even') %>">
+18:                                <%= render :partial => stock %>
+19:                         </tr>
+20:                 <% end %>
+21:         </table>
+
+    app/views/portfolios/show.html.erb:18
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (43.6ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 18:08:40) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+
+ActionView::TemplateError (undefined local variable or method `stock' for #<ActionView::Base:0x7f4443379e50>) on line #1 of app/views/owned_stocks/_owned_stock.erb:
+1: <td><%= stock.name %></td>
+2: <td><%= stock.ticker %></td>
+3: <td><%= stock.shares %></td>
+4: <td> price </td>
+
+    app/views/owned_stocks/_owned_stock.erb:1
+    app/views/portfolios/show.html.erb:18
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (46.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 18:12:38) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.0ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mStock Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+Rendered owned_stocks/_owned_stock (7.0ms)
+Completed in 33ms (View: 23, DB: 4) | 200 OK [http://localhost/portfolios/1]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-09 18:12:44) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;36;1mTransaction Columns (2.1ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+  [4;35;1mPortfolio Columns (2.5ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;35;1mStock Load (0.1ms)[0m   [0mSELECT * FROM `stocks` [0m
+  [4;36;1mStock Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+Rendered transactions/_buy_transaction (131.9ms)
+Completed in 200ms (View: 166, DB: 6) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 18:12:56) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"10", "shares"=>"500", "price"=>"500", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (1.9ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.5ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(10.0, 500, 500.0, '2010-03-09 23:12:56', '2010-03-09 23:12:56', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (2.5ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.2ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.7ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mSQL (5.5ms)[0m   [0;1mROLLBACK[0m
+
+TypeError (can't dup Fixnum):
+  app/models/transaction.rb:29:in `add_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (108.4ms)
+Rendered rescues/_request_and_response (0.6ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 18:14:36) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"10", "shares"=>"500", "price"=>"500", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (2.2ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.2ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(10.0, 500, 500.0, '2010-03-09 23:14:36', '2010-03-09 23:14:36', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mSQL (6.2ms)[0m   [0;1mROLLBACK[0m
+
+TypeError (can't dup Fixnum):
+  app/models/transaction.rb:30:in `add_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (43.6ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 18:14:40) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"10", "shares"=>"500", "price"=>"500", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.2ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(10.0, 500, 500.0, '2010-03-09 23:14:40', '2010-03-09 23:14:40', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mSQL (6.7ms)[0m   [0;1mROLLBACK[0m
+
+TypeError (can't dup Fixnum):
+  app/models/transaction.rb:30:in `add_owned_stock'
+  app/controllers/transactions_controller.rb:38:in `create'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (41.2ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-09 18:18:05) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"CzczT/qmaUWMm0W6r7xnBEL6Dtzw2tLiZLl1cbSUK6U=", "transaction"=>{"comission"=>"10", "shares"=>"500", "price"=>"500", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"9", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;36;1mTransaction Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(10.0, 500, 500.0, '2010-03-09 23:18:05', '2010-03-09 23:18:05', '2010-03-09', 1, 1)[0m
+  [4;35;1mPortfolio Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;35;1mStock Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mOwnedStock Update (0.3ms)[0m   [0;1mUPDATE `owned_stocks` SET `updated_at` = '2010-03-09 23:18:06', `shares` = 1055 WHERE `id` = 3[0m
+  [4;35;1mSQL (21.5ms)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 131ms (DB: 28) | 302 Found [http://localhost/transactions]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-09 18:18:06) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.3ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mStock Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+Rendered owned_stocks/_owned_stock (6.2ms)
+Completed in 46ms (View: 34, DB: 4) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-10 08:16:52) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (1.9ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.8ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (1.7ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.5ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (0.5ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+ERROR: compiling _run_erb_app47views47owned_stocks47_owned_stock46erb_locals_object_owned_stock RAISED compile error
+/home/dani/rails/graham/app/views/owned_stocks/_owned_stock.erb:2: syntax error, unexpected '<'
+<td><%= owned_stock.name ; @output_buffer.concat "</td>\n<td>"
+ ^
+/home/dani/rails/graham/app/views/owned_stocks/_owned_stock.erb:11: syntax error, unexpected tIDENTIFIER, expecting kEND
+Function body:           def _run_erb_app47views47owned_stocks47_owned_stock46erb_locals_object_owned_stock(local_assigns)
+            old_output_buffer = output_buffer;object = local_assigns[:object];owned_stock = local_assigns[:owned_stock];;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat "<tr id=";  dom_id(owned_stock)>
+<td><%= owned_stock.name ; @output_buffer.concat "</td>\n<td>"
+; @output_buffer.concat(( owned_stock.ticker ).to_s); @output_buffer.concat "</td>\n<td>"
+; @output_buffer.concat(( owned_stock.shares ).to_s); @output_buffer.concat "</td>\n<td> price </td>\n<td>"
+
+; @output_buffer.concat(( owned_stock.shares ).to_s); @output_buffer.concat "</td>\n<td>"
+; @output_buffer.concat(( owned_stock.shares ).to_s); @output_buffer.concat "</td>\n</tr>\n"
+
+; @output_buffer
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /home/dani/rails/graham/app/views/owned_stocks/_owned_stock.erb:12:in `compile!'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:61:in `compile'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:28:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:20:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `benchmark'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `benchmark'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:19:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:44:in `render_partial'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/partials.rb:184:in `render_partial'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/partials.rb:201:in `render_partial'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:267:in `render'
+/home/dani/rails/graham/app/views/portfolios/show.html.erb:18:in `_run_erb_app47views47portfolios47show46html46erb'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/associations/association_collection.rb:369:in `method_missing'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/associations/association_proxy.rb:215:in `method_missing'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/associations/association_proxy.rb:215:in `each'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/associations/association_proxy.rb:215:in `send'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/associations/association_proxy.rb:215:in `method_missing'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/associations/association_collection.rb:369:in `method_missing'
+/home/dani/rails/graham/app/views/portfolios/show.html.erb:16:in `_run_erb_app47views47portfolios47show46html46erb'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:34:in `send'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:34:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:306:in `with_template'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:30:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:265:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:348:in `_render_with_layout'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:262:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1250:in `render_for_file'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:945:in `render_without_benchmark'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1326:in `default_render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1332:in `perform_action_without_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:617:in `call_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/rescue.rb:160:in `perform_action_without_flash'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/flash.rb:146:in `perform_action'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `send'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `process_without_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:606:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:391:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:386:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/routing/route_set.rb:437:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/usr/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/usr/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+/usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/usr/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/webrick.rb:14:in `run'
+/usr/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+/usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+script/server:3
+
+ActionView::TemplateError (compile error
+/home/dani/rails/graham/app/views/owned_stocks/_owned_stock.erb:2: syntax error, unexpected '<'
+<td><%= owned_stock.name ; @output_buffer.concat "</td>\n<td>"
+ ^
+/home/dani/rails/graham/app/views/owned_stocks/_owned_stock.erb:11: syntax error, unexpected tIDENTIFIER, expecting kEND) on line #2 of app/views/owned_stocks/_owned_stock.erb:
+1: <tr id=<% dom_id(owned_stock)>
+2: <td><%= owned_stock.name %></td>
+3: <td><%= owned_stock.ticker %></td>
+4: <td><%= owned_stock.shares %></td>
+5: <td> price </td>
+
+    app/views/owned_stocks/_owned_stock.erb:12:in `compile!'
+    app/views/portfolios/show.html.erb:18
+    app/views/portfolios/show.html.erb:16
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (69.6ms)
+Rendered rescues/_request_and_response (1.7ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-10 08:59:02) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.2ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (9.2ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mStock Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (20.5ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+Rendered owned_stocks/_owned_stock (27.9ms)
+Completed in 180ms (View: 128, DB: 33) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-10 16:36:13) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;35;1mTransaction Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+  [4;36;1mPortfolio Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;36;1mStock Load (0.6ms)[0m   [0;1mSELECT * FROM `stocks` [0m
+  [4;35;1mStock Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+Rendered transactions/_buy_transaction (149.1ms)
+Completed in 215ms (View: 183, DB: 6) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-10 16:36:19) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"8cNmEzDBB3mJ23VN7qucShZ9XrixdZPOX4JGIgv3F1w=", "transaction"=>{"comission"=>"123", "shares"=>"123", "price"=>"123", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"10", "type"=>"ActionView::Base", "stock_id"=>"1", "portfolio_id"=>"1"}}
+  [4;35;1mTransaction Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mTransaction Create (0.3ms)[0m   [0mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(123.0, 123, 123.0, '2010-03-10 21:36:19', '2010-03-10 21:36:19', '2010-03-10', 1, 1)[0m
+  [4;36;1mPortfolio Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;36;1mStock Columns (0.5ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.0ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (0.5ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Update (0.3ms)[0m   [0mUPDATE `owned_stocks` SET `updated_at` = '2010-03-10 21:36:19', `shares` = 1178 WHERE `id` = 3[0m
+  [4;36;1mSQL (6.6ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 39ms (DB: 10) | 302 Found [http://localhost/transactions]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-10 16:36:19) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.3ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (0.5ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mStock Columns (0.5ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.0ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+Rendered owned_stocks/_owned_stock (5.4ms)
+Completed in 27ms (View: 18, DB: 3) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-10 16:52:28) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPortfolio Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mPortfolio Load (0.1ms)[0m   [0;1mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;35;1mUser Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mOwnedStock Load (0.1ms)[0m   [0mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;36;1mOwnedStock Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mStock Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+Rendered owned_stocks/_owned_stock (6.5ms)
+Completed in 32ms (View: 21, DB: 3) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mStock Load (0.2ms)[0m   [0mSELECT * FROM `stocks` LIMIT 1[0m
+  [4;36;1mStock Columns (0.5ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mOwnedStock Load (0.5ms)[0m   [0mSELECT * FROM `owned_stocks` LIMIT 1[0m
+  [4;36;1mOwnedStock Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mOwnedStock Load (0.2ms)[0m   [0mSELECT * FROM `owned_stocks` LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-10 18:16:51) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mStock Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.1ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+Rendered owned_stocks/_owned_stock (6.9ms)
+Completed in 36ms (View: 27, DB: 3) | 200 OK [http://localhost/portfolios/1]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (32.9ms)[0m   [0mDROP DATABASE IF EXISTS `graham_test`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mCREATE DATABASE `graham_test` DEFAULT CHARACTER SET `utf8`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1mCREATE TABLE `owned_stocks` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `portfolio_id` int(11), `stock_id` int(11), `shares` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mCREATE TABLE `portfolios` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int(11), `name` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.6ms)[0m   [0;1mCREATE TABLE `splits` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `stock_id` int(11), `old` int(11), `new` int(11), `split_mul_factor` decimal(10,2), `date` date, `stock_adjusted_for_split` tinyint(1) DEFAULT 0, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mCREATE TABLE `stocks` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `ticker` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mCREATE TABLE `transactions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `date` date, `comission` decimal(10,2), `stock_id` int(11), `shares` int(11), `price` decimal(10,2), `created_at` datetime, `updated_at` datetime, `portfolio_id` int(11)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.3ms)[0m   [0;1mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.2ms)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (2.4ms)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20100309193254')[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20100304214409')[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20100304214922')[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20100225172626')[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20100221182018')[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20100225172857')[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20100304214632')[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-03-10 22:09:53) [GET]
+  Parameters: {"type"=>"BUY", "portfolio_id"=>"1"}
+  [4;35;1mTransaction Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+  [4;36;1mPortfolio Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/transactions
+Rendering transactions/new
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` [0m
+  [4;35;1mStock Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+Rendered transactions/_buy_transaction (26.3ms)
+Completed in 49ms (View: 34, DB: 3) | 200 OK [http://localhost/transactions/new?portfolio_id=1&type=BUY]
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-03-10 22:10:03) [POST]
+  Parameters: {"commit"=>"Add purchase details", "authenticity_token"=>"QgTBS0c9Uxa//453ONxZkWnaAS/W3PNnrvZ1/n6KFek=", "transaction"=>{"comission"=>"10", "shares"=>"65", "price"=>"65", "date(1i)"=>"2010", "date(2i)"=>"3", "date(3i)"=>"11", "type"=>"BUY", "stock_id"=>"2", "portfolio_id"=>"1"}}
+  [4;35;1mTransaction Columns (2.1ms)[0m   [0mSHOW FIELDS FROM `transactions`[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mSQL (0.2ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mTransaction Create (0.4ms)[0m   [0mINSERT INTO `transactions` (`comission`, `shares`, `price`, `created_at`, `updated_at`, `date`, `stock_id`, `portfolio_id`) VALUES(10.0, 65, 65.0, '2010-03-11 03:10:03', '2010-03-11 03:10:03', '2010-03-11', 2, 1)[0m
+  [4;36;1mPortfolio Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+  [4;36;1mStock Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.2ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 2) [0m
+  [4;36;1mOwnedStock Load (0.1ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+  [4;35;1mOwnedStock Create (0.2ms)[0m   [0mINSERT INTO `owned_stocks` (`shares`, `created_at`, `updated_at`, `stock_id`, `portfolio_id`) VALUES(65, '2010-03-11 03:10:03', '2010-03-11 03:10:03', 2, 1)[0m
+  [4;36;1mSQL (5.7ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/portfolios/1
+Completed in 59ms (DB: 11) | 302 Found [http://localhost/transactions]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PortfoliosController#show (for 127.0.0.1 at 2010-03-10 22:10:03) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPortfolio Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `portfolios`[0m
+  [4;35;1mPortfolio Load (0.1ms)[0m   [0mSELECT * FROM `portfolios` WHERE (`portfolios`.`id` = 1) [0m
+Rendering template within layouts/portfolios
+Rendering portfolios/show
+  [4;36;1mUser Columns (0.5ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mOwnedStock Load (0.3ms)[0m   [0;1mSELECT * FROM `owned_stocks` WHERE (`owned_stocks`.portfolio_id = 1) [0m
+  [4;35;1mOwnedStock Columns (0.5ms)[0m   [0mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;36;1mStock Columns (0.6ms)[0m   [0;1mSHOW FIELDS FROM `stocks`[0m
+  [4;35;1mStock Load (0.0ms)[0m   [0mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 1) [0m
+Rendered owned_stocks/_owned_stock (5.8ms)
+  [4;36;1mStock Load (0.1ms)[0m   [0;1mSELECT * FROM `stocks` WHERE (`stocks`.`id` = 2) [0m
+Rendered owned_stocks/_owned_stock (0.6ms)
+Completed in 30ms (View: 20, DB: 3) | 200 OK [http://localhost/portfolios/1]

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100304214922
+# Schema version: 20100309193254
 #
 # Table name: owned_stocks
 #
@@ -16,6 +16,7 @@ class OwnedStock < ActiveRecord::Base
   belongs_to :portfolio
   delegate :name, :ticker, :to => :stock
 
+  validates_presence_of :stock_id, :shares, :portfolio_id
 
 
 

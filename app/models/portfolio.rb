@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100304214922
+# Schema version: 20100309193254
 #
 # Table name: portfolios
 #
@@ -15,6 +15,11 @@ class Portfolio < ActiveRecord::Base
   has_many :transactions
   has_many :owned_stocks
 
+  validates_presence_of :user
 
+
+  def get_owned_stock(stock)
+    owned_stocks.detect{ |os| os.stock == stock }
+  end
 
 end

@@ -1,0 +1,49 @@
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (3.9ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (137.7ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateSplits (20100221182018)
+  [4;35;1mSQL (38.2ms)[0m   [0mCREATE TABLE `splits` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `stock_id` int(11), `old` int(11), `new` int(11), `split_mul_factor` decimal(10,2), `date` date, `stock_adjusted_for_split` tinyint(1) DEFAULT 0, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100221182018')[0m
+Migrating to CreateStocks (20100225172626)
+  [4;35;1mSQL (12.4ms)[0m   [0mCREATE TABLE `stocks` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `ticker` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (3.9ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100225172626')[0m
+Migrating to CreateTransactions (20100225172857)
+  [4;35;1mSQL (13.2ms)[0m   [0mCREATE TABLE `transactions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `date` date, `comission` decimal(10,2), `stock_id` int(11), `shares` int(11), `price` decimal(10,2), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (8.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100225172857')[0m
+Migrating to CreateUsers (20100304214409)
+  [4;35;1mSQL (11.6ms)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100304214409')[0m
+Migrating to CreatePortfolios (20100304214632)
+  [4;35;1mSQL (36.3ms)[0m   [0mCREATE TABLE `portfolios` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int(11), `name` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100304214632')[0m
+Migrating to CreateOwnedStocks (20100304214922)
+  [4;35;1mSQL (6.2ms)[0m   [0mCREATE TABLE `owned_stocks` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `portfolio_id` int(11), `stock_id` int(11), `shares` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100304214922')[0m
+Migrating to AddPortfolioIdToTransactions (20100309193254)
+  [4;35;1mSQL (152.3ms)[0m   [0mALTER TABLE `transactions` ADD `portfolio_id` int(11)[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100309193254')[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (1.5ms)[0m   [0;1mSHOW FIELDS FROM `owned_stocks`[0m
+  [4;35;1mSQL (2.1ms)[0m   [0mdescribe `owned_stocks`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW KEYS FROM `owned_stocks`[0m
+  [4;35;1mSQL (26.8ms)[0m   [0mSHOW FIELDS FROM `portfolios`[0m
+  [4;36;1mSQL (3.2ms)[0m   [0;1mdescribe `portfolios`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSHOW KEYS FROM `portfolios`[0m
+  [4;36;1mSQL (5.1ms)[0m   [0;1mSHOW FIELDS FROM `splits`[0m
+  [4;35;1mSQL (5.2ms)[0m   [0mdescribe `splits`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW KEYS FROM `splits`[0m
+  [4;35;1mSQL (4.7ms)[0m   [0mSHOW FIELDS FROM `stocks`[0m
+  [4;36;1mSQL (4.6ms)[0m   [0;1mdescribe `stocks`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW KEYS FROM `stocks`[0m
+  [4;36;1mSQL (18.9ms)[0m   [0;1mSHOW FIELDS FROM `transactions`[0m
+  [4;35;1mSQL (4.9ms)[0m   [0mdescribe `transactions`[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSHOW KEYS FROM `transactions`[0m
+  [4;35;1mSQL (4.4ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (4.3ms)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW KEYS FROM `users`[0m

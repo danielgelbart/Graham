@@ -14,11 +14,11 @@
                 <th> Total Gain% </th>
 
                 <% @portfolio.owned_stocks.each do |stock| %>
-                        <tr id=<%= "property_#{property.id}" %> class="<%= cycle('odd', 'even') %>">
-                               <%= render :partial => 'stock' %>
+                        <tr id=<%= dom_id(stock) %> class="<%= cycle('odd', 'even') %>">
+                               <%= render :partial => stock %>
                         </tr>
                 <% end %>
         </table>
 
-<%= link_to 'Buy', edit_portfolio_path(@portfolio) %> |
+<%= link_to 'Add a new stock purchase', new_transaction_path(:portfolio_id => @portfolio.id, :type => "BUY") %> |
 

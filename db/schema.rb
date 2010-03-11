@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100304214922) do
+ActiveRecord::Schema.define(:version => 20100309193254) do
 
   create_table "owned_stocks", :force => true do |t|
     t.integer  "portfolio_id"
@@ -46,12 +46,13 @@ ActiveRecord::Schema.define(:version => 20100304214922) do
 
   create_table "transactions", :force => true do |t|
     t.date     "date"
-    t.decimal  "comission",  :precision => 10, :scale => 2
+    t.decimal  "comission",    :precision => 10, :scale => 2
     t.integer  "stock_id"
     t.integer  "shares"
-    t.decimal  "price",      :precision => 10, :scale => 2
+    t.decimal  "price",        :precision => 10, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "portfolio_id"
   end
 
   create_table "users", :force => true do |t|

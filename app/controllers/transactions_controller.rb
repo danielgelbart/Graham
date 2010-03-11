@@ -1,6 +1,5 @@
 class TransactionsController < ApplicationController
-  # GET /transactions
-  # GET /transactions.xml
+
   def index
     @transactions = Transaction.all
 
@@ -21,15 +20,9 @@ class TransactionsController < ApplicationController
     end
   end
 
-  # GET /transactions/new
-  # GET /transactions/new.xml
   def new
     @transaction = Transaction.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @transaction }
-    end
+    @portfolio = Portfolio.find(params[:portfolio_id])
   end
 
   # GET /transactions/1/edit
@@ -37,20 +30,14 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.find(params[:id])
   end
 
-  # POST /transactions
-  # POST /transactions.xml
   def create
     @transaction = Transaction.new(params[:transaction])
 
-    respond_to do |format|
-      if @transaction.save
-        flash[:notice] = 'Transaction was successfully created.'
-        format.html { redirect_to(@transaction) }
-        format.xml  { render :xml => @transaction, :status => :created, :location => @transaction }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @transaction.errors, :status => :unprocessable_entity }
-      end
+    if @transaction.save
+      flash[:notice] = "Added #{@transaction.shares} shares of #{@transaction.ticker} to your portfolio"
+      redirect_to(@transaction.portfolio)
+    else
+     render :action => "new" #Need to add purchase details: purtfolio, type
     end
   end
 
