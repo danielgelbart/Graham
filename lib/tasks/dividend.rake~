@@ -1,0 +1,9 @@
+# This task rips historacle dividend data from the net and stores it to the db.
+# current source of data: www.dividend.com
+
+namespace :dividend do
+  desc ""
+  task :get_data => :environment  do
+
+  end
+end

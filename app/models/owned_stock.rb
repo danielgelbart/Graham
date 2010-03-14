@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20100309193254
+# Schema version: 20100314171616
 #
 # Table name: owned_stocks
 #
-#  id           :integer         not null, primary key
-#  portfolio_id :integer
-#  stock_id     :integer
-#  shares       :integer
+#  id           :integer(4)      not null, primary key
+#  portfolio_id :integer(4)
+#  stock_id     :integer(4)
+#  shares       :integer(4)
 #  created_at   :datetime
 #  updated_at   :datetime
 #

@@ -1,18 +1,18 @@
 # == Schema Information
 # Schema version: 20100314171616
 #
-# Table name: users
+# Table name: dividends
 #
 #  id         :integer(4)      not null, primary key
-#  name       :string(255)
+#  stock_id   :integer(4)
+#  date       :date
+#  amount     :decimal(10, 2)
+#  source     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+class Dividend < ActiveRecord::Base
 
-one:
-  name: MyString
 
-two:
-  name: MyString
+end

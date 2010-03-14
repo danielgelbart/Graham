@@ -1,5 +1,0 @@
-class OwnedStock < ActiveRecord::Base
-  belongs_to :stock
-  belongs_to :portfolio
-  deligate :name, :ticker, :to => stock
-end

@@ -1,17 +1,17 @@
 # == Schema Information
-# Schema version: 20100309193254
+# Schema version: 20100314171616
 #
 # Table name: transactions
 #
-#  id           :integer         not null, primary key
+#  id           :integer(4)      not null, primary key
 #  date         :date
 #  comission    :decimal(10, 2)
-#  stock_id     :integer
-#  shares       :integer
+#  stock_id     :integer(4)
+#  shares       :integer(4)
 #  price        :decimal(10, 2)
 #  created_at   :datetime
 #  updated_at   :datetime
-#  portfolio_id :integer
+#  portfolio_id :integer(4)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

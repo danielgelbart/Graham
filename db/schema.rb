@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100309193254) do
+ActiveRecord::Schema.define(:version => 20100314171616) do
+
+  create_table "dividends", :force => true do |t|
+    t.integer  "stock_id"
+    t.date     "date"
+    t.decimal  "amount",     :precision => 12, :scale => 8
+    t.string   "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "owned_stocks", :force => true do |t|
     t.integer  "portfolio_id"

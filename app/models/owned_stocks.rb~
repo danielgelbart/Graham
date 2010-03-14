@@ -1,2 +1,0 @@
-class OwnedStocks < ActiveRecord::Base
-end

@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 20100309193254
+# Schema version: 20100314171616
 #
 # Table name: splits
 #
-#  id                       :integer         not null, primary key
-#  stock_id                 :integer
-#  old                      :integer
-#  new                      :integer
+#  id                       :integer(4)      not null, primary key
+#  stock_id                 :integer(4)
+#  old                      :integer(4)
+#  new                      :integer(4)
 #  split_mul_factor         :decimal(10, 2)
 #  date                     :date
-#  stock_adjusted_for_split :boolean
+#  stock_adjusted_for_split :boolean(1)
 #  created_at               :datetime
 #  updated_at               :datetime
 #
