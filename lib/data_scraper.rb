@@ -5,7 +5,7 @@ module DataScraper
 
   def get_stock_price
     price = get_price_from_yahoo
-    price = get_price_from_goole if price.nil?
+    price = get_price_from_google if price.nil?
     price = get_price_from_msn if price.nil?
     price
   end
@@ -26,11 +26,9 @@ module DataScraper
     url = "http://finance.yahoo.com/q?s=#{ticker}"
     doc = open_url_or_nil(url)
 
-    if doc && doc.xpath('//tr')
-      tr = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Last Trade:" }
-      if tr
-        price = tr.xpath('./td').last.text.to_f
-      end
+    begin
+      price = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Last Trade:" }.xpath('./td').last.text.to_f if doc
+    rescue
     end
     price
   end
@@ -39,14 +37,9 @@ module DataScraper
     url = "http://www.google.com/finance?q=#{ticker}"
     doc = open_url_or_nil(url)
 
-    if doc
-      div = doc.css('#price-panel')
-      if div
-        spans = div.xpath('./div/span')
-        if spans
-          price = spans.first.text.to_f
-        end
-      end
+    begin
+      price = doc.css('#price-panel').xpath('./div/span').first.text.to_f if doc
+    rescue
     end
     price
   end
@@ -55,14 +48,9 @@ module DataScraper
     url = "http://moneycentral.msn.com/detail/stock_quote?Symbol=#{ticker}&getquote=Get+Quote"
     doc = open_url_or_nil(url)
 
-    if doc
-      td = doc.css('#detail')
-      if td
-        spans = td.xpath('./table/tbody/tr/th')
-        if spans
-          price = spans.first.text.to_f
-        end
-      end
+    begin
+      price = doc.css('#detail').xpath('./table/tbody/tr/th').first.text.to_f if doc
+    rescue
     end
     price
   end

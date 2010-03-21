@@ -40,7 +40,7 @@ class Stock < ActiveRecord::Base
   end
 
   def bargain?
-    price * 2 <= book_value_per_share
+    price * 1.5 <= book_value_per_share
   end
 
   # This is from page 62 of "Inteligent investor":
