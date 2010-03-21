@@ -3,11 +3,14 @@ module DataScraper
   require 'nokogiri'
   require 'open-uri'
 
-  def get_stock_price(ticker)
-    price = get_price_from_yahoo(ticker)
-    price = get_price_from_goole(ticker) if price.nil?
-    price = get_price_from_msn(ticker) if price.nil?
+  def get_stock_price
+    price = get_price_from_yahoo
+    price = get_price_from_goole if price.nil?
+    price = get_price_from_msn if price.nil?
+    price
   end
+
+  private
 
   def open_url_or_nil(url)
     begin
@@ -19,7 +22,7 @@ module DataScraper
     end
   end
 
-  def get_price_from_yahoo(ticker)
+  def get_price_from_yahoo
     url = "http://finance.yahoo.com/q?s=#{ticker}"
     doc = open_url_or_nil(url)
 
@@ -32,7 +35,7 @@ module DataScraper
     price
   end
 
-  def get_price_from_google(ticker)
+  def get_price_from_google
     url = "http://www.google.com/finance?q=#{ticker}"
     doc = open_url_or_nil(url)
 
@@ -48,7 +51,7 @@ module DataScraper
     price
   end
 
-  def get_price_from_msn(ticker)
+  def get_price_from_msn
     url = "http://moneycentral.msn.com/detail/stock_quote?Symbol=#{ticker}&getquote=Get+Quote"
     doc = open_url_or_nil(url)
 

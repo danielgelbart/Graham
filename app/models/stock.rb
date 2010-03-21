@@ -105,7 +105,7 @@ class Stock < ActiveRecord::Base
 
   # How long is this object instance alive for
   def price
-    @price ||= get_stock_price(ticker)
+    @price ||= get_stock_price
   end
 
   def newest_dividend
