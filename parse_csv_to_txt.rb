@@ -6,9 +6,9 @@
 
 output_file = File.open("sp500.txt","w")
 
-FasterCSV.foreach("10-JUN-2009_500.csv") do |row|
+FasterCSV.foreach("sp500-March-19-2010.csv") do |row|
   f1,f2,f3,f4,f5,f6 = row
-  output_file.puts "#{f1}\t#{f2}"
+  output_file.puts "#{f3}\t#{f2}"
 end
 
 output_file.close

@@ -25,7 +25,7 @@ class Stock < ActiveRecord::Base
   validates_uniqueness_of :ticker
 
   include DataScraper
-
+  include Math # adds min and max methods
 
   # 50 million dollars in 1972 adjusted for present day inflation
   # perhaps should also take in to account the growth of the market size itself?
@@ -40,6 +40,7 @@ class Stock < ActiveRecord::Base
   end
 
   def bargain?
+    puts ticker
     price * 1.5 <= book_value_per_share
   end
 
@@ -57,13 +58,11 @@ class Stock < ActiveRecord::Base
     dg.reject{|dg| dg.size == current_yeat }.each do |year, divs|
       divs.size == dividends_per_year
     end
-    update_dividends
+    # update_dividends
     Date.today - max(365 / dividends_per_year, 120 ).days > newest_dividend.date
   end
 
   def cheap?
-   # If the company has negative earnings we do not want to buy it so return false
-  # If so, price_limit will return a negative value
     price < price_limit
   end
 
@@ -99,13 +98,14 @@ class Stock < ActiveRecord::Base
     !ttm_eps.nil? && ttm_eps != 0
   end
 
- #/ End / Valuation methods --------------------------------------------------
+  #/ Data retrenal methods ----------------------------------------------------
 
- #/ Data retrenal methods ----------------------------------------------------
-
-  # How long is this object instance alive for
   def price
     @price ||= get_stock_price
+  end
+
+  def update_price
+    @price = get_stock_price
   end
 
   def newest_dividend
@@ -118,85 +118,18 @@ class Stock < ActiveRecord::Base
     end
   end
 
-  # Will update:
-  # - ttm_eps
-  # - book value/ share
-
-  # This sould not be from a rake task.. Refactor this into the DataScraper class
   def update_current_data
-    require 'nokogiri'
-    require 'open-uri'
-    url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
+    ttm_eps = get_eps
+    book_value = get_book_value
 
-    begin
-      doc = Nokogiri::HTML(open(url))
-    rescue OpenURI::HTTPError => e
+    if ttm_eps && book_value
+      update_attributes!(:ttm_eps => ttm_eps,
+                         :book_value_per_share => book_value,
+                         :finantial_data_updated => Date.today)
     end
-
-    if doc && doc.xpath('//tr')
-      tr = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Earnings/Share" }
-
-      if tr
-        ttm_eps = tr.xpath('./td').last.text.to_f
-
-        book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value/Share" }.xpath('./td').last.text.to_f
-      end
-    end
-
-    if !book_value #Try yahoo for retriving data
-      url = "http://finance.yahoo.com/q/ks?s=#{ticker}"
-      begin
-        doc = Nokogiri::HTML(open(url))
-      rescue OpenURI::HTTPError => e
-      else
-        if doc && doc.xpath('//tr')
-          tr = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Diluted EPS (ttm):" }
-          if tr
-            ttm_eps = tr.xpath('./td').last.text.to_f
-
-            book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value Per Share (mrq):" }.xpath('./td').last.text.to_f
-          end
-        end
-      end
-    end
-
-    #Get sales data
-    url = "http://finance.yahoo.com/q/ks?s=#{ticker}"
-    begin
-      doc = Nokogiri::HTML(open(url))
-    rescue OpenURI::HTTPError => e
-    else
-      tr = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Revenue (ttm):" }
-      if tr
-        revenue = tr.xpath('./td').last.text
-        revenue = case revenue.last
-                  when "B"
-                    revenue.chop.to_i * 1000000000
-                  when "M"
-                    revenue.chop.to_i * 1000000
-                  else
-                    revenue.to_i
-                  end
-      end
-    end
-
-
-    update_attributes!(:ttm_eps => ttm_eps,
-                       :book_value_per_share => book_value,
-                       :finantial_data_updated => Date.today,
-                       :revenue => revenue)
   end
 
-#/ End /Data retrenal methods ------------------------------------------------
-
-  # This method should be mixed in as module, or from some other external source
-  def min(a,b)
-    a < b ? a : b
-  end
-
-  def max(a,b)
-    a > b ? a : b
-  end
+  #/ End /Data retrenal methods ------------------------------------------------
 
   def to_param
     ticker

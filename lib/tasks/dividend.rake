@@ -17,28 +17,28 @@ namespace :dividend do
     puts "\n Getting dividends for #{ticker}"
     begin
       doc = Nokogiri::HTML(open(url))
+    rescue
+    else
+
+      # Better way to do this with css selectors?
+      dividends = doc.xpath('//tr').map {
+        |row| row.xpath('.//td/text()').map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
+
+
+      #remove th row
+      dividends.delete_at(0)
+      dividends.delete_at(0)
+
+      dividends.each do |d|
+        div=Dividend.create(:stock_id => stock.id,
+                            :date => d.first.to_date,
+                            :amount => d.last.delete!('$').to_f,
+                            :source => url)
+
+        puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
+      end
+
     end
-
-
-
-    # Better way to do this with css selectors?
-    dividends = doc.xpath('//tr').map {
-      |row| row.xpath('.//td/text()').map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
-
-
-    #remove th row
-    dividends.delete_at(0)
-    dividends.delete_at(0)
-
-    dividends.each do |d|
-      div=Dividend.create(:stock_id => stock.id,
-                      :date => d.first.to_date,
-                      :amount => d.last.delete!('$').to_f,
-                      :source => url)
-      puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
-    end
-
-
   end
 end
 
