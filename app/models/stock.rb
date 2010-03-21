@@ -24,6 +24,8 @@ class Stock < ActiveRecord::Base
   validates_presence_of :ticker
   validates_uniqueness_of :ticker
 
+  include DataScraper
+
 
   # 50 million dollars in 1972 adjusted for present day inflation
   # perhaps should also take in to account the growth of the market size itself?
@@ -103,46 +105,7 @@ class Stock < ActiveRecord::Base
 
   # How long is this object instance alive for
   def price
-    @price ||= get_price
-  end
-
-  def get_price
-    require 'nokogiri'
-    require 'open-uri'
-    url = "http://finance.yahoo.com/q?s=#{ticker}"
-
-    puts ticker
-    begin
-      doc = Nokogiri::HTML(open(url))
-    rescue OpenURI::HTTPError => e
-    else
-
-      if doc && doc.xpath('//tr')
-        tr = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Last Trade:" }
-        if tr
-          price = tr.xpath('./td').last.text.to_f
-        end
-      end
-    end
-    if price.nil?
-      url = "http://moneycentral.msn.com/detail/stock_quote?Symbol=#{ticker}&getquote=Get+Quote"
-       puts ticker
-      begin
-        doc = Nokogiri::HTML(open(url))
-      rescue OpenURI::HTTPError => e
-      else
-
-
-        #!!! change this to get the qute from msn
-        if doc && doc.xpath('//tr')
-          tr = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Last Trade:" }
-          if tr
-            price = tr.xpath('./td').last.text.to_f
-          end
-        end
-      end
-    end
-    price
+    @price ||= get_stock_price(ticker)
   end
 
   def newest_dividend

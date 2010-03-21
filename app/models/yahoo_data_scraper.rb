@@ -1,2 +1,0 @@
-class YahooDataScraper < DataScraper
-end
