@@ -1,0 +1,2 @@
+class YahooDataScraper < DataScraper
+end

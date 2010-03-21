@@ -1,23 +1,20 @@
 class StocksController < ApplicationController
-  # GET /stocks
-  # GET /stocks.xml
+
   def index
     @stocks = Stock.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @stocks }
-    end
   end
 
-  # GET /stocks/1
-  # GET /stocks/1.xml
-  def show
-    @stock = Stock.find(params[:id])
+  def bargains
+    @bargains = Stock.all.select{ |s| s.bargain? }
+  end
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @stock }
+  def show
+    # This acceps bot id and ticker to find the stock
+    # wrap this in a helper or before filter
+    if (params[:id]).to_i > 0
+      @stock = Stock.find_by_ticker(params[:id])
+    else
+      @stock = Stock.find_by_ticker(params[:id])
     end
   end
 

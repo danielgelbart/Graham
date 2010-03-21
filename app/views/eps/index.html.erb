@@ -1,0 +1,26 @@
+<h1>Listing eps</h1>
+
+<table>
+  <tr>
+    <th>Year</th>
+    <th>Eps</th>
+    <th>Eps diluted</th>
+    <th>Stock</th>
+  </tr>
+
+<% @eps.each do |ep| %>
+  <tr>
+    <td><%=h ep.year %></td>
+    <td><%=h ep.eps %></td>
+    <td><%=h ep.eps_diluted %></td>
+    <td><%=h ep.stock_id %></td>
+    <td><%= link_to 'Show', ep %></td>
+    <td><%= link_to 'Edit', edit_ep_path(ep) %></td>
+    <td><%= link_to 'Destroy', ep, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ep', new_ep_path %>

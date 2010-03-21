@@ -1,0 +1,23 @@
+<p>
+  <b>Year:</b>
+  <%=h @ep.year %>
+</p>
+
+<p>
+  <b>Eps:</b>
+  <%=h @ep.eps %>
+</p>
+
+<p>
+  <b>Eps diluted:</b>
+  <%=h @ep.eps_diluted %>
+</p>
+
+<p>
+  <b>Stock:</b>
+  <%=h @ep.stock_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_ep_path(@ep) %> |
+<%= link_to 'Back', eps_path %>

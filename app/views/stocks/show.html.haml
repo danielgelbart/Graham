@@ -1,0 +1,50 @@
+%p
+  Name:
+  =h @stock.name
+%p
+  Ticker:
+  =h @stock.ticker
+
+%table
+  %tr
+    %td
+      Big enough?
+    %td
+      = "#{yes_no(@stock.big_enough?)}, #{@stock.ticker} have a revenue of ?"
+  %tr
+    %td
+      Connservativly financed?
+    %td
+      = "#{yes_no(@stock.conservativly_financed?)}, #{@stock.ticker} has a book value/share of #{@stock.book_value_per_share}, and is trading at #{@stock.price}"
+  - if @stock.bargain?
+    %tr
+      %td
+        = "At that ratio, #{@stock.ticker} is a bargain!"
+  %tr
+    %td
+      Dividend record
+    %td
+      = @stock
+  - if @stock.price_limit >= 0
+    %tr
+      %td
+        Cheap?
+      %td
+        = "#{yes_no(@stock.cheap?)}, #{@stock.ticker} has a conservative/defensive limit buying price of #{@stock.price_limit}, and is trading at #{@stock.price}"
+  - else
+    %tr
+      %td
+        To many losses to recomend a buying price limit
+%p
+  Earnigs (12 month trailing per share):
+  =h @stock.ttm_eps
+
+%table.stock-list
+  - @stock.eps.each do |e|
+    %tr
+      %td
+        = e.year
+      %td
+        = e.eps
+
+= link_to 'Back', stocks_path

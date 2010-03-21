@@ -1,0 +1,33 @@
+%p Name:
+  =h @stock.name
+%p Ticker:
+  =h @stock.ticker
+
+%table
+  %tr
+    %td
+      Big enough?
+    %td
+      = @stock.big_enough?
+  %tr
+    %td
+      Connservativly financed?
+    %td
+      = @stock
+  %tr
+    %td
+      Bargain?
+    %td
+      = @stock
+  %tr
+    %td
+      Dividend record
+    %td
+      = @stock
+  %tr
+    %td
+      Cheap?
+    %td
+      = @stock
+
+= link_to 'Back', stocks_path
