@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100320003544) do
+ActiveRecord::Schema.define(:version => 20100324155212) do
 
   create_table "dividends", :force => true do |t|
     t.integer  "stock_id"
@@ -64,8 +64,13 @@ ActiveRecord::Schema.define(:version => 20100320003544) do
     t.decimal  "ttm_eps",                :precision => 12, :scale => 6
     t.decimal  "book_value_per_share",   :precision => 12, :scale => 6
     t.date     "finantial_data_updated"
-    t.integer  "revenue"
+    t.integer  "sales"
     t.integer  "dividends_per_year",                                    :default => 4
+    t.decimal  "latest_price",           :precision => 12, :scale => 6
+    t.integer  "assets"
+    t.string   "market_cap"
+    t.decimal  "ttm_div",                :precision => 10, :scale => 3
+    t.decimal  "yield",                  :precision => 6,  :scale => 3
   end
 
   create_table "transactions", :force => true do |t|

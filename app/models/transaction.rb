@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100317013419
+# Schema version: 20100324155212
 #
 # Table name: transactions
 #

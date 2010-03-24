@@ -8,6 +8,11 @@ class StocksController < ApplicationController
     @bargains = Stock.all.select{ |s| s.bargain? }
   end
 
+  def defensive_buys
+    @stocks = Stock.all.select{ |s| s.good_defensive_buy? }
+    @stocks = @stocks.sort_by{ |s| s.yield * -1}
+  end
+
   def show
     # This acceps bot id and ticker to find the stock
     # wrap this in a helper or before filter

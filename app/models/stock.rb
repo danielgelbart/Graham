@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100317013419
+# Schema version: 20100324155212
 #
 # Table name: stocks
 #
@@ -12,20 +12,26 @@
 #  ttm_eps                :decimal(12, 6)
 #  book_value_per_share   :decimal(12, 6)
 #  finantial_data_updated :date
-#  revenue                :integer(4)
+#  sales                  :integer(4)
+#  dividends_per_year     :integer(4)      default(4)
+#  latest_price           :decimal(12, 6)
+#  assets                 :integer(4)
+#  market_cap             :string(255)
+#  ttm_div                :decimal(10, 3)
+#  yield                  :decimal(6, 3)
 #
 
 class Stock < ActiveRecord::Base
   has_many :splits
   has_many :owned_stocks
   has_many :dividends
-  has_many :eps
+  has_many :eps, :dependent => :destroy
 
   validates_presence_of :ticker
   validates_uniqueness_of :ticker
 
   include DataScraper
-  include Math # adds min and max methods
+  #include MinMAx # adds min and max methods
 
   # 50 million dollars in 1972 adjusted for present day inflation
   # perhaps should also take in to account the growth of the market size itself?
@@ -34,13 +40,11 @@ class Stock < ActiveRecord::Base
 #/ Valuation methods ---------------------------------------------------------
 
   def big_enough?
-    # should be:
-    #  assets || sales >= MIN_SIZE
-    revenue  || 0 >= MIN_SIZE
+   # sales && assets && (sales >= MIN_SIZE || assets >= MIN_SIZE)
+    sales && sales >= MIN_SIZE
   end
 
   def bargain?
-    puts ticker
     price * 1.5 <= book_value_per_share
   end
 
@@ -51,15 +55,20 @@ class Stock < ActiveRecord::Base
     book_value_per_share * 2 > price
   end
 
+  # Not perfect but a quick and dirty little method
+  def long_divs?
+    !dividends.empty? && oldest_dividend.date < Date.today - 20.years
+  end
+
+  # Beware! does not include current year
   def continous_dividend_record?(years = 20)
     current_year = Date.today.year
-
     dg = dividends.group_by{ |d| d.date.year }
-    dg.reject{|dg| dg.size == current_yeat }.each do |year, divs|
-      divs.size == dividends_per_year
+
+    (current_year - years..current_year - 1).each do |year|
+      return false if !(!dg[year].nil? && dg[year].size >= 2)
     end
-    # update_dividends
-    Date.today - max(365 / dividends_per_year, 120 ).days > newest_dividend.date
+    true
   end
 
   def cheap?
@@ -74,7 +83,7 @@ class Stock < ActiveRecord::Base
   end
 
   def good_defensive_stock?
-    big_enough? && conservativly_financed? && countinous_dividend_record?
+    big_enough? && conservativly_financed? && continous_dividend_record? #eps
   end
 
   def good_defensive_buy?
@@ -101,15 +110,24 @@ class Stock < ActiveRecord::Base
   #/ Data retrenal methods ----------------------------------------------------
 
   def price
-    @price ||= get_stock_price
+    @price ||= latest_price
   end
 
   def update_price
-    @price = get_stock_price
+    p = get_stock_price
+    if p
+      update_attribute!(:latest_price => p)
+      @price = p
+    end
+    price
   end
 
   def newest_dividend
     dividends.sort_by{ |d| d.date }.last
+  end
+
+  def oldest_dividend
+    dividends.sort_by{ |d| d.date }.first
   end
 
   def update_dividends
@@ -121,18 +139,40 @@ class Stock < ActiveRecord::Base
   def update_current_data
     ttm_eps = get_eps
     book_value = get_book_value
+    sales = get_sales
+    div = get_ttm_div
+
+
+    puts ticker
 
     if ttm_eps && book_value
       update_attributes!(:ttm_eps => ttm_eps,
                          :book_value_per_share => book_value,
+                         :sales => sales,
                          :finantial_data_updated => Date.today)
+    end
+
+    def update_price_data
+      update_price
+      get_market_cap
     end
   end
 
   #/ End /Data retrenal methods ------------------------------------------------
 
+  def dividend_url
+    "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
+  end
+
   def to_param
     ticker
   end
 
+  def min(a,b)
+    a < b ? a : b
+  end
+
+  def max(a,b)
+    a > b ? a : b
+  end
 end

@@ -4,13 +4,13 @@
 %p
   Ticker:
   =h @stock.ticker
-
+  = link_to "on_google", "http://www.google.com/finance?q=#{@stock.ticker}"
 %table
   %tr
     %td
       Big enough?
     %td
-      = "#{yes_no(@stock.big_enough?)}, #{@stock.ticker} have a revenue of ?"
+      = "#{yes_no(@stock.big_enough?)}, #{@stock.ticker} have a revenue of #{@stock.sales}"
   %tr
     %td
       Connservativly financed?
@@ -24,7 +24,9 @@
     %td
       Dividend record
     %td
-      = @stock
+      = yes_no(!@stock.dividends.empty?)
+    %td
+      = link_to "Dividends", @stock.dividend_url
   - if @stock.price_limit >= 0
     %tr
       %td
@@ -38,6 +40,9 @@
 %p
   Earnigs (12 month trailing per share):
   =h @stock.ttm_eps
+%p
+  Earnigs average per share, past 7 years:
+  =h short_float(@stock.historic_eps(7))
 
 %table.stock-list
   - @stock.eps.each do |e|

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100317013419
+# Schema version: 20100324155212
 #
 # Table name: stocks
 #
@@ -12,7 +12,13 @@
 #  ttm_eps                :decimal(12, 6)
 #  book_value_per_share   :decimal(12, 6)
 #  finantial_data_updated :date
-#  revenue                :integer(4)
+#  sales                  :integer(4)
+#  dividends_per_year     :integer(4)      default(4)
+#  latest_price           :decimal(12, 6)
+#  assets                 :integer(4)
+#  market_cap             :string(255)
+#  ttm_div                :decimal(10, 3)
+#  yield                  :decimal(6, 3)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :eps
+
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -41,29 +41,15 @@ ActionController::Routing::Routes.draw do |map|
   :transactions,
   :stocks,
   :stocks,
-  :splits
+  :splits,
+  :eps
 
-
+  map.defensive_buys 'defensive_buys',
+  :controller => 'stocks',
+  :action => 'defensive_buys'
   map.new_buy_trnasaction ':portfolio_id/new_transaction/:type',
-        :controller => 'transactions',
-        :action => 'new'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  :controller => 'transactions',
+  :action => 'new'
 
 
 
