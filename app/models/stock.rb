@@ -35,30 +35,42 @@ class Stock < ActiveRecord::Base
 
   # 50 million dollars in 1972 adjusted for present day inflation
   # perhaps should also take in to account the growth of the market size itself?
-  MIN_SIZE = 250000000
+  MIN_SALES = 500000000
+  MIN_ASSETS = 250000000
 
 #/ Valuation methods ---------------------------------------------------------
 
+  # 1) Adequate size
   def big_enough?
    # sales && assets && (sales >= MIN_SIZE || assets >= MIN_SIZE)
-    sales && sales >= MIN_SIZE
+    sales && sales >= MIN_SALES
   end
 
-  def bargain?
-    price * 1.5 <= book_value_per_share
+  # 2) Finantialy stong
+  # assets > liabilaties * 2   # For industrial
+  # debt < assets
+  # debt < 2 * stock equity (at book value) # for public utilities
+
+
+  # Implement! --------------*******!!!!!!!!!*********------------------
+  def finantialy_strong?
+    true
+  end
+  # Implement! --------------*******!!!!!!!!!*********------------------
+
+
+
+
+  # 3) Earnings stability
+  # No loses in past 10 years
+  def no_earnings_deficit?
+    earning_deficit = eps.select{ |e| e.eps < 0 }
+    earning_deficit.empty?
   end
 
-  # This is from page 62 of "Inteligent investor":
-  # "An industrial company's finances are not conservative unless the common stock (at book value) represents at least half of the total capitalization, including all bank debt."
-  # currently understood to mean that book value is at least half of price
-  def conservativly_financed?
-    book_value_per_share * 2 > price
-  end
-
-  # Not perfect but a quick and dirty little method
-  def long_divs?
-    !dividends.empty? && oldest_dividend.date < Date.today - 20.years
-  end
+  # 4) Continuos dividend record
+  # This is pushed as the most important
+  # Shold have uninterupted dividends over past 20 years
 
   # Beware! does not include current year
   def continous_dividend_record?(years = 20)
@@ -71,19 +83,37 @@ class Stock < ActiveRecord::Base
     true
   end
 
+  # 5) Earnings growth
+  # This needs to be adjusted for stock splits/new offers/float ?
+  def eps_growth?
+    epss = eps.sort_by{ |e| e.year }
+    eps_avg(epss.first(3)) * 1.3 <= eps_avg(epss.last(3))
+  end
+
+  # 6) Moderate price (to earnings)
+  # Upper price limit should be no more than:
+  # 25 times average earnings over past 7 years, and
+  # 20 times arerage earnings over past 1 year.
+
+  # second criteria from page 182
+  def price_limit
+    lim = min( historic_eps(7)*25, ttm_eps*20 )
+    min( historic_eps(3) * 15, lim ) # second criteria from page 182
+  end
+
+  # 7) Moderate price (to book)
+  def asset_to_price_ratio?
+    price / ttm_eps * ( price / book_value_per_share ) <= 22.5
+  end
+
+  # / End, Defensive buy breackdown---------------------------------------
+
   def cheap?
     price < price_limit
   end
 
-  # Upper price limit should be no more than:
-  # 25 times average earnings over past 7 years, and
-  # 20 times arerage earnings over past 1 year.
-  def price_limit
-    min( historic_eps(7)*25, ttm_eps*20 )
-  end
-
   def good_defensive_stock?
-    big_enough? && conservativly_financed? && continous_dividend_record? #eps
+    big_enough? && no_earnings_deficit? && eps_growth? && conservativly_financed? && continous_dividend_record? && asset_to_price_ratio? #eps
   end
 
   def good_defensive_buy?
@@ -107,7 +137,18 @@ class Stock < ActiveRecord::Base
     !ttm_eps.nil? && ttm_eps != 0
   end
 
-  #/ Data retrenal methods ----------------------------------------------------
+  def bargain?
+    price * 1.5 <= book_value_per_share
+  end
+
+  # This is from page 62 of "Inteligent investor":
+  # "An industrial company's finances are not conservative unless the common stock (at book value) represents at least half of the total capitalization, including all bank debt."
+  # currently understood to mean that book value is at least half of price
+  def conservativly_financed?
+    book_value_per_share * 1.5 >= price
+  end
+
+  #/ Data retreval methods ----------------------------------------------------
 
   def price
     @price ||= latest_price
@@ -116,7 +157,7 @@ class Stock < ActiveRecord::Base
   def update_price
     p = get_stock_price
     if p
-      update_attribute!(:latest_price => p)
+      update_attributes!(:latest_price => p)
       @price = p
     end
     price
@@ -141,9 +182,6 @@ class Stock < ActiveRecord::Base
     book_value = get_book_value
     sales = get_sales
     div = get_ttm_div
-
-
-    puts ticker
 
     if ttm_eps && book_value
       update_attributes!(:ttm_eps => ttm_eps,
@@ -174,5 +212,9 @@ class Stock < ActiveRecord::Base
 
   def max(a,b)
     a > b ? a : b
+  end
+
+  def eps_avg(set)
+    set.inject(0.0){|sum, e| sum + e.eps} / set.size
   end
 end

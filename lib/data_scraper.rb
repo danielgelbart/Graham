@@ -19,7 +19,7 @@ module DataScraper
   end
 
   def get_eps
-    ttm_eps = get_eps_from_msn
+    ttm_eps = get_eps_from_msn if ttm_eps.nil?
     ttm_eps = get_eps_from_yahoo if ttm_eps.nil?
     ttm_eps
   end
@@ -103,6 +103,8 @@ module DataScraper
   end
 
 # eps scrapers --------------------------------------------------------
+
+
 
   def get_eps_from_msn
     url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
