@@ -1,0 +1,123 @@
+Script started on Wed 31 Mar 2010 05:45:11 AM EDT
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git pushcommit -a -m "Added to defensive buying algoritheem"[A]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ [C[C[C[Cpush[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K script generate model balance_sheet ticker_id:integ er year:integer current_assets:bigint total_assets:bigint current_liabilities:bi gint total_liabilities:bigint long_term_debt:bigint sh_qyu[K[Kuity:bigint[A[A[C[C[C[C[C[C[C[Cgenerate model balance_sheet ticker_id:integer year:integer current_assets:bigint total_assets:bigint current_liabilities:bigi[1P[A[A]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ [C[C[C[C[C[C[C/generate model balance_sheet ticker_id:integer year:integer current_assets:bigint total_assets:bigint current_liabilities:big[1@i[A[A]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ [C[C[C[C[C[C[C[C
+
+
+      exists  app/models/
+      exists  test/unit/
+      exists  test/fixtures/
+      create  app/models/balance_sheet.rb
+      create  test/unit/balance_sheet_test.rb
+      create  test/fixtures/balance_sheets.yml
+      exists  db/migrate
+      create  db/migrate/20100331094540_create_balance_sheets.rb
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ emacs app/mi[Kodels/balance_sheet.rb &
+[1] 8179
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake f[Kdb:migrate
+(in /home/dani/rails/graham)
+==  AddToStocks: migrating ====================================================
+==  AddToStocks: migrated (0.0000s) ===========================================
+
+==  CreateBalanceSheets: migrating ============================================
+-- create_table(:balance_sheets)
+   -> 0.0347s
+==  CreateBalanceSheets: migrated (0.0354s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake abb[K[Knnotate_models
+(in /home/dani/rails/graham)
+Annotating OwnedStock
+Annotating Ep
+Annotating Dividend
+Annotating Stock
+Annotating BalanceSheet
+Annotating User
+Annotating Portfolio
+Annotating Transaction
+Annotating Split
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake annotate_models[5Pdb:migrate:down VERSION=20100331094540
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: reverting ============================================
+-- drop_table(:balance_sheets)
+   -> 0.0016s
+==  CreateBalanceSheets: reverted (0.0019s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540u VERSION=20100331094540p VERSION=20100331094540
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: migrating ============================================
+-- create_table(:balance_sheets)
+   -> 0.0080s
+==  CreateBalanceSheets: migrated (0.0081s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:up VERSION=20100331094540[2@down[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: reverting ============================================
+-- drop_table(:balance_sheets)
+   -> 0.0037s
+==  CreateBalanceSheets: reverted (0.0039s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: migls/grahamdani@ubuntu:~/rails/graham$ rake abb[K[Knnotate_models
+(in /home/dani/rails/graham)
+Annotating OwnedStock
+Annotating Ep
+Annotating Dividend
+Annotating Stock
+Annotating BalanceSheet
+Annotating User
+Annotating Portfolio
+Annotating Transaction
+Annotating Split
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake annotate_models[5Pdb:migrate:down VERSION=20100331094540
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: reverting ============================================
+-- drop_table(:balance_sheets)
+   -> 0.0016s
+==  CreateBalanceSheets: reverted (0.0019s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540u VERSION=20100331094540p VERSION=20100331094540
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: migrating ============================================
+-- create_table(:balance_sheets)
+   -> 0.0080s
+==  CreateBalanceSheets: migrated (0.0081s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:up VERSION=20100331094540[2@down[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: reverting ============================================
+-- drop_table(:balance_sheets)
+   -> 0.0037s
+==  CreateBalanceSheets: reverted (0.0039s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: migrating ============================================
+-- create_table(:balance_sheets)
+   -> 0.0042s
+==  CreateBalanceSheets: migrated (0.0045s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:up VERSION=20100331094540[2@down[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@down[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: reverting ============================================
+-- drop_table(:balance_sheets)
+   -> 0.0063s
+==  CreateBalanceSheets: reverted (0.0064s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: migrating ============================================
+-- create_table(:balance_sheets)
+   -> 0.0033s
+==  CreateBalanceSheets: migrated (0.0035s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:up VERSION=20100331094540[2@down[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: reverting ============================================
+-- drop_table(:balance_sheets)
+   -> 0.0063s
+==  CreateBalanceSheets: reverted (0.0065s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+(in /home/dani/rails/graham)
+==  CreateBalanceSheets: migrating ============================================
+-- c

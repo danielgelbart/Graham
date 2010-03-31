@@ -9,7 +9,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100324155212) do
+ActiveRecord::Schema.define(:version => 20100331094540) do
+
+  create_table "balance_sheets", :force => true do |t|
+    t.integer  "stock_id"
+    t.integer  "year"
+    t.string   "current_assets"
+    t.string   "total_assets"
+    t.string   "current_liabilities"
+    t.string   "total_liabilities"
+    t.string   "long_term_debt"
+    t.string   "book_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "dividends", :force => true do |t|
     t.integer  "stock_id"

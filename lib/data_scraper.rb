@@ -32,7 +32,11 @@ module DataScraper
     get_float_from_yahoo
   end
 
-#  private
+  def get_bs
+    get_balance_from_yahoo
+  end
+
+  private
 
   def open_url_or_nil(url)
     begin
@@ -193,16 +197,70 @@ module DataScraper
   def get_market_cap
     url = "http://finance.yahoo.com/q?s=#{ticker}"
     doc = open_url_or_nil(url)
-    begin
+    if doc
       mc = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Market Cap:" }.xpath('./td').text
-    rescue
     end
 
-    puts mc
     update_attributes!(:market_cap => mc)
-
   end
 
+  # Balace sheet ---------------------------------------------------------------
 
+  def get_balance_from_yahoo
+    url = "http://finance.yahoo.com/q/bs?s=#{ticker}&annual"
+    doc = open_url_or_nil(url)
+puts ticker
+
+    if doc
+
+      ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Current Assets" }
+      ca = ca.xpath('./td') if ca
+
+      ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Assets" }
+      ta = ta.xpath('./td') if ta
+
+      cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Current Liabilities" }
+      cl = cl.xpath('./td') if cl
+
+      tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Liabilities" }
+      tl = tl.xpath('./td') if tl
+
+      ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Long Term Debt" }
+      ltd = ltd.xpath('./td') if ltd
+
+      bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Stockholder Equity" }
+      bv = bv.xpath('./td') if bv
+
+    end
+
+
+    # Yahoo gives numbers in thousands, so we will add ,000
+    ex = ",000"
+    year = 2010
+
+    if ca && tl
+
+      puts ca
+
+      (1..3).each do |i|
+        if ca[i]
+
+        BalanceSheet.create(:stock_id => self.id,
+                        :year => year - i,
+                        :current_assets => (clean_string(ca[i].text) + ex).gsub(",",""),
+                        :total_assets => (clean_string(ta[i].text) + ex).gsub(",",""),
+                        :current_liabilities => (clean_string(cl[i].text) + ex).gsub(",",""),
+                        :total_liabilities => (clean_string(tl[i].text) + ex).gsub(",",""),
+                        :long_term_debt => (clean_string(ltd[i].text) + ex).gsub(",",""),
+                        :book_value => (clean_string(bv[i].text) + ex).gsub(",",""))
+
+        end
+      end
+    end
+  end
+
+  def clean_string(string)
+    string.gsub(/\302|\240/,"").strip
+  end
 end
 

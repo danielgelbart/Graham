@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100324155212
+# Schema version: 20100331094540
 #
 # Table name: stocks
 #
@@ -26,6 +26,7 @@ class Stock < ActiveRecord::Base
   has_many :owned_stocks
   has_many :dividends
   has_many :eps, :dependent => :destroy
+  has_many :balance_sheets
 
   validates_presence_of :ticker
   validates_uniqueness_of :ticker
@@ -47,17 +48,21 @@ class Stock < ActiveRecord::Base
   end
 
   # 2) Finantialy stong
-  # assets > liabilaties * 2   # For industrial
-  # debt < assets
+  # current assets > current liabilaties * 2   # For industrial
+  # long term debt < current assets
+
   # debt < 2 * stock equity (at book value) # for public utilities
 
-
-  # Implement! --------------*******!!!!!!!!!*********------------------
   def finantialy_strong?
-    true
+    bs = latest_balance_sheet
+    if bs
+      alr = bs.assets_c >= bs.liabilities_c * 2 if bs.assets_c && bs.liabilities_c
+      alr = bs.assets_t >= bs.liabilities_t * 2 if alr.nil? && bs.assets_t && bs.liabilities_t
+      dr = bs.debt < bs.assets_c if bs.debt && bs.assets_c
+      dr = bs.debt < bs.assets_t if dr.nil? && bs.debt && bs.assets_t
+    end
+    (alr && dr) || false
   end
-  # Implement! --------------*******!!!!!!!!!*********------------------
-
 
 
 
@@ -113,7 +118,7 @@ class Stock < ActiveRecord::Base
   end
 
   def good_defensive_stock?
-    big_enough? && no_earnings_deficit? && eps_growth? && conservativly_financed? && continous_dividend_record? && asset_to_price_ratio? #eps
+    big_enough? &&  finantialy_strong? && no_earnings_deficit? && eps_growth? && conservativly_financed? && continous_dividend_record? && asset_to_price_ratio? #eps
   end
 
   def good_defensive_buy?
@@ -197,6 +202,9 @@ class Stock < ActiveRecord::Base
   end
 
   #/ End /Data retrenal methods ------------------------------------------------
+  def latest_balance_sheet
+    balance_sheets.detect{ |bs| bs.year == Date.today.year - 1}
+  end
 
   def dividend_url
     "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"

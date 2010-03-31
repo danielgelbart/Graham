@@ -1,0 +1,39 @@
+# == Schema Information
+# Schema version: 20100331094540
+#
+# Table name: balance_sheets
+#
+#  id                  :integer(4)      not null, primary key
+#  stock_id            :integer(4)
+#  year                :integer(4)
+#  current_assets      :string(255)
+#  total_assets        :string(255)
+#  current_liabilities :string(255)
+#  total_liabilities   :string(255)
+#  long_term_debt      :string(255)
+#  book_value          :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ticker_id: 1
+  year: 1
+  current_assets: 
+  total_assets: 
+  current_liabilities: 
+  total_liabilities: 
+  long_term_debt: 
+  sh_quity: 
+
+two:
+  ticker_id: 1
+  year: 1
+  current_assets: 
+  total_assets: 
+  current_liabilities: 
+  total_liabilities: 
+  long_term_debt: 
+  sh_quity: 
