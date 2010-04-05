@@ -5,6 +5,12 @@ module DataScraper
   MILLION = 1000000
   BILLION = 1000000000
 
+  def update_all_data
+    get_balance_sheets
+    get_ttm_eps
+    get_stock_price
+  end
+
   def get_stock_price
     price = get_price_from_yahoo
     price = get_price_from_google if price.nil?
@@ -32,9 +38,12 @@ module DataScraper
     get_float_from_yahoo
   end
 
-  def get_bs
-    get_balance_from_yahoo
+  def get_balance_sheets
+    a = get_bs_from_msn
+    get_balance_from_yahoo if a.nil?
   end
+
+
 
   private
 
@@ -149,7 +158,7 @@ module DataScraper
               end
     rescue
     end
-    sales.to_i
+    sales.to_i if sales
   end
 
   # float/shares outstanding scrapers ---------------------------------------
@@ -206,6 +215,59 @@ module DataScraper
 
   # Balace sheet ---------------------------------------------------------------
 
+  def get_bs_from_msn
+    url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?Symbol=US%3a#{ticker}&lstStatement=Balance&stmtView=Ann"
+
+    doc = open_url_or_nil(url)
+
+
+    if doc
+      ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Current Assets" }
+      ca = ca.xpath('./td') if ca
+
+      ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Assets" }
+      ta = ta.xpath('./td') if ta
+
+      cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Current Liabilities" }
+      cl = cl.xpath('./td') if cl
+
+      tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Liabilities" }
+      tl = tl.xpath('./td') if tl
+
+      ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Long Term Debt" }
+      ltd = ltd.xpath('./td') if ltd
+
+      bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Equity" }
+      bv = bv.xpath('./td') if bv
+
+    end
+
+  # Msn gives numbers in millions, so we will multiply by 1000000
+    year = 2010
+
+    if ca && tl
+
+      puts ca
+
+      (1..5).each do |i|
+        BalanceSheet.create(:stock_id => self.id,
+                        :year => year - i,
+                        :current_assets => (clean_string(ca[i].text).to_f.round * MILLION).to_s,
+                        :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
+                        :current_liabilities => (clean_string(cl[i].text).to_f.round * MILLION).to_s,
+                        :total_liabilities => (clean_string(tl[i].text).to_f.round * MILLION).to_s,
+                        :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
+                        :net_tangible_assets => (( clean_string(ca[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s,
+                        :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
+
+      end
+    end
+
+
+  end
+
+
+
   def get_balance_from_yahoo
     url = "http://finance.yahoo.com/q/bs?s=#{ticker}&annual"
     doc = open_url_or_nil(url)
@@ -228,8 +290,12 @@ puts ticker
       ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Long Term Debt" }
       ltd = ltd.xpath('./td') if ltd
 
-      bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Stockholder Equity" }
+      nta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Stockholder Equity" }
+      nta = nta.xpath('./td') if nta
+
+      bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Net Tangible Assets" }
       bv = bv.xpath('./td') if bv
+
 
     end
 
@@ -252,6 +318,8 @@ puts ticker
                         :current_liabilities => (clean_string(cl[i].text) + ex).gsub(",",""),
                         :total_liabilities => (clean_string(tl[i].text) + ex).gsub(",",""),
                         :long_term_debt => (clean_string(ltd[i].text) + ex).gsub(",",""),
+                        :net_tangible_assets => (clean_string(nta[i].text) + ex).gsub(/,|\$/,""),
+
                         :book_value => (clean_string(bv[i].text) + ex).gsub(",",""))
 
         end
@@ -259,8 +327,67 @@ puts ticker
     end
   end
 
+  def get_div_and_yield
+     url = "http://finance.yahoo.com/q?s=#{ticker}"
+    doc = open_url_or_nil(url)
+    begin
+      div = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Div & Yield:" }.xpath('./td').text
+    rescue
+    end
+
+    if div
+      ttm_div = div.split.first.to_f
+      y = div.split.last.gsub(/[(|)|%]/,"").to_f
+
+      update_attributes(:ttm_div => ttm_div,
+                        :yield => y)
+    end
+  end
+
+  def get_market_cap
+    url = "http://finance.yahoo.com/q?s=#{ticker}"
+    doc = open_url_or_nil(url)
+    if doc
+      mc = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Market Cap:" }.xpath('./td').text
+    end
+
+    update_attributes!(:market_cap => mc)
+  end
+
+  # Balace sheet ---------------------------------------------------------------
+
+  def g_nc
+    url = "http://finance.yahoo.com/q/bs?s=#{ticker}&annual"
+    doc = open_url_or_nil(url)
+    puts ticker
+
+    if doc
+      nta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Net Tangible Assets" }
+      nta = nta.xpath('./td') if nta
+    end
+
+
+    # Yahoo gives numbers in thousands, so we will add ,000
+    ex = "000"
+
+
+    if nta
+
+      puts nta
+
+      bss = balance_sheets.sort_by{ |b| b.year * -1 }
+      i = 1
+
+      bss.each do |bs|
+        bs.update_attributes(:net_tangible_assets =>  (clean_string(nta[i].text) + ex).gsub(/,|\$/,"") )
+        i = i + 1
+      end
+    end
+  end
+
+
   def clean_string(string)
-    string.gsub(/\302|\240/,"").strip
+    string.gsub(/\302|\240|,/,"").strip
   end
 end
 

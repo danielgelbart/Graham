@@ -57,40 +57,6 @@ Annotating Split
 
 ]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
 (in /home/dani/rails/graham)
-==  CreateBalanceSheets: migls/grahamdani@ubuntu:~/rails/graham$ rake abb[K[Knnotate_models
-(in /home/dani/rails/graham)
-Annotating OwnedStock
-Annotating Ep
-Annotating Dividend
-Annotating Stock
-Annotating BalanceSheet
-Annotating User
-Annotating Portfolio
-Annotating Transaction
-Annotating Split
-]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake annotate_models[5Pdb:migrate:down VERSION=20100331094540
-(in /home/dani/rails/graham)
-==  CreateBalanceSheets: reverting ============================================
--- drop_table(:balance_sheets)
-   -> 0.0016s
-==  CreateBalanceSheets: reverted (0.0019s) ===================================
-
-]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540[1P VERSION=20100331094540u VERSION=20100331094540p VERSION=20100331094540
-(in /home/dani/rails/graham)
-==  CreateBalanceSheets: migrating ============================================
--- create_table(:balance_sheets)
-   -> 0.0080s
-==  CreateBalanceSheets: migrated (0.0081s) ===================================
-
-]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:up VERSION=20100331094540[2@down[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-(in /home/dani/rails/graham)
-==  CreateBalanceSheets: reverting ============================================
--- drop_table(:balance_sheets)
-   -> 0.0037s
-==  CreateBalanceSheets: reverted (0.0039s) ===================================
-
-]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-(in /home/dani/rails/graham)
 ==  CreateBalanceSheets: migrating ============================================
 -- create_table(:balance_sheets)
    -> 0.0042s
@@ -120,4 +86,71 @@ Annotating Split
 ]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migrate:down VERSION=20100331094540[2Pup[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
 (in /home/dani/rails/graham)
 ==  CreateBalanceSheets: migrating ============================================
--- c
+-- create_table(:balance_sheets)
+   -> 0.0044s
+==  CreateBalanceSheets: migrated (0.0048s) ===================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake abb[K[Knnotate_models
+(in /home/dani/rails/graham)
+Annotating OwnedStock
+Annotating Ep
+Annotating Dividend
+Annotating Stock
+Annotating BalanceSheet
+Annotating User
+Annotating Portfolio
+Annotating Transaction
+Annotating Split
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git add .
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git add .
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git commit -a -m "asse[K[K[Kcompleted assetsa [K[K and liabilities  integration
+> "
+
+Created commit 02a6c1d: acompleted assets and liabilities integration
+ 27 files changed, 10823 insertions(+), 30 deletions(-)
+ create mode 100644 app/models/balance_sheet.rb
+ create mode 100644 app/models/balance_sheet.rb~
+ create mode 100644 db/migrate/20100331094540_create_balance_sheets.rb
+ create mode 100644 db/migrate/20100331094540_create_balance_sheets.rb~
+ create mode 100644 generate
+ create mode 100644 lib/sting_to_num_translater.rb
+ create mode 100644 test/fixtures/balance_sheets.yml
+ create mode 100644 test/unit/balance_sheet_test.rb
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ 
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git ststaus
+git: 'ststaus' is not a git-command. See 'git --help'.
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git ststaus[1Ps[1Psus
+git: 'ststus' is not a git-command. See 'git --help'.
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git ststus[1Ptusatus
+# On branch master
+nothing to commit (working directory clean)
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ git push
+Counting objects: 67, done.
+Compressing objects:   2% (1/37)   Compressing objects:   5% (2/37)   Compressing objects:   8% (3/37)   Compressing objects:  10% (4/37)   Compressing objects:  13% (5/37)   Compressing objects:  16% (6/37)   Compressing objects:  18% (7/37)   Compressing objects:  21% (8/37)   Compressing objects:  24% (9/37)   Compressing objects:  27% (10/37)   Compressing objects:  29% (11/37)   Compressing objects:  32% (12/37)   Compressing objects:  35% (13/37)   Compressing objects:  37% (14/37)   Compressing objects:  40% (15/37)   Compressing objects:  43% (16/37)   Compressing objects:  45% (17/37)   Compressing objects:  48% (18/37)   Compressing objects:  51% (19/37)   Compressing objects:  54% (20/37)   Compressing objects:  56% (21/37)   Compressing objects:  59% (22/37)   Compressing objects:  62% (23/37)   Compressing objects:  64% (24/37)   Compressing objects:  67% (25/37)   Compressing objects:  70% (26/37)   Compressing objects:  72% (27/37)   Compressing objects:  75% (28/37)   Compressing objects:  78% (29/37)   Compressing objects:  81% (30/37)   Compressing objects:  83% (31/37)   Compressing objects:  86% (32/37)   Compressing objects:  89% (33/37)   Compressing objects:  91% (34/37)   Compressing objects:  94% (35/37)   Compressing objects:  97% (36/37)   Compressing objects: 100% (37/37)   Compressing objects: 100% (37/37), done.
+Writing objects:   2% (1/38)   Writing objects:   5% (2/38)   Writing objects:   7% (3/38)   Writing objects:  10% (4/38)   Writing objects:  13% (5/38)   Writing objects:  15% (6/38)   Writing objects:  18% (7/38)   Writing objects:  21% (8/38)   Writing objects:  23% (9/38)   Writing objects:  26% (10/38)   Writing objects:  28% (11/38)   Writing objects:  31% (12/38)   Writing objects:  34% (13/38)   Writing objects:  36% (14/38)   Writing objects:  39% (15/38)   Writing objects:  42% (16/38)   Writing objects:  44% (17/38)   Writing objects:  47% (18/38)   Writing objects:  50% (19/38)   Writing objects:  52% (20/38)   Writing objects:  55% (21/38)   Writing objects:  57% (22/38)   Writing objects:  60% (23/38)   Writing objects:  63% (24/38)   Writing objects:  65% (25/38)   Writing objects:  68% (26/38)   Writing objects:  71% (27/38)   Writing objects:  73% (28/38)   Writing objects:  76% (29/38)   Writing objects:  78% (30/38)   Writing objects:  81% (31/38)   Writing objects:  84% (32/38)   Writing objects:  86% (33/38)   Writing objects:  89% (34/38)   Writing objects:  92% (35/38)   Writing objects:  94% (36/38)   Writing objects:  97% (37/38)   Writing objects: 100% (38/38)   Writing objects: 100% (38/38), 108.56 KiB, done.
+Total 38 (delta 25), reused 0 (delta 0)
+To git@github.com:danielgelbart/Graham.git
+   b315bfe..02a6c1d  master -> master
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ mv app/views/stocks/defensive_stock.html.haml app/vi ews/stocks/defensive_stock.html.hamls.html.haml
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ script/generate migration net_tangiblesanet_tangiblesdnet_tangiblesdnet_tangibles_net_tangibles
+      exists  db/migrate
+      create  db/migrate/20100401155417_add_net_tangibles.rb
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ raje [K[K[Kke db:migratae
+(in /home/dani/rails/graham)
+rake aborted!
+Don't know how to build task 'db:migratae'
+
+(See full trace by running task with --trace)
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ rake db:migratae[1Pe
+(in /home/dani/rails/graham)
+==  AddNetTangibles: migrating ================================================
+-- add_column(:balance_sheets, :net_tangible_assets, :string)
+   -> 0.1441s
+==  AddNetTangibles: migrated (0.1444s) =======================================
+
+]0;dani@ubuntu: ~/rails/grahamdani@ubuntu:~/rails/graham$ annotat_mi[Kodelsrannotat_models[Cannotat_modelskannotat_modelseannotat_models annotat_models
+(in /home/dani/rails/graham)
+rake aborted!
+Don't know how to build task 'annotat_models'
+
+(See fu

@@ -8,10 +8,28 @@ class StocksController < ApplicationController
     @bargains = Stock.all.select{ |s| s.bargain? }
   end
 
+  def ncavs
+    @stocks = Stock.all.select{ |s| s.latest_balance_sheet && s.ncav && s.translate_to_int(s.market_cap) != nil }
+    @stocks = @stocks.select{ |s| s.ncav_ratio <= 1.1 }
+  end
+
   def defensive_buys
     @stocks = Stock.all.select{ |s| s.good_defensive_buy? }
     @stocks = @stocks.sort_by{ |s| s.yield * -1}
   end
+
+  def defensive_stocks
+    @stocks = Stock.all.select{ |s| s.good_defensive_stock? }
+    @stocks = @stocks.sort_by{ |s| s.yield * -1}
+  end
+
+  def aggeresive_stocks
+  end
+
+  def aggeresive_buys
+  end
+
+
 
   def show
     # This acceps bot id and ticker to find the stock

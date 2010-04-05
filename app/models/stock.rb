@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100331094540
+# Schema version: 20100401155417
 #
 # Table name: stocks
 #
@@ -47,13 +47,13 @@ class Stock < ActiveRecord::Base
     sales && sales >= MIN_SALES
   end
 
-  # 2) Finantialy stong
+  # 2) Finantialy strong
   # current assets > current liabilaties * 2   # For industrial
   # long term debt < current assets
 
   # debt < 2 * stock equity (at book value) # for public utilities
 
-  def finantialy_strong?
+  def financialy_strong?
     bs = latest_balance_sheet
     if bs
       alr = bs.assets_c >= bs.liabilities_c * 2 if bs.assets_c && bs.liabilities_c
@@ -118,11 +118,11 @@ class Stock < ActiveRecord::Base
   end
 
   def good_defensive_stock?
-    big_enough? &&  finantialy_strong? && no_earnings_deficit? && eps_growth? && conservativly_financed? && continous_dividend_record? && asset_to_price_ratio? #eps
+    big_enough? && financialy_strong? && no_earnings_deficit? && eps_growth? && continous_dividend_record?
   end
 
   def good_defensive_buy?
-    good_defensive_stock? && cheap?
+    good_defensive_stock? && cheap? && asset_to_price_ratio?
   end
 
   # How to give this method a dynamic name like historic_eps_7_years_back?
@@ -204,6 +204,28 @@ class Stock < ActiveRecord::Base
   #/ End /Data retrenal methods ------------------------------------------------
   def latest_balance_sheet
     balance_sheets.detect{ |bs| bs.year == Date.today.year - 1}
+  end
+
+  def ncav
+    latest_balance_sheet.ncav
+  end
+
+  def ncav_ratio
+    translate_to_int(market_cap) / ncav
+  end
+
+  def translate_to_int(str)
+    if str.match(/\d+\.\d+\w/)
+      res = case str.chop
+            when "B"
+              str.chop.to_f * BILLION
+            when "M"
+               str.chop.to_f * MILLION
+            else
+              str.chop.to_f * BILLION
+            end
+      return res
+    end
   end
 
   def dividend_url

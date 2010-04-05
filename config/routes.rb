@@ -43,7 +43,9 @@ ActionController::Routing::Routes.draw do |map|
   :stocks,
   :splits,
   :eps
-
+  map.defensive_stocks 'defensive_stocks',
+  :controller => 'stocks',
+  :action => 'defensive_stocks'
   map.defensive_buys 'defensive_buys',
   :controller => 'stocks',
   :action => 'defensive_buys'
