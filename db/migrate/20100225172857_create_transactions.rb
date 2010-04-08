@@ -5,9 +5,9 @@ class CreateTransactions < ActiveRecord::Migration
       t.decimal :comission, :precision => 10, :scale => 2
       t.integer :stock_id
       t.integer :shares
-      t.bollean :type
+      t.boolean :type
       t.decimal :price, :precision => 10, :scale => 2
-
+      t.integer :portfolio_id
       t.timestamps
     end
   end

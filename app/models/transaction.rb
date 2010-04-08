@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100401155417
+# Schema version: 20100408183735
 #
 # Table name: transactions
 #
@@ -8,10 +8,11 @@
 #  comission    :decimal(10, 2)
 #  stock_id     :integer(4)
 #  shares       :integer(4)
+#  type         :boolean(1)
 #  price        :decimal(10, 2)
+#  portfolio_id :integer(4)
 #  created_at   :datetime
 #  updated_at   :datetime
-#  portfolio_id :integer(4)
 #
 
 class Transaction < ActiveRecord::Base
@@ -20,11 +21,21 @@ class Transaction < ActiveRecord::Base
   after_create :add_owned_stock
 
   delegate :ticker, :to => :stock
+  # validates_format_of :type, :with => /(BUY)|(SELL)/
+
+
+  def buy?
+    type == "BUY"
+  end
+
+  def sell?
+    type == "SELL"
+  end
 
   private
 
   def add_owned_stock
-    owned_stock = portfolio.get_owned_stock(stock)
+    owned_stock = Portfolio.find(1).get_owned_stock(stock)
 
     if owned_stock
       shares = owned_stock.shares

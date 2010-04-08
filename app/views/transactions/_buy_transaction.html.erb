@@ -3,7 +3,7 @@
 <% form_for(@transaction) do |f| %>
 <%= f.error_messages %>
 
-<%= f.hidden_field :type, :value => params[:type] %>
+<%= f.hidden_field :type, :value => "BUY" %>
 <%= f.hidden_field :portfolio_id, :value => @portfolio.id %>
 
 <p>

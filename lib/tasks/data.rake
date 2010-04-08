@@ -99,3 +99,4 @@ namespace :stock do
     file.close
   end
 end
+

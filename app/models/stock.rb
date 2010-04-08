@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100401155417
+# Schema version: 20100408183735
 #
 # Table name: stocks
 #
@@ -8,17 +8,15 @@
 #  ticker                 :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
-#  total_debt             :integer(4)
 #  ttm_eps                :decimal(12, 6)
 #  book_value_per_share   :decimal(12, 6)
 #  finantial_data_updated :date
-#  sales                  :integer(4)
 #  dividends_per_year     :integer(4)      default(4)
 #  latest_price           :decimal(12, 6)
-#  assets                 :integer(4)
 #  market_cap             :string(255)
 #  ttm_div                :decimal(10, 3)
 #  yield                  :decimal(6, 3)
+#  listed                 :boolean(1)      default(TRUE)
 #
 
 class Stock < ActiveRecord::Base
@@ -236,6 +234,9 @@ class Stock < ActiveRecord::Base
     ticker
   end
 
+
+  # Math module
+
   def min(a,b)
     a < b ? a : b
   end
@@ -247,4 +248,45 @@ class Stock < ActiveRecord::Base
   def eps_avg(set)
     set.inject(0.0){|sum, e| sum + e.eps} / set.size
   end
+
+  # String.to_i
+
+
+
+  class String
+
+
+
+    def translate_letter_to_number
+      if str.match(/\d+\.?\d+\w/)
+        res = case str.chop
+              when "B"
+                str.chop.to_f * BILLION
+              when "M"
+               str.chop.to_f * MILLION
+              else
+                str.chop.to_f * BILLION
+              end
+      end
+      res
+    end
+
+
+    def clean_numeric_string
+      gsub(/\$|,|\302|\240/,"").strip
+    end
+
+
+
+    def to_i
+      #translate B and M to Bilion and Million (numaricly)
+      clean_numeric_string
+      translate_letter_to_number ||  s.super.to_i
+    end
+
+
+  end
+
+
+
 end

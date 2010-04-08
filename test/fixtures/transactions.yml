@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100401155417
+# Schema version: 20100408183735
 #
 # Table name: transactions
 #
@@ -8,10 +8,11 @@
 #  comission    :decimal(10, 2)
 #  stock_id     :integer(4)
 #  shares       :integer(4)
+#  type         :boolean(1)
 #  price        :decimal(10, 2)
+#  portfolio_id :integer(4)
 #  created_at   :datetime
 #  updated_at   :datetime
-#  portfolio_id :integer(4)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

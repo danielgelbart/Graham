@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100401155417) do
+ActiveRecord::Schema.define(:version => 20100408183735) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -74,17 +74,15 @@ ActiveRecord::Schema.define(:version => 20100401155417) do
     t.string   "ticker"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "total_debt"
     t.decimal  "ttm_eps",                :precision => 12, :scale => 6
     t.decimal  "book_value_per_share",   :precision => 12, :scale => 6
     t.date     "finantial_data_updated"
-    t.integer  "sales"
     t.integer  "dividends_per_year",                                    :default => 4
     t.decimal  "latest_price",           :precision => 12, :scale => 6
-    t.integer  "assets"
     t.string   "market_cap"
     t.decimal  "ttm_div",                :precision => 10, :scale => 3
     t.decimal  "yield",                  :precision => 6,  :scale => 3
+    t.boolean  "listed",                                                :default => true
   end
 
   create_table "transactions", :force => true do |t|
@@ -92,10 +90,11 @@ ActiveRecord::Schema.define(:version => 20100401155417) do
     t.decimal  "comission",    :precision => 10, :scale => 2
     t.integer  "stock_id"
     t.integer  "shares"
+    t.boolean  "type"
     t.decimal  "price",        :precision => 10, :scale => 2
+    t.integer  "portfolio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "portfolio_id"
   end
 
   create_table "users", :force => true do |t|
