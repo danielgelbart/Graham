@@ -20,7 +20,7 @@ class StocksController < ApplicationController
 
   def defensive_stocks
     @stocks = Stock.all.select{ |s| s.good_defensive_stock? }
-    @stocks = @stocks.sort_by{ |s| s.yield * -1}
+    @stocks = @stocks.sort_by{ |s| s.ten_year_eps}
   end
 
   def aggeresive_stocks

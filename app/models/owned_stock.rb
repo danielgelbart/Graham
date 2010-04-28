@@ -14,7 +14,7 @@
 class OwnedStock < ActiveRecord::Base
   belongs_to :stock
   belongs_to :portfolio
-  delegate :name, :ticker, :to => :stock
+  delegate :name, :ticker, :price, :ten_year_eps, :to => :stock
 
   validates_presence_of :stock_id, :shares, :portfolio_id
 

@@ -1,0 +1,13 @@
+%td
+  = owned_stock.name
+%td
+  = owned_stock.ticker
+%td
+  = owned_stock.shares
+%td
+  = owned_stock.price
+%td
+  = owned_stock.shares
+%td
+  = owned_stock.shares
+

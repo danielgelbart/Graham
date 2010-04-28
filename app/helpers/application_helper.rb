@@ -2,6 +2,7 @@
 module ApplicationHelper
 
   def short_float(f)
+    return "-" if f.nan?
     f2 = (f*100).to_i / 100.0
   end
 end

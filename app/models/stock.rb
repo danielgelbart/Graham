@@ -30,6 +30,7 @@ class Stock < ActiveRecord::Base
   validates_uniqueness_of :ticker
 
   include DataScraper
+
   #include MinMAx # adds min and max methods
 
   # 50 million dollars in 1972 adjusted for present day inflation
@@ -37,12 +38,17 @@ class Stock < ActiveRecord::Base
   MIN_SALES = 500000000
   MIN_ASSETS = 250000000
 
+
+
+
 #/ Valuation methods ---------------------------------------------------------
+
+
 
   # 1) Adequate size
   def big_enough?
    # sales && assets && (sales >= MIN_SIZE || assets >= MIN_SIZE)
-    sales && sales >= MIN_SALES
+    true # sales needs to be added to balance sheets along with assets
   end
 
   # 2) Finantialy strong
@@ -200,6 +206,33 @@ class Stock < ActiveRecord::Base
   end
 
   #/ End /Data retrenal methods ------------------------------------------------
+  def inflation_ratio_for(year)
+    ir = {
+      2000 => 1.026,
+      2001 => 1.039,
+      2002 => 1.06,
+      2003 => 1.078,
+      2004 => 1.112,
+      2005 => 1.144,
+      2006 => 1.17,
+      2007 => 1.2129,
+      2008 => 1.2155,
+      2009 => 1.25174
+    }
+
+    ir[year]
+  end
+
+  def adjust_for_inflation(eps)
+    eps.map{ |e| inflation_ratio_for(e.year)*e.eps }
+  end
+
+  def ten_year_eps
+    epss_adjusted = adjust_for_inflation(eps)
+    ten_year_earnings = epss_adjusted.inject(0.0){|sum, e| sum + e} / epss_adjusted.size
+    price / ten_year_earnings
+  end
+
   def latest_balance_sheet
     balance_sheets.detect{ |bs| bs.year == Date.today.year - 1}
   end
@@ -233,6 +266,8 @@ class Stock < ActiveRecord::Base
   def to_param
     ticker
   end
+
+
 
 
   # Math module

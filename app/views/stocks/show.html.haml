@@ -10,7 +10,7 @@
     %td
       Big enough?
     %td
-      = "#{yes_no(@stock.big_enough?)}, #{@stock.ticker} have a revenue of #{@stock.sales}"
+      = "#{yes_no(@stock.big_enough?)}, #{@stock.ticker}"
   %tr
     %td
       Connservativly financed?
@@ -43,6 +43,9 @@
 %p
   Earnigs average per share, past 7 years:
   =h short_float(@stock.historic_eps(7))
+%p
+  10 year P/E (2000-2010 adjusted for inflation)
+  = short_float(@stock.ten_year_eps)
 
 %table.stock-list
   - @stock.eps.each do |e|
