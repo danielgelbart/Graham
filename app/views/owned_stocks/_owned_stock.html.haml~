@@ -10,4 +10,7 @@
   = owned_stock.shares
 %td
   = owned_stock.shares
+<<<<<<< HEAD
 
+=======
+>>>>>>>  Added ten year, inflation adjudted P/E
