@@ -60,10 +60,10 @@ class Stock < ActiveRecord::Base
   def financialy_strong?
     bs = latest_balance_sheet
     if bs
-      alr = bs.assets_c >= bs.liabilities_c * 2 if bs.assets_c && bs.liabilities_c
-      alr = bs.assets_t >= bs.liabilities_t * 2 if alr.nil? && bs.assets_t && bs.liabilities_t
-      dr = bs.debt < bs.assets_c if bs.debt && bs.assets_c
-      dr = bs.debt < bs.assets_t if dr.nil? && bs.debt && bs.assets_t
+      alr = bs.assets_c >= bs.liabilities_c * 2 if !bs.assets_c.nil? && !bs.liabilities_c.nil?
+      alr = bs.assets_t >= bs.liabilities_t * 2 if alr.nil? && !bs.assets_t.nil? && !bs.liabilities_t.nil?
+      dr = bs.debt < bs.assets_c if !bs.debt.nil? && !bs.assets_c.nil?
+      dr = bs.debt < bs.assets_t if dr.nil? && !bs.debt.nil? && !bs.assets_t.nil?
     end
     (alr && dr) || false
   end
@@ -83,7 +83,7 @@ class Stock < ActiveRecord::Base
 
   # Beware! does not include current year
   def continous_dividend_record?(years = 20)
-    current_year = Date.today.year
+    current_year = YEAR
     dg = dividends.group_by{ |d| d.date.year }
 
     (current_year - years..current_year - 1).each do |year|
@@ -126,19 +126,19 @@ class Stock < ActiveRecord::Base
   end
 
   def good_defensive_buy?
-    good_defensive_stock? && cheap? && asset_to_price_ratio?
+    good_defensive_stock? && cheap? #&& asset_to_price_ratio?
   end
 
   # How to give this method a dynamic name like historic_eps_7_years_back?
   def historic_eps(years)
     update_current_data if !eps_records_up_to_date?
-    current_year = Date.today.year.to_i
+    current_year = YEAR
     recent = eps.select{|e| e.year > current_year -1 - years }
-    recent.inject(0.0){|sum, e| sum + e.eps} / years
+    recent.inject(0.0){|sum, e| sum + (inflation_ratio_for(e.year)*e.eps) } / years
   end
 
   def eps_records_up_to_date?
-    year = Date.today.year.to_i
+    year = YEAR
     10.times do
       year = year - 1
       return false if !eps.detect{ |e| e.year == year}
@@ -195,7 +195,7 @@ class Stock < ActiveRecord::Base
     if ttm_eps && book_value
       update_attributes!(:ttm_eps => ttm_eps,
                          :book_value_per_share => book_value,
-                         :sales => sales,
+                       #  :sales => sales, # 'sales' does not appear to be an attribute of the model Stock
                          :finantial_data_updated => Date.today)
     end
 
@@ -207,17 +207,22 @@ class Stock < ActiveRecord::Base
 
   #/ End /Data retrenal methods ------------------------------------------------
   def inflation_ratio_for(year)
+
+    #please UPDATE!
+    #Last updated: Feb 2011
+
     ir = {
-      2000 => 1.026,
-      2001 => 1.039,
-      2002 => 1.06,
-      2003 => 1.078,
-      2004 => 1.112,
-      2005 => 1.144,
-      2006 => 1.17,
-      2007 => 1.2129,
-      2008 => 1.2155,
-      2009 => 1.25174
+      2000 => 1.26,
+      2001 => 1.232,
+      2002 => 1.215,
+      2003 => 1.191,
+      2004 => 1.184,
+      2005 => 1.160,
+      2006 => 1.102,
+      2007 => 1.085,
+      2008 => 1.044,
+      2009 => 1.019,
+      2010 => 1.011
     }
 
     ir[year]
@@ -234,7 +239,7 @@ class Stock < ActiveRecord::Base
   end
 
   def latest_balance_sheet
-    balance_sheets.detect{ |bs| bs.year == Date.today.year - 1}
+    balance_sheets.detect{ |bs| bs.year == YEAR - 1}
   end
 
   def ncav
@@ -268,6 +273,9 @@ class Stock < ActiveRecord::Base
   end
 
 
+  def pe
+    price / ttm_eps.to_f
+  end
 
 
   # Math module

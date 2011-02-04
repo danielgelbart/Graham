@@ -18,6 +18,10 @@
       Price limit
     %th
       Price to book
+    %th
+      P/E (ttm)
+    %th
+      10 year PE
 
   %tbody
     - @stocks.each do |stock|
@@ -38,3 +42,7 @@
           = short_float(stock.price.to_f / stock.price_limit.to_f)
         %td
           = short_float(stock.price.to_f / stock.book_value_per_share.to_f)
+        %td
+          = short_float(stock.pe)
+        %td
+          = short_float(stock.ten_year_eps)

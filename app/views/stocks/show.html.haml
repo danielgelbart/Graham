@@ -5,6 +5,8 @@
   Ticker:
   =h @stock.ticker
   = link_to "on_google", "http://www.google.com/finance?q=#{@stock.ticker}"
+%p
+  = "last price: #{@stock.price}"
 %table
   %tr
     %td
@@ -13,26 +15,38 @@
       = "#{yes_no(@stock.big_enough?)}, #{@stock.ticker}"
   %tr
     %td
-      Connservativly financed?
+      Good balance ratios?
     %td
-      = "#{yes_no(@stock.conservativly_financed?)}, #{@stock.ticker} has a book value/share of #{@stock.book_value_per_share}, and is trading at #{@stock.price}"
+      = "#{yes_no(@stock.financialy_strong?)}"
+    %td
+      = link_to "Balance sheet",  "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?Symbol=US%3a#{@stock.ticker}&lstStatement=Balance&stmtView=Ann"
   - if @stock.bargain?
     %tr
       %td
         = "At that ratio, #{@stock.ticker} is a bargain!"
   %tr
     %td
+      No earnings dificet?
+    %td
+      = "#{yes_no(@stock.no_earnings_deficit?)}, (YES means company has not had deficit in 10 years)"
+  %tr
+    %td
       Dividend record
     %td
-      = yes_no(!@stock.dividends.empty?)
+      = yes_no(!@stock.dividends.empty? && @stock.continous_dividend_record?)
     %td
       = link_to "Dividends", @stock.dividend_url
+  %tr
+    %td
+      Earnings growth
+    %td
+      = "#{yes_no(@stock.eps_growth?)}"
   - if @stock.price_limit >= 0
     %tr
       %td
         Cheap?
       %td
-        = "#{yes_no(@stock.cheap?)}, #{@stock.ticker} has a conservative/defensive limit buying price of #{@stock.price_limit}, and is trading at #{@stock.price}"
+        = "#{yes_no(@stock.cheap?)}, #{@stock.ticker} has a defensive limit buy price of #{@stock.price_limit}, and is trading at #{@stock.price}"
   - else
     %tr
       %td

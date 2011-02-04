@@ -15,7 +15,7 @@ namespace :dividend do
     url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
 
     puts "\n Getting dividends for #{ticker}"
-    begin
+   begin
       doc = Nokogiri::HTML(open(url))
     rescue
     else
@@ -37,7 +37,6 @@ namespace :dividend do
 
         puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
       end
-
     end
   end
 end

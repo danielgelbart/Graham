@@ -1,6 +1,6 @@
 # Takes a stock ticker to get data for as an argument
 namespace :stock do
-  desc "Load recent finanyial data"
+  desc "Load recent financial data"
   task :get_data, :ticker, :needs => :environment do |task, args|
     require 'active_record'
     require 'nokogiri'
@@ -70,7 +70,7 @@ namespace :stock do
                                        :book_value_per_share => book_value,
                                        :finantial_data_updated => Date.today)
 
-    puts "Updated #{ticker}: book value/share: #{stock.book_value_per_share}, ttm_eps :#{stock.ttm_eps}, revenue: #{stock.revenue}" if success
+    puts "Updated #{ticker}: book value/share: #{stock.book_value_per_share}, ttm_eps :#{stock.ttm_eps}" if success
     puts "book value/share: #{stock.book_value_per_share}, ttm_eps :#{stock.ttm_eps}" if !success
 
   end

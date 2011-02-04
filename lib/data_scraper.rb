@@ -4,10 +4,11 @@ module DataScraper
   require 'open-uri'
   MILLION = 1000000
   BILLION = 1000000000
+  YEAR = Time.new.year - 1 #Beacuse the websites have not uploaded the data for 2011 yet
 
   def update_all_data
     get_balance_sheets
-    get_ttm_eps
+    get_eps
     get_stock_price
   end
 
@@ -25,7 +26,7 @@ module DataScraper
   end
 
   def get_eps
-    ttm_eps = get_eps_from_msn if ttm_eps.nil?
+    ttm_eps = get_eps_from_msn
     ttm_eps = get_eps_from_yahoo if ttm_eps.nil?
     ttm_eps
   end
@@ -243,15 +244,12 @@ module DataScraper
     end
 
   # Msn gives numbers in millions, so we will multiply by 1000000
-    year = 2010
-
-    if ca && tl
-
+     if ca && tl
       puts ca
 
       (1..5).each do |i|
-        BalanceSheet.create(:stock_id => self.id,
-                        :year => year - i,
+          BalanceSheet.create(:stock_id => self.id,
+                        :year => YEAR - i,
                         :current_assets => (clean_string(ca[i].text).to_f.round * MILLION).to_s,
                         :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
                         :current_liabilities => (clean_string(cl[i].text).to_f.round * MILLION).to_s,
@@ -259,11 +257,8 @@ module DataScraper
                         :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
                         :net_tangible_assets => (( clean_string(ca[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s,
                         :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
-
       end
     end
-
-
   end
 
 
@@ -302,26 +297,20 @@ puts ticker
 
     # Yahoo gives numbers in thousands, so we will add ,000
     ex = ",000"
-    year = 2010
-
-    if ca && tl
-
-      puts ca
+     if ca && tl
+      #puts ca
 
       (1..3).each do |i|
         if ca[i]
-
         BalanceSheet.create(:stock_id => self.id,
-                        :year => year - i,
+                        :year => YEAR- i,
                         :current_assets => (clean_string(ca[i].text) + ex).gsub(",",""),
                         :total_assets => (clean_string(ta[i].text) + ex).gsub(",",""),
                         :current_liabilities => (clean_string(cl[i].text) + ex).gsub(",",""),
                         :total_liabilities => (clean_string(tl[i].text) + ex).gsub(",",""),
                         :long_term_debt => (clean_string(ltd[i].text) + ex).gsub(",",""),
                         :net_tangible_assets => (clean_string(nta[i].text) + ex).gsub(/,|\$/,""),
-
                         :book_value => (clean_string(bv[i].text) + ex).gsub(",",""))
-
         end
       end
     end
@@ -373,7 +362,7 @@ puts ticker
 
     if nta
 
-      puts nta
+     # puts nta
 
       bss = balance_sheets.sort_by{ |b| b.year * -1 }
       i = 1
