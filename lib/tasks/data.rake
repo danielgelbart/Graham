@@ -100,3 +100,20 @@ namespace :stock do
   end
 end
 
+namespace :stock do
+  desc "update balance sheets and other data"
+  task :yearly_update => :environment do |task, args|
+    require 'active_record'
+    ss = Stock.all
+    ss.map{ |s| s.yearly_update }
+  end
+end
+
+namespace :stock do
+  desc "get the earnings per share for the last year"
+ task :get_last_eps => :environment do |task, args|
+    require 'active_record'
+    ss = Stock.all
+    ss.map{ |s| s.get_last_y_eps }
+  end
+end

@@ -15,7 +15,7 @@ namespace :dividend do
     url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
 
     puts "\n Getting dividends for #{ticker}"
-   begin
+    begin
       doc = Nokogiri::HTML(open(url))
     rescue
     else
@@ -30,7 +30,7 @@ namespace :dividend do
       dividends.delete_at(0)
 
       dividends.each do |d|
-        div=Dividend.create(:stock_id => stock.id,
+        div = Dividend.create(:stock_id => stock.id,
                             :date => d.first.to_date,
                             :amount => d.last.delete!('$').to_f,
                             :source => url)

@@ -4,12 +4,21 @@ module DataScraper
   require 'open-uri'
   MILLION = 1000000
   BILLION = 1000000000
-  YEAR = Time.new.year - 1 #Beacuse the websites have not uploaded the data for 2011 yet
+  YEAR = Time.new.year
 
-  def update_all_data
+  def yearly_update
     get_balance_sheets
-    get_eps
-    get_stock_price
+    get_dividends
+    get_last_year_eps_msn
+  end
+
+  def quartrly_update
+    get_eps #ttmeps
+    get_dividends
+  end
+
+  def daily_update
+    update_price
   end
 
   def get_stock_price
@@ -29,6 +38,10 @@ module DataScraper
     ttm_eps = get_eps_from_msn
     ttm_eps = get_eps_from_yahoo if ttm_eps.nil?
     ttm_eps
+  end
+
+  def get_last_y_eps
+    get_last_year_eps_msn
   end
 
   def get_sales
@@ -117,8 +130,26 @@ module DataScraper
   end
 
 # eps scrapers --------------------------------------------------------
+# for last year and create model
+  def get_last_year_eps_msn
+    url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?lstStatement=Income&Symbol=US%3a#{ticker}&stmtView=Ann"
+    doc = open_url_or_nil(url)
 
+    puts "#{ticker}"
+    begin
+      eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Diluted EPS Including Extraordinary Items" }.xpath('./td')[1].text.to_f
+      rescue
+    end
+    if(eps)
+      Ep.create(:stock_id => id,
+                :year => YEAR - 1,
+                :eps => eps,
+                :source => url)
+      puts "eps for #{YEAR - 1} was #{eps}"
+    end
+  end
 
+# Just ttmeps
 
   def get_eps_from_msn
     url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
@@ -243,30 +274,43 @@ module DataScraper
 
     end
 
-  # Msn gives numbers in millions, so we will multiply by 1000000
-     if ca && tl
-      puts ca
+    # Msn gives numbers in millions, so we will multiply by 1000000
+    if ca && tl
+      #puts ca
 
       (1..5).each do |i|
+        BalanceSheet.create(:stock_id => self.id,
+                            :year => YEAR - i,
+                            :current_assets => (clean_string(ca[i].text).to_f.round * MILLION).to_s,
+                            :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
+                            :current_liabilities => (clean_string(cl[i].text).to_f.round * MILLION).to_s,
+                            :total_liabilities => (clean_string(tl[i].text).to_f.round * MILLION).to_s,
+                            :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
+                            :net_tangible_assets => (( clean_string(ca[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s,
+                            :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
+      end
+
+    else
+      if ta && ltd # if could only retrive data for total assets and liabilities
+        update_attributes!( :has_currant_ratio => false)
+        (1..5).each do |i|
+          puts "Adding - (total only) balance sheet for #{YEAR - i}"
           BalanceSheet.create(:stock_id => self.id,
-                        :year => YEAR - i,
-                        :current_assets => (clean_string(ca[i].text).to_f.round * MILLION).to_s,
-                        :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
-                        :current_liabilities => (clean_string(cl[i].text).to_f.round * MILLION).to_s,
-                        :total_liabilities => (clean_string(tl[i].text).to_f.round * MILLION).to_s,
-                        :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
-                        :net_tangible_assets => (( clean_string(ca[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s,
-                        :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
+                              :year => YEAR - i,
+                              :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
+                              :total_liabilities => (clean_string(tl[i].text).to_f.round * MILLION).to_s,
+                              :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
+                              :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
+        end
       end
     end
   end
 
 
-
   def get_balance_from_yahoo
     url = "http://finance.yahoo.com/q/bs?s=#{ticker}&annual"
     doc = open_url_or_nil(url)
-puts ticker
+    puts ticker
 
     if doc
 
@@ -297,23 +341,27 @@ puts ticker
 
     # Yahoo gives numbers in thousands, so we will add ,000
     ex = ",000"
-     if ca && tl
+    if ca && tl
       #puts ca
 
       (1..3).each do |i|
         if ca[i]
-        BalanceSheet.create(:stock_id => self.id,
-                        :year => YEAR- i,
-                        :current_assets => (clean_string(ca[i].text) + ex).gsub(",",""),
-                        :total_assets => (clean_string(ta[i].text) + ex).gsub(",",""),
-                        :current_liabilities => (clean_string(cl[i].text) + ex).gsub(",",""),
-                        :total_liabilities => (clean_string(tl[i].text) + ex).gsub(",",""),
-                        :long_term_debt => (clean_string(ltd[i].text) + ex).gsub(",",""),
-                        :net_tangible_assets => (clean_string(nta[i].text) + ex).gsub(/,|\$/,""),
-                        :book_value => (clean_string(bv[i].text) + ex).gsub(",",""))
+          BalanceSheet.create(:stock_id => self.id,
+                              :year => YEAR- i,
+                              :current_assets => (clean_string(ca[i].text) + ex).gsub(",",""),
+                              :total_assets => (clean_string(ta[i].text) + ex).gsub(",",""),
+                              :current_liabilities => (clean_string(cl[i].text) + ex).gsub(",",""),
+                              :total_liabilities => (clean_string(tl[i].text) + ex).gsub(",",""),
+                              :long_term_debt => (clean_string(ltd[i].text) + ex).gsub(",",""),
+                              :net_tangible_assets => (clean_string(nta[i].text) + ex).gsub(/,|\$/,""),
+                              :book_value => (clean_string(bv[i].text) + ex).gsub(",",""))
         end
       end
+    else
+      update_attributes!( :has_currant_ratio => false)
+      puts "Trying to update total ratios from yahoo - but no one implemented that!"
     end
+
   end
 
   def get_div_and_yield
@@ -380,3 +428,28 @@ puts ticker
   end
 end
 
+
+ # Get dividends ------------------------------------------------------------
+
+def get_dividends
+  url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
+  puts "\n Getting dividends for #{ticker}"
+  doc =  open_url_or_nil(url)
+
+  # Better way to do this with css selectors?
+  dividends = doc.xpath('//tr').map {
+    |row| row.xpath('.//td/text()').map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
+
+  #remove th row
+  dividends.delete_at(0)
+  dividends.delete_at(0)
+
+  dividends.each do |d|
+    div = Dividend.create( :stock_id => self.id,
+                           :date => d.first.to_date,
+                           :amount => d.last.delete!('$').to_f,
+                           :source => url )
+
+    puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
+  end
+end

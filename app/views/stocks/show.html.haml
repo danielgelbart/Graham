@@ -12,12 +12,15 @@
     %td
       Big enough?
     %td
-      = "#{yes_no(@stock.big_enough?)}, #{@stock.ticker}"
+      = "#{yes_no(@stock.big_enough?)}"
   %tr
     %td
       Good balance ratios?
     %td
       = "#{yes_no(@stock.financialy_strong?)}"
+      - if !@stock.has_currant_ratio
+        %td
+          = "**Using only total (not current) ratios"
     %td
       = link_to "Balance sheet",  "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?Symbol=US%3a#{@stock.ticker}&lstStatement=Balance&stmtView=Ann"
   - if @stock.bargain?
@@ -62,11 +65,11 @@
   = short_float(@stock.ten_year_eps)
 
 %table.stock-list
-  - @stock.eps.each do |e|
+  - @stock.eps.sort{ |a,b| b.year <=> a.year }.each do |e|
     %tr
       %td
         = e.year
       %td
-        = e.eps
+        = short_float(e.eps * @stock.inflation_ratio_for(e.year) )
 
 = link_to 'Back', stocks_path

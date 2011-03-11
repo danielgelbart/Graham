@@ -17,7 +17,7 @@
 #  ttm_div                :decimal(10, 3)
 #  yield                  :decimal(6, 3)
 #  listed                 :boolean(1)      default(TRUE)
-#
+#  has_currant_ratio      :boolean(1)      default(TRUE)
 
 class Stock < ActiveRecord::Base
   has_many :splits
@@ -129,23 +129,6 @@ class Stock < ActiveRecord::Base
     good_defensive_stock? && cheap? #&& asset_to_price_ratio?
   end
 
-  # How to give this method a dynamic name like historic_eps_7_years_back?
-  def historic_eps(years)
-    update_current_data if !eps_records_up_to_date?
-    current_year = YEAR
-    recent = eps.select{|e| e.year > current_year -1 - years }
-    recent.inject(0.0){|sum, e| sum + (inflation_ratio_for(e.year)*e.eps) } / years
-  end
-
-  def eps_records_up_to_date?
-    year = YEAR
-    10.times do
-      year = year - 1
-      return false if !eps.detect{ |e| e.year == year}
-    end
-    !ttm_eps.nil? && ttm_eps != 0
-  end
-
   def bargain?
     price * 1.5 <= book_value_per_share
   end
@@ -206,6 +189,7 @@ class Stock < ActiveRecord::Base
   end
 
   #/ End /Data retrenal methods ------------------------------------------------
+
   def inflation_ratio_for(year)
 
     #please UPDATE!
@@ -228,14 +212,33 @@ class Stock < ActiveRecord::Base
     ir[year]
   end
 
+
+  # eps methods -------------------------------------------------------------
+
   def adjust_for_inflation(eps)
     eps.map{ |e| inflation_ratio_for(e.year)*e.eps }
   end
 
+  # How to give this method a dynamic name like historic_eps_7_years_back?
+  def historic_eps(years)
+    update_current_data if !eps_records_up_to_date?
+    current_year = YEAR
+    recent = eps.select{|e| e.year > current_year -1 - years }
+    recent = adjust_for_inflation(recent)
+    recent.inject(0.0){|sum, e| sum + e } / years
+  end
+
+  def eps_records_up_to_date?
+    year = YEAR
+    10.times do
+      year = year - 1
+      return false if !eps.detect{ |e| e.year == year}
+    end
+    !ttm_eps.nil? && ttm_eps != 0
+  end
+
   def ten_year_eps
-    epss_adjusted = adjust_for_inflation(eps)
-    ten_year_earnings = epss_adjusted.inject(0.0){|sum, e| sum + e} / epss_adjusted.size
-    price / ten_year_earnings
+    price / historic_eps(10)
   end
 
   def latest_balance_sheet

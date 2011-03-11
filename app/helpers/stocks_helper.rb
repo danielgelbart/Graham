@@ -4,4 +4,6 @@ module StocksHelper
     value == false ? "No" : "Yes"
   end
 
+
+
 end
