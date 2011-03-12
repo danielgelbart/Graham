@@ -10,10 +10,11 @@ module DataScraper
     get_balance_sheets
     get_dividends
     get_last_year_eps_msn
+    get_eps # ttmeps
   end
 
   def quartrly_update
-    get_eps #ttmeps
+    get_eps # ttmeps
     get_dividends
   end
 
@@ -159,8 +160,11 @@ module DataScraper
       ttm_eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Earnings/Share" }.xpath('./td').last.text.to_f
       rescue
     end
-    ttm_eps
-  end
+    if ttm_eps
+      update_attributes( :ttm_eps => ttm_eps )
+      puts "eps for #{ticker} is #{ttm_eps}"
+    end
+   end
 
   def get_eps_from_yahoo
     url = "http://finance.yahoo.com/q/ks?s=#{ticker}"
@@ -170,7 +174,10 @@ module DataScraper
       ttm_eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Diluted EPS (ttm):" }.xpath('./td').last.text.to_f
     rescue
     end
-    ttm_eps
+    if ttm_eps
+      update_attributes( :ttm_eps => ttm_eps )
+      puts "eps for #{ticker} is #{ttm_eps}"
+    end
   end
 
   # sales scrapers -------------------------------------------------------
