@@ -27,7 +27,7 @@ class BalanceSheet < ActiveRecord::Base
 
   # rewrite this as a method that combines the attribute name and 'translate' method
   def assets_c
-    translate_to_int(self.current_assets)
+   translate_to_int(self.current_assets)
   end
 
   def assets_t
@@ -58,6 +58,10 @@ class BalanceSheet < ActiveRecord::Base
 
 
   def translate_to_int(str)
+    if str.nil?
+      return nil
+    end
+
     val = str.gsub(/,|\$/,"")
     val = "-" + val.gsub(/\(|\)/,"") if val.match(/\(\$?\d+\)/)
     val = val.to_i
