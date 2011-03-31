@@ -11,11 +11,13 @@ module DataScraper
     get_dividends
     get_last_year_eps_msn
     get_eps # ttmeps
+    update_price
   end
 
   def quartrly_update
     get_eps # ttmeps
     get_dividends
+    update_price
   end
 
   def daily_update
@@ -133,6 +135,9 @@ module DataScraper
 # eps scrapers --------------------------------------------------------
 # for last year and create model
   def get_last_year_eps_msn
+    return true if eps.detect{ |e| e.year == YEAR-1 }
+
+
     url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?lstStatement=Income&Symbol=US%3a#{ticker}&stmtView=Ann"
     doc = open_url_or_nil(url)
 
@@ -255,6 +260,12 @@ module DataScraper
   # Balace sheet ---------------------------------------------------------------
 
   def get_bs_from_msn
+
+    if (balance_sheets.count >= 5) && (balance_sheets.detect{ |b| b.year == YEAR-1 } ) # no need to update
+      puts "Balance sheets for #{ticker} up to date - not going to download"
+      return true
+    end
+
     url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?Symbol=US%3a#{ticker}&lstStatement=Balance&stmtView=Ann"
 
     doc = open_url_or_nil(url)
@@ -315,6 +326,11 @@ module DataScraper
 
 
   def get_balance_from_yahoo
+    if (balance_sheets.count >= 5) && (balance_sheets.detect{ |b| b.year == YEAR-1 } ) # no need to update
+      puts "Balance sheets for #{ticker} up to date - not going to download"
+      return true
+    end
+
     url = "http://finance.yahoo.com/q/bs?s=#{ticker}&annual"
     doc = open_url_or_nil(url)
     puts ticker
@@ -439,6 +455,11 @@ end
  # Get dividends ------------------------------------------------------------
 
 def get_dividends
+  if  dividends.detect{ |d| d.date.year == YEAR - 1} && dividends.count >= 4# random check
+    puts "dividends for #{ticker} up to date - not going to download"
+    return true
+  end
+
   url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
   puts "\n Getting dividends for #{ticker}"
   doc =  open_url_or_nil(url)
