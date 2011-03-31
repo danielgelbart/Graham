@@ -1,0 +1,13 @@
+ require 'nokogiri'
+  require 'open-uri'
+
+
+
+
+
+
+
+
+ def get_page(num)
+ url = "http://www.nyse.com/about/listed/lc_ny_issuetype_1076458359969.html?ListedComp=All&start=1601&item=#{num}&startlist=1&group=9&firsttime=done"
+ end
