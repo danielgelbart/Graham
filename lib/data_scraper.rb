@@ -11,6 +11,7 @@ module DataScraper
     get_dividends
     get_last_year_eps_msn
     get_eps # ttmeps
+    get_sales
     update_price
   end
 
@@ -31,11 +32,6 @@ module DataScraper
     price
   end
 
-  def get_book_value
-    book_value = get_book_value_from_msn
-    book_value = get_book_value_from_yahoo if book_value.nil?
-    book_value
-  end
 
   def get_eps
     ttm_eps = get_eps_from_msn
@@ -49,10 +45,6 @@ module DataScraper
 
   def get_sales
     get_sales_from_msn
-  end
-
-  def get_float
-    get_float_from_yahoo
   end
 
   def get_balance_sheets
@@ -108,29 +100,7 @@ module DataScraper
     end
     price
   end
-# book value scrapers --------------------------------------------------------
-  def get_book_value_from_msn
-    url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
-    doc = open_url_or_nil(url)
 
-    begin
-       book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value/Share" }.xpath('./td').last.text.to_f
-    rescue
-    end
-    book_value
-  end
-
-
-  def get_book_value_from_yahoo
-    url = "http://finance.yahoo.com/q/ks?s=#{ticker}"
-    doc = open_url_or_nil(url)
-
-    begin
-      book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value Per Share (mrq):" }.xpath('./td').last.text.to_f
-    rescue
-    end
-    book_value
-  end
 
 # eps scrapers --------------------------------------------------------
 # for last year and create model
@@ -187,6 +157,9 @@ module DataScraper
 
   # sales scrapers -------------------------------------------------------
   def get_sales_from_msn
+    return false if latest_balance_sheet.nil?
+    return true  if latest_balance_sheet.total_sales
+
     url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
 
     begin
@@ -202,7 +175,15 @@ module DataScraper
               end
     rescue
     end
-    sales.to_i if sales
+
+    if sales
+      b = balance_sheets.detect{ |b| b.year == YEAR-1}
+      if b
+        b.update_attributes(:total_sales => sales )
+        puts "sales for #{ ticker} #{YEAR-1} where #{sales}"
+      end
+    end
+
   end
 
   # float/shares outstanding scrapers ---------------------------------------
@@ -387,34 +368,75 @@ module DataScraper
 
   end
 
-  def get_div_and_yield
-     url = "http://finance.yahoo.com/q?s=#{ticker}"
+
+
+  # Get dividends ------------------------------------------------------------
+
+  def get_dividends
+    if  dividends.detect{ |d| d.date.year == YEAR - 1} && dividends.count >= 4# random check
+      puts "dividends for #{ticker} up to date - not going to download"
+      return true
+    end
+
+    url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
+    puts "\n Getting dividends for #{ticker}"
+    doc =  open_url_or_nil(url)
+
+    # Better way to do this with css selectors?
+    dividends = doc.xpath('//tr').map {
+      |row| row.xpath('.//td/text()').map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
+
+    #remove th row
+    dividends.delete_at(0)
+    dividends.delete_at(0)
+
+    dividends.each do |d|
+      div = Dividend.create( :stock_id => self.id,
+                           :date => d.first.to_date,
+                           :amount => d.last.delete!('$').to_f,
+                           :source => url )
+
+      puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+# Is any of the following code  used?
+
+
+# book value scrapers --------------------------------------------------------
+  def get_book_value_from_msn
+    url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
     doc = open_url_or_nil(url)
+
     begin
-      div = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Div & Yield:" }.xpath('./td').text
+       book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value/Share" }.xpath('./td').last.text.to_f
     rescue
     end
-
-    if div
-      ttm_div = div.split.first.to_f
-      y = div.split.last.gsub(/[(|)|%]/,"").to_f
-
-      update_attributes(:ttm_div => ttm_div,
-                        :yield => y)
-    end
+    book_value
   end
 
-  def get_market_cap
-    url = "http://finance.yahoo.com/q?s=#{ticker}"
+
+  def get_book_value_from_yahoo
+    url = "http://finance.yahoo.com/q/ks?s=#{ticker}"
     doc = open_url_or_nil(url)
-    if doc
-      mc = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Market Cap:" }.xpath('./td').text
-    end
 
-    update_attributes!(:market_cap => mc)
+    begin
+      book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value Per Share (mrq):" }.xpath('./td').last.text.to_f
+    rescue
+    end
+    book_value
   end
 
-  # Balace sheet ---------------------------------------------------------------
+    # Balace sheet ---------------------------------------------------------------
 
   def g_nc
     url = "http://finance.yahoo.com/q/bs?s=#{ticker}&annual"
@@ -449,35 +471,35 @@ module DataScraper
   def clean_string(string)
     string.gsub(/\302|\240|,/,"").strip
   end
-end
 
 
- # Get dividends ------------------------------------------------------------
 
-def get_dividends
-  if  dividends.detect{ |d| d.date.year == YEAR - 1} && dividends.count >= 4# random check
-    puts "dividends for #{ticker} up to date - not going to download"
-    return true
+  def get_div_and_yield
+     url = "http://finance.yahoo.com/q?s=#{ticker}"
+    doc = open_url_or_nil(url)
+    begin
+      div = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Div & Yield:" }.xpath('./td').text
+    rescue
+    end
+
+    if div
+      ttm_div = div.split.first.to_f
+      y = div.split.last.gsub(/[(|)|%]/,"").to_f
+
+      update_attributes(:ttm_div => ttm_div,
+                        :yield => y)
+    end
   end
 
-  url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
-  puts "\n Getting dividends for #{ticker}"
-  doc =  open_url_or_nil(url)
+  def get_market_cap
+    url = "http://finance.yahoo.com/q?s=#{ticker}"
+    doc = open_url_or_nil(url)
+    if doc
+      mc = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Market Cap:" }.xpath('./td').text
+    end
 
-  # Better way to do this with css selectors?
-  dividends = doc.xpath('//tr').map {
-    |row| row.xpath('.//td/text()').map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
-
-  #remove th row
-  dividends.delete_at(0)
-  dividends.delete_at(0)
-
-  dividends.each do |d|
-    div = Dividend.create( :stock_id => self.id,
-                           :date => d.first.to_date,
-                           :amount => d.last.delete!('$').to_f,
-                           :source => url )
-
-    puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
+    update_attributes!(:market_cap => mc)
   end
-end
+
+
+end # end module datascraper

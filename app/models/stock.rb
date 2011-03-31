@@ -35,8 +35,8 @@ class Stock < ActiveRecord::Base
 
   # 50 million dollars in 1972 adjusted for present day inflation
   # perhaps should also take in to account the growth of the market size itself?
-  MIN_SALES = 500000000
-  MIN_ASSETS = 250000000
+  MIN_SALES = 500000000 # 500mil
+  MIN_BV = 2500000000 # 2.5B
 
 
 
@@ -47,8 +47,9 @@ class Stock < ActiveRecord::Base
 
   # 1) Adequate size
   def big_enough?
-   # sales && assets && (sales >= MIN_SIZE || assets >= MIN_SIZE)
-    true # sales needs to be added to balance sheets along with assets
+    bs = latest_balance_sheet
+    bs && bs.sales && (bs.sales >= MIN_SALES || bs.total_assets_balance >= MIN_BV)
+    # sales needs to be added to balance sheets along with assets
   end
 
   # 2) Finantialy strong
@@ -137,7 +138,7 @@ class Stock < ActiveRecord::Base
   # "An industrial company's finances are not conservative unless the common stock (at book value) represents at least half of the total capitalization, including all bank debt."
   # currently understood to mean that book value is at least half of price
   def conservativly_financed?
-    book_value_per_share * 1.5 >= price
+    book_value_per_share * 2 >= price
   end
 
   #/ Data retreval methods ----------------------------------------------------

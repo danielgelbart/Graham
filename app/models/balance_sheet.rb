@@ -54,6 +54,15 @@ class BalanceSheet < ActiveRecord::Base
     translate_to_int(self.net_tangible_assets)
   end
 
+  def total_assets_balance
+    assets_t - liabilities_t
+  end
+
+  def sales
+    translate_to_int(self.total_sales)
+  end
+
+
   private
 
 
