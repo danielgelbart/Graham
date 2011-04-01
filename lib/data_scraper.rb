@@ -10,8 +10,9 @@ module DataScraper
     get_balance_sheets
     get_dividends
     get_last_year_eps_msn
-    get_eps # ttmeps
-    get_sales
+   # get_eps # ttmeps
+   # get_sales
+    update_current_data # ttm_eps, sales, div_yield
     update_price
   end
 
@@ -32,7 +33,6 @@ module DataScraper
     price
   end
 
-
   def get_eps
     ttm_eps = get_eps_from_msn
     ttm_eps = get_eps_from_yahoo if ttm_eps.nil?
@@ -52,6 +52,10 @@ module DataScraper
     get_balance_from_yahoo if a.nil?
   end
 
+  def get_book_value
+    a = get_book_value_from_yahoo
+    get_book_value_from_msn if a.nil?
+  end
 
 
   private
@@ -418,10 +422,10 @@ module DataScraper
     doc = open_url_or_nil(url)
 
     begin
-       book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value/Share" }.xpath('./td').last.text.to_f
+      book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td')[2].text == "Book Value/Share" }.text.split("%").last.split("are").last.to_f
     rescue
     end
-    book_value
+    update_attributes(:book_value_per_share => book_value) if book_value
   end
 
 
@@ -433,7 +437,7 @@ module DataScraper
       book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Book Value Per Share (mrq):" }.xpath('./td').last.text.to_f
     rescue
     end
-    book_value
+      update_attributes(:book_value_per_share => book_value) if book_value
   end
 
     # Balace sheet ---------------------------------------------------------------

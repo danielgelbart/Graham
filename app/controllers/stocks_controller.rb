@@ -23,6 +23,11 @@ class StocksController < ApplicationController
     @stocks = @stocks.sort_by{ |s| s.ten_year_eps}
   end
 
+  def cheap_stocks
+    @stocks = Stock.all.select{ |s| s.cheap? }
+    @stocks = @stocks.sort_by{ |s| s.ten_year_eps}
+  end
+
   def aggeresive_stocks
   end
 

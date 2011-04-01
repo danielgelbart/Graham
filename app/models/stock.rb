@@ -177,10 +177,7 @@ class Stock < ActiveRecord::Base
     div = get_ttm_div
 
     if ttm_eps && book_value
-      update_attributes!(:ttm_eps => ttm_eps,
-                         :book_value_per_share => book_value,
-                       #  :sales => sales, # 'sales' does not appear to be an attribute of the model Stock
-                         :finantial_data_updated => Date.today)
+      update_attributes(:finantial_data_updated => Date.today)
     end
 
     def update_price_data
@@ -222,11 +219,12 @@ class Stock < ActiveRecord::Base
 
   # How to give this method a dynamic name like historic_eps_7_years_back?
   def historic_eps(years)
-    update_current_data if !eps_records_up_to_date?
-    current_year = YEAR
-    recent = eps.select{|e| e.year > current_year -1 - years }
-    recent = adjust_for_inflation(recent)
-    recent.inject(0.0){|sum, e| sum + e } / years
+    if eps_records_up_to_date?
+      current_year = YEAR
+      recent = eps.select{|e| e.year > current_year -1 - years }
+      recent = adjust_for_inflation(recent)
+      recent.inject(0.0){|sum, e| sum + e } / years
+    end
   end
 
   def eps_records_up_to_date?
