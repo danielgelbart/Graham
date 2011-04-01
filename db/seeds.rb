@@ -17,7 +17,5 @@ Portfolio.seed(:id) do |s|
 end
 
 
-Stock.seed_many(:ticker,
-                [{:name => "Berkshire Hathaway", :ticker => "BRK"},
-                 {:name => "Teva Pharmasutical industries.", :ticker => "TEVA"}])
+#Stock.seed_many(:ticker,                [{:name => "Berkshire Hathaway", :ticker => "BRK"},                 {:name => "Teva Pharmasutical industries.", :ticker => "TEVA"}])
 
