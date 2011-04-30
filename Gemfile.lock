@@ -1,0 +1,46 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    actionmailer (2.3.8)
+      actionpack (= 2.3.8)
+    actionpack (2.3.8)
+      activesupport (= 2.3.8)
+      rack (~> 1.1.0)
+    activerecord (2.3.8)
+      activesupport (= 2.3.8)
+    activeresource (2.3.8)
+      activesupport (= 2.3.8)
+    activesupport (2.3.8)
+    coderay (0.9.7)
+    diff-lcs (1.1.2)
+    haml (3.1.1)
+    mysql (2.8.1)
+    rack (1.1.2)
+    rails (2.3.8)
+      actionmailer (= 2.3.8)
+      actionpack (= 2.3.8)
+      activerecord (= 2.3.8)
+      activeresource (= 2.3.8)
+      activesupport (= 2.3.8)
+      rake (>= 0.8.3)
+    rake (0.8.7)
+    rspec (2.1.0)
+      rspec-core (~> 2.1.0)
+      rspec-expectations (~> 2.1.0)
+      rspec-mocks (~> 2.1.0)
+    rspec-core (2.1.0)
+    rspec-expectations (2.1.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.1.0)
+    rspec-rails (2.1.0)
+      rspec (~> 2.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  coderay
+  haml
+  mysql
+  rails (= 2.3.8)
+  rspec-rails (>= 2.0.0)

@@ -1,0 +1,25 @@
+This is how my ruby/rails setup was done:
+$) sudo apt-get update
+$) sudo apt-get install build-essential git-core curl
+$) bash < <( curl -s https://rvm.beginrescueend.com/install/rvm )  #install rvm
+-- Added line to ./bashrc file
+$) sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxml2-dev autoconf    # packages recomended to help ruby (?)
+$) rvm install 1.9.2
+$) sudo apt-get  install ibmysql-ruby libmysqlclient-dev mysql-client mysql-server
+-- password on mysql server: getset
+---------- Set up rails -----------
+* Don't use 'sudo' with rvm
+
+$ rvm use ruby 1.9.2  #set up ruby 1.9.2 on bash local
+$ rvm gemset create rails238 # create a specific gem set
+$ rvm ruby-1.9.2@rails238 # tell the gemset it is working with ruby 1.9.2
+$ gem install rails -v 2.3.8 
+--- Cloned my code from github - needed to generate ssh keys and update my public key on my github account ------
+$ git clone git@github.com:danielgelbart/Graham.git
+$ echo "rvm ruby-1.9.2@rails238" > .rvmrc # supposed to setup gemset for current folder
+$ gem install bundler
+--- added Gemfile
+--- added config/preinitializer.rb following Yehuda katz's notes for rails 2.3
+$ bundler install
+
+
