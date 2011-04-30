@@ -53,3 +53,8 @@ $ sudo apt-get install libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-
 
 ---------Set up sql-------------------
 * create the 3 databasess in mysql: 'create database graham_dev'
+// or with rake db:setup
+
+--- Get rails 2.3.5 to work with bundler
+- who needs builder? cucumber? - remove that for now
+- Add gems maualy? or require in gemfile?
