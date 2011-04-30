@@ -24,4 +24,30 @@ $ bundler install
 --- still mising some packges, copy paste from rvm notes:
 $ sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev
 # which installed only two new packages: libssl-dev libxlt1-dev
+-- now removed ruby 1.9.2 and reinstalled hoping it will now hook into new packages
+$ rvm remove 1.9.2
+$ rvm install 1.9.2
+
+-- hook up local host to point to application and install appache
+in etc/hosts I added:
+127.0.0.1 graham.local
+$ gem install passanger
+$ rvm update --head && rvm reload && rvm repair all
+$ passenger-install-apache2-module
+$ sudo apt-get install libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-dev libapr1-dev libaprutil1-dev 
+-- Added the following lines to etc/apache2/apach2.conf
+
+   LoadModule passenger_module /home/dani/.rvm/gems/ruby-1.9.2-p180@rails238/gems/passenger-3.0.7/ext/apache2/mod_passenger.so
+   PassengerRoot /home/dani/.rvm/gems/ruby-1.9.2-p180@rails238/gems/passenger-3.0.7
+   PassengerRuby /home/dani/.rvm/wrappers/ruby-1.9.2-p180@rails238/ruby
+
+
+ <VirtualHost *:80>
+      ServerName graham.local
+      DocumentRoot /home/dani/rails/Graham/public   
+      <Directory home/dani/rails/Graham/public>
+         AllowOverride all          
+         Options -MultiViews        
+      </Directory>
+ </VirtualHost>
 
