@@ -56,5 +56,9 @@ $ sudo apt-get install libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-
 // or with rake db:setup
 
 --- Get rails 2.3.5 to work with bundler
-- who needs builder? cucumber? - remove that for now
-- Add gems maualy? or require in gemfile?
+To get rake tasks to work, must load the bundler environment, so do:
+- bundle exec rake 'task'
+
+- Added some code to config/boot.rg - following bundler tutorial for rails 2.3
+- Added a config/preinitialize file - following same tutorial, but this does not work
+- so added the same code (that requiers and expands bundler) to environment.rb

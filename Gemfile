@@ -6,7 +6,7 @@ gem "mysql"
 gem "coderay"
 gem "haml"
 gem "passenger"
+gem "seed-fu", "1.2.3"
 
 group :cucumber do
-       gem "rspec-rails", "2.0.0"
 end

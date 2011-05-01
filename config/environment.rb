@@ -2,6 +2,27 @@
 
 require 'thread' #added to remove incompatability essues of updating rails
 
+begin
+  require "rubygems"
+  require "bundler"
+rescue LoadError
+  raise "Could not load the bundler gem. Install it with `gem install bundler`."
+end
+
+if Gem::Version.new(Bundler::VERSION) <= Gem::Version.new("0.9.24")
+  raise RuntimeError, "Your bundler version is too old for Rails 2.3." +
+   "Run `gem install bundler` to upgrade."
+end
+
+begin
+  # Set up load paths for all bundled gems
+  ENV["BUNDLE_GEMFILE"] = File.expand_path("../../Gemfile", __FILE__)
+  Bundler.setup
+rescue Bundler::GemNotFound
+  raise RuntimeError, "Bundler couldn't find some gems." +
+    "Did you run `bundle install`?"
+end
+
 
 
 # Specifies gem version of Rails to use when vendor/rails is not present
@@ -55,7 +76,7 @@ Rails::Initializer.run do |config|
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
-  config.time_zone = 'UTC'
+  # config.time_zone = 'UTC'
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
@@ -63,27 +84,4 @@ Rails::Initializer.run do |config|
 
 end
 
-
-# had to add these lines:
-
-begin
-  require "rubygems"
-  require "bundler"
-rescue LoadError
-  raise "Could not load the bundler gem. Install it with `gem install bundler`."
-end
-
-if Gem::Version.new(Bundler::VERSION) <= Gem::Version.new("0.9.24")
-  raise RuntimeError, "Your bundler version is too old for Rails 2.3." +
-   "Run `gem install bundler` to upgrade."
-end
-
-begin
-  # Set up load paths for all bundled gems
-  ENV["BUNDLE_GEMFILE"] = File.expand_path("../../Gemfile", __FILE__)
-  Bundler.setup
-rescue Bundler::GemNotFound
-  raise RuntimeError, "Bundler couldn't find some gems." +
-    "Did you run 'bundle install'?"
-end
 
