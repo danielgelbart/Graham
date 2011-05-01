@@ -1,0 +1,32 @@
+
+
+Processing StocksController#index (for 127.0.0.1 at 2011-05-01 02:09:08) [GET]
+
+ActiveRecord::StatementInvalid (Mysql::Error: Table 'graham_pro.stocks' doesn't exist: SELECT * FROM `stocks` ):
+  app/controllers/stocks_controller.rb:4:in `index'
+  <internal:prelude>:10:in `synchronize'
+  passenger (3.0.7) lib/phusion_passenger/rack/request_handler.rb:96:in `process_request'
+  passenger (3.0.7) lib/phusion_passenger/abstract_request_handler.rb:513:in `accept_and_process_next_request'
+  passenger (3.0.7) lib/phusion_passenger/abstract_request_handler.rb:274:in `main_loop'
+  passenger (3.0.7) lib/phusion_passenger/classic_rails/application_spawner.rb:321:in `start_request_handler'
+  passenger (3.0.7) lib/phusion_passenger/classic_rails/application_spawner.rb:275:in `block in handle_spawn_application'
+  passenger (3.0.7) lib/phusion_passenger/utils.rb:479:in `safe_fork'
+  passenger (3.0.7) lib/phusion_passenger/classic_rails/application_spawner.rb:270:in `handle_spawn_application'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server.rb:357:in `server_main_loop'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server.rb:206:in `start_synchronously'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server.rb:180:in `start'
+  passenger (3.0.7) lib/phusion_passenger/classic_rails/application_spawner.rb:149:in `start'
+  passenger (3.0.7) lib/phusion_passenger/spawn_manager.rb:219:in `block (2 levels) in spawn_rails_application'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server_collection.rb:132:in `lookup_or_add'
+  passenger (3.0.7) lib/phusion_passenger/spawn_manager.rb:214:in `block in spawn_rails_application'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server_collection.rb:82:in `block in synchronize'
+  <internal:prelude>:10:in `synchronize'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (3.0.7) lib/phusion_passenger/spawn_manager.rb:213:in `spawn_rails_application'
+  passenger (3.0.7) lib/phusion_passenger/spawn_manager.rb:132:in `spawn_application'
+  passenger (3.0.7) lib/phusion_passenger/spawn_manager.rb:275:in `handle_spawn_application'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server.rb:357:in `server_main_loop'
+  passenger (3.0.7) lib/phusion_passenger/abstract_server.rb:206:in `start_synchronously'
+  passenger (3.0.7) helper-scripts/passenger-spawn-server:99:in `<main>'
+
+Rendering rescues/layout (internal_server_error)

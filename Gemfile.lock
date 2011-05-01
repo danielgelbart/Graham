@@ -17,6 +17,7 @@ GEM
     fastthread (1.0.7)
     haml (3.1.1)
     mysql (2.8.1)
+    nokogiri (1.4.4)
     passenger (3.0.7)
       daemon_controller (>= 0.2.5)
       fastthread (>= 1.0.1)
@@ -41,6 +42,7 @@ DEPENDENCIES
   coderay
   haml
   mysql
+  nokogiri
   passenger
   rails (= 2.3.8)
   seed-fu (= 1.2.3)
