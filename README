@@ -15,8 +15,5 @@ Will provide information on all above points. All data is inflation adjusted.
 - Sould be expanded for all NYSE stocks.
 - update of information should be automated (provide a cron job for running rake tasks)
 
-ruby issues:
-rvm causing some issues:
- - should be run in ruby 1.9.2
-          but then readline for irb, and ruby-debug are unavailable
-          (both availble in lower versions of ruby - my default on shell)
+* Suplies financial data at the company level. Each company is linked to a common stock tiker - **Multiple securities trading for the same company are not accounted for (e.g MOG.A, MOG.B or BRK.A and BRK.B) instead a single security ticker is saved (ex. MOG.A, BRK.B).
+- Such securities may trade a varying prices from each other and may be worth looking into and expanding application to link multiple tickers (securities) with the same company.

@@ -192,8 +192,7 @@ BDC	Belden Inc.
 BLC	Belo Corp.
 BMS	Bemis Company, Inc.
 BHE	Benchmark Electronics Inc
-BRKA	Berkshire Hathaway Inc
-BRKB	Berkshire Hathaway Inc.
+BRK.A	Berkshire Hathaway Inc
 BRY	Berry Petroleum Co.
 BBY	Best Buy Co.
 BIG	Big Lots, Inc.
@@ -237,8 +236,7 @@ BIP	Brookfield Infrastructure Partners L.P.
 BPO	Brookfield Properties Corporation
 BRO	Brown & Brown Insurance
 BWS	Brown Shoe Company, Inc.
-BFA	Brown-Forman Corporation
-BFB	Brown-Forman Corporation
+BF.A	Brown-Forman Corporation
 BRT	BRT Realty Trust
 BC	Brunswick Corporation
 BPL	Buckeye Partners Lp.
@@ -249,7 +247,6 @@ BG	Bunge Limited
 BCR	C. R. Bard, Inc.
 CAB	Cabela's Incorporated
 CVC	Cablevision Systems Corporation
-CVCWI	Cablevision Systems Corporation
 CBT	Cabot Corporation
 COG	Cabot Oil & Gas Corporation
 CACI	CACI International Inc
@@ -276,7 +273,6 @@ CMN	Cantel Medical Corporation
 COF	Capital One Financial Corporation
 CSU	Capital Senior Living Corporation
 CT	Capital Trust, Inc.
-CHR	CapitalSource Healthcare Reit
 CSE	CapitalSource, Inc.
 CBC	Capitol Bancorp Limited
 LSE	CapLease, Inc.
@@ -300,7 +296,6 @@ CBZ	CBIZ, Inc.
 CBL	CBL & Associates Properties, Inc.
 CBF	CBRE Realty Finance, Inc.
 CBS	CBS Corporation
-CBSA	CBS Corporation
 CDI	CDI Corporation
 CEC	CEC Entertainment, Inc.
 FUN	Cedar Fair, L.P.
@@ -401,7 +396,6 @@ CNX	CONSOL Energy Inc.
 ED	Consolidated Edison Inc.
 CGX	Consolidated Graphics, Inc.
 STZ	Constellation Brands, Inc.
-STZB	Constellation Brands, Inc.
 CEG	Constellation Energy Group Inc.
 CAL	Continental Airlines, Inc.
 CLR	Continental Resources, Inc.
@@ -428,8 +422,7 @@ CVH	Coventry Health Care Inc.
 COV	Covidien plc
 CPY	CPI Corporation
 CR	Crane Co.
-CRDA	Crawford & Company
-CRDB	Crawford & Company
+CRD.B	Crawford & Company
 BAP	Credicorp, Ltd.
 CXS	CreXus Investment  Corporation
 CRT	Cross Timbers Royalty Trust
@@ -604,7 +597,6 @@ FCS	Fairchild Semiconductor Corporation
 FDO	Family Dollar Stores Inc.
 FFG	FBL Financial Group Inc.
 AGM	Federal Agricultural Mortgage Corporation
-AGMA	Federal Agricultural Mortgage Corporation
 FRT	Federal Realty Investment Trust
 FSS	Federal Signal Corporation
 FII	Federated Investors Inc.
@@ -750,7 +742,6 @@ HIG	Hartford Financial Services Group Inc.
 HNR	Harvest Natural Resources, Inc.
 HTS	Hatteras Financial Corp.
 HVT	Haverty Furniture Companies Inc.
-HVTA	Haverty Furniture Companies Inc.
 HE	Hawaiian Electric Industries Inc.
 HCA	HCA Holdings, Inc.
 HCC	HCC Insurance Holdings, Inc.
@@ -766,7 +757,6 @@ HPY	Heartland Payment Systems, Inc.
 HEK	Heckmann Corporation
 HL	Hecla Mining Co.
 HEI	HEICO Corporation
-HEIA	HEICO Corporation
 HLX	Helix Energy Solutions Group, Inc.
 HP	Helmerich & Payne Inc.
 HLF	Herbalife Ltd.
@@ -800,7 +790,7 @@ HPT	Hospitality Properties Trust
 HST	Host Hotels & Resorts, Inc.
 HOV	Hovnanian Enterprises, Inc.
 HHC	The Howard Hughes Corporation
-HUBB	Hubbell Inc.
+HUB.B	Hubbell Inc.
 HUBA	Hubbell Inc.
 HBM	HudBay Minerals Inc.
 HPP	Hudson Pacific Properties, Inc.
@@ -815,8 +805,7 @@ IEP	Icahn Enterprises L.P.
 IDA	Idacorp Inc.
 IAR	Idearc Inc.
 IEX	IDEX Corporation
-IDTC	IDT Corporation
-IDTWI	IDT Corporation
+IDT	IDT Corporation
 BIN	IESI-BFC Ltd.
 IHS	IHS Inc.
 ITW	Illinois Tool Works Inc.
@@ -940,7 +929,6 @@ LM	Legg Mason Inc.
 LEG	Leggett & Platt Inc.
 LPS	Lender Processing Services, Inc.
 LEN	Lennar Corporation
-LENB	Lennar Corporation
 LII	Lennox International Inc.
 LUK	Leucadia National Corporation
 LXP	Lexington Realty Trust
@@ -1011,7 +999,6 @@ MBI	MBIA Inc.
 MFE	McAfee, Inc.
 MNI	The McClatchy Company
 MKC	McCormick & Company, Inc.
-MKCV	McCormick & Company, Incorporated
 MDRWI	McDermott International, Inc.
 MCD	McDonald's Corporation
 MHP	McGraw-Hill Companies Inc.
@@ -1058,7 +1045,6 @@ MOD	Modine Manufacturing Company
 MHK	Mohawk Industries Inc.
 MOH	Molina Healthcare, Inc.
 TAP	Molson Coors Brewing Company
-TAPA	Molson Coors Brewing Company
 MCP	Molycorp, Inc.
 MGI	MoneyGram International, Inc.
 MNR	Monmouth Real Estate Investment Corporation
@@ -1066,8 +1052,7 @@ MON	Monsanto Company
 MWW	Monster Worldwide, Inc.
 MRH	Montpelier Re Holdings Ltd.
 MCO	Moody's Corporation
-MOGA	Moog Inc.
-MOGB	Moog Inc.
+MOG.A	Moog Inc.
 MS	Morgan Stanley
 MRT	Morton's Restaurant Group, Inc.
 MOS	The Mosaic Company
@@ -1508,7 +1493,6 @@ TNK	Teekay Tankers Ltd
 TRC	Tejon Ranch Co.
 TDY	Teledyne Technologies Inc
 TFX	Teleflex Inc.
-TDSS	Telephone and Data Systems, Inc.
 TDS	Telephone and Data Systems, Inc.
 TU	TELUS Corporation
 TIN	Temple-Inland Inc.
@@ -1540,7 +1524,6 @@ TIF	Tiffany & Co.
 THI	Tim Hortons Inc.
 TBL	Timberland Co.
 TWC	Time Warner Cable Inc.
-TWCWI	Time Warner Cable Inc.
 TWX	Time Warner Inc.
 TKR	Timken Co.
 TWI	Titan International Inc.
@@ -1638,12 +1621,10 @@ PAY	VeriFone Systems, Inc.
 VZWI	Verizon Communications
 VRS	Verso Paper Corp.
 VFC	VF Corporation
-VIAB	Viacom Inc.
-VIA	Viacom Inc.
+VIA.B	Viacom Inc.
 VVI	Viad Corp
 V	Visa Inc.
 VSH	Vishay Intertechnology Inc.
-VSHWI	Vishay Intertechnology Inc.
 VPG	Vishay Precision Group, Inc.
 VC	Visteon Corporation
 VSI	Vitamin Shoppe, Inc.
@@ -1680,7 +1661,6 @@ WPP	Wausau Paper Corp.
 WFT	Weatherford International, Ltd.
 WBS	Webster Financial Corporation
 WTW	Weight Watchers International, Inc.
-WRD	Weingarten Realty Investors
 WRI	Weingarten Realty Investors
 WMK	Weis Markets Inc
 WCG	WellCare Health Plans, Inc.
