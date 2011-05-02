@@ -10,9 +10,9 @@
   <tr>
     <td><%=h stock.name %></td>
     <td><%=h stock.ticker %></td>
-    <td><%= link_to 'Show', stock %></td>
-    <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
-    <td><%= link_to 'Destroy', stock, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', :controller => "stocks", :action => "show" %></td>
+    <td><%= link_to 'Edit',  :controller => "stocks", :action => "edit" %></td>
+    <td><%= link_to 'Destroy', :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

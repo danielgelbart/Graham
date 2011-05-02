@@ -9,31 +9,56 @@ namespace :eps do
     require 'open-uri'
     ticker = args[:ticker]
     stock = Stock.find_by_ticker(ticker) || Stock.create(:ticker => ticker)
-    url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?Symbol=#{ticker}&lstStatement=10YearSummary&stmtView=Ann"
+ 
+    # get last five years earnings as 'diluted eps including extra items' from msn
 
-    puts "\n Getting earnings records for #{ticker}"
-    doc = Nokogiri::HTML(open(url))
+    url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?lstStatement=Income&symbol=US%3a#{ticker}&stmtView=Ann"
+    
+    if stock.eps.size < 10
+    
+	start = 1 # how far back to get earnings
+    	year = Time.new.year - 1
+    	puts "\n Getting earnings records for #{ticker}"
+    	doc = Nokogiri::HTML(open(url))
+      
+        eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Diluted EPS Including Extraordinary Items" }  if doc
+     
+	if eps
+     	   start = 6
+     	   (1..5).each do |i|
+	   	 if !eps.children[i].nil?
+ 	   	        ep = Ep.create(:stock_id => stock.id,
+                	:year => year,
+                	:eps =>  eps.children[i].text.to_f,
+                	:source => url)
+ 	    		puts "created eps for #{stock.ticker}, year: #{ep.year}, eps: #{ep.eps}" 
+            		year = year - 1
+		 end
+      	   end
+        end
 
-    eps = doc.css('td:nth-child(6)') if !doc.nil?
+      # get eps for years 6-10 going back 
 
-    if eps.nil? || !eps.empty?
+      	url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?lstStatement=10YearSummary&symbol=US%3a#{ticker}&stmtView=Ann"
+      	doc = Nokogiri::HTML(open(url))
 
-      #get rid of first element
-      eps.delete(eps.first)
+      	eps = doc.css('td:nth-child(6)') if !doc.nil?
 
-      # the year is assumed by starting in 2009 and going back
-      year = 2009
+      if eps.nil? || !eps.empty?
+         (start..10).each do |i|
+	     if !eps[i].nil?  	 
+         	  ep = Ep.create(:stock_id => stock.id,
+                	       		:year => year,
+					:eps =>  eps[i].text.to_f,
+                			:source => url)
 
-      eps.each do |e|
-        ep = Ep.create(:stock_id => stock.id,
-                :year => year,
-                :eps =>  e.text.gsub(",","").to_f,
-                :source => url)
-
-        puts "created eps for #{stock.ticker}, year: #{ep.year}, eps: #{ep.eps}" if !ep.id.nil?
-        year = year - 1
+        	  puts "created eps for #{stock.ticker}, year: #{ep.year}, eps: #{ep.eps}" if !ep.id.nil?
+        	  year = year - 1
+             end	
+      	  end # do i loop
       end
-    end
+
+    end # end of conditional if checking that eps already in database
   end
 end
 

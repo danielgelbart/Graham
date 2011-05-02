@@ -16,11 +16,6 @@ module DataScraper
     update_price
   end
 
-  def quartrly_update
-    get_eps # ttmeps
-    get_dividends
-    update_price
-  end
 
   def daily_update
     update_price
@@ -58,7 +53,7 @@ module DataScraper
   end
 
 
-  private
+#  private
 
   def open_url_or_nil(url)
     begin
@@ -243,7 +238,7 @@ module DataScraper
   end
 
   # Balace sheet ---------------------------------------------------------------
-
+# only gets 5 years back
   def get_bs_from_msn
 
     if (balance_sheets.count >= 5) && (balance_sheets.detect{ |b| b.year == YEAR-1 } ) # no need to update
@@ -376,6 +371,7 @@ module DataScraper
 
   # Get dividends ------------------------------------------------------------
 
+# Gets dividends as far back as possible
   def get_dividends
     if  dividends.detect{ |d| d.date.year == YEAR - 1} && dividends.count >= 4# random check
       puts "dividends for #{ticker} up to date - not going to download"

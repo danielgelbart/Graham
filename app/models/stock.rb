@@ -193,6 +193,8 @@ class Stock < ActiveRecord::Base
     #please UPDATE!
     #Last updated: Feb 2011
 
+    # should be a number per year inflation - so does not nead to be edited
+
     ir = {
       2000 => 1.26,
       2001 => 1.232,
