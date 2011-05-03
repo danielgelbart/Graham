@@ -8,7 +8,7 @@ namespace :eps do
     require 'nokogiri'
     require 'open-uri'
     ticker = args[:ticker]
-    stock = Stock.find_by_ticker(ticker) || Stock.create(:ticker => ticker)
+    stock = Stock.find_by_ticker(ticker) 
  
     # get last five years earnings as 'diluted eps including extra items' from msn
 
@@ -66,22 +66,13 @@ end
 namespace :eps do
   desc "Load eps from past 10 years"
   task :get_many => :environment do |task, args|
-    file = File.open("sp500.txt","r")
-    line = file.gets #throw away first line
-    while (line = file.gets)
-      ticker = line.split().first
-      name = line.gsub(ticker,"").strip
-      stock = Stock.find_by_ticker(ticker) || Stock.create(:ticker => ticker, :name => name.gsub(/\n/,""))
-
+  
+      ss = Stock.all
+      
+      ss.each do |stock|
       #need to call reenable to call a rake task more than once
-      # perhaps this should be called as a method?
-      # task :get_data do
-      # ["MMM", "C"].each { |t| do task for t }
-      #end
-
-      Rake::Task["eps:get_data"].reenable
-      Rake::Task["eps:get_data"].invoke(ticker)
-    end
-    file.close
+        Rake::Task["eps:get_data"].reenable
+        Rake::Task["eps:get_data"].invoke(stock.ticker)
+      end
   end
 end
