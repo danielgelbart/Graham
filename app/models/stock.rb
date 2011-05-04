@@ -107,6 +107,9 @@ class Stock < ActiveRecord::Base
 
   # second criteria from page 182
   def price_limit
+    # earning records do not go back far enough to compute price limit
+    return if historic_eps(7).nil?
+
     lim = min( historic_eps(7)*25, ttm_eps*20 )
     min( historic_eps(3) * 15, lim ) # second criteria from page 182
   end
@@ -219,9 +222,9 @@ class Stock < ActiveRecord::Base
     eps.map{ |e| inflation_ratio_for(e.year)*e.eps }
   end
 
-  # How to give this method a dynamic name like historic_eps_7_years_back?
+  # Returns nil if earnings record does not exist going 'years' back
   def historic_eps(years)
-    if eps_records_up_to_date?
+    if eps.detect{ |e| e.year == YEAR - years}
       current_year = YEAR
       recent = eps.select{|e| e.year > current_year -1 - years }
       recent = adjust_for_inflation(recent)
@@ -229,6 +232,7 @@ class Stock < ActiveRecord::Base
     end
   end
 
+# returns true only if there exist earnings for the last 10 years
   def eps_records_up_to_date?
     year = YEAR
     10.times do
@@ -239,7 +243,7 @@ class Stock < ActiveRecord::Base
   end
 
   def ten_year_eps
-    price / historic_eps(10)
+    price / historic_eps(10) if !historic_eps(10).nil?
   end
 
   def latest_balance_sheet

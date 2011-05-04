@@ -58,12 +58,17 @@
   Earnigs (12 month trailing per share):
   =h @stock.ttm_eps
 %p
-  Earnigs average per share, past 7 years:
-  =h short_float(@stock.historic_eps(7))
+  - if !@stock.historic_eps(7).nil?
+    Earnigs average per share, past 7 years:
+    =h short_float(@stock.historic_eps(7))
+  - else
+    Earnings do not go back far enought to compute histroic (average) eps
 %p
-  10 year P/E (2000-2010 adjusted for inflation)
-  = short_float(@stock.ten_year_eps)
-
+  - if !@stock.ten_year_eps.nil?
+    10 year P/E (2000-2010 adjusted for inflation)
+    = short_float(@stock.ten_year_eps)
+  - else
+    Cannot calculate 10 year eps because earnings don't go back that far
 %table.stock-list
   - @stock.eps.sort{ |a,b| b.year <=> a.year }.each do |e|
     %tr

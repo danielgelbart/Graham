@@ -292,7 +292,7 @@ module DataScraper
       if ta && ltd # if could only retrive data for total assets and liabilities
         update_attributes!( :has_currant_ratio => false)
         (1..5).each do |i|
-          puts "Adding - (total only) balance sheet for #{YEAR - i}"
+       #   puts "Adding - (total only) balance sheet for #{YEAR - i}"
           BalanceSheet.create(:stock_id => self.id,
                               :year => YEAR - i,
                               :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
