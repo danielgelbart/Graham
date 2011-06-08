@@ -48,7 +48,7 @@ class Stock < ActiveRecord::Base
   # 1) Adequate size
   def big_enough?
     bs = latest_balance_sheet
-    bs && bs.sales && (bs.sales >= MIN_SALES || bs.total_assets_balance >= MIN_BV)
+    (bs.sales >= MIN_SALES || bs.total_assets_balance >= MIN_BV) if !bs.nil? && !bs.sales.nil? && !bs.total_assets_balance.nil?
     # sales needs to be added to balance sheets along with assets
   end
 

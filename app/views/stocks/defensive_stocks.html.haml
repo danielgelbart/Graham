@@ -39,7 +39,7 @@
         %td
           = stock.price
         %td
-          = stock.price_limit
+          = short_float( stock.price_limit )
         %td
           = short_float(stock.price.to_f / stock.price_limit.to_f)
         %td

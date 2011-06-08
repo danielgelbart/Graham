@@ -55,7 +55,7 @@ class BalanceSheet < ActiveRecord::Base
   end
 
   def total_assets_balance
-    assets_t - liabilities_t
+    assets_t - liabilities_t if !assets_t.nil? && !liabilities_t.nil?
   end
 
   def sales
