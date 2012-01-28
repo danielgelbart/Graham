@@ -34,7 +34,7 @@
       = "#{yes_no(@stock.no_earnings_deficit?)}, (YES means company has not had deficit in 10 years)"
   %tr
     %td
-      Dividend record
+      Dividend record 
     %td
       = yes_no(!@stock.dividends.empty? && @stock.continous_dividend_record?)
     %td
@@ -65,7 +65,7 @@
     Earnings do not go back far enought to compute histroic (average) eps
 %p
   - if !@stock.ten_year_eps.nil?
-    10 year P/E (2000-2010 adjusted for inflation)
+    10 year P/E (2001-2011 adjusted for inflation)
     = short_float(@stock.ten_year_eps)
   - else
     Cannot calculate 10 year eps because earnings don't go back that far

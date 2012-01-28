@@ -1,0 +1,36 @@
+- num = 1
+%table.stock-list
+  %thead
+    %th
+      number
+    %th
+      ticker
+    %th
+      Market Cap
+    %th
+      Price
+    %th
+      Price/Limit
+    %th
+      Price/Book
+    %th
+      10 year eps
+  %tbody
+    - @stocks.each do |stock|
+      %tr
+        %td
+          = num
+          - num = num + 1
+        %td
+          = stock.ticker
+        %td
+          = stock.market_cap
+        %td
+          = stock.price
+        %td
+          = short_float(stock.price.to_f / stock.price_limit.to_f)
+        %td
+          = short_float(stock.price.to_f / stock.book_value_per_share.to_f)
+        %td
+          - a = stock.ten_year_eps
+          = short_float(a)

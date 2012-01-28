@@ -1,0 +1,17 @@
+TODO:
+
+1. fix get eps for stocks. The following stocks do NOT have eps records:
+=> ["ABH", "AEI", "ACL", "AYE", "ALY", "ACRE", "ACF", "APO", "AHD", "AVO", "BEZ", "BVF", "BHS", "BF.A", "CBC", "CSFS", "CBF", "DCS", "CNB", "CTV", "CML", "CAL", "CYS", "DHRWI", "DLM", "DYP", "ECT", "FISWD", "FMR", "FRC", "FCEB", "FCEA", "GEOWI", "GLG", "GSL", "GTNA", "GAP", "GEFB", "HCA", "HEW", "HUBA", "HII", "IAR", "IMP", "VLT", "JCG", "JAS", "JWA", "KG", "KVA", "KVB", "LNY", "LEAWI", "LRP", "MX", "MSGY", "MFE", "MDRWI", "NNA", "NTY", "PLAA", "NAL", "PMG", "PLA", "Q", "RYI", "SEMG", "SVR", "TOD", "TRY", "UBP", "VRWD", "VZWI", "VOL", "JWB", "ZL"] 
+
+OR fix price_limit method to not crash on missing eps data (return 0 instead?)
+
+ Have yearly inflation instead of relative inflation. That is, have inflation per year and not from that year until now.
+- Fixed. This was done up to and including 2011.
+
+1. Run yearly update for last 1200~ stocks. It stoped at DHI,DAN.
+
+2. Dividends 
+Update dividend scraping. and update for all stocks 2011. Dividinds site used for data is now a pay site. Need to hook up scraper to non-pay site.
+
+
+3. Add nasdaq stocks. I had to manualy add MSFT and INTC

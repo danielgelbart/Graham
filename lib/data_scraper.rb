@@ -4,18 +4,23 @@ module DataScraper
   require 'open-uri'
   MILLION = 1000000
   BILLION = 1000000000
-  YEAR = Time.new.year
+  YEAR = Time.new.year #
 
   def yearly_update
     get_balance_sheets
-    get_dividends
+    get_dividends(2010)
     get_last_year_eps_msn
+    get_historic_eps(1) # get earnings for last year
    # get_eps # ttmeps
    # get_sales
     update_current_data # ttm_eps, sales, div_yield
     update_price
   end
 
+# gets earings (eps) up to 10 years back
+  def get_earnings
+    get_historic_eps(1)
+  end
 
   def daily_update
     update_price
@@ -250,31 +255,32 @@ module DataScraper
 
     doc = open_url_or_nil(url)
 
-
     if doc
-      ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Current Assets" }
+      ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalCurrentAssets" }
       ca = ca.xpath('./td') if ca
 
-      ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Assets" }
+      ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalAssets" }
       ta = ta.xpath('./td') if ta
 
-      cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Current Liabilities" }
+      cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalCurrentLiabilities" }
       cl = cl.xpath('./td') if cl
 
-      tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Liabilities" }
+      tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalLiabilities" }
       tl = tl.xpath('./td') if tl
 
-      ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Long Term Debt" }
+      ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalLongTermDebt" }
       ltd = ltd.xpath('./td') if ltd
 
-      bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Total Equity" }
+      bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalEquity" }
       bv = bv.xpath('./td') if bv
-
+    else
+      puts "Could not open URL"
     end
 
     # Msn gives numbers in millions, so we will multiply by 1000000
-    if ca && tl
+    if ca && cl
       #puts ca
+      update_attributes!( :has_currant_ratio => true)
 
       (1..5).each do |i|
         BalanceSheet.create(:stock_id => self.id,
@@ -346,7 +352,7 @@ module DataScraper
     ex = ",000"
     if ca && tl
       #puts ca
-
+      update_attributes( :has_currant_ratio => true)
       (1..3).each do |i|
         if ca[i]
           BalanceSheet.create(:stock_id => self.id,
@@ -371,34 +377,40 @@ module DataScraper
 
   # Get dividends ------------------------------------------------------------
 
-# Gets dividends as far back as possible
-  def get_dividends
-    if  dividends.detect{ |d| d.date.year == YEAR - 1} && dividends.count >= 4# random check
-      puts "dividends for #{ticker} up to date - not going to download"
-      return true
+# Gets dividends as far back as (up to) the year supplied
+  def get_dividends(year)
+
+    if !dividends.empty?
+      if dividends.sort_by{ |d| d.date }.last.date + 12.months  >  Time.new.to_date
+        puts "dividends for #{ticker} up to date - not going to download"
+        return true
+      end
     end
 
-    url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
+    url = "http://dividata.com/stock/#{ticker}/dividend"
     puts "\n Getting dividends for #{ticker}"
     doc =  open_url_or_nil(url)
 
-    # Better way to do this with css selectors?
-    dividends = doc.xpath('//tr').map {
-      |row| row.xpath('.//td/text()').map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
+    diveds = doc.xpath('//table[@id="divhistory"]//tr')
 
-    #remove th row
-    dividends.delete_at(0)
-    dividends.delete_at(0)
+    diveds.shift # get rid of the table header row
 
-    dividends.each do |d|
-      div = Dividend.create( :stock_id => self.id,
-                           :date => d.first.to_date,
-                           :amount => d.last.delete!('$').to_f,
+    diveds.each do |d|
+
+      d = d.xpath('.//td')
+      if d[0].text.to_date.year > year
+
+         div = Dividend.create( :stock_id => self.id,
+                           :date => d[0].text.to_date,
+                           :amount => d[1].text.delete!('$').to_f,
                            :source => url )
 
-      puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
-    end
-  end
+         puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
+      end
+   end
+
+
+ end # method
 
 
 
@@ -501,5 +513,56 @@ module DataScraper
     update_attributes!(:market_cap => mc)
   end
 
+def get_historic_eps(years_back)
+
+    # get last five years earnings as 'diluted eps including extra items' from msn
+    url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
+    doc = open_url_or_nil(url)
+	start = 1 # how far back to get earnings
+    	year = YEAR - 1
+    	puts "\n Getting earnings records for #{ticker}"
+
+      
+        eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
+     
+	if eps
+          eps = eps.xpath('./td') 
+          years_back = min(5,years_back)
+     	  (1..years_back).each do |i|
+	   	 if eps[i]
+ 	   	    ep = Ep.create(:stock_id => self.id,
+                                   :year => YEAR - i,
+                                   :eps => clean_string(eps[i].text).to_f,
+                                   :source => url)
+ 	    		puts "created eps for #{ticker}, year: #{ep.year}, eps: #{ep.eps}" 
+            	 end
+      	   end
+        end
+
+      # get eps for years 6-10 going back 
+      if self.eps.size < 1 # disabling this, this code is for more than 5 years back
+      	url = "http://investing.money.msn.com/investments/financial-statements?symbol=US%3a#{ticker}"
+
+      	doc = open_url_or_nil(url)
+
+      	eps = doc.css('td:nth-child(6)') if !doc.nil?
+        year = YEAR -1
+
+        if eps.nil? || !eps.empty?
+          (6..10).each do |i|
+	     if !eps[i].nil?  	 
+         	  ep = Ep.create(:stock_id => self.id,
+                	       	:year => year,
+				:eps =>  clean_string(eps[i].text).to_f,
+                		:source => url)
+
+        	  puts "created eps for #{ticker}, year: #{ep.year}, eps: #{ep.eps}" if !ep.id.nil?
+        	  year = year - 1
+             end	
+      	  end # do i loop
+        end
+      end # getting data 6-10 years back
+    
+ end # method for getting eps
 
 end # end module datascraper

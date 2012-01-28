@@ -97,7 +97,7 @@ class Stock < ActiveRecord::Base
   # This needs to be adjusted for stock splits/new offers/float ?
   def eps_growth?
     epss = eps.sort_by{ |e| e.year }
-    eps_avg(epss.first(3)) * 1.3 <= eps_avg(epss.last(3))
+    eps_avg(epss.first(max(epss.size / 2,3))) * 1.3 <= eps_avg(epss.last(3))
   end
 
   # 6) Moderate price (to earnings)
@@ -108,7 +108,7 @@ class Stock < ActiveRecord::Base
   # second criteria from page 182
   def price_limit
     # earning records do not go back far enough to compute price limit
-    return if historic_eps(7).nil?
+    return 0 if historic_eps(7).nil?
 
     lim = min( historic_eps(7)*25, ttm_eps*20 )
     min( historic_eps(3) * 15, lim ) # second criteria from page 182
@@ -126,7 +126,7 @@ class Stock < ActiveRecord::Base
   end
 
   def good_defensive_stock?
-    big_enough? && financialy_strong? && no_earnings_deficit? && eps_growth? && continous_dividend_record?
+    big_enough? && financialy_strong? && no_earnings_deficit? && eps_growth? && continous_dividend_record? # dividents data does ont work?
   end
 
   def good_defensive_buy?
@@ -194,32 +194,41 @@ class Stock < ActiveRecord::Base
   def inflation_ratio_for(year)
 
     #please UPDATE!
-    #Last updated: Feb 2011
+    #Last updated: Jan 2012
 
-    # should be a number per year inflation - so does not nead to be edited
+# uses inflation from every year, so that I don't need to update
 
     ir = {
-      2000 => 1.26,
-      2001 => 1.232,
-      2002 => 1.215,
-      2003 => 1.191,
-      2004 => 1.184,
-      2005 => 1.160,
-      2006 => 1.102,
-      2007 => 1.085,
-      2008 => 1.044,
-      2009 => 1.019,
-      2010 => 1.011
-    }
-
-    ir[year]
+      2000 => 1.0366,
+      2001 => 1.014,
+      2002 => 1.0256,
+      2003 => 1.0191,
+      2004 => 1.0293,
+      2005 => 1.0391,
+      2006 => 1.0205,
+      2007 => 1.0419,
+      2008 => 1.0003,
+      2009 => 1.0259,
+      2010 => 1.0162,
+      2011 => 1.0292
+      # 2012 => add inflation for 2012
+      }
+    
+    mul = 1
+    
+    ((year + 1)..(YEAR - 1)).each do |i|
+      mul *= ir[i]
+    end  
+    
+    mul
   end
 
 
   # eps methods -------------------------------------------------------------
 
+# returns all previous eps per adjusted for inflation
   def adjust_for_inflation(eps)
-    eps.map{ |e| inflation_ratio_for(e.year)*e.eps }
+     eps.map{ |e| inflation_ratio_for(e.year)*e.eps }
   end
 
   # Returns nil if earnings record does not exist going 'years' back

@@ -25,7 +25,8 @@ class StocksController < ApplicationController
 
   def cheap_stocks
     @stocks = Stock.all.select{ |s| s.cheap? }
-    @stocks = @stocks.sort_by{ |s| s.ten_year_eps}
+    @stocks = @stocks.select{ |s| s.price_limit > 1 }
+    @stocks = @stocks.sort_by{ |s| s.price / s.price_limit }
   end
 
   def aggeresive_stocks
