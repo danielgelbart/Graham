@@ -17,6 +17,10 @@ module DataScraper
     update_price
   end
 
+  def divs
+     get_dividends(1900)
+  end
+
 # gets earings (eps) up to 10 years back
   def get_earnings
     get_historic_eps(1)
@@ -392,28 +396,22 @@ module DataScraper
     doc =  open_url_or_nil(url)
 
     if doc
-    diveds = doc.xpath('//table[@id="divhistory"]//tr')
+      diveds = doc.xpath('//div[@id="divhisbotleft"]')
 
-    diveds.shift # get rid of the table header row
+      diveds = diveds.children[5].children
+  
+      diveds.each do |d|
+           next if d.nil?
+           next if d.text.strip ==  "" # skip empty elements used as spacing by the website
+           div = Dividend.create( :stock_id => self.id,
+                                  :date => d.children[0].text.to_date,
+                                  :amount => d.children[2].text.delete!('$').to_f,
+                                  :source => url )
 
-    diveds.each do |d|
-
-      d = d.xpath('.//td')
-      if d[0].text.to_date.year > year
-
-         div = Dividend.create( :stock_id => self.id,
-                           :date => d[0].text.to_date,
-                           :amount => d[1].text.delete!('$').to_f,
-                           :source => url )
-
-         puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
-      end
-   end
-
-   end # if doc
-
-
- end # method
+           puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
+    end
+  end # if doc
+end # method
 
 
 

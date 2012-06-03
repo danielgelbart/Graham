@@ -284,7 +284,7 @@ class Stock < ActiveRecord::Base
   end
 
   def dividend_url
-    "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
+    "http://dividata.com/stock/#{ticker}/dividend"
   end
 
   def to_param
