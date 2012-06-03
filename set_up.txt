@@ -20,7 +20,7 @@ $ echo "rvm ruby-1.9.2@rails238" > .rvmrc # supposed to setup gemset for current
 $ gem install bundler
 --- added Gemfile
 --- added config/preinitializer.rb following Yehuda katz's notes for rails 2.3
-$ bundler install
+$ bundle install
 --- still mising some packges, copy paste from rvm notes:
 $ sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev
 # which installed only two new packages: libssl-dev libxlt1-dev
@@ -31,7 +31,7 @@ $ rvm install 1.9.2
 -- hook up local host to point to application and install appache
 in etc/hosts I added:
 127.0.0.1 graham.local
-$ gem install passanger
+$ gem install passenger
 $ rvm update --head && rvm reload && rvm repair all
 $ passenger-install-apache2-module
 $ sudo apt-get install libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-dev libapr1-dev libaprutil1-dev 
@@ -63,3 +63,10 @@ To get rake tasks to work, must load the bundler environment, so do:
 - Added some code to config/boot.rg - following bundler tutorial for rails 2.3
 - Added a config/preinitialize file - following same tutorial, but this does not work
 - so added the same code (that requiers and expands bundler) to environment.rb
+
+
+-------
+To get rvm to work correctly from command line, I needed to set e 'Run command as login shell' checkbox on the Title and Command tab inside of gnome-terminal's Settings page
+
+Then I set ruby 1.9.2 to the default
+$  rvm --default use 1.9.2

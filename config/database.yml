@@ -2,7 +2,7 @@ development:
   adapter: mysql
   database: graham_dev
   username: root
-  password: getset
+  password: 
   timeout: 5000
   socket: /var/run/mysqld/mysqld.sock
 
@@ -11,7 +11,7 @@ test: &TEST
   encoding: utf8
   database: graham_test
   username: root
-  password: getset
+  password: 
   socket: /var/run/mysqld/mysqld.sock
 
 cucumber:
@@ -21,6 +21,6 @@ production:
   adapter: mysql
   database: graham_pro
   username: root
-  password: getset
+  password: 
   timeout: 5000
   socket: /var/run/mysqld/mysqld.sock

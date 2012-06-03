@@ -38,6 +38,8 @@ class Stock < ActiveRecord::Base
   MIN_SALES = 500000000 # 500mil
   MIN_BV = 2500000000 # 2.5B
 
+  # defining this hear, since for some reason it was not working if set from data_scraper
+   YEAR = Time.new.year 
 
 
 

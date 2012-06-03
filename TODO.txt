@@ -8,7 +8,7 @@ OR fix price_limit method to not crash on missing eps data (return 0 instead?)
  Have yearly inflation instead of relative inflation. That is, have inflation per year and not from that year until now.
 - Fixed. This was done up to and including 2011.
 
-1. Run yearly update for last 1200~ stocks. It stoped at DHI,DAN.
+1. Run yearly update for last 500~ stocks. It stoped at DHI,DAN.
 
 2. Dividends 
 Update dividend scraping. and update for all stocks 2011. Dividinds site used for data is now a pay site. Need to hook up scraper to non-pay site.

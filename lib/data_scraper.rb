@@ -4,13 +4,13 @@ module DataScraper
   require 'open-uri'
   MILLION = 1000000
   BILLION = 1000000000
-  YEAR = Time.new.year #
+  YEAR = Time.new.year 
 
   def yearly_update
     get_balance_sheets
-    get_dividends(2010)
+    # get_dividends(1900) # get dividends as far back as possible
     get_last_year_eps_msn
-    get_historic_eps(1) # get earnings for last year
+    get_historic_eps(10) # get earnings for last year
    # get_eps # ttmeps
    # get_sales
     update_current_data # ttm_eps, sales, div_yield
@@ -391,6 +391,7 @@ module DataScraper
     puts "\n Getting dividends for #{ticker}"
     doc =  open_url_or_nil(url)
 
+    if doc
     diveds = doc.xpath('//table[@id="divhistory"]//tr')
 
     diveds.shift # get rid of the table header row
@@ -408,6 +409,8 @@ module DataScraper
          puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
       end
    end
+
+   end # if doc
 
 
  end # method
@@ -517,6 +520,12 @@ def get_historic_eps(years_back)
 
     # get last five years earnings as 'diluted eps including extra items' from msn
     url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
+  
+    
+    # dont download if historic eps data already exists
+    return if self.eps.count >= years_back
+
+  
     doc = open_url_or_nil(url)
 	start = 1 # how far back to get earnings
     	year = YEAR - 1
@@ -527,29 +536,30 @@ def get_historic_eps(years_back)
      
 	if eps
           eps = eps.xpath('./td') 
-          years_back = min(5,years_back)
-     	  (1..years_back).each do |i|
+          years_togo_back = min(5,years_back)
+     	  (1..years_togo_back).each do |i|
 	   	 if eps[i]
  	   	    ep = Ep.create(:stock_id => self.id,
                                    :year => YEAR - i,
                                    :eps => clean_string(eps[i].text).to_f,
                                    :source => url)
- 	    		puts "created eps for #{ticker}, year: #{ep.year}, eps: #{ep.eps}" 
+ 	    		puts "created eps for #{ticker}, year: #{ep.year}, eps: #{ep.eps}"  if !ep.id.nil?
             	 end
       	   end
         end
 
       # get eps for years 6-10 going back 
-      if self.eps.size < 1 # disabling this, this code is for more than 5 years back
-      	url = "http://investing.money.msn.com/investments/financial-statements?symbol=US%3a#{ticker}"
+      if years_back > 5 
+        url = "http://investing.money.msn.com/investments/financial-statements?symbol=US%3a#{ticker}"
 
-      	doc = open_url_or_nil(url)
+        doc = open_url_or_nil(url)
 
-      	eps = doc.css('td:nth-child(6)') if !doc.nil?
-        year = YEAR -1
+        eps = doc.css('td:nth-child(6)') if !doc.nil?
 
-        if eps.nil? || !eps.empty?
-          (6..10).each do |i|
+        year = year-5
+
+        if !eps.nil? && !eps.empty?
+          (5..years_back).each do |i|
 	     if !eps[i].nil?  	 
          	  ep = Ep.create(:stock_id => self.id,
                 	       	:year => year,
@@ -561,8 +571,8 @@ def get_historic_eps(years_back)
              end	
       	  end # do i loop
         end
+
       end # getting data 6-10 years back
-    
- end # method for getting eps
+  end # method for getting eps
 
 end # end module datascraper
