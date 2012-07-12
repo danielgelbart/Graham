@@ -69,12 +69,29 @@
     = short_float(@stock.ten_year_eps)
   - else
     Cannot calculate 10 year eps because earnings don't go back that far
+%p
+  - if @stock.dilution > 1
+    Stock was DILUTED by 
+    =h short_float(@stock.dilution - 1) 
+  - else
+    Shares REDUCED by
+    =h short_float(1 - @stock.dilution) 
 %table.stock-list
-  - @stock.eps.sort{ |a,b| b.year <=> a.year }.each do |e|
-    %tr
-      %td
-        = e.year
-      %td
-        = short_float(e.eps * @stock.inflation_ratio_for(e.year) )
+  %thead
+    %th
+      year
+    %th
+      Eps
+    %th
+      Shares outstanding
+  %tbody
+    - @stock.eps.sort{ |a,b| b.year <=> a.year }.each do |e|
+      %tr
+        %td
+          = e.year
+        %td
+          = short_float(e.eps * @stock.inflation_ratio_for(e.year) )
+        %td
+          = (@stock.numshares.select{ |s| s.year == e.year } ).first.shares
 
 = link_to 'Back', stocks_path

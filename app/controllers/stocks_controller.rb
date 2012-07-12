@@ -29,6 +29,13 @@ class StocksController < ApplicationController
     @stocks = @stocks.sort_by{ |s| s.price / s.price_limit }
   end
 
+  def pots
+    @stocks = Stock.all.select{ |s| s.no_earnings_deficit? } 
+    @stocks = @stocks.select{ |s| s.dilution < 1.11 } # less than 10% dilution
+    @stocks = @stocks.select{ |s| s.continous_dividend_record? } # has dividends
+    @stocks = @stocks.sort_by{ |s| s.ten_year_eps }
+  end
+
   def aggeresive_stocks
   end
 

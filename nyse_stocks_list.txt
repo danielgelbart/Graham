@@ -7,19 +7,16 @@ AIR	AAR Corporation
 AAN	Aaron's Inc.
 ABT	Abbott Laboratories
 ANF	Abercrombie & Fitch
-ABH	AbitibiBowater Inc.
 ABM	ABM Industries Incorporated
 ABVT	AboveNet, Inc.
 AKR	Acadia Realty Trust
 ACN	Accenture plc
-ABD	ACCO Brands Corporation
 AH	Accretive Health, Inc.
 ACW	Accuride Corporation
 ACE	ACE Limited
 ATU	Actuant Corporation
 AYI	Acuity Brands, Inc. (Holding Company)
 AGRO	Adecoagro S.A.
-AEA	Advance America, Cash Advance Centers, Inc.
 AAP	Advance Auto Parts, Inc.
 AMD	Advanced Micro Devices, Inc.
 AAV	Advantage Oil & Gas Ltd.

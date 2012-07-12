@@ -70,3 +70,9 @@ To get rvm to work correctly from command line, I needed to set e 'Run command a
 
 Then I set ruby 1.9.2 to the default
 $  rvm --default use 1.9.2
+
+
+-----------------------------------------------
+Get emacs to work with ruby
+emacs configuration is in ~/emacs.d 
+So added lines to that file

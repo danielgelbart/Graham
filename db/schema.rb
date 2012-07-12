@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110401060911) do
+ActiveRecord::Schema.define(:version => 20120711172842) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20110401060911) do
     t.string   "source"
     t.decimal  "eps",        :precision => 12, :scale => 6
     t.integer  "stock_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "numshares", :force => true do |t|
+    t.integer  "stock_id"
+    t.integer  "year"
+    t.string   "shares"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

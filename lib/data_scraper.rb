@@ -51,6 +51,10 @@ module DataScraper
     get_sales_from_msn
   end
 
+  def get_sharesnum
+    get_numshares
+  end
+
   def get_balance_sheets
     a = get_bs_from_msn
     get_balance_from_yahoo if a.nil?
@@ -572,5 +576,48 @@ def get_historic_eps(years_back)
 
       end # getting data 6-10 years back
   end # method for getting eps
+
+
+ # get number of shares outstanding
+
+  def get_numshares
+   
+    puts "Getting shares outstanding for #{ticker}"
+
+        url = "http://investing.money.msn.com/investments/financial-statements?symbol=US%3a#{ticker}"
+
+        doc = open_url_or_nil(url)
+        return if doc.nil?
+        
+        sel = doc.css('table[class = " mnytbl"]')
+        return if sel.nil? or sel[1].nil?
+
+        so = sel[1].css('td[class = "nwrp last"]')
+        return if so.nil?
+
+	year = YEAR - 1
+
+        if !so.nil? && !so.empty?
+      
+          so.each do |n|
+            if !n.nil?  
+                  shares_outstanding = clean_string(n.text)
+                  next if shares_outstanding.to_i == 0
+         	  sharec = Numshare.create(:stock_id => self.id,
+                	       	:year => year,
+				:shares => shares_outstanding)
+               	  puts "created numshare for #{ticker}, year: #{sharec.year}, shares: #{sharec.shares}" if !sharec.id.nil?
+        	  year = year - 1
+            end
+          end      
+        end
+
+       
+  end # method for number of shares
+
+
+
+
+
 
 end # end module datascraper

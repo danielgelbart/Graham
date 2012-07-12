@@ -52,6 +52,9 @@ ActionController::Routing::Routes.draw do |map|
   map.defensive_buys 'defensive_buys',
   :controller => 'stocks',
   :action => 'defensive_buys'
+  map.pots 'pots',
+  :controller => 'stocks',
+  :action => 'pots'
   map.new_buy_trnasaction ':portfolio_id/new_transaction/:type',
   :controller => 'transactions',
   :action => 'new'

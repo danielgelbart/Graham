@@ -25,6 +25,7 @@ class Stock < ActiveRecord::Base
   has_many :dividends
   has_many :eps, :dependent => :destroy
   has_many :balance_sheets
+  has_many :numshares, :dependent => :destroy
 
   validates_presence_of :ticker
   validates_uniqueness_of :ticker
@@ -50,7 +51,15 @@ class Stock < ActiveRecord::Base
   # 1) Adequate size
   def big_enough?
     bs = latest_balance_sheet
-    (bs.sales >= MIN_SALES || bs.total_assets_balance >= MIN_BV) if !bs.nil? && !bs.sales.nil? && !bs.total_assets_balance.nil?
+
+    size = (bs.sales >= MIN_SALES || bs.total_assets_balance >= MIN_BV) if !bs.nil? && !bs.sales.nil? && !bs.total_assets_balance.nil?
+
+    size = (bs.assets_t - bs.liabilities_t) > MIN_BV if size.nil? && !bs.nil? && !bs.assets_t.nil?  && !bs.liabilities_t.nil?
+
+    return size if !size.nil?
+    
+    false
+
     # sales needs to be added to balance sheets along with assets
   end
 
@@ -70,8 +79,6 @@ class Stock < ActiveRecord::Base
     end
     (alr && dr) || false
   end
-
-
 
   # 3) Earnings stability
   # No loses in past 10 years
@@ -254,7 +261,16 @@ class Stock < ActiveRecord::Base
   end
 
   def ten_year_eps
-    price / historic_eps(10) if !historic_eps(10).nil?
+    return price / historic_eps(10) if !historic_eps(10).nil? && !price.nil?
+    0.0
+  end
+
+# Stock dilution
+  def dilution
+    return 0 if numshares.empty?
+    startd = translate_to_int(numshares.last.shares)
+    endd = translate_to_int(numshares.first.shares)
+    dil_rate =  endd/startd
   end
 
   def latest_balance_sheet
@@ -272,9 +288,9 @@ class Stock < ActiveRecord::Base
   def translate_to_int(str)
     if str.match(/\d+\.\d+\w/)
       res = case str.chop
-            when "B"
+            when "B", "Bil"
               str.chop.to_f * BILLION
-            when "M"
+            when "M", "Mil"
                str.chop.to_f * MILLION
             else
               str.chop.to_f * BILLION
