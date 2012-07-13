@@ -835,7 +835,6 @@ IPI	Intrepid Potash, Inc.
 IVC	Invacare Corporation
 IVZ	Invesco Ltd.
 IVR	Invesco Mortgage Capital Inc.
-VLT	Invesco Van Kampen High Income Trust II
 ITG	Investment Technology Group Inc.
 IO	Ion Geophysical Corporation
 IRM	Iron Mountain Inc.

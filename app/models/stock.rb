@@ -261,13 +261,14 @@ class Stock < ActiveRecord::Base
   end
 
   def ten_year_eps
-    return price / historic_eps(10) if !historic_eps(10).nil? && !price.nil?
+    ds = eps.size
+    return  price / historic_eps(ds) if ds > 0 && !historic_eps(ds).nil? && !price.nil?
     0.0
   end
 
 # Stock dilution
   def dilution
-    return 0 if numshares.empty?
+    return 0 if numshares.nil? || numshares.empty? || numshares.last.nil?
     startd = translate_to_int(numshares.last.shares)
     endd = translate_to_int(numshares.first.shares)
     dil_rate =  endd/startd

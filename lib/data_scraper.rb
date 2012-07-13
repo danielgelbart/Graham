@@ -15,6 +15,7 @@ module DataScraper
    # get_sales
     update_current_data # ttm_eps, sales, div_yield
     update_price
+    get_book_value
   end
 
   def divs
@@ -431,14 +432,23 @@ end # method
 
 # book value scrapers --------------------------------------------------------
   def get_book_value_from_msn
+    if !book_value_per_share.nil?
+      puts "no need to update, book value is #{book_value_per_share} per share "
+      return
+    end
     url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
     doc = open_url_or_nil(url)
-
+    return if doc.nil?
     begin
       book_value = doc.xpath('//tr').detect{ |tr| tr.xpath('./td')[2].text == "Book Value/Share" }.text.split("%").last.split("are").last.to_f
     rescue
     end
-    update_attributes(:book_value_per_share => book_value) if book_value
+    if book_value
+      update_attributes(:book_value_per_share => book_value)
+      puts "updated book value for #{ticker} to #{book_vlue}"
+    else
+      puts "Was unable to get book value for #{ticker}"
+    end
   end
 
 
