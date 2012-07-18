@@ -7,6 +7,32 @@
   = link_to "on_google", "http://www.google.com/finance?q=#{@stock.ticker}"
 %p
   = "last price: #{@stock.price}"
+%script{ :type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $(function() {
+      new Highcharts.Chart({
+        chart: {
+          renderTo: "stock_chart"
+        },
+        title: {
+          text: "Stock Dilution"
+        },
+        xAxis: {
+          type: "datetime"
+        },
+        yAxis: {
+          title: {
+            text: "Shares outstanding"
+          }
+        },
+        series: [{
+          pointInterval: #{ 1.year * 1000 },
+          pointStart: Date.UTC(2003, 0, 1),
+          data: [1,2,3,4,5]
+        }]
+      });
+    });
+#stock_chart{ :style => "width:660px; height:360px;"}
 %table
   %tr
     %td

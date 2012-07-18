@@ -76,3 +76,8 @@ $  rvm --default use 1.9.2
 Get emacs to work with ruby
 emacs configuration is in ~/emacs.d 
 So added lines to that file
+
+
+----------------------------------------------
+Highcharts.
+There is a href injected into the bottom of the chart. this is done in the highcharts.js file. I did not remove it but instead replaced it with the text "--" to point to my name.
