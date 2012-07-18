@@ -1,3 +1,4 @@
+- @numshares = @stock.numshares.sort{ |a,b| a.year <=> b.year }
 %p
   Name:
   =h @stock.name
@@ -15,20 +16,20 @@
           renderTo: "stock_chart"
         },
         title: {
-          text: "Stock Dilution"
+          text: "Shares Outstanding"
         },
         xAxis: {
-          type: "datetime"
+          //type: "datetime"
         },
         yAxis: {
           title: {
             text: "Shares outstanding"
           }
         },
-        series: [{
-          pointInterval: #{ 1.year * 1000 },
-          pointStart: Date.UTC(2003, 0, 1),
-          data: [1,2,3,4,5]
+        series: [{ 
+          pointStart: #{ @numshares.last.year - @numshares.size + 1 },
+          pointInterval: 1,
+          data: #{ @numshares.map{|s| s.shares_to_i } }
         }]
       });
     });

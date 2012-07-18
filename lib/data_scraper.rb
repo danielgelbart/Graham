@@ -2,9 +2,13 @@
 module DataScraper
   require 'nokogiri'
   require 'open-uri'
-  MILLION = 1000000
-  BILLION = 1000000000
-  YEAR = Time.new.year 
+
+  include CommonDefs
+
+  # The above include covers the following three definitions  
+  # MILLION = 1000000
+  # BILLION = 1000000000
+  # YEAR = Time.new.year 
 
   def yearly_update
     get_balance_sheets
