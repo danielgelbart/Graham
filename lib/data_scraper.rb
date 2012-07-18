@@ -20,6 +20,7 @@ module DataScraper
     update_current_data # ttm_eps, sales, div_yield
     update_price
     get_book_value
+    get_numshares
   end
 
   def divs

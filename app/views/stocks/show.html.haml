@@ -99,10 +99,10 @@
 %p
   - if @stock.dilution >= 1
     Stock was DILUTED by 
-    =h short_float(@stock.dilution - 1) 
+    #{ ((@stock.dilution - 1)* 100).to_i } % 
   - else
     Shares REDUCED by
-    =h short_float(1 - @stock.dilution) 
+    #{ ((1 - @stock.dilution) * 100).to_i } %
 %table.stock-list
   %thead
     %th

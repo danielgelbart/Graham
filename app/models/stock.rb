@@ -269,9 +269,10 @@ class Stock < ActiveRecord::Base
 # Stock dilution
   def dilution
     return 0 if numshares.nil? || numshares.empty? || numshares.last.nil?
-    startd = translate_to_int(numshares.last.shares)
-    endd = translate_to_int(numshares.first.shares)
-    dil_rate =  endd/startd
+    ns = numshares.sort{ |a,b| a.year <=> b.year }
+    startd = numshares.first.shares_to_i.to_f
+    endd = numshares.last.shares_to_i.to_f
+    dil_rate =  startd/endd
   end
 
   def latest_balance_sheet
