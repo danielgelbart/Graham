@@ -1,0 +1,21 @@
+%h1
+  Editing stock
+
+= javascript_include_tag :defaults 
+
+- form_for(@stock) do |stock_form| 
+- stock_form.error_messages 
+  %p
+    = stock_form.label :name 
+    = stock_form.text_field :name 
+  %p
+    = stock_form.label :ticker
+    = stock_form.text_field :ticker
+  #finantials
+    - stock_form.fields_for :balance_sheets do |bs_form|
+      = render :partial => 'balance_sheet', :locals => {:ad_form => bs_form, :stock_id => @stock.id }
+  = add_data_link(stock_form) 
+  %p
+    = stock_form.submit 'Update'
+= link_to 'Show', @stock 
+= link_to 'Back', stocks_path

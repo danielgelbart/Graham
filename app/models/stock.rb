@@ -26,7 +26,6 @@ class Stock < ActiveRecord::Base
   has_many :eps, :dependent => :destroy
   has_many :balance_sheets
   has_many :numshares, :dependent => :destroy
-  has_many :annual_datas, :dependent => :destroy
  
   accepts_nested_attributes_for :balance_sheets, :allow_destroy => true
 

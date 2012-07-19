@@ -1,0 +1,23 @@
+.balance_sheet  
+  = ad_form.hidden_field :stock_id
+  %p
+    I----------------------------------------------------------
+  %p
+    = ad_form.label :year
+    = ad_form.text_field :year
+  %p
+    = ad_form.label :current_assets 
+    = ad_form.text_field :current_assets
+  %p
+    = ad_form.label :total_assets 
+    = ad_form.text_field :total_assets
+  %p
+    = ad_form.label :current_liabilities 
+    = ad_form.text_field :current_liabilities
+  %p
+    = ad_form.label :total_liabilities 
+    = ad_form.text_field :total_liabilities
+    
+  = remove_data_link( ad_form )
+  %p
+    I-------------------------------------------------------------
