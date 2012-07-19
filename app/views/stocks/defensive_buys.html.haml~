@@ -1,5 +1,0 @@
-%table
-  - @stocks.each do |stock|
-    %tr
-      %td
-        = link_to "#{stock.ticker}", stock_path(stock)

@@ -66,6 +66,10 @@ module DataScraper
     get_balance_from_yahoo if a.nil?
   end
 
+  def get_income
+    get_revenue_income_msn
+  end
+
   def get_book_value
     a = get_book_value_from_yahoo
     get_book_value_from_msn if a.nil?
@@ -118,6 +122,50 @@ module DataScraper
     end
     price
   end
+
+# Revenue and Incom scrapper from msn --------------------------------------
+def get_revenue_income_msn
+    puts "Getting Revenue and Income for #{ticker}"
+   
+    url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
+    
+    doc = open_url_or_nil(url)
+
+    if doc
+      tr = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalRevenue" }
+      tr = tr.xpath('./td') if tr
+
+      ni = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "NetIncome" }
+      ni = ni.xpath('./td') if ni
+    else
+      puts "Could not open URL"
+    end
+
+    # Msn gives numbers in millions, so we will multiply by 1000000
+    if tr && ni
+      
+      (1..5).each do |i|
+        # get eps for year
+        is = eps.select{ |s| s.year == (YEAR-i) }.first
+      
+        if is
+          revenue = (clean_string(tr[i].text).to_f.round * MILLION).to_s
+          income = (clean_string(ni[i].text).to_f.round * MILLION).to_s
+          if is.update_attributes( :revenue => revenue, :net_income => income)
+            puts "updated #{ticker} with revenue: #{revenue} and income #{income} for year #{ YEAR - i}"
+          end
+        else
+          puts "eps does not exist for #{} for year #{} and I am not going to create it"
+        end
+      end
+    end
+
+  end
+
+
+
+
+
 
 
 # eps scrapers --------------------------------------------------------

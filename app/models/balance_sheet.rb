@@ -24,6 +24,12 @@ class BalanceSheet < ActiveRecord::Base
   validates_presence_of :stock_id
   validates_uniqueness_of :year, :scope => :stock_id
 
+  include CommonDefs
+  
+  def equity
+    sum_to_i(total_assets) - sum_to_i(total_liabilities)
+  end
+  
 
   # rewrite this as a method that combines the attribute name and 'translate' method
   def assets_c

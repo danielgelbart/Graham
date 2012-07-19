@@ -67,7 +67,7 @@ class StocksController < ApplicationController
 
   # GET /stocks/1/edit
   def edit
-    @stock = Stock.find(params[:id])
+    @stock = Stock.find_by_ticker(params[:id])
   end
 
   # POST /stocks
@@ -90,24 +90,19 @@ class StocksController < ApplicationController
   # PUT /stocks/1
   # PUT /stocks/1.xml
   def update
-    @stock = Stock.find(params[:id])
-
-    respond_to do |format|
-      if @stock.update_attributes(params[:stock])
-        flash[:notice] = 'Stock was successfully updated.'
-        format.html { redirect_to(@stock) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @stock.errors, :status => :unprocessable_entity }
-      end
+    @stock = Stock.find_by_ticker(params[:id])
+     
+    if @stock.update_attributes(params[:stock])
+      flash[:notice] = 'Stock was successfully updated.'
+      format.html { redirect_to(@stock) }
+      format.xml  { head :ok }
     end
   end
 
   # DELETE /stocks/1
   # DELETE /stocks/1.xml
   def destroy
-    @stock = Stock.find(params[:id])
+    @stock = Stock.find_by_ticker(params[:id])
     @stock.destroy
 
     respond_to do |format|

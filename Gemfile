@@ -9,5 +9,6 @@ gem "passenger"
 gem "seed-fu", "1.2.3"
 gem "nokogiri"
 
+
 group :cucumber do
 end
