@@ -4,7 +4,7 @@ class Numshare < ActiveRecord::Base
 
   include CommonDefs
 
-  def shares_to_i
+   def shares_to_i
     case self.shares
       when /\d+\.\d+ Bil/
         (self.shares.to_f * BILLION).to_i

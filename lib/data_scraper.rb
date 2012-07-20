@@ -155,7 +155,7 @@ def get_revenue_income_msn
             puts "updated #{ticker} with revenue: #{revenue} and income #{income} for year #{ YEAR - i}"
           end
         else
-          puts "eps does not exist for #{ticker} for year #{Year -i} and I am not going to create it"
+          puts "eps does not exist for #{ticker} for year #{YEAR -i} and I am not going to create it"
         end
       end
     end

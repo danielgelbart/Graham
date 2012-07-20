@@ -20,24 +20,36 @@
           text: "Earnings"
         },
         xAxis: {
-          //type: "datetime"
+          //margins: #{ @earnings.map{ |s| s.margin.to_f } }
         },
         yAxis: [{  // For earnings
           title: {
             text: "Earnings"
           }
-        },{       // For Shares outstanding
+        },{        // For Shares outstanding
           title: {
             text: "Shares Outstanding"
+          },
+          opposite: true
+        },{        // For Margin
+          title: {
+            text: "Margin"
           },
           opposite: true
         }],
         series: [{ 
           name: "Shares Outstanding",
           type: 'line',
+          yAxis: 2,
           pointStart: #{ @numshares.last.year - @numshares.size + 1 },
           pointInterval: 1,
           data: #{ @numshares.map{|s| s.shares_to_i } }
+        }, { 
+          name: "Margin",
+          type: 'line',
+          pointStart: #{ @earnings.last.year - @earnings.size + 1 },
+          pointInterval: 1,
+          data: #{ @earnings.map{ |s| 100 * s.margin.to_f } }
         }, { 
           name: "Revenue",
           type: 'column',
@@ -51,7 +63,15 @@
           yAxis: 1,
           pointStart: #{ @earnings.last.year - @earnings.size + 1 },
           pointInterval: 1,
-          data: #{ @earnings.map{|s| s.net_income.to_i } }
+          data: #{ @income = @earnings.map{|s| s.net_income.to_i } },
+          dataLabels: {
+            enabled: false,
+            rotation: 0,
+            align: 'center'
+            //formatter: function() {
+            //  return this.y ;
+            //}
+          }
         }]
       });
     });
@@ -125,6 +145,9 @@
   - else
     Shares REDUCED by
     #{ ((1 - @stock.dilution) * 100).to_i } %
+%p
+  - @margins = @earnings.map{ |s| s.margin}.select{ |v| v != 0}
+  Average Margin over past #{ @margins.size } years is #{ "%5.2f" % (100 * @margins.inject{ |sum, el| sum + el }.to_f / @margins.size) } %
 %table.stock-list
   %thead
     %th
@@ -133,6 +156,8 @@
       Eps
     %th
       Shares outstanding
+    %th
+      Margin
   %tbody
     - @stock.eps.sort{ |a,b| b.year <=> a.year }.each do |e|
       %tr
@@ -142,5 +167,7 @@
           = short_float(e.eps * @stock.inflation_ratio_for(e.year) )
         %td
           = (@stock.numshares.select{ |s| s.year == e.year } ).first.shares
+        %td
+          = "%5.2f" % e.margin
 
 = link_to 'Back', stocks_path
