@@ -26,8 +26,10 @@ class Stock < ActiveRecord::Base
   has_many :eps, :dependent => :destroy
   has_many :balance_sheets
   has_many :numshares, :dependent => :destroy
+  has_many :balance_sheets, :dependent => :destroy
  
   accepts_nested_attributes_for :balance_sheets, :allow_destroy => true
+  accepts_nested_attributes_for :eps, :allow_destroy => true
 
   validates_presence_of :ticker
   validates_uniqueness_of :ticker

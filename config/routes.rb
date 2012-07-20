@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :stocks
+  # map.resources :stocks
 
 
 

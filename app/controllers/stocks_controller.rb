@@ -94,9 +94,8 @@ class StocksController < ApplicationController
      
     if @stock.update_attributes(params[:stock])
       flash[:notice] = 'Stock was successfully updated.'
-      format.html { redirect_to(@stock) }
-      format.xml  { head :ok }
     end
+    redirect_to(@stock)
   end
 
   # DELETE /stocks/1

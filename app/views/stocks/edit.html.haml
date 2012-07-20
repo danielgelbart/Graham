@@ -14,7 +14,13 @@
   #finantials
     - stock_form.fields_for :balance_sheets do |bs_form|
       = render :partial => 'balance_sheet', :locals => {:ad_form => bs_form, :stock_id => @stock.id }
-  = add_data_link(stock_form) 
+    = add_data_link(stock_form) 
+  %p
+
+  #eps
+    - stock_form.fields_for :eps do |e_form|
+      = render :partial => 'ep', :locals => {:e_form => e_form, :stock_id => @stock.id }
+    = add_earnings_link(stock_form) 
   %p
     = stock_form.submit 'Update'
 = link_to 'Show', @stock 

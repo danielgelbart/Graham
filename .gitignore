@@ -1,6 +1,7 @@
 # General
 *~
 database.yml
+log/development.log
 
 # for bundler
 vendor/gems/gems

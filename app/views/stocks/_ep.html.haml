@@ -1,0 +1,20 @@
+.ep
+  = e_form.hidden_field :stock_id
+  %p
+    I----------------------------------------------------------
+  %p
+    = e_form.label :year
+    = e_form.text_field :year
+  %p
+    = e_form.label :eps
+    = e_form.text_field :eps
+  %p
+    = e_form.label :revenue 
+    = e_form.text_field :revenue
+  %p
+    = e_form.label :net_income
+    = e_form.text_field :net_income
+      
+  = remove_earnings_link( e_form )
+  %p
+    I-------------------------------------------------------------
