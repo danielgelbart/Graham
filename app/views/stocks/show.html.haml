@@ -25,42 +25,41 @@
         yAxis: [{  // For earnings
           title: {
             text: "Earnings"
-          }
+          },
+          opposite: true
         },{        // For Shares outstanding
           title: {
             text: "Shares Outstanding"
-          },
-          opposite: true
-        },{        // For Margin
-          title: {
-            text: "Margin"
-          },
-          opposite: true
+          }
+          //},{        // For Margin
+          //title: {
+          //  text: "Margin"
+          //},
+          //opposite: true
         }],
         series: [{ 
           name: "Shares Outstanding",
           type: 'line',
-          yAxis: 2,
+          yAxis: 1,
           pointStart: #{ @numshares.last.year - @numshares.size + 1 },
           pointInterval: 1,
           data: #{ @numshares.map{|s| s.shares_to_i } }
-        }, { 
-          name: "Margin",
-          type: 'line',
-          pointStart: #{ @earnings.last.year - @earnings.size + 1 },
-          pointInterval: 1,
-          data: #{ @earnings.map{ |s| 100 * s.margin.to_f } }
+          //}, { 
+          //name: "Margin",
+          //type: 'line',
+          //yAxis: 2,
+          //pointStart: #{ @earnings.last.year - @earnings.size + 1 },
+          //pointInterval: 1,
+          //data: #{ @earnings.map{ |s| 100 * s.margin.to_f } }
         }, { 
           name: "Revenue",
           type: 'column',
-          yAxis: 1,
           pointStart: #{ @earnings.last.year - @earnings.size + 1 },
           pointInterval: 1,
           data: #{ @earnings.map{|s| s.revenue.to_i } }
         }, {
           name: "Net Income",
           type: 'column',
-          yAxis: 1,
           pointStart: #{ @earnings.last.year - @earnings.size + 1 },
           pointInterval: 1,
           data: #{ @income = @earnings.map{|s| s.net_income.to_i } },
@@ -118,7 +117,10 @@
       %td
         Cheap?
       %td
-        = "#{yes_no(@stock.cheap?)}, #{@stock.ticker} has a defensive limit buy price of #{@stock.price_limit}, and is trading at #{@stock.price}"
+        = "#{yes_no(@stock.cheap?)}. "
+        - if @stock.overpriced?
+          = " #{@stock.ticker} Is overpriced, might consider selling:"
+        = "#{@stock.ticker} has a defensive limit buy price of #{@stock.price_limit}, and is trading at #{@stock.price} and is overvalued at #{ @stock.valuation_limit }"
   - else
     %tr
       %td

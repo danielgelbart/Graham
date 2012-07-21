@@ -404,7 +404,7 @@ CPA	Copa Holdings, S.A.
 CLB	Core Laboratories
 CLGX	CoreLogic, INC.
 COR	CoreSite Realty Corporation
-CPO	Corn Products International, Inc.
+INGR    Ingredion, formorly Corn Products International, Inc.
 GLW	Corning Inc.
 EXBD	The Corporate Executive Board Company
 OFC	Corporate Office Properties Trust
@@ -1354,7 +1354,7 @@ SHS	Sauer-Danfoss Inc.
 BFS	Saul Centers Inc.
 SCG	SCANA Corporation
 SGK	Schawk Inc.
-WNI	Schiff Nutrition International, Inc.
+SHF	Schiff Nutrition International, Inc.
 SLB	Schlumberger Limited
 SWM	Schweitzer Mauduit International, Inc.
 STNG	Scorpio Tankers Inc.

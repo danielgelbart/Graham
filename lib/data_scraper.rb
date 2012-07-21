@@ -21,6 +21,7 @@ module DataScraper
     update_price
     get_book_value
     get_numshares
+    get_income
   end
 
   def divs

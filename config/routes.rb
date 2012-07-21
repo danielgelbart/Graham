@@ -51,6 +51,9 @@ ActionController::Routing::Routes.draw do |map|
   map.cheap_stocks 'cheap_stocks',
   :controller => 'stocks',
   :action => 'cheap_stocks'
+  map.cheap_stocks 'dear_stocks',
+  :controller => 'stocks',
+  :action => 'dear_stocks'
   map.defensive_buys 'defensive_buys',
   :controller => 'stocks',
   :action => 'defensive_buys'

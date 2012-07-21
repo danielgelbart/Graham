@@ -121,7 +121,7 @@ class Stock < ActiveRecord::Base
   # second criteria from page 182
   def price_limit
     # earning records do not go back far enough to compute price limit
-    return 0 if historic_eps(7).nil?
+    return 0 if historic_eps(7).nil? || ttm_eps.nil?
 
     lim = min( historic_eps(7)*25, ttm_eps*20 )
     min( historic_eps(3) * 15, lim ) # second criteria from page 182
@@ -135,7 +135,22 @@ class Stock < ActiveRecord::Base
   # / End, Defensive buy breackdown---------------------------------------
 
   def cheap?
+    return false if price.nil? or price_limit.nil?
     price < price_limit
+  end
+
+  # Set a price at wich a stock is overvalued to the point of concidering to sell it
+  def valuation_limit
+    return 1000000 if historic_eps(10).nil? || ttm_eps.nil?
+    lim = max( historic_eps(10) * 26, ttm_eps*40 )
+    lim = max( historic_eps(3) * 28, lim ) # second criteria from page 182
+    return 1000000 if lim.nil?
+    lim
+  end
+
+  def overpriced?
+    return false if price.nil?
+    price > valuation_limit
   end
 
   def good_defensive_stock?
