@@ -4,6 +4,7 @@ module DataScraper
   require 'open-uri'
 
   include CommonDefs
+  YEAR = Time.new.year 
 
   # The above include covers the following three definitions  
   # MILLION = 1000000
@@ -126,6 +127,7 @@ module DataScraper
 
 # Revenue and Incom scrapper from msn --------------------------------------
 def get_revenue_income_msn
+    year = Time.new.year 
     puts "Getting Revenue and Income for #{ticker}"
    
     url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
@@ -147,16 +149,16 @@ def get_revenue_income_msn
       
       (1..5).each do |i|
         # get eps for year
-        is = eps.select{ |s| s.year == (YEAR-i) }.first
+        is = eps.select{ |s| s.year.to_i ==  (year - i).to_i  }.first
       
         if is
           revenue = (clean_string(tr[i].text).to_f.round * MILLION).to_s
           income = (clean_string(ni[i].text).to_f.round * MILLION).to_s
           if is.update_attributes( :revenue => revenue, :net_income => income)
-            puts "updated #{ticker} with revenue: #{revenue} and income #{income} for year #{ YEAR - i}"
+            puts "updated #{ticker} with revenue: #{revenue} and income #{income} for year #{ (year - i).to_s}"
           end
         else
-          puts "eps does not exist for #{ticker} for year #{YEAR -i} and I am not going to create it"
+          puts "eps not exist for #{ticker} for year #{ (year -i).to_s } and I am not going to create it"
         end
       end
     end
