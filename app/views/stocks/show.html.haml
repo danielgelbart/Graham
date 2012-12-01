@@ -90,7 +90,7 @@
         %td
           = "**Using only total (not current) ratios"
     %td
-      = link_to "Balance sheet",  "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?Symbol=US%3a#{@stock.ticker}&lstStatement=Balance&stmtView=Ann"
+      = link_to "Balance sheet",  "http://investing.money.msn.com/investments/stock-balance-sheet/?symbol=us%3A#{@stock.ticker}&stmtView=Ann"
   - if @stock.bargain?
     %tr
       %td

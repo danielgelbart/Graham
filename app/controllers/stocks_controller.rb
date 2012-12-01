@@ -57,6 +57,8 @@ class StocksController < ApplicationController
       @stock = Stock.find_by_ticker(params[:id])
     else
       @stock = Stock.find_by_ticker(params[:id])
+      @stock = Stock.all.select{ |s| s.to_param == params[:id] }.first if @stock.nil?
+      
     end
   end
 

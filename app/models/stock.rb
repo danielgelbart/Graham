@@ -325,14 +325,12 @@ class Stock < ActiveRecord::Base
   end
 
   def to_param
-    ticker
+    ticker.gsub(/\./,"")
   end
-
 
   def pe
     price / ttm_eps.to_f
   end
-
 
   # Math module
 

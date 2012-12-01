@@ -316,7 +316,7 @@ def get_revenue_income_msn
       return true
     end
 
-    url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?Symbol=US%3a#{ticker}&lstStatement=Balance&stmtView=Ann"
+    url = "http://investing.money.msn.com/investments/stock-balance-sheet/?symbol=us%3A#{ticker}&stmtView=Ann"
 
     doc = open_url_or_nil(url)
 
