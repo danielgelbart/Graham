@@ -238,8 +238,8 @@ class Stock < ActiveRecord::Base
       2008 => 1.0003,
       2009 => 1.0259,
       2010 => 1.0162,
-      2011 => 1.0292
-      # 2012 => add inflation for 2012
+      2011 => 1.0292,
+      2012 => 1.018 #Not as precise as previous year's data
       }
     
     mul = 1

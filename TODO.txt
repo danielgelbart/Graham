@@ -15,3 +15,6 @@ Update dividend scraping. and update for all stocks 2011. Dividinds site used fo
 
 
 3. Add nasdaq stocks. I had to manualy add MSFT and INTC
+
+
+-** Running "yearly_update" does not update 2012!!!
