@@ -1,11 +1,17 @@
-eps
+git -----------
 
-Can only get 10 years bakc using the rake command:
-$ bundle exec rake eps:get_data[MSFT]
+commits:
 
+git add .
+git commit -a
+git push
+OR
+$ git commit -m"put a commit message here"
 
+if ff problems:
+git pull --rebase
 
-dividends can be gotten via the rake (and method from stock scraper)
-$ bundle exec rake dividend:get_data[MSFT]
-***However, as of Augost 2011, the website dividend.com no longer provids dividends for free, and these methods/commands do not work.
+  gitignore
+I needed to remove the development log from repository. So need to remove it from what git is traking:
+$ git rm log/development.log
 

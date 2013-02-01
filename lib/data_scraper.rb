@@ -11,8 +11,6 @@ module DataScraper
   # BILLION = 1000000000
   # YEAR = Time.new.year 
 
-# a test comment
-
   def yearly_update
     get_balance_sheets
     # get_dividends(1900) # get dividends as far back as possible

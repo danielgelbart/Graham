@@ -16,5 +16,15 @@ Update dividend scraping. and update for all stocks 2011. Dividinds site used fo
 
 3. Add nasdaq stocks. I had to manualy add MSFT and INTC
 
+-------eps
+
+Can only get 10 years bakc using the rake command:
+$ bundle exec rake eps:get_data[MSFT]
+
+dividends can be gotten via the rake (and method from stock scraper)
+$ bundle exec rake dividend:get_data[MSFT]
+***However, as of Augost 2011, the website dividend.com no longer provids dividends for free, and these methods/commands do not work.
+
+
 
 -** Running "yearly_update" does not update 2012!!!
