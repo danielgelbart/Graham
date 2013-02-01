@@ -16,3 +16,16 @@ class Numshare < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: numshares
+#
+#  id         :integer(4)      not null, primary key
+#  stock_id   :integer(4)
+#  year       :integer(4)
+#  shares     :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

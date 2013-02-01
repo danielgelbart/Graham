@@ -1,7 +1,6 @@
 git -----------
 
 commits:
-
 git add .
 git commit -a
 git push
@@ -15,3 +14,17 @@ git pull --rebase
 I needed to remove the development log from repository. So need to remove it from what git is traking:
 $ git rm log/development.log
 
+---------  Gems - Gemfile ----------------------------------
+add a line to the Gemfile
+gem "gemname"
+
+then do
+$ bundle install
+
+That should install the gems. to see a list do:
+$ bundle show
+
+To update a gem (as I needed to do for 'rake' to version 9, to get 'annotate models to work):
+$ bundle update rake
+
+----------------------------------------

@@ -1,22 +1,3 @@
-# == Schema Information
-# Schema version: 20100408183735
-#
-# Table name: balance_sheets
-#
-#  id                  :integer(4)      not null, primary key
-#  stock_id            :integer(4)
-#  year                :integer(4)
-#  current_assets      :string(255)
-#  total_assets        :string(255)
-#  current_liabilities :string(255)
-#  total_liabilities   :string(255)
-#  long_term_debt      :string(255)
-#  book_value          :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
-#  net_tangible_assets :string(255)
-#
-
 class BalanceSheet < ActiveRecord::Base
 
   belongs_to :stock
@@ -89,3 +70,23 @@ class BalanceSheet < ActiveRecord::Base
 
 
 end
+
+# == Schema Information
+#
+# Table name: balance_sheets
+#
+#  id                  :integer(4)      not null, primary key
+#  stock_id            :integer(4)
+#  year                :integer(4)
+#  current_assets      :string(255)
+#  total_assets        :string(255)
+#  current_liabilities :string(255)
+#  total_liabilities   :string(255)
+#  long_term_debt      :string(255)
+#  book_value          :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  net_tangible_assets :string(255)
+#  total_sales         :string(255)
+#
+

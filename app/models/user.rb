@@ -1,5 +1,8 @@
+class User < ActiveRecord::Base
+  has_many :portfolios
+end
+
 # == Schema Information
-# Schema version: 20100408183735
 #
 # Table name: users
 #
@@ -9,6 +12,3 @@
 #  updated_at :datetime
 #
 
-class User < ActiveRecord::Base
-  has_many :portfolios
-end

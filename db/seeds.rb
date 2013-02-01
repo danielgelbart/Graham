@@ -19,7 +19,7 @@ end
 
 #Stock.seed_many(:ticker,                [{:name => "Berkshire Hathaway", :ticker => "BRK"},                 {:name => "Teva Pharmasutical industries.", :ticker => "TEVA"}])
 
-# Create stocks from a list
+# Create NYSE stocks from a list maintained in 'nyse_stocks_list.txt'
 file = File.open("nyse_stocks_list.txt","r")
    while (line = file.gets)
      ticker = line.split.first

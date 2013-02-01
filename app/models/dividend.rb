@@ -1,5 +1,12 @@
+class Dividend < ActiveRecord::Base
+  belongs_to :stock
+
+  validates_uniqueness_of :date, :scope => :stock_id
+
+
+end
+
 # == Schema Information
-# Schema version: 20100408183735
 #
 # Table name: dividends
 #
@@ -12,10 +19,3 @@
 #  updated_at :datetime
 #
 
-class Dividend < ActiveRecord::Base
-  belongs_to :stock
-
-  validates_uniqueness_of :date, :scope => :stock_id
-
-
-end

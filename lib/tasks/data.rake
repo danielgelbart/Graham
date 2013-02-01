@@ -1,7 +1,8 @@
 # Takes a stock ticker to get data for as an argument
 namespace :stock do
   desc "Load recent financial data"
-  task :get_data, :ticker, :needs => :environment do |task, args|
+  
+  task :get_data, [:ticker] => :environment do |task, args|
     require 'active_record'
     require 'nokogiri'
     require 'open-uri'

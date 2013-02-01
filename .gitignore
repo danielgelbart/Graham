@@ -3,6 +3,8 @@
 database.yml
 log/development.log
 
+rdoc/
+
 # for bundler
 vendor/gems/gems
 vendor/gems/specifications
