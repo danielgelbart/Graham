@@ -340,7 +340,7 @@ def get_revenue_income_msn
     update_year = 1 #Some stocks may not be updated for 2012 yet
     update_year = 0 if fp[10].text.last == "2"
     
-    using_currant_data = true
+    using_current_data = true
     
     # Scrape data from doc
     # Current Assets
@@ -376,13 +376,13 @@ def get_revenue_income_msn
     
     # Create balance sheet for 10 years
     (1..10).each do |i|
-      cas = ""
-      cls = ""
-      ntas = ""
-      if using_current_data
-          cas = (clean_string(ca[i].text).to_f.round * MILLION).to_s
-          cls = (clean_string(cl[i].text).to_f.round * MILLION).to_s
-          ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
+      cas = (clean_string(ca[i].text).to_f.round * MILLION).to_s
+      cls = (clean_string(cl[i].text).to_f.round * MILLION).to_s
+      ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
+      if !using_current_data
+        cas = ""
+        cls = ""
+        ntas = ""
       end
       bs = BalanceSheet.create(:stock_id => self.id,
                             :year => YEAR - (11 - i) - update_year, #This reveses the year from i
@@ -395,7 +395,7 @@ def get_revenue_income_msn
                             :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
                             
         update_attributes( :has_currant_ratio => false) if !using_current_data         
-        puts "Got bs data for #{ticker}, year: #{bs.year}, ta = #{bs.current_assets}" if !bs.id.nil?
+        puts "Got bs data for #{ticker}, year: #{bs.year}, ca = #{bs.current_assets}" if !bs.id.nil?
     end
     
     #Scrape (from same page): Revenue, net earnings, 
@@ -419,7 +419,7 @@ def get_revenue_income_msn
                      :eps => clean_string(eps[i].text).to_f,
                      :source => url)
                   
-      puts "Got eps data for #{ticker}, year: #{ep.year}, rev: #{ep.revenue}, income: #{ep.net_income}, eps: #{ep.eps}"if !ep.id.nil?
+      puts "Got eps data for #{ticker}, year: #{ep.year}, rev: #{ep.revenue}, income: #{ep.net_income}, eps: #{ep.eps.to_s}"if !ep.id.nil?
                  
       #puts "Got eps data for #{ticker}, year: #{YEAR - (11 - i)- update_year}, rev: #{r[i].text}, income: #{ni[i].text}, eps: #{eps[i].text}"
     end

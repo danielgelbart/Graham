@@ -30,4 +30,3 @@ $ bundle update rake
 ----------------------------------------
 annotate
 
-added a file with configuration for anotions. 
