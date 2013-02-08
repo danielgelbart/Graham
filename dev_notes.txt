@@ -28,3 +28,6 @@ To update a gem (as I needed to do for 'rake' to version 9, to get 'annotate mod
 $ bundle update rake
 
 ----------------------------------------
+annotate
+
+added a file with configuration for anotions. 

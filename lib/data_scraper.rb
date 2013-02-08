@@ -11,18 +11,31 @@ module DataScraper
   # BILLION = 1000000000
   # YEAR = Time.new.year 
 
+  def scrape_data
+    get_data_from_gurufocus # Retrievs: ta,tl, ca, cl, ltd, nta, bv
+                            # Revenue, income, and eps
+    get_numshares           # numshares 
+  end
+
   def yearly_update
+    
     get_balance_sheets
+    get_income
+    get_book_value
+    get_sales
+    
     # get_dividends(1900) # get dividends as far back as possible
+    
     get_last_year_eps_msn
     get_historic_eps(10) # get earnings for last year
-   # get_eps # ttmeps
-   # get_sales
+    # get_eps # ttmeps
+    
     update_current_data # ttm_eps, sales, div_yield
-    update_price
-    get_book_value
+          
     get_numshares
-    get_income
+    
+    update_price
+    
   end
 
   def divs
@@ -39,10 +52,10 @@ module DataScraper
   end
 
   def get_stock_price
-    price = get_price_from_yahoo
+    price = get_price_from_yahoo                              
     price = get_price_from_google if price.nil?
     price = get_price_from_msn if price.nil?
-    price
+                                                                                                                                                                                               
   end
 
   def get_eps
@@ -164,12 +177,6 @@ def get_revenue_income_msn
     end
 
   end
-
-
-
-
-
-
 
 # eps scrapers --------------------------------------------------------
 # for last year and create model
@@ -308,6 +315,151 @@ def get_revenue_income_msn
   end
 
   # Balace sheet ---------------------------------------------------------------
+  
+  
+  def get_data_from_gurufocus
+    /
+    #Check is data is up to date
+    if (balance_sheets.count >= 5) && (balance_sheets.detect{ |b| b.year == YEAR-1 } ) # no need to update
+      puts "Balance sheets for #{ticker} up to date - not going to download"
+      return true
+    end
+    /
+    
+    #Acces data page
+    url = "http://www.gurufocus.com/financials/#{ticker}"
+    doc = open_url_or_nil(url)
+    if doc.nil?
+      puts "Could not get finantial data from gurufocus.com"
+      return false
+    end
+    
+    # Check if year is updated for 2012
+    fp = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Fiscal Period" }
+    fp = fp.xpath('./td') if fp
+    update_year = 1 #Some stocks may not be updated for 2012 yet
+    update_year = 0 if fp[10].text.last == "2"
+    
+    using_currant_data = true
+    
+    # Scrape data from doc
+    # Current Assets
+    ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Current Assets" }
+    if ca
+      ca = ca.xpath('./td') 
+    else
+      using_current_data = false
+    end
+    
+    ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Assets" }
+    ta = ta.xpath('./td') if ta
+    
+    cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Current Liabilities" }
+    if cl
+      cl = cl.xpath('./td') 
+    else
+      using_current_data = false
+    end
+        
+    tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Liabilities" }
+    tl = tl.xpath('./td') if tl
+    
+    # Debt, book value, net tangible assets
+    ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Long-Term Debt" }
+    ltd = ltd.xpath('./td') if ltd
+    
+    bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Equity" }
+    bv = bv.xpath('./td') if bv
+    
+    ocs = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Other Current Assets" }
+    ocs = ocs.xpath('./td') if ocs
+    
+    # Create balance sheet for 10 years
+    (1..10).each do |i|
+      cas = ""
+      cls = ""
+      ntas = ""
+      if using_current_data
+          cas = (clean_string(ca[i].text).to_f.round * MILLION).to_s
+          cls = (clean_string(cl[i].text).to_f.round * MILLION).to_s
+          ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
+      end
+      bs = BalanceSheet.create(:stock_id => self.id,
+                            :year => YEAR - (11 - i) - update_year, #This reveses the year from i
+                            :current_assets => cas,
+                            :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
+                            :current_liabilities => cls,
+                            :total_liabilities => (clean_string(tl[i].text).to_f.round * MILLION).to_s,
+                            :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
+                            :net_tangible_assets => ntas,
+                            :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
+                            
+        update_attributes( :has_currant_ratio => false) if !using_current_data         
+        puts "Got bs data for #{ticker}, year: #{bs.year}, ta = #{bs.current_assets}" if !bs.id.nil?
+    end
+    
+    #Scrape (from same page): Revenue, net earnings, 
+    # and - diluted EPS, including extra items
+    r = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Revenue" }
+    r = r.xpath('./td') if r
+    
+    ni = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Net Income" }
+    ni = ni.xpath('./td') if ni
+    
+    # This is eps from gurufocus, not exactly what we want
+    eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Earnings per Share ($)" }
+    eps = eps.xpath('./td') if eps
+    
+    
+    (1..10).each do |i|
+      ep = Ep.create(:stock_id => self.id,
+                     :year => YEAR - (11 - i)- update_year,
+                     :net_income => (clean_string(ni[i].text).to_f.round * MILLION).to_s,
+                     :revenue => (clean_string(r[i].text).to_f.round * MILLION).to_s,
+                     :eps => clean_string(eps[i].text).to_f,
+                     :source => url)
+                  
+      puts "Got eps data for #{ticker}, year: #{ep.year}, rev: #{ep.revenue}, income: #{ep.net_income}, eps: #{ep.eps}"if !ep.id.nil?
+                 
+      #puts "Got eps data for #{ticker}, year: #{YEAR - (11 - i)- update_year}, rev: #{r[i].text}, income: #{ni[i].text}, eps: #{eps[i].text}"
+    end
+      
+    #update eps for past 5 years from msn
+    # get last five years earnings as 'diluted eps including extra items' from msn
+    url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
+      
+    doc = open_url_or_nil(url)
+    puts "\n Updateing eps data from msn for #{ticker}"
+      
+    eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
+     
+    if eps
+      eps = eps.xpath('./td')
+         
+      (1..5).each do |i|
+        if eps[i]
+           ep = self.eps.select{ |s| s.year == YEAR - i - update_year }.first   
+           if !ep.nil?
+             ep.update_attributes( :eps => clean_string(eps[i].text).to_f, :source => url) 
+             puts "Updated ep for #{ticker}, year: #{YEAR - i - update_year}, eps: #{clean_string(eps[i].text)}"
+           end  
+        end
+      end
+    end
+    
+    # get numshares for 2012
+    doc = get_numshares # returns page download
+    # try to get data for 2012 if it is available
+    if doc && update_year == 1
+      # try to add data for 2012
+      
+    end
+    
+    # get dividends up to 2012 - Do this in rake task
+      
+  end
+  
+  
 # only gets 5 years back
   def get_bs_from_msn
 
@@ -588,29 +740,26 @@ def get_historic_eps(years_back)
 
     # get last five years earnings as 'diluted eps including extra items' from msn
     url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
-  
-    
+      
     # dont download if historic eps data already exists
-    return if self.eps.count >= years_back
-
+    # return if self.eps.count >= years_back
   
     doc = open_url_or_nil(url)
-	start = 1 # how far back to get earnings
-    	year = YEAR - 1
-    	puts "\n Getting earnings records for #{ticker}"
-
+  	start = 1 # how far back to get earnings
+   	year = YEAR - 1
+   	puts "\n Getting earnings records for #{ticker}"
       
-        eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
+    eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
      
-	if eps
-          eps = eps.xpath('./td') 
-          years_togo_back = min(5,years_back)
-     	  (1..years_togo_back).each do |i|
-	   	 if eps[i]
+  	if eps
+      eps = eps.xpath('./td') 
+      years_togo_back = min(5,years_back)
+      (1..years_togo_back).each do |i|
+	      if eps[i]
  	   	    ep = Ep.create(:stock_id => self.id,
-                                   :year => YEAR - i,
-                                   :eps => clean_string(eps[i].text).to_f,
-                                   :source => url)
+                         :year => YEAR - i,
+                         :eps => clean_string(eps[i].text).to_f,
+                         :source => url)
  	    		puts "created eps for #{ticker}, year: #{ep.year}, eps: #{ep.eps}"  if !ep.id.nil?
             	 end
       	   end
@@ -650,35 +799,34 @@ def get_historic_eps(years_back)
    
     puts "Getting shares outstanding for #{ticker}"
 
-        url = "http://investing.money.msn.com/investments/financial-statements?symbol=US%3a#{ticker}"
+    url = "http://investing.money.msn.com/investments/financial-statements?symbol=US%3a#{ticker}"
 
-        doc = open_url_or_nil(url)
-        return if doc.nil?
+    doc = open_url_or_nil(url)
+    return if doc.nil?
         
-        sel = doc.css('table[class = " mnytbl"]')
-        return if sel.nil? or sel[1].nil?
+    sel = doc.css('table[class = " mnytbl"]')
+    return if sel.nil? or sel[1].nil?
 
-        so = sel[1].css('td[class = "nwrp last"]')
-        return if so.nil?
+    so = sel[1].css('td[class = "nwrp last"]')
+    return if so.nil?
 
-	year = YEAR - 1
+	  year = YEAR - 1
 
-        if !so.nil? && !so.empty?
-      
-          so.each do |n|
-            if !n.nil?  
-                  shares_outstanding = clean_string(n.text)
-                  next if shares_outstanding.to_i == 0
-         	  sharec = Numshare.create(:stock_id => self.id,
+    if !so.nil? && !so.empty?
+      so.each do |n|
+        if !n.nil?  
+          shares_outstanding = clean_string(n.text)
+          next if shares_outstanding.to_i == 0
+         	sharec = Numshare.create(:stock_id => self.id,
                 	       	:year => year,
-				:shares => shares_outstanding)
-               	  puts "created numshare for #{ticker}, year: #{sharec.year}, shares: #{sharec.shares}" if !sharec.id.nil?
-        	  year = year - 1
-            end
-          end      
+				                  :shares => shares_outstanding)
+          puts "created numshare for #{ticker}, year: #{sharec.year}, shares: #{sharec.shares}" if !sharec.id.nil?
+        	year = year - 1
         end
-
-       
+      end      
+    end
+     
+    doc # return doc since this might be used later   
   end # method for number of shares
 
 
