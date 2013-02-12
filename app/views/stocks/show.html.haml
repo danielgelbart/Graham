@@ -166,7 +166,7 @@
         %td
           = e.year
         %td
-          = short_float(e.eps * @stock.inflation_ratio_for(e.year) )
+          = short_float(e.eps) # inflation calculation is incorrect
         %td
           = (@stock.numshares.select{ |s| s.year == e.year } ).first.shares
         %td

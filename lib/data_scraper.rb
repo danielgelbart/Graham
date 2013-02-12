@@ -14,7 +14,7 @@ module DataScraper
   def scrape_data
     get_data_from_gurufocus # Retrievs: ta,tl, ca, cl, ltd, nta, bv
                             # Revenue, income, and eps
-    get_numshares           # numshares 
+    #get_numshares           # numshares 
   end
 
   def yearly_update
@@ -430,7 +430,13 @@ def get_revenue_income_msn
       
     doc = open_url_or_nil(url)
     puts "\n Updateing eps data from msn for #{ticker}"
-      
+    
+    #test if updated for 2012 or not (not neceraly updated to same year as gurufocus)
+    date = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "FiscalPeriodEndDate" } if doc
+    date = date.xpath('./td') if date
+    update_year_msn = 1 #Some stocks may not be updated for 2012 yet
+    update_year_msn = 0 if !date[1].text.match("2012").nil?
+       
     eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
      
     if eps
@@ -438,22 +444,22 @@ def get_revenue_income_msn
          
       (1..5).each do |i|
         if eps[i]
-           ep = self.eps.select{ |s| s.year == YEAR - i - update_year }.first   
+           year = YEAR - i - update_year_msn
+           ep = self.eps.select{ |s| s.year == year }.first   
            if !ep.nil?
              ep.update_attributes( :eps => clean_string(eps[i].text).to_f, :source => url) 
-             puts "Updated ep for #{ticker}, year: #{YEAR - i - update_year}, eps: #{clean_string(eps[i].text)}"
+             puts "Updated ep for #{ticker}, year: #{year}, eps: #{clean_string(eps[i].text)}"
            end  
         end
       end
     end
     
-    # get numshares for 2012
-    doc = get_numshares # returns page download
-    # try to get data for 2012 if it is available
-    if doc && update_year == 1
-      # try to add data for 2012
-      
-    end
+    ## get numshares for 2012
+    # doc = get_numshares # returns page download
+    ## try to get data for 2012 if it is available
+    # if doc && update_year == 1
+      ## try to add data for 2012
+    # end
     
     # get dividends up to 2012 - Do this in rake task
       
