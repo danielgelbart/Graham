@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120719183144) do
+ActiveRecord::Schema.define(:version => 20130212170618) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20120719183144) do
     t.decimal  "yield",                  :precision => 6,  :scale => 3
     t.boolean  "listed",                                                :default => true
     t.boolean  "has_currant_ratio",                                     :default => true
+    t.string   "mark"
   end
 
   create_table "transactions", :force => true do |t|

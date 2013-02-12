@@ -12,10 +12,20 @@ module DataScraper
   # YEAR = Time.new.year 
 
   def scrape_data
+    markn = "mark1"
+    last_mark = self.mark
+    if !self.mark.nil? && !last_mark.match(markn).nil?
+      puts "Skipping downloading data for #{ticker} - not going to download"
+      return true
+    end
+    
     get_data_from_gurufocus # Retrievs: ta,tl, ca, cl, ltd, nta, bv
                             # Revenue, income, and eps
     get_numshares           # numshares 
     update_price
+    
+    # mark stock as updated
+    update_attributes( :mark => markn) 
   end
 
   def yearly_update
@@ -320,12 +330,6 @@ def get_revenue_income_msn
   
   def get_data_from_gurufocus
     
-    # Skip if already downloaded
-    if !self.eps.last.source.match("gurufocus").nil?
-      puts "Skipping downloading data for #{ticker} - not going to download"
-      return true
-    end
-        
     #Acces data page
     url = "http://www.gurufocus.com/financials/#{ticker}"
     doc = open_url_or_nil(url)
@@ -337,8 +341,20 @@ def get_revenue_income_msn
     # Check if year is updated for 2012
     fp = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Fiscal Period" }
     fp = fp.xpath('./td') if fp
-    update_year = 1 #Some stocks may not be updated for 2012 yet
-    update_year = 0 if fp[10].text.last == "2"
+       
+    # Find last year by counting 'td's up to "TMM"
+    years_available = 0 # Some stocks may not have 10 years worth of data
+    for i in 1..fp.size
+      if !fp[i].text.match("TTM").nil? 
+        break
+      end
+      years_available = i
+    end
+    
+    puts "Counted #{years_available} years of available data for #{ticker}"
+          
+    update_year = 1 # Some stocks may not be updated for 2012 yet
+    update_year = 0 if fp[years_available].text.last == "2"
     
     # A boolean to test if current asset values are available
     using_current_data = true
@@ -376,7 +392,7 @@ def get_revenue_income_msn
     ocs = ocs.xpath('./td') if ocs
     
     # Create balance sheet for 10 years
-    (1..10).each do |i|
+    (1..years_available).each do |i|
       cas = ""
       cls = ""
       ntas = ""
@@ -387,7 +403,7 @@ def get_revenue_income_msn
       end
       
       bs = BalanceSheet.create(:stock_id => self.id,
-                            :year => YEAR - (11 - i) - update_year, #This reveses the year from i
+                            :year => YEAR - (years_available+1 - i) - update_year, #This reveses the year from i
                             :current_assets => cas,
                             :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
                             :current_liabilities => cls,
@@ -395,9 +411,8 @@ def get_revenue_income_msn
                             :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
                             :net_tangible_assets => ntas,
                             :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
-                            
-         
-        puts "Got bs data for #{ticker}, year: #{bs.year}, ca = #{bs.current_assets}" if !bs.id.nil?
+                                     
+        puts "Got bs data for #{ticker}, year: #{bs.year}, ta = #{bs.total_assets}" if !bs.id.nil?
     end
     
     update_attributes( :has_currant_ratio => using_current_data)    
@@ -415,9 +430,9 @@ def get_revenue_income_msn
     eps = eps.xpath('./td') if eps
     
     
-    (1..10).each do |i|
+    (1..years_available).each do |i|
       ep = Ep.create(:stock_id => self.id,
-                     :year => YEAR - (11 - i)- update_year,
+                     :year => YEAR - (years_available+1 - i)- update_year,
                      :net_income => (clean_string(ni[i].text).to_f.round * MILLION).to_s,
                      :revenue => (clean_string(r[i].text).to_f.round * MILLION).to_s,
                      :eps => clean_string(eps[i].text).to_f,
@@ -458,6 +473,7 @@ def get_revenue_income_msn
       end
     end
     
+       
     # get dividends up to 2012 - Do this in rake task
       
   end
