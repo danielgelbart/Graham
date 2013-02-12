@@ -268,13 +268,14 @@ class Stock < ActiveRecord::Base
   def dilution
     return 0 if numshares.nil? || numshares.empty? || numshares.last.nil?
     ns = numshares.sort{ |a,b| a.year <=> b.year }
-    startd = numshares.first.shares_to_i.to_f
-    endd = numshares.last.shares_to_i.to_f
+    startd = ns.first.shares_to_i.to_f
+    endd = ns.last.shares_to_i.to_f
     dil_rate =  startd/endd
   end
 
+  # Gets most recent balance sheet, regardles if updated 
   def latest_balance_sheet
-    balance_sheets.detect{ |bs| bs.year == YEAR - 1}
+    balance_sheets.sort{ |b,y| b.year <=> y.year }.last
   end
 
   def ncav
@@ -331,8 +332,6 @@ class Stock < ActiveRecord::Base
 
   class String
 
-
-
     def translate_letter_to_number
       if str.match(/\d+\.?\d+\w/)
         res = case str.chop
@@ -347,12 +346,9 @@ class Stock < ActiveRecord::Base
       res
     end
 
-
     def clean_numeric_string
       gsub(/\$|,|\302|\240/,"").strip
     end
-
-
 
     def to_i
       #translate B and M to Bilion and Million (numaricly)
@@ -360,8 +356,7 @@ class Stock < ActiveRecord::Base
       translate_letter_to_number ||  s.super.to_i
     end
 
-
-  end
+  end #string class
 
 
 

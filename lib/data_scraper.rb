@@ -14,7 +14,8 @@ module DataScraper
   def scrape_data
     get_data_from_gurufocus # Retrievs: ta,tl, ca, cl, ltd, nta, bv
                             # Revenue, income, and eps
-    #get_numshares           # numshares 
+    get_numshares           # numshares 
+    update_price
   end
 
   def yearly_update
@@ -318,14 +319,13 @@ def get_revenue_income_msn
   
   
   def get_data_from_gurufocus
-    /
-    #Check is data is up to date
-    if (balance_sheets.count >= 5) && (balance_sheets.detect{ |b| b.year == YEAR-1 } ) # no need to update
-      puts "Balance sheets for #{ticker} up to date - not going to download"
+    
+    # Skip if already downloaded
+    if !self.eps.last.source.match("gurufocus").nil?
+      puts "Skipping downloading data for #{ticker} - not going to download"
       return true
     end
-    /
-    
+        
     #Acces data page
     url = "http://www.gurufocus.com/financials/#{ticker}"
     doc = open_url_or_nil(url)
@@ -340,6 +340,7 @@ def get_revenue_income_msn
     update_year = 1 #Some stocks may not be updated for 2012 yet
     update_year = 0 if fp[10].text.last == "2"
     
+    # A boolean to test if current asset values are available
     using_current_data = true
     
     # Scrape data from doc
@@ -376,14 +377,15 @@ def get_revenue_income_msn
     
     # Create balance sheet for 10 years
     (1..10).each do |i|
-      cas = (clean_string(ca[i].text).to_f.round * MILLION).to_s
-      cls = (clean_string(cl[i].text).to_f.round * MILLION).to_s
-      ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
-      if !using_current_data
-        cas = ""
-        cls = ""
-        ntas = ""
+      cas = ""
+      cls = ""
+      ntas = ""
+      if using_current_data
+        cas = (clean_string(ca[i].text).to_f.round * MILLION).to_s
+        cls = (clean_string(cl[i].text).to_f.round * MILLION).to_s
+        ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
       end
+      
       bs = BalanceSheet.create(:stock_id => self.id,
                             :year => YEAR - (11 - i) - update_year, #This reveses the year from i
                             :current_assets => cas,
@@ -394,10 +396,12 @@ def get_revenue_income_msn
                             :net_tangible_assets => ntas,
                             :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
                             
-        update_attributes( :has_currant_ratio => false) if !using_current_data         
+         
         puts "Got bs data for #{ticker}, year: #{bs.year}, ca = #{bs.current_assets}" if !bs.id.nil?
     end
     
+    update_attributes( :has_currant_ratio => using_current_data)    
+      
     #Scrape (from same page): Revenue, net earnings, 
     # and - diluted EPS, including extra items
     r = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Revenue" }
@@ -453,13 +457,6 @@ def get_revenue_income_msn
         end
       end
     end
-    
-    ## get numshares for 2012
-    # doc = get_numshares # returns page download
-    ## try to get data for 2012 if it is available
-    # if doc && update_year == 1
-      ## try to add data for 2012
-    # end
     
     # get dividends up to 2012 - Do this in rake task
       
@@ -831,13 +828,8 @@ def get_historic_eps(years_back)
         end
       end      
     end
-     
-    doc # return doc since this might be used later   
+      
   end # method for number of shares
-
-
-
-
 
 
 end # end module datascraper
