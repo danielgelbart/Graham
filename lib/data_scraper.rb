@@ -342,6 +342,10 @@ def get_revenue_income_msn
     fp = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Fiscal Period" }
     fp = fp.xpath('./td') if fp
        
+    if fp.nil?
+      puts "--------------------------------------Cannot get info for #{ticker}"
+      return false
+    end   
     # Find last year by counting 'td's up to "TMM"
     years_available = 0 # Some stocks may not have 10 years worth of data
     for i in 1..fp.size

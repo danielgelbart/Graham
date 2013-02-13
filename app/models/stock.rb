@@ -201,10 +201,8 @@ class Stock < ActiveRecord::Base
   def inflation_ratio_for(year)
 
     #please UPDATE!
-    #Last updated: Jan 2012
-
-# uses inflation from every year, so that I don't need to update
-
+    #Last updated: Feb 2013
+    # uses inflation from every year, so that I don't need to update
     ir = {
       2000 => 1.0366,
       2001 => 1.014,
@@ -220,10 +218,14 @@ class Stock < ActiveRecord::Base
       2011 => 1.0292,
       2012 => 1.018 #Not as precise as previous year's data
       }
-    
+
+      
+    # Now muliply the earnings from a given year, by all the years AFTER it
     mul = 1
-    
-    ((year + 1)..(YEAR - 1)).each do |i|
+    last_year = YEAR - 1
+    return mul if year == last_year 
+     
+    ((year + 1)..(last_year)).each do |i|
       mul *= ir[i]
     end  
     
@@ -240,12 +242,19 @@ class Stock < ActiveRecord::Base
 
   # Returns nil if earnings record does not exist going 'years' back
   def historic_eps(years)
-    if eps.detect{ |e| e.year == YEAR - years}
-      current_year = YEAR
-      recent = eps.select{|e| e.year > current_year -1 - years }
-      recent = adjust_for_inflation(recent)
-      recent.inject(0.0){|sum, e| sum + e } / years
+    
+    if eps.size < years
+      return "Do not have #{years} of earnings for #{ticker}"
     end
+    
+    current_year = YEAR
+    # Create copy array with only last number of years
+    recent = eps.select{|e| e.year >= current_year - years }
+      
+    recent = adjust_for_inflation(recent)
+    # Calculate the avarage 
+    recent.inject(0.0){|sum, e| sum + e } / years
+   
   end
 
 # returns true only if there exist earnings for the last 10 years
@@ -260,7 +269,7 @@ class Stock < ActiveRecord::Base
 
   def ten_year_eps
     ds = eps.size
-    return  price / historic_eps(ds) if ds > 0 && !historic_eps(ds).nil? && !price.nil?
+    return  price / historic_eps(10) if ds > 0 && ds >= 10 && !price.nil?
     0.0
   end
 
@@ -270,7 +279,7 @@ class Stock < ActiveRecord::Base
     ns = numshares.sort{ |a,b| a.year <=> b.year }
     startd = ns.first.shares_to_i.to_f
     endd = ns.last.shares_to_i.to_f
-    dil_rate =  startd/endd
+    dil_rate =  endd/startd
   end
 
   # Gets most recent balance sheet, regardles if updated 

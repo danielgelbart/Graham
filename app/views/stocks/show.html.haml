@@ -130,7 +130,7 @@
   =h @stock.ttm_eps
 %p
   - if !@stock.historic_eps(7).nil?
-    Earnigs average per share, past 7 years:
+    Earnigs average per share, past 7 years, adjusted for inflation:
     =h short_float(@stock.historic_eps(7))
   - else
     Earnings do not go back far enought to compute histroic (average) eps
@@ -155,7 +155,7 @@
     %th
       year
     %th
-      Eps
+      Eps (NOT adjusted)
     %th
       Shares outstanding
     %th
