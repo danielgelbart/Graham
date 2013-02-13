@@ -12,31 +12,36 @@ namespace :dividend do
     require 'open-uri'
     ticker = args[:ticker]
     stock = Stock.find_by_ticker(ticker) || Stock.create(:ticker => ticker)
-    url = "http://www.dividend.com/historical/stock.php?symbol=#{ticker}"
+    url = "http://www.nasdaq.com/symbol/#{ticker}/dividend-history"
 
     puts "\n Getting dividends for #{ticker}"
     begin
       doc = Nokogiri::HTML(open(url))
     rescue
     else
-
+      # get table with id: table id="dividendhistoryGrid" 
+      ('//table[@id="dividendhistoryGrid"]/tr')
       # Better way to do this with css selectors?
-      dividends = doc.xpath('//tr').map {
-        |row| row.xpath('.//td/text()').map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
-
-
-      #remove th row
+      dividends = doc.xpath('//table[@id="dividendhistoryGrid"]/tr').map{ |row| row.xpath('.//td')}
+      # Now, dividends[i] is a row
+      # dividends[i].children[1] is date of div i
+      # dividends[i].children[5] is amount of div i
+      
+      #.map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
+      # Get the right date format: Date.strptime("2/10/2012", '%m/%d/%Y')
+      
+      #remove first row
       dividends.delete_at(0)
-      dividends.delete_at(0)
-
+      
       dividends.each do |d|
         div = Dividend.create(:stock_id => stock.id,
-                            :date => d.first.to_date,
-                            :amount => d.last.delete!('$').to_f,
+                            :date => Date.strptime( d[0].text.gsub!(/[\r|\n]/,"").strip , '%m/%d/%Y'),
+                            :amount => d[2].text.gsub!(/[\r|\n]/,"").strip.to_f,
                             :source => url)
 
         puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
       end
+      
     end
   end
 end

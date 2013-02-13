@@ -3,7 +3,6 @@ class Dividend < ActiveRecord::Base
 
   validates_uniqueness_of :date, :scope => :stock_id
 
-
 end
 
 # == Schema Information

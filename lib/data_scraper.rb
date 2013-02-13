@@ -403,7 +403,11 @@ def get_revenue_income_msn
       if using_current_data
         cas = (clean_string(ca[i].text).to_f.round * MILLION).to_s
         cls = (clean_string(cl[i].text).to_f.round * MILLION).to_s
-        ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
+        if ocs
+          ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
+        else
+          ntas = cas
+        end 
       end
       
       bs = BalanceSheet.create(:stock_id => self.id,
@@ -452,7 +456,7 @@ def get_revenue_income_msn
     url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
       
     doc = open_url_or_nil(url)
-    puts "\n Updateing eps data from msn for #{ticker}"
+    puts "\n Updating eps data from msn for #{ticker}"
     
     #test if updated for 2012 or not (not neceraly updated to same year as gurufocus)
     date = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "FiscalPeriodEndDate" } if doc
