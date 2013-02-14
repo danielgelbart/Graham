@@ -12,6 +12,11 @@ namespace :dividend do
     require 'open-uri'
     ticker = args[:ticker]
     stock = Stock.find_by_ticker(ticker) || Stock.create(:ticker => ticker)
+    
+    # before downloading, check if stock already marked
+    mark = "mark2"
+    return if stock.mark == mark
+    
     url = "http://www.nasdaq.com/symbol/#{ticker}/dividend-history"
 
     puts "\n Getting dividends for #{ticker}"
@@ -20,7 +25,6 @@ namespace :dividend do
     rescue
     else
       # get table with id: table id="dividendhistoryGrid" 
-      ('//table[@id="dividendhistoryGrid"]/tr')
       # Better way to do this with css selectors?
       dividends = doc.xpath('//table[@id="dividendhistoryGrid"]/tr').map{ |row| row.xpath('.//td')}
       # Now, dividends[i] is a row
@@ -41,6 +45,9 @@ namespace :dividend do
 
         puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
       end
+      
+      # Mark stock as handled:
+      stock.update_attributes(:mark => mark)
       
     end
   end

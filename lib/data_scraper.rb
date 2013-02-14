@@ -12,7 +12,7 @@ module DataScraper
   # YEAR = Time.new.year 
 
   def scrape_data
-    markn = "mark1"
+    markn = "mark3"
     last_mark = self.mark
     if !self.mark.nil? && !last_mark.match(markn).nil?
       puts "Skipping downloading data for #{ticker} - not going to download"
@@ -21,7 +21,7 @@ module DataScraper
     
     get_data_from_gurufocus # Retrievs: ta,tl, ca, cl, ltd, nta, bv
                             # Revenue, income, and eps
-    get_numshares           # numshares 
+    get_numshares           # numshares - Not needed for first 1000 up to NU 
     update_price
     
     # mark stock as updated
@@ -66,7 +66,7 @@ module DataScraper
     price = get_price_from_yahoo                              
     price = get_price_from_google if price.nil?
     price = get_price_from_msn if price.nil?
-                                                                                                                                                                                               
+    price                                                                                                                                                                                           
   end
 
   def get_eps
@@ -349,7 +349,7 @@ def get_revenue_income_msn
     # Find last year by counting 'td's up to "TMM"
     years_available = 0 # Some stocks may not have 10 years worth of data
     for i in 1..fp.size
-      if !fp[i].text.match("TTM").nil? 
+      if fp[i].nil? || !fp[i].text.match("TTM").nil? 
         break
       end
       years_available = i
@@ -384,7 +384,7 @@ def get_revenue_income_msn
         
     tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Liabilities" }
     tl = tl.xpath('./td') if tl
-    
+        
     # Debt, book value, net tangible assets
     ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Long-Term Debt" }
     ltd = ltd.xpath('./td') if ltd
@@ -410,15 +410,22 @@ def get_revenue_income_msn
         end 
       end
       
+      # Some trusts don't have liabilities
+      tler = ""
+      tler = (clean_string(tl[i].text).to_f.round * MILLION).to_s if tl
+      der = ""
+      der = (clean_string(ltd[i].text).to_f.round * MILLION).to_s if ltd
+      bver = ""
+      bver = (clean_string(bv[i].text).to_f.round * MILLION).to_s if bv
       bs = BalanceSheet.create(:stock_id => self.id,
                             :year => YEAR - (years_available+1 - i) - update_year, #This reveses the year from i
                             :current_assets => cas,
                             :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
                             :current_liabilities => cls,
-                            :total_liabilities => (clean_string(tl[i].text).to_f.round * MILLION).to_s,
-                            :long_term_debt => (clean_string(ltd[i].text).to_f.round * MILLION).to_s,
+                            :total_liabilities => tler,
+                            :long_term_debt => der,
                             :net_tangible_assets => ntas,
-                            :book_value => (clean_string(bv[i].text).to_f.round * MILLION).to_s )
+                            :book_value => bver )
                                      
         puts "Got bs data for #{ticker}, year: #{bs.year}, ta = #{bs.total_assets}" if !bs.id.nil?
     end
@@ -439,15 +446,29 @@ def get_revenue_income_msn
     
     
     (1..years_available).each do |i|
-      ep = Ep.create(:stock_id => self.id,
-                     :year => YEAR - (years_available+1 - i)- update_year,
+      cur_year = YEAR - (years_available+1 - i)- update_year
+      # does an ep exist for this year?
+      cur_ep = self.eps.detect{ |e| e.year == cur_year }
+      if cur_ep.nil?
+        next if eps.nil?
+        ep = Ep.create(:stock_id => self.id,
+                     :year => cur_year,
                      :net_income => (clean_string(ni[i].text).to_f.round * MILLION).to_s,
                      :revenue => (clean_string(r[i].text).to_f.round * MILLION).to_s,
                      :eps => clean_string(eps[i].text).to_f,
                      :source => url)
-                  
-      puts "Got eps data for #{ticker}, year: #{ep.year}, rev: #{ep.revenue}, income: #{ep.net_income}, eps: #{ep.eps.to_s}"if !ep.id.nil?
-                 
+        if !ep.id.nil?            
+          puts "Created new ep for #{ticker}, year: #{ep.year}, rev: #{ep.revenue}, income: #{ep.net_income}, eps: #{ep.eps.to_s}"
+        end  
+      else
+        puts "Found ep data for year #{cur_year}"
+        if cur_ep && cur_ep.net_income.nil?
+          cur_ep.update_attributes(:net_income => (clean_string(ni[i].text).to_f.round * MILLION).to_s,
+                     :revenue => (clean_string(r[i].text).to_f.round * MILLION).to_s,
+                     :source => url)
+          puts "Updated ep data for #{ticker}, year: #{cur_ep.year}, rev: #{cur_ep.revenue}, income: #{cur_ep.net_income}"
+        end               
+      end           
       #puts "Got eps data for #{ticker}, year: #{YEAR - (11 - i)- update_year}, rev: #{r[i].text}, income: #{ni[i].text}, eps: #{eps[i].text}"
     end
       
@@ -460,7 +481,13 @@ def get_revenue_income_msn
     
     #test if updated for 2012 or not (not neceraly updated to same year as gurufocus)
     date = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "FiscalPeriodEndDate" } if doc
-    date = date.xpath('./td') if date
+    if date
+      date = date.xpath('./td') 
+    else
+      puts "cannot get information from msn for #{ticker}"
+      return 
+    end
+    
     update_year_msn = 1 #Some stocks may not be updated for 2012 yet
     update_year_msn = 0 if !date[1].text.match("2012").nil?
        
