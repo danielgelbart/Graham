@@ -14,7 +14,7 @@ namespace :dividend do
     stock = Stock.find_by_ticker(ticker) || Stock.create(:ticker => ticker)
     
     # before downloading, check if stock already marked
-    mark = "mark2"
+    mark = "mark5"
     return if stock.mark == mark
     
     url = "http://www.nasdaq.com/symbol/#{ticker}/dividend-history"

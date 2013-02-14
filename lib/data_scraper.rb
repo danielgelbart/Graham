@@ -883,4 +883,43 @@ def get_historic_eps(years_back)
   end # method for number of shares
 
 
+  def get_dividends
+    
+    markn = "mark5"
+    return if self.mark == markn
+    
+    url = "http://www.nasdaq.com/symbol/#{ticker}/dividend-history"
+
+    puts "\n Getting dividends for #{ticker}"
+    
+    doc = open_url_or_nil(url)
+    return if doc.nil?
+    
+    # get table with id: table id="dividendhistoryGrid" 
+    # Better way to do this with css selectors?
+    dividends = doc.xpath('//table[@id="dividendhistoryGrid"]/tr').map{ |row| row.xpath('.//td')}
+    # Now, dividends[i] is a row
+    # dividends[i].children[1] is date of div i
+    # dividends[i].children[5] is amount of div i
+      
+    #.map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
+    # Get the right date format: Date.strptime("2/10/2012", '%m/%d/%Y')
+      
+    #remove first row
+    dividends.delete_at(0)
+      
+    dividends.each do |d|
+      div = Dividend.create(:stock_id => self.id,
+                            :date => Date.strptime( d[0].text.gsub!(/[\r|\n]/,"").strip , '%m/%d/%Y'),
+                            :amount => d[2].text.gsub!(/[\r|\n]/,"").strip.to_f,
+                            :source => url)
+
+      puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
+    end
+      
+    # Mark stock as handled:
+    update_attributes(:mark => markn)
+      
+  end
+
 end # end module datascraper
