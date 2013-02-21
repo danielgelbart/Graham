@@ -141,7 +141,7 @@ class Stock < ActiveRecord::Base
   end
 
   def bargain?
-    price * 1.5 <= book_value_per_share
+    price * 1.5 <= bv_per_share
   end
 
   # This is from page 62 of "Inteligent investor":
@@ -155,6 +155,7 @@ class Stock < ActiveRecord::Base
 
   def price
     @price ||= latest_price
+    
   end
 
   def update_price
@@ -173,6 +174,10 @@ class Stock < ActiveRecord::Base
   def oldest_dividend
     dividends.sort_by{ |d| d.date }.first
   end
+  
+  def pays_dividends
+    !dividends.empty? && newest_dividend.date > Date.today - 6.months
+  end
 
   def update_dividends
     if newest_dividend.date < Date.today - (365/dividends_per_year).days
@@ -181,19 +186,20 @@ class Stock < ActiveRecord::Base
   end
 
   def update_current_data
+    markn = "mark1"
+    return if self.mark == markn
+    
     ttm_eps = get_eps
     book_value = get_book_value
     sales = get_sales
     div = get_ttm_div
-
+    get_market_cap
+    
     if ttm_eps && book_value
       update_attributes(:finantial_data_updated => Date.today)
     end
-
-    def update_price_data
-      update_price
-      get_market_cap
-    end
+    # Mark stock as handled:
+    update_attributes(:mark => markn)
   end
 
   #/ End /Data retrenal methods ------------------------------------------------
@@ -286,6 +292,15 @@ class Stock < ActiveRecord::Base
   def latest_balance_sheet
     balance_sheets.sort{ |b,y| b.year <=> y.year }.last
   end
+  
+  # Gets most recent balance sheet, regardles if updated 
+  def latest_numshare
+    numshares.sort{ |b,y| b.year <=> y.year }.last
+  end
+
+  def bv_per_share
+    latest_balance_sheet.book_val / latest_numshare.shares_to_i
+  end
 
   def ncav
     latest_balance_sheet.ncav
@@ -335,10 +350,8 @@ class Stock < ActiveRecord::Base
     set.inject(0.0){|sum, e| sum + e.eps} / set.size
   end
 
+  
   # String.to_i
-
-
-
   class String
 
     def translate_letter_to_number

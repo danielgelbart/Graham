@@ -29,7 +29,7 @@ class BalanceSheet < ActiveRecord::Base
     translate_to_int(self.total_liabilities)
   end
 
-  def book_value
+  def book_val
     translate_to_int(self.book_value)
   end
 
@@ -64,7 +64,7 @@ class BalanceSheet < ActiveRecord::Base
     if val > 0
       val
     else
-      nil
+      val
     end
   end
 

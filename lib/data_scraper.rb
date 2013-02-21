@@ -12,7 +12,7 @@ module DataScraper
   # YEAR = Time.new.year 
 
   def scrape_data
-    markn = "mark3"
+    markn = "mark4"
     last_mark = self.mark
     if !self.mark.nil? && !last_mark.match(markn).nil?
       puts "Skipping downloading data for #{ticker} - not going to download"
@@ -23,6 +23,7 @@ module DataScraper
                             # Revenue, income, and eps
     get_numshares           # numshares - Not needed for first 1000 up to NU 
     update_price
+    update_current_data
     
     # mark stock as updated
     update_attributes( :mark => markn) 
@@ -99,6 +100,7 @@ module DataScraper
   def get_book_value
     a = get_book_value_from_yahoo
     get_book_value_from_msn if a.nil?
+    puts "#{a}"
   end
 
 
@@ -450,7 +452,7 @@ def get_revenue_income_msn
       # does an ep exist for this year?
       cur_ep = self.eps.detect{ |e| e.year == cur_year }
       if cur_ep.nil?
-        next if eps.nil?
+        # next if eps.nil?
         ep = Ep.create(:stock_id => self.id,
                      :year => cur_year,
                      :net_income => (clean_string(ni[i].text).to_f.round * MILLION).to_s,
@@ -491,18 +493,21 @@ def get_revenue_income_msn
     update_year_msn = 1 #Some stocks may not be updated for 2012 yet
     update_year_msn = 0 if !date[1].text.match("2012").nil?
        
-    eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
+    epss = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
      
-    if eps
-      eps = eps.xpath('./td')
+    # if new model data was updated, we need to reload the cache
+    self.reload
+     
+    if epss
+      epss = epss.xpath('./td')
          
       (1..5).each do |i|
-        if eps[i]
+        if epss[i]
            year = YEAR - i - update_year_msn
            ep = self.eps.select{ |s| s.year == year }.first   
            if !ep.nil?
-             ep.update_attributes( :eps => clean_string(eps[i].text).to_f, :source => url) 
-             puts "Updated ep for #{ticker}, year: #{year}, eps: #{clean_string(eps[i].text)}"
+             ep.update_attributes( :eps => clean_string(epss[i].text).to_f, :source => url) 
+             puts "Updated ep for #{ticker}, year: #{year}, eps: #{clean_string(epss[i].text)}"
            end  
         end
       end
@@ -784,7 +789,11 @@ end # method
     url = "http://finance.yahoo.com/q?s=#{ticker}"
     doc = open_url_or_nil(url)
     if doc
-      mc = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Market Cap:" }.xpath('./td').text
+      begin
+        mc = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Market Cap:" }.xpath('./td').text
+      rescue
+        mc = "" # Invalid date, skip to next
+      end
     end
 
     update_attributes!(:market_cap => mc)
@@ -888,6 +897,12 @@ def get_historic_eps(years_back)
     markn = "mark5"
     return if self.mark == markn
     
+    # Some nasdaq stocks had " " (empty space) at end of name -> correct that:
+    if ticker.last == " "
+      new_tick = ticker.chop
+      update_attributes( :ticker => new_tick )
+    end
+    
     url = "http://www.nasdaq.com/symbol/#{ticker}/dividend-history"
 
     puts "\n Getting dividends for #{ticker}"
@@ -909,6 +924,12 @@ def get_historic_eps(years_back)
     dividends.delete_at(0)
       
     dividends.each do |d|
+      begin
+        Date.strptime( d[0].text.gsub!(/[\r|\n]/,"").strip , '%m/%d/%Y')
+      rescue
+        next # Invalid date, skip to next
+      end
+     
       div = Dividend.create(:stock_id => self.id,
                             :date => Date.strptime( d[0].text.gsub!(/[\r|\n]/,"").strip , '%m/%d/%Y'),
                             :amount => d[2].text.gsub!(/[\r|\n]/,"").strip.to_f,

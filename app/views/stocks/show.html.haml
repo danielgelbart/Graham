@@ -78,7 +78,7 @@
 %table
   %tr
     %td
-      Big enough?
+      Sales greater than 500 mil?
     %td
       = "#{yes_no(@stock.big_enough?)}"
   %tr
@@ -104,7 +104,11 @@
     %td
       Dividend record 
     %td
-      = yes_no(!@stock.dividends.empty? && @stock.continous_dividend_record?)
+      - div_ans = yes_no(!@stock.dividends.empty? && @stock.continous_dividend_record?)
+      = div_ans
+      - if div_ans == "No"
+        ,         Currently paying dividends?
+        = yes_no( @stock.pays_dividends )
     %td
       = link_to "Dividends", @stock.dividend_url
   %tr
@@ -120,7 +124,7 @@
         = "#{yes_no(@stock.cheap?)}. "
         - if @stock.overpriced?
           = " #{@stock.ticker} Is overpriced, might consider selling:"
-        = "#{@stock.ticker} has a defensive limit buy price of #{@stock.price_limit}, and is trading at #{@stock.price} and is overvalued at #{ @stock.valuation_limit }"
+        = "#{@stock.ticker} has a defensive limit buy price of #{short_float(@stock.price_limit)}, and is trading at #{@stock.price} and is overvalued at #{ @stock.valuation_limit }"
   - else
     %tr
       %td
@@ -130,13 +134,22 @@
   =h @stock.ttm_eps
 %p
   - if !@stock.historic_eps(7).nil?
-    Earnigs average per share, past 7 years, adjusted for inflation:
+    Earnigs average per share, past 7 years, (adjusted for inflation):
     =h short_float(@stock.historic_eps(7))
   - else
     Earnings do not go back far enought to compute histroic (average) eps
 %p
+  1 year P/E :
+  =h short_float(@stock.price / @stock.ttm_eps)
+%p
+  - if !@stock.historic_eps(5).nil?
+    5 year P/E (adjusted for inflation)
+    = short_float(@stock.price / @stock.historic_eps(5) )
+  - else
+    Cannot calculate 5 year eps because earnings don't go back that far    
+%p
   - if !@stock.ten_year_eps.nil?
-    10 year P/E (2001-2011 adjusted for inflation)
+    10 year P/E (adjusted for inflation)
     = short_float(@stock.ten_year_eps)
   - else
     Cannot calculate 10 year eps because earnings don't go back that far
@@ -168,7 +181,8 @@
         %td
           = short_float(e.eps) # inflation calculation is incorrect
         %td
-          = (@stock.numshares.select{ |s| s.year == e.year } ).first.shares
+          - a = (@stock.numshares.select{ |s| s.year == e.year } ).first
+          = a.shares if a
         %td
           = "%5.2f" % e.margin
 
