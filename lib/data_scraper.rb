@@ -12,13 +12,23 @@ module DataScraper
   # YEAR = Time.new.year 
 
   def scrape_data
-    markn = "mark4"
+    markn = "mark7"
     last_mark = self.mark
     if !self.mark.nil? && !last_mark.match(markn).nil?
       puts "Skipping downloading data for #{ticker} - not going to download"
       return true
     end
     
+    # Check if earnings data look strange, if so delete them
+    earnings2012 = eps.select{|e| e.year == 2012 }.first
+    earnings2011 = eps.select{|e| e.year == 2011 }.first
+    condition = earnings2012 && earnings2011 && earnings2012.revenue == earnings2011.revenue && earnings2012.net_income == earnings2011.net_income
+    if condition        
+      eps.map{ |s| s.delete }
+      self.reload
+      puts "[NOTE] earnings deleted for #{ticker} beacuse they apear to be erroneous"
+    end
+      
     get_data_from_gurufocus # Retrievs: ta,tl, ca, cl, ltd, nta, bv
                             # Revenue, income, and eps
     get_numshares           # numshares - Not needed for first 1000 up to NU 
@@ -331,6 +341,8 @@ def get_revenue_income_msn
   
   
   def get_data_from_gurufocus
+    # Get data from MSN first, as it is more up to date, reliable, and correct
+    # See STO in NOK for example
     
     #Acces data page
     url = "http://www.gurufocus.com/financials/#{ticker}"
@@ -473,12 +485,19 @@ def get_revenue_income_msn
       end           
       #puts "Got eps data for #{ticker}, year: #{YEAR - (11 - i)- update_year}, rev: #{r[i].text}, income: #{ni[i].text}, eps: #{eps[i].text}"
     end
+    
+    # MSN -- as data source from here on:
       
-    #update eps for past 5 years from msn
+    # update eps for past 5 years from msn
     # get last five years earnings as 'diluted eps including extra items' from msn
     url = "http://investing.money.msn.com/investments/stock-income-statement/?symbol=US%3a#{ticker}"
       
     doc = open_url_or_nil(url)
+    
+    if doc.nil?
+      puts "ERROR: Could not get data from msn for #{ticker}"
+      return
+    end
     puts "\n Updating eps data from msn for #{ticker}"
     
     #test if updated for 2012 or not (not neceraly updated to same year as gurufocus)
@@ -494,9 +513,27 @@ def get_revenue_income_msn
     update_year_msn = 0 if !date[1].text.match("2012").nil?
        
     epss = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
-     
+    
     # if new model data was updated, we need to reload the cache
     self.reload
+            
+    # Update earnings from msn, if needed and available?
+    if latest_eps.year == 2011 && update_year_msn == 0 
+     rev2012 = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalRevenue" }  
+     rev2012 = rev2012.xpath('./td')[1]
+     earn2012 = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "NetIncome" }
+     earn2012 = earn2012.xpath('./td')[1]  
+     eps2012 = epss.xpath('./td')[1]  
+     ep = Ep.create(:stock_id => self.id,
+                     :year => 2012,
+                     :revenue => (clean_string(rev2012.text).to_f.round * MILLION).to_s,
+                     :net_income => (clean_string(earn2012.text).to_f.round * MILLION).to_s,
+                     :eps => clean_string(eps2012.text).to_f, # Not that this might be overriden in the next code block
+                     :source => url)
+     if !ep.id.nil?            
+       puts "[From msn] Created new ep for #{ticker}, year: #{ep.year}, rev: #{ep.revenue}, income: #{ep.net_income}, eps: #{ep.eps.to_s}"
+     end  
+   end
      
     if epss
       epss = epss.xpath('./td')
@@ -513,8 +550,65 @@ def get_revenue_income_msn
       end
     end
     
-       
-    # get dividends up to 2012 - Do this in rake task
+    # If data is available for 2012, add this data for (2) Balance sheets
+    if latest_balance_sheet.year == 2011 && update_year_msn == 0
+      url = "http://investing.money.msn.com/investments/stock-balance-sheet/?symbol=us%3A#{ticker}&stmtView=Ann"
+      doc = open_url_or_nil(url)
+    
+      if doc.nil?
+        puts "ERROR: Could not get data from msn for #{ticker}"
+        return
+      end
+      puts "\n Updating balance sheet data from msn for #{ticker} for 2012" 
+      
+      cas = cls = tler = der = ntas = bver = ""
+      
+      ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalCurrentAssets" }  
+      cas = ca.xpath('./td') if ca
+    
+      ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalAssets" }
+      ta = ta.xpath('./td') if ta
+    
+      cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalCurrentLiabilities" }
+      if cl
+        cls = cl.xpath('./td') 
+      else
+        using_current_data = false
+      end
+        
+      tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalLiabilities" }
+      tler = tl.xpath('./td') if tl
+        
+      # Debt, book value, net tangible assets
+      ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalLongTermDebt" }
+      der = ltd.xpath('./td') if ltd
+    
+      bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalEquity" }
+      bver = bv.xpath('./td') if bv
+      
+      # Get the relavent string, and adjust it for saving in data base ONLY FOR 2012
+      cas = (clean_string(cas[1].text).to_f.round * MILLION).to_s if cas != ""
+      cls = (clean_string(cls[1].text).to_f.round * MILLION).to_s if cls != ""
+      tler = (clean_string(tler[1].text).to_f.round * MILLION).to_s if tler != ""      
+      der = (clean_string(der[1].text).to_f.round * MILLION).to_s if der != ""
+      ntas = cas
+      bver = (clean_string(bver[1].text).to_f.round * MILLION).to_s if bver != ""
+    
+      bs = BalanceSheet.create(:stock_id => self.id,
+                            :year => 2012,
+                            :current_assets => cas,
+                            :total_assets => (clean_string(ta[1].text).to_f.round * MILLION).to_s,
+                            :current_liabilities => cls,
+                            :total_liabilities => tler,
+                            :long_term_debt => der,
+                            :net_tangible_assets => ntas,
+                            :book_value => bver )
+                                     
+      puts "[From msn]Got bs data for #{ticker}, year: #{bs.year}, ta = #{bs.total_assets}" if !bs.id.nil?
+      update_attributes( :has_currant_ratio => using_current_data) 
+         
+    end #end of special update if got 2012 data from msn   
+    
       
   end
   

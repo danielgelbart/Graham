@@ -100,7 +100,7 @@ class Stock < ActiveRecord::Base
   # second criteria from page 182
   def price_limit
     # earning records do not go back far enough to compute price limit
-    return 0 if historic_eps(7).nil? || ttm_eps.nil?
+    return 0 if historic_eps(7).nil? || ttm_eps.nil? || historic_eps(7).to_i == 0
 
     lim = min( historic_eps(7)*25, ttm_eps*20 )
     min( historic_eps(3) * 15, lim ) # second criteria from page 182
@@ -293,9 +293,14 @@ class Stock < ActiveRecord::Base
     balance_sheets.sort{ |b,y| b.year <=> y.year }.last
   end
   
-  # Gets most recent balance sheet, regardles if updated 
+  # Gets most recent number of shares outstanding, regardles if updated 
   def latest_numshare
     numshares.sort{ |b,y| b.year <=> y.year }.last
+  end
+  
+  # Gets most recent earnings, regardles if updated 
+  def latest_eps
+    eps.sort{ |b,y| b.year <=> y.year }.last
   end
 
   def bv_per_share
