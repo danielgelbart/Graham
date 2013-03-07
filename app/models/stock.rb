@@ -121,6 +121,7 @@ class Stock < ActiveRecord::Base
   # Set a price at wich a stock is overvalued to the point of concidering to sell it
   def valuation_limit
     return 1000000 if historic_eps(10).nil? || ttm_eps.nil?
+    return historic_eps(3) * 28 if historic_eps(10).to_i == 0 # historic eps returns string!
     lim = max( historic_eps(10) * 26, ttm_eps*40 )
     lim = max( historic_eps(3) * 28, lim ) # second criteria from page 182
     return 1000000 if lim.nil?
@@ -296,6 +297,7 @@ class Stock < ActiveRecord::Base
   # Gets most recent number of shares outstanding, regardles if updated 
   def latest_numshare
     lns = numshares.sort{ |b,y| b.year <=> y.year }.last
+    #Numshare.new(:shares => "1") if lns.nil? # about 4 stocks on PLC I don't have data for
   end
   
   # Gets most recent earnings, regardles if updated 
@@ -304,6 +306,7 @@ class Stock < ActiveRecord::Base
   end
 
   def bv_per_share
+    return 1 if latest_numshare.nil?
     latest_balance_sheet.book_val / latest_numshare.shares_to_i
   end
 
