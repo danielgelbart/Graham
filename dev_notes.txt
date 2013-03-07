@@ -30,3 +30,8 @@ $ bundle update rake
 ----------------------------------------
 annotate
 
+----------------------------------------
+mysqlsump for DB
+run by
+ sudo mysqldump graham_dev > databackup
+
