@@ -74,9 +74,8 @@ module DataScraper
   end
 
   def get_stock_price
-    price = get_price_from_yahoo                              
+    price = get_price_from_msn  
     price = get_price_from_google if price.nil?
-    price = get_price_from_msn if price.nil?
     price                                                                                                                                                                                           
   end
 
@@ -128,17 +127,7 @@ module DataScraper
 
 
   # Price scrapers -----------------------------------------------------------
-  def get_price_from_yahoo
-    url = "http://finance.yahoo.com/q?s=#{ticker}"
-    doc = open_url_or_nil(url)
-
-    begin
-      price = doc.xpath('//tr').detect{ |tr| tr.xpath('./th').first != nil && tr.xpath('./th').first.text == "Last Trade:" }.xpath('./td').last.text.to_f if doc
-    rescue
-    end
-    price
-  end
-
+ 
   def get_price_from_google
     url = "http://www.google.com/finance?q=#{ticker}"
     doc = open_url_or_nil(url)
@@ -151,13 +140,10 @@ module DataScraper
   end
 
   def get_price_from_msn
-    url = "http://moneycentral.msn.com/detail/stock_quote?Symbol=#{ticker}&getquote=Get+Quote"
+    url = "http://investing.money.msn.com/investments/stock-price?symbol=us%3a#{ticker}"
     doc = open_url_or_nil(url)
-
-    begin
-      price = doc.css('#detail').xpath('./table/tbody/tr/th').first.text.to_f if doc
-    rescue
-    end
+    price = doc.css('#quickquoteb') if doc
+    price = price.children[3].children[1].text.to_f if price
     price
   end
 

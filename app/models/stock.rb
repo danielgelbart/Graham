@@ -295,7 +295,7 @@ class Stock < ActiveRecord::Base
   
   # Gets most recent number of shares outstanding, regardles if updated 
   def latest_numshare
-    numshares.sort{ |b,y| b.year <=> y.year }.last
+    lns = numshares.sort{ |b,y| b.year <=> y.year }.last
   end
   
   # Gets most recent earnings, regardles if updated 
