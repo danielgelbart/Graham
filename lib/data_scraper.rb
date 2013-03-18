@@ -143,7 +143,7 @@ module DataScraper
     url = "http://investing.money.msn.com/investments/stock-price?symbol=us%3a#{ticker}"
     doc = open_url_or_nil(url)
     price = doc.css('#quickquoteb') if doc
-    price = price.children[3].children[1].text.to_f if price
+    price = clean_string( price.children[3].children[1].text ).to_f if price
     price
   end
 
@@ -218,11 +218,14 @@ def get_revenue_income_msn
 
     begin
       ttm_eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Earnings/Share" }.xpath('./td').last.text.to_f
-      rescue
+    rescue
     end
+    
     if ttm_eps
       update_attributes( :ttm_eps => ttm_eps )
       puts "eps for #{ticker} is #{ttm_eps}"
+    else
+      puts "Could not get ttm eps for #{ticker}"
     end
    end
 
@@ -237,6 +240,8 @@ def get_revenue_income_msn
     if ttm_eps
       update_attributes( :ttm_eps => ttm_eps )
       puts "eps for #{ticker} is #{ttm_eps}"
+    else
+      puts "Could not get ttm eps for #{ticker}"
     end
   end
 

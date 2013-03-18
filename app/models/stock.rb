@@ -55,7 +55,8 @@ class Stock < ActiveRecord::Base
   def financialy_strong?
     bs = latest_balance_sheet
     if bs
-      alr = bs.assets_c >= bs.liabilities_c * 2 if !bs.assets_c.nil? && !bs.liabilities_c.nil?
+      cr = bs.current_ratio
+      alr = cr >= 2 if !cr.nil?
       alr = bs.assets_t >= bs.liabilities_t * 2 if alr.nil? && !bs.assets_t.nil? && !bs.liabilities_t.nil?
       dr = bs.debt < bs.assets_c if !bs.debt.nil? && !bs.assets_c.nil?
       dr = bs.debt < bs.assets_t if dr.nil? && !bs.debt.nil? && !bs.assets_t.nil?

@@ -48,6 +48,11 @@ class BalanceSheet < ActiveRecord::Base
   def sales
     translate_to_int(self.total_sales)
   end
+  
+  def current_ratio
+    return nil if translate_to_int(self.current_liabilities).nil? || translate_to_int(self.current_assets).nil?
+    translate_to_int(self.current_assets).to_f / translate_to_int(self.current_liabilities).to_f 
+  end
 
 
   private
