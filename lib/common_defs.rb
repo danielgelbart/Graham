@@ -10,7 +10,7 @@
       when /\d+\.\d+ Mil/
         (num.to_f * MILLION).to_i
       else
-        (num.to_f * MILLION).to_i
+        num.to_i
       end
   end
 
