@@ -172,6 +172,10 @@
     %th
       Book Value   
     %th
+      Earnings
+    %th
+      ROE  
+    %th  
       Eps (NOT adjusted)
     %th
       Shares outstanding
@@ -186,7 +190,11 @@
           - bs = (@stock.balance_sheets.select{ |b| b.year == e.year } ).first
           = short_float(bs.current_ratio) if bs 
         %td
-          = sprintf("%.1f", bs.equity.to_f / 1000000000) + " Bil"   
+          = sprintf("%.1f", bs.equity.to_f / 1000000000) + " Bil"
+        %td
+          = sprintf("%.1f", e.net_income.to_f / 1000000000) + " Bil"
+        %td
+          = sprintf("%.2f", e.net_income.to_f /  bs.equity.to_f)
         %td
           = short_float(e.eps) # inflation calculation is incorrect
         %td
