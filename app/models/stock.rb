@@ -308,7 +308,7 @@ class Stock < ActiveRecord::Base
 
   def bv_per_share
     return 1 if latest_numshare.nil?
-    latest_balance_sheet.book_val / latest_numshare.shares_to_i
+    latest_balance_sheet.book_val.to_f / latest_numshare.shares_to_i
   end
 
   def ncav

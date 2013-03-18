@@ -139,6 +139,9 @@
   - else
     Earnings do not go back far enought to compute histroic (average) eps
 %p
+  Price to book :
+  = sprintf( "%.2f", @stock.price / @stock.bv_per_share)    
+%p
   1 year P/E :
   =h short_float(@stock.price / @stock.ttm_eps)
 %p
