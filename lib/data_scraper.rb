@@ -188,36 +188,16 @@ def get_revenue_income_msn
   end
 
 # eps scrapers --------------------------------------------------------
-# for last year and create model
-  def get_last_year_eps_msn
-    return true if eps.detect{ |e| e.year == YEAR-1 }
-
-
-    url = "http://moneycentral.msn.com/investor/invsub/results/statemnt.aspx?lstStatement=Income&Symbol=US%3a#{ticker}&stmtView=Ann"
-    doc = open_url_or_nil(url)
-
-    puts "#{ticker}"
-    begin
-      eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Diluted EPS Including Extraordinary Items" }.xpath('./td')[1].text.to_f
-      rescue
-    end
-    if(eps)
-      Ep.create(:stock_id => id,
-                :year => YEAR - 1,
-                :eps => eps,
-                :source => url)
-      puts "eps for #{YEAR - 1} was #{eps}"
-    end
-  end
-
 # Just ttmeps
 
   def get_eps_from_msn
-    url = "http://moneycentral.msn.com/investor/invsub/results/hilite.asp?Symbol=US%3a#{ticker}"
+    url = "http://investing.money.msn.com/investments/financial-results/?symbol=us%3a#{ticker}"
+    
     doc = open_url_or_nil(url)
 
     begin
-      ttm_eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first.text == "Earnings/Share" }.xpath('./td').last.text.to_f
+      ttm_eps = doc.xpath('//tr//td')
+      ttm_eps = ttm_eps[13].children[1].text.gsub(",","").to_f
     rescue
     end
     
@@ -225,8 +205,9 @@ def get_revenue_income_msn
       update_attributes( :ttm_eps => ttm_eps )
       puts "eps for #{ticker} is #{ttm_eps}"
     else
-      puts "Could not get ttm eps for #{ticker}"
+      puts "Could not get ttm eps for #{ticker} from msn"
     end
+      ttm_eps
    end
 
   def get_eps_from_yahoo
@@ -241,7 +222,7 @@ def get_revenue_income_msn
       update_attributes( :ttm_eps => ttm_eps )
       puts "eps for #{ticker} is #{ttm_eps}"
     else
-      puts "Could not get ttm eps for #{ticker}"
+      puts "Could not get ttm eps for #{ticker} from yahoo"
     end
   end
 

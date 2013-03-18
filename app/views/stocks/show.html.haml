@@ -166,6 +166,7 @@
 %p
   - @margins = @earnings.map{ |s| s.margin}.select{ |v| v != 0}
   Average Margin over past #{ @margins.size } years is #{ "%5.2f" % (100 * @margins.inject{ |sum, el| sum + el }.to_f / @margins.size) } %
+  
 %table.stock-list
   %thead
     %th
@@ -193,11 +194,13 @@
           - bs = (@stock.balance_sheets.select{ |b| b.year == e.year } ).first
           = short_float(bs.current_ratio) if bs 
         %td
-          = sprintf("%.1f", bs.equity.to_f / 1000000000) + " Bil"
+          - if bs
+            = sprintf("%.1f", bs.equity.to_f / 1000000000) + " Bil"
         %td
           = sprintf("%.1f", e.net_income.to_f / 1000000000) + " Bil"
         %td
-          = sprintf("%.2f", e.net_income.to_f /  bs.equity.to_f)
+          - if bs
+            = sprintf("%.2f", e.net_income.to_f /  bs.equity.to_f)
         %td
           = short_float(e.eps) # inflation calculation is incorrect
         %td
