@@ -41,6 +41,15 @@ class StocksController < ApplicationController
     @stocks = @stocks.select{ |s| s.continous_dividend_record? } # has dividends
     @stocks = @stocks.sort_by{ |s| s.ten_year_eps }
   end
+  
+  def cheap_profitables
+    @stocks = Stock.all.select{ |s| s.no_earnings_deficit? } 
+    @stocks = @stocks.select{ |s| s.dilution < 1.11 } # less than 10% dilution
+    @stocks = @stocks.select{ |s| s.latest_balance_sheet.equity > 0 } # Positive book value
+    @stocks = @stocks.select{ |s| s.financialy_strong?} # Ratios at least 2 to 1
+    @stocks = @stocks.select{ |s| s.ten_year_eps < 20 && (s.price < s.ttm_eps*10 || s.price < s.historic_eps(3)*8) } # Cheap: defined as: less than 20 ten year PE and 8 3 year PE OR 10 current year PE 
+    @stocks = @stocks.sort_by{ |s| s.historic_eps(3) }
+  end
 
   def aggeresive_stocks
   end

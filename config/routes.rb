@@ -60,6 +60,9 @@ ActionController::Routing::Routes.draw do |map|
   map.pots 'pots',
   :controller => 'stocks',
   :action => 'pots'
+  map.cheap_profitables 'cheap_profitables',
+  :controller => 'stocks',
+  :action => 'cheap_profitables'
   map.new_buy_trnasaction ':portfolio_id/new_transaction/:type',
   :controller => 'transactions',
   :action => 'new'

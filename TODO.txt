@@ -27,4 +27,6 @@ $ bundle exec rake dividend:get_data[MSFT]
 
 
 
--** Running "yearly_update" does not update 2012!!!
+1) Add search screens for: no earnings deficit, PE, dividend record, good ratios, etc
+2) Add a quarterly update for ongoing quarterly reports
+3) Add logging for failded searches, e.g. if could not get data for a stock
