@@ -76,8 +76,7 @@ module DataScraper
   def get_stock_price
     price = get_price_from_msn  
     price = get_price_from_google if price.nil?
-    price                                                                                                                                                                                           
-  end
+    price                                                                         end
 
   def get_eps
     ttm_eps = get_eps_from_msn
@@ -143,7 +142,12 @@ module DataScraper
     url = "http://investing.money.msn.com/investments/stock-price?symbol=us%3a#{ticker}"
     doc = open_url_or_nil(url)
     price = doc.css('#quickquoteb') if doc
-    price = clean_string( price.children[3].children[1].text ).to_f if price
+    if price
+      begin
+        price = clean_string( price.children[3].children[1].text ).to_f 
+      rescue
+      end
+    end
     price
   end
 
