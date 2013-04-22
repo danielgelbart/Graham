@@ -720,7 +720,7 @@ def get_revenue_income_msn
   # Get dividends ------------------------------------------------------------
 
 # Gets dividends as far back as (up to) the year supplied
-  def get_dividends(year)
+  def get_dividends
 
     if !dividends.empty?
       if dividends.sort_by{ |d| d.date }.last.date + 12.months  >  Time.new.to_date
@@ -958,7 +958,7 @@ def get_historic_eps(years_back)
   end # method for number of shares
 
 
-  def get_dividends
+  def get_dividendsm
     
     markn = "mark5"
     return if self.mark == markn
