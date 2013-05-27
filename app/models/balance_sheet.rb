@@ -10,7 +10,10 @@ class BalanceSheet < ActiveRecord::Base
   def equity
     sum_to_i(total_assets) - sum_to_i(total_liabilities)
   end
-  
+
+  def is_quarterly?
+    quarter > 0
+  end
 
   # rewrite this as a method that combines the attribute name and 'translate' method
   def assets_c
