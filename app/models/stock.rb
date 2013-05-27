@@ -345,6 +345,10 @@ class Stock < ActiveRecord::Base
     price / ttm_eps.to_f
   end
 
+  def is_quarterly?
+    quarter > 0
+  end
+
   # Math module
 
   def min(a,b)
@@ -358,7 +362,6 @@ class Stock < ActiveRecord::Base
   def eps_avg(set)
     set.inject(0.0){|sum, e| sum + e.eps} / set.size
   end
-
   
   # String.to_i
   class String

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212170618) do
+ActiveRecord::Schema.define(:version => 20130527073313) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20130212170618) do
     t.datetime "updated_at"
     t.string   "revenue"
     t.string   "net_income"
+    t.integer  "quarter",                                   :default => 0
   end
 
   create_table "numshares", :force => true do |t|
