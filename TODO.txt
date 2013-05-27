@@ -8,8 +8,6 @@ OR fix price_limit method to not crash on missing eps data (return 0 instead?)
  Have yearly inflation instead of relative inflation. That is, have inflation per year and not from that year until now.
 - Fixed. This was done up to and including 2011.
 
-1. Run yearly update for last 500~ stocks. It stoped at DHI,DAN.
-
 2. Dividends 
 Update dividend scraping. and update for all stocks 2011. Dividinds site used for data is now a pay site. Need to hook up scraper to non-pay site.
 
@@ -30,3 +28,12 @@ $ bundle exec rake dividend:get_data[MSFT]
 1) Add search screens for: no earnings deficit, PE, dividend record, good ratios, etc
 2) Add a quarterly update for ongoing quarterly reports
 3) Add logging for failded searches, e.g. if could not get data for a stock
+
+
+-------- Quarterly
+
+Added 'Quarter' column to ep and balance sheet.
+
+1) Add scraping data for ALL 4 last quarter, save date/year for each.
+2) Use in last year calculations
+3) Display latest partial year data?
