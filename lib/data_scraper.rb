@@ -73,6 +73,134 @@ module DataScraper
     update_price
   end
 
+# Retrieve (at most) last 4 quarterly earnings and balance sheets
+  def get_quarterly
+    # get last year earnings
+    l_year = latest_eps.year
+  
+    # get which quarters are the last 4
+    fp = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Fiscal Period" }
+    fp = fp.xpath('./td') if fp
+       
+    if fp.nil?
+      puts "--------------------------------------Cannot get info for #{ticker}"
+      return false
+    end   
+    # Find last year by counting 'td's up to "TMM"
+    years_available = 0 # Some stocks may not have 10 years worth of data
+    for i in 1..fp.size
+      if fp[i].nil? || !fp[i].text.match("TTM").nil? 
+        break
+      end
+      years_available = i
+    end
+    
+    puts "Counted #{years_available} years of available data for #{ticker}"
+          
+    update_year = 1 # Some stocks may not be updated for 2012 yet
+    update_year = 0 if fp[years_available].text.last == "2"
+    
+
+
+
+    #Acces data page
+    url = "http://www.gurufocus.com/financials/#{ticker}"
+    doc = open_url_or_nil(url)
+    if doc.nil?
+      puts "Could not get quarterly finantial data from gurufocus.com"
+      return false
+    end
+   
+    # Get last 4 quarters quarterly data
+    # Check first if all 4 quarters are available?
+    (1..4).each do |i|
+      if fp[i].nil? || !fp[i].text.match("TTM").nil? 
+        break
+      end
+      years_available = i
+    end
+    
+    puts "Counted #{years_available} years of available data for #{ticker}"
+          
+    update_year = 1 # Some stocks may not be updated for 2012 yet
+    update_year = 0 if fp[years_available].text.last == "2"
+    
+    # A boolean to test if current asset values are available
+    using_current_data = true
+    
+    # Scrape data from doc
+    # Current Assets
+    ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Current Assets" }
+    if ca
+      ca = ca.xpath('./td') 
+    else
+      using_current_data = false
+    end
+    
+    ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Assets" }
+    ta = ta.xpath('./td') if ta
+    
+    cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Current Liabilities" }
+    if cl
+      cl = cl.xpath('./td') 
+    else
+      using_current_data = false
+    end
+        
+    tl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Liabilities" }
+    tl = tl.xpath('./td') if tl
+        
+    # Debt, book value, net tangible assets
+    ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Long-Term Debt" }
+    ltd = ltd.xpath('./td') if ltd
+    
+    bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Total Equity" }
+    bv = bv.xpath('./td') if bv
+    
+    ocs = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Other Current Assets" }
+    ocs = ocs.xpath('./td') if ocs
+    
+    # Create balance sheet for 10 years
+    (1..years_available).each do |i|
+      cas = ""
+      cls = ""
+      ntas = ""
+      if using_current_data
+        cas = (clean_string(ca[i].text).to_f.round * MILLION).to_s
+        cls = (clean_string(cl[i].text).to_f.round * MILLION).to_s
+        if ocs
+          ntas = (( clean_string(ca[i].text).to_f - clean_string(ocs[i].text).to_f - clean_string(cl[i].text).to_f ).round * MILLION ).to_s
+        else
+          ntas = cas
+        end 
+      end
+      
+      # Some trusts don't have liabilities
+      tler = ""
+      tler = (clean_string(tl[i].text).to_f.round * MILLION).to_s if tl
+      der = ""
+      der = (clean_string(ltd[i].text).to_f.round * MILLION).to_s if ltd
+      bver = ""
+      bver = (clean_string(bv[i].text).to_f.round * MILLION).to_s if bv
+      bs = BalanceSheet.create(:stock_id => self.id,
+                            :year => YEAR - (years_available+1 - i) - update_year, #This reveses the year from i
+                            :current_assets => cas,
+                            :total_assets => (clean_string(ta[i].text).to_f.round * MILLION).to_s,
+                            :current_liabilities => cls,
+                            :total_liabilities => tler,
+                            :long_term_debt => der,
+                            :net_tangible_assets => ntas,
+                            :book_value => bver,
+                            :quarter => q)         
+        puts "Got bs data for #{ticker}, year: #{bs.year}, ta = #{bs.total_assets}" if !bs.id.nil?
+    end
+    
+    update_attributes( :has_currant_ratio => using_current_data)    
+
+  end # end quarterly ---------------------------------------------
+
+
+
   def get_stock_price
     price = get_price_from_msn  
     price = get_price_from_google if price.nil?

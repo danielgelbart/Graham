@@ -78,15 +78,7 @@ module DataScraper
     # get last year earnings
     l_year = latest_eps.year
   
-    #Acces data page
-    url = "http://www.gurufocus.com/financials/#{ticker}"
-    doc = open_url_or_nil(url)
-    if doc.nil?
-      puts "Could not get quarterly finantial data from gurufocus.com"
-      return false
-    end
-    
-    # Check if year is updated for 2012
+    # get which quarters are the last 4
     fp = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Fiscal Period" }
     fp = fp.xpath('./td') if fp
        
@@ -103,6 +95,32 @@ module DataScraper
       years_available = i
     end
     
+    puts "Counted #{years_available} years of available data for #{ticker}"
+          
+    update_year = 1 # Some stocks may not be updated for 2012 yet
+    update_year = 0 if fp[years_available].text.last == "2"
+    
+
+
+
+    #Acces data page
+    url = "http://www.gurufocus.com/financials/#{ticker}"
+    doc = open_url_or_nil(url)
+    if doc.nil?
+      puts "Could not get quarterly finantial data from gurufocus.com"
+      return false
+    end
+   
+    # Get last 4 quarters quarterly data
+    # Check first if all 4 quarters are available?
+    (1..4).each do |i|
+      if fp[i].nil? || !fp[i].text.match("TTM").nil? 
+        break
+      end
+      q_start_column = i
+    end
+    q_start_column += 1
+
     puts "Counted #{years_available} years of available data for #{ticker}"
           
     update_year = 1 # Some stocks may not be updated for 2012 yet
@@ -173,16 +191,16 @@ module DataScraper
                             :total_liabilities => tler,
                             :long_term_debt => der,
                             :net_tangible_assets => ntas,
-                            :book_value => bver )
-                                     
+                            :book_value => bver,
+                            :quarter => q)         
         puts "Got bs data for #{ticker}, year: #{bs.year}, ta = #{bs.total_assets}" if !bs.id.nil?
     end
     
     update_attributes( :has_currant_ratio => using_current_data)    
-    
-    
 
-  end
+  end # end quarterly ---------------------------------------------
+
+
 
   def get_stock_price
     price = get_price_from_msn  
