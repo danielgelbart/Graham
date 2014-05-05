@@ -44,13 +44,14 @@ $ gem install passenger
 $ rvm update --head && rvm reload && rvm repair all
 $ passenger-install-apache2-module
 $ sudo apt-get install libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-dev libapr1-dev libaprutil1-dev 
--- Added the following lines to etc/apache2/apach2.conf
+-- Added the following lines produced by the install process 
+to etc/apache2/apach2.conf
 
    LoadModule passenger_module /home/dani/.rvm/gems/ruby-1.9.2-p180@rails238/gems/passenger-3.0.7/ext/apache2/mod_passenger.so
-   PassengerRoot /home/dani/.rvm/gems/ruby-1.9.2-p180@rails238/gems/passenger-3.0.7
-   PassengerRuby /home/dani/.rvm/wrappers/ruby-1.9.2-p180@rails238/ruby
+   PassengerRoot /home/daniel/.rvm/gems/ruby-1.9.2-p180@rails238/gems/passenger-3.0.7
+   PassengerRuby /home/daniel/.rvm/wrappers/ruby-1.9.2-p180@rails238/ruby
 
-
+*Here, remember to change path correctly
  <VirtualHost *:80>
       ServerName graham.local
       DocumentRoot /home/dani/rails/Graham/public  

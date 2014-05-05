@@ -209,8 +209,10 @@ class Stock < ActiveRecord::Base
   def inflation_ratio_for(year)
 
     #please UPDATE!
-    #Last updated: Feb 2013
+    #Last updated: May 2014
     # uses inflation from every year, so that I don't need to update
+    # Calculated as change in CPI, from jan 1 to jan 1, durring the given year,
+    # i.e data for 2013 is for change ending jan 1 2014.
     ir = {
       2000 => 1.0366,
       2001 => 1.014,
@@ -224,7 +226,8 @@ class Stock < ActiveRecord::Base
       2009 => 1.0259,
       2010 => 1.0162,
       2011 => 1.0292,
-      2012 => 1.018 #Not as precise as previous year's data
+      2012 => 1.0159, #Not as precise as previous year's data
+      2013 => 1.0157
       }
 
       
