@@ -15,8 +15,7 @@ $) sudo apt-get  install libmysqlclient-dev mysql-client mysql-server
 ---------- Set up rails -----------
 * Don't use 'sudo' with rvm
 
-UPDATE 2014: these following lines do not work, and gemset files already exist
-r
+
 $ rvm use ruby 1.9.2  #set up ruby 1.9.2 on bash local
 $ rvm gemset create rails238 # create a specific gem set
 $ rvm ruby-1.9.2@rails238 # tell the gemset it is working with ruby 1.9.2
@@ -74,7 +73,9 @@ To get rake tasks to work, must load the bundler environment, so do:
 - Added a config/preinitialize file - following same tutorial, but this does not work
 - so added the same code (that requiers and expands bundler) to environment.rb
 
-
+UPDATE 2014: Had to run:
+$ gem update --system 1.8.25
+To get rubygems to work (that is, so that I could use rake db:setup)
 -------
 To get rvm to work correctly from command line, I needed to set e 'Run command as login shell' checkbox on the Title and Command tab inside of gnome-terminal's Settings page
 

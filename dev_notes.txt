@@ -35,3 +35,8 @@ mysqlsump for DB
 run by
  sudo mysqldump graham_dev > databackup
 
+to load file from mysql dump I did
+$ mysql -u root  graham_dev < databackup 
+
+open mysql
+$ mysql 
