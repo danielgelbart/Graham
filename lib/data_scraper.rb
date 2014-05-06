@@ -2,6 +2,7 @@
 module DataScraper
   require 'nokogiri'
   require 'open-uri'
+#  require 'pry-debugger'
 
   include CommonDefs
   YEAR = Time.new.year 
@@ -11,8 +12,10 @@ module DataScraper
   # BILLION = 1000000000
   # YEAR = Time.new.year 
 
-  def scrape_data
-    markn = "mark7"
+  def scrape_data(mark = "0")
+
+    # Mark as updated, so as not to download if not needed
+    markn = mark
     last_mark = self.mark
     if !self.mark.nil? && !last_mark.match(markn).nil?
       puts "Skipping downloading data for #{ticker} - not going to download"
@@ -29,11 +32,15 @@ module DataScraper
       puts "[NOTE] earnings deleted for #{ticker} beacuse they apear to be erroneous"
     end
       
+    # retriev:
+    # From: gurufocus.com
     get_data_from_gurufocus # Retrievs: ta,tl, ca, cl, ltd, nta, bv
                             # Revenue, income, and eps
     get_numshares           # numshares - Not needed for first 1000 up to NU 
     update_price
-    update_current_data
+    get_dividends
+
+#    update_current_data #--Check if this works
     
     # mark stock as updated
     update_attributes( :mark => markn) 
@@ -476,7 +483,7 @@ def get_revenue_income_msn
     puts "Counted #{years_available} years of available data for #{ticker}"
           
     update_year = 1 # Some stocks may not be updated for 2012 yet
-    update_year = 0 if fp[years_available].text.last == "2"
+    update_year = 0 if fp[years_available].text.last == (YEAR-1).to_s.last
     
     # A boolean to test if current asset values are available
     using_current_data = true
@@ -559,7 +566,7 @@ def get_revenue_income_msn
     ni = ni.xpath('./td') if ni
     
     # This is eps from gurufocus, not exactly what we want
-    eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Earnings per Share ($)" }
+    eps = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['title'] == "Earnings per Share (diluted) ($)" }
     eps = eps.xpath('./td') if eps
     
     
@@ -604,8 +611,9 @@ def get_revenue_income_msn
     end
     puts "\n Updating eps data from msn for #{ticker}"
     
-    #test if updated for 2012 or not (not neceraly updated to same year as gurufocus)
-    date = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "FiscalPeriodEndDate" } if doc
+    #test if updated for 2013 or not (not neceraly updated to same year as gurufocus)
+    last_year = YEAR - 1
+    date = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "PeriodEndingDate" } if doc
     if date
       date = date.xpath('./td') 
     else
@@ -613,23 +621,24 @@ def get_revenue_income_msn
       return 
     end
     
-    update_year_msn = 1 #Some stocks may not be updated for 2012 yet
-    update_year_msn = 0 if !date[1].text.match("2012").nil?
+    update_year_msn = 1 #Some stocks may not be updated for 2013 yet
+    update_year_msn = 0 if !date[1].text.match(last_year.to_s).nil?
        
-    epss = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPSIncludingExtraOrdIte" }  if doc
+    epss = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "DilutedEPS" }  if doc
     
     # if new model data was updated, we need to reload the cache
     self.reload
-            
+    
     # Update earnings from msn, if needed and available?
-    if latest_eps.year == 2011 && update_year_msn == 0 
+    if latest_eps.year == (last_year-1) && update_year_msn == 0
+     puts "Creating new eps for year #{last_year}" 
      rev2012 = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalRevenue" }  
      rev2012 = rev2012.xpath('./td')[1]
      earn2012 = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "NetIncome" }
      earn2012 = earn2012.xpath('./td')[1]  
      eps2012 = epss.xpath('./td')[1]  
      ep = Ep.create(:stock_id => self.id,
-                     :year => 2012,
+                     :year => last_year,
                      :revenue => (clean_string(rev2012.text).to_f.round * MILLION).to_s,
                      :net_income => (clean_string(earn2012.text).to_f.round * MILLION).to_s,
                      :eps => clean_string(eps2012.text).to_f, # Not that this might be overriden in the next code block
@@ -641,7 +650,8 @@ def get_revenue_income_msn
      
     if epss
       epss = epss.xpath('./td')
-         
+      
+      #NOte - this updates last 5 year eps regardless of if exist
       (1..5).each do |i|
         if epss[i]
            year = YEAR - i - update_year_msn
@@ -654,8 +664,8 @@ def get_revenue_income_msn
       end
     end
     
-    # If data is available for 2012, add this data for (2) Balance sheets
-    if latest_balance_sheet.year == 2011 && update_year_msn == 0
+    # If data is available for most recent past year, add this data for (2) Balance sheets
+    if latest_balance_sheet.year == (YEAR-2) && update_year_msn == 0
       url = "http://investing.money.msn.com/investments/stock-balance-sheet/?symbol=us%3A#{ticker}&stmtView=Ann"
       doc = open_url_or_nil(url)
     
@@ -663,17 +673,17 @@ def get_revenue_income_msn
         puts "ERROR: Could not get data from msn for #{ticker}"
         return
       end
-      puts "\n Updating balance sheet data from msn for #{ticker} for 2012" 
+      puts "\n Updating balance sheet data from msn for #{ticker} for year #{YEAR-1}" 
       
       cas = cls = tler = der = ntas = bver = ""
       
-      ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalCurrentAssets" }  
+      ca = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "CurrentAssets" }  
       cas = ca.xpath('./td') if ca
     
       ta = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalAssets" }
       ta = ta.xpath('./td') if ta
     
-      cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalCurrentLiabilities" }
+      cl = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "CurrentLiabilities" }
       if cl
         cls = cl.xpath('./td') 
       else
@@ -684,7 +694,7 @@ def get_revenue_income_msn
       tler = tl.xpath('./td') if tl
         
       # Debt, book value, net tangible assets
-      ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalLongTermDebt" }
+      ltd = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "LongTermDebt" }
       der = ltd.xpath('./td') if ltd
     
       bv = doc.xpath('//tr').detect{ |tr| tr.xpath('./td').first != nil && tr.xpath('./td').first['id'] == "TotalEquity" }
@@ -699,7 +709,7 @@ def get_revenue_income_msn
       bver = (clean_string(bver[1].text).to_f.round * MILLION).to_s if bver != ""
     
       bs = BalanceSheet.create(:stock_id => self.id,
-                            :year => 2012,
+                            :year => YEAR-1,
                             :current_assets => cas,
                             :total_assets => (clean_string(ta[1].text).to_f.round * MILLION).to_s,
                             :current_liabilities => cls,
@@ -712,9 +722,8 @@ def get_revenue_income_msn
       update_attributes( :has_currant_ratio => using_current_data) 
          
     end #end of special update if got 2012 data from msn   
-    
-      
-  end
+
+  end #end of methos 'get_data_from_gurofucos' which realy gets data from msn
   
   
 # only gets 5 years back

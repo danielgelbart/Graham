@@ -187,8 +187,8 @@ class Stock < ActiveRecord::Base
     end
   end
 
-  def update_current_data
-    markn = "mark1"
+  def update_current_data(markp = "0")
+    markn = markp
     return if self.mark == markn
     
     ttm_eps = get_eps
