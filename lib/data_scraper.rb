@@ -40,7 +40,9 @@ module DataScraper
     update_price
     get_dividends
 
-#    update_current_data #--Check if this works
+#    update_current_data #This works, but takes a long time to run
+# since it makes multiple requests, - shorten number of requests!
+    get_eps
     
     # mark stock as updated
     update_attributes( :mark => markn) 
@@ -455,6 +457,10 @@ def get_revenue_income_msn
     # Get data from MSN first, as it is more up to date, reliable, and correct
     # See STO in NOK for example
     
+
+
+
+
     #Acces data page
     url = "http://www.gurufocus.com/financials/#{ticker}"
     doc = open_url_or_nil(url)
