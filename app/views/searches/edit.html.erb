@@ -1,0 +1,24 @@
+<h1>Editing search</h1>
+
+<% form_for(@search) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :no_losses %><br />
+    <%= f.check_box :no_losses %>
+  </p>
+  <p>
+    <%= f.label :divs %><br />
+    <%= f.check_box :divs %>
+  </p>
+  <p>
+    <%= f.label :dilution %><br />
+    <%= f.text_field :dilution %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @search %> |
+<%= link_to 'Back', searches_path %>

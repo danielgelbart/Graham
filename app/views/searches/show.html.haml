@@ -1,0 +1,40 @@
+- num = 1
+%table.stock-list
+  %thead
+    %th
+      number
+    %th
+      ticker
+    %th
+      Yield
+    %th
+      Price
+    %th
+      Price limit
+    %th
+      Price/Limit
+    %th
+      Price/Book
+    %th
+      10 year P/E
+  %tbody
+    - @stocks.each do |stock|
+      %tr
+        %td
+          = num
+          - num = num + 1
+        %td
+          = link_to "#{stock.ticker}", stock_path(stock)
+          = link_to "Dividends", stock.dividend_url
+        %td
+          = stock.yield
+        %td
+          = stock.price
+        %td
+          = stock.price_limit
+        %td
+          = short_float(stock.price.to_f / stock.price_limit.to_f)
+        %td
+          = short_float(stock.price.to_f / stock.book_value_per_share.to_f)
+        %td
+          = short_float(stock.ten_year_eps)

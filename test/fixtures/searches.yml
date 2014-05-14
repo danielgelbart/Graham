@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  no_losses: false
+  divs: false
+  dilution: 1.5
+
+two:
+  no_losses: false
+  divs: false
+  dilution: 1.5

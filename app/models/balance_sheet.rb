@@ -79,6 +79,7 @@ class BalanceSheet < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: balance_sheets
@@ -96,5 +97,6 @@ end
 #  updated_at          :datetime
 #  net_tangible_assets :string(255)
 #  total_sales         :string(255)
+#  quarter             :integer(4)      default(0)
 #
 

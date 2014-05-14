@@ -12,6 +12,7 @@ class Ep < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: eps
@@ -25,5 +26,6 @@ end
 #  updated_at :datetime
 #  revenue    :string(255)
 #  net_income :string(255)
+#  quarter    :integer(4)      default(0)
 #
 

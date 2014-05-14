@@ -435,6 +435,7 @@ class Stock < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: stocks
@@ -454,5 +455,6 @@ end
 #  yield                  :decimal(6, 3)
 #  listed                 :boolean(1)      default(TRUE)
 #  has_currant_ratio      :boolean(1)      default(TRUE)
+#  mark                   :string(255)
 #
 
