@@ -16,8 +16,8 @@ class Search < ActiveRecord::Base
     if dilution
       @stocks = @stocks.select{ |s| s.dilution < (1+dilution/100) } 
     end
-
-    @stocks = @stocks.sort_by{ |s| s.historic_eps(3) }
+    
+    @stocks = @stocks.sort_by{ |s| s.ten_year_eps }
   end  
 end
 
