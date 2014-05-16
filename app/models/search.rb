@@ -5,6 +5,10 @@ class Search < ActiveRecord::Base
   def stocks
     @stocks = Stock.all
 
+    # add the 7 graham defensive criteria as search options.
+    # Indicate their number in the search results
+
+
     if no_losses  
       @stocks = @stocks.select{ |s| s.no_earnings_deficit? } 
     end

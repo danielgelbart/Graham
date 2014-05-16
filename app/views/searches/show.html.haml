@@ -1,3 +1,25 @@
+%br
+%h1
+  Showing stocks with:
+%br
+- crit = 1
+
+- if @search.no_losses
+  %p
+    %strong #{crit}. NO LOSSES in past 10 years
+    - crit = crit + 1
+
+- if @search.divs
+  %p
+    %strong #{crit}. DIVIDEND consistant for 20 years
+    - crit = crit + 1
+
+- if @search.dilution > 0 #returning flase!?
+  %p
+    %strong #{crit}. DILUTION less than #{@search.dilution} % 
+    - crit = crit + 1
+%br
+%br
 - num = 1
 %table.stock-list
   %thead
@@ -31,7 +53,7 @@
         %td
           = stock.price
         %td
-          = stock.price_limit
+          = short_float(stock.price_limit)
         %td
           = short_float(stock.price.to_f / stock.price_limit.to_f)
         %td
