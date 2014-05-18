@@ -458,9 +458,6 @@ def get_revenue_income_msn
     # See STO in NOK for example
     
 
-
-
-
     #Acces data page
     url = "http://www.gurufocus.com/financials/#{ticker}"
     doc = open_url_or_nil(url)

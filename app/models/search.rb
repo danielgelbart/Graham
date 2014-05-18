@@ -1,9 +1,8 @@
 class Search < ActiveRecord::Base
-  
 
 # This method returns a list of stock per search request
   def stocks
-    @stocks = Stock.all
+    @stocks = Stock.all.select{ |s| s.listed == true}
 
     # add the 7 graham defensive criteria as search options.
     # Indicate their number in the search results

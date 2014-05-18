@@ -14,12 +14,15 @@
     %strong #{crit}. DIVIDEND consistant for 20 years
     - crit = crit + 1
 
-- if @search.dilution > 0 #returning flase!?
+- if !@search.dilution.nil? #returning flase!?
   %p
     %strong #{crit}. DILUTION less than #{@search.dilution} % 
     - crit = crit + 1
 %br
 %br
+%p
+  = "Found total of #{@stocks.size} stocks, ordered by #{"10 year PE"}"
+
 - num = 1
 %table.stock-list
   %thead
