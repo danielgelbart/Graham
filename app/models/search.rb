@@ -4,9 +4,25 @@ class Search < ActiveRecord::Base
   def stocks
     @stocks = Stock.all.select{ |s| s.listed == true}
 
-    # add the 7 graham defensive criteria as search options.
-    # Indicate their number in the search results
+    if big_enough
+      @stocks = @stocks.select{ |s| s.big_enough? } 
+    end
 
+    if !market_cap.nil?
+       @stocks = @stocks.select{ |s| s.market_cap.to_i > market_cap.to_i } 
+    end
+
+    if good_balance
+      @stocks = @stocks.select{ |s| s.financialy_strong? } 
+    end
+    
+    if book != 0
+      if book > 0
+        @stocks = @stocks.select{ |s| s.book_value > 0 } 
+      else
+        @stocks = @stocks.select{ |s| s.book_value < 0 } 
+      end  
+    end
 
     if no_losses  
       @stocks = @stocks.select{ |s| s.no_earnings_deficit? } 
@@ -15,9 +31,21 @@ class Search < ActiveRecord::Base
     if divs
       @stocks = @stocks.select{ |s| s.continous_dividend_record? } 
     end
+
+    if current_div
+      @stocks = @stocks.select{ |s| s.pays_dividends } 
+    end
     
     if dilution
       @stocks = @stocks.select{ |s| s.dilution < (1+dilution/100) } 
+    end
+
+    if earning_growth
+      @stocks = @stocks.select{ |s| s.eps_growth? } 
+    end
+
+    if defensive_price
+      @stocks = @stocks.select{ |s| s.cheap? } 
     end
     
     @stocks = @stocks.sort_by{ |s| s.ten_year_eps }

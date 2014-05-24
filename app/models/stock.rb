@@ -300,6 +300,10 @@ class Stock < ActiveRecord::Base
   def latest_balance_sheet
     balance_sheets.sort{ |b,y| b.year <=> y.year }.last
   end
+
+  def book_value
+    latest_balance_sheet.book_val
+  end
   
   # Gets most recent number of shares outstanding, regardles if updated 
   def latest_numshare

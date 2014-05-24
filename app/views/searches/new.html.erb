@@ -3,18 +3,66 @@
 <% form_for(@search) do |f| %>
   <%= f.error_messages %>
 
+
   <p>
+    (G1) Check that sales > 500 mil, and Book > 2.5B
+    <%= f.label :sales %><br />
+    <%= f.check_box :big_enough %>
+  </p>
+
+  <p>
+    Market Cap larger than
+    <%= f.label :market_cap %><br />
+    <%= f.text_field :market_cap %>
+  </p>
+
+  <p>
+    (G2)
+    <%= f.label :good_balance_ratios %><br />
+    <%= f.check_box :good_balance %>
+  </p>
+
+  <p>
+    <%= f.label :book_value_is %><br />
+    <%= f.radio_button :book, 0, :checked => true %>
+    <%= f.label :book, "any" %>
+    <%= f.radio_button :book, 1 %>
+    <%= f.label :book, "positive" %>
+    <%= f.radio_button :book, -1 %>
+    <%= f.label :book, "negative" %>
+  </p>
+
+  <p>
+    (G3)
     <%= f.label :no_losses %><br />
     <%= f.check_box :no_losses %>
   </p>
   <p>
+    (G4)
     <%= f.label :divs %><br />
     <%= f.check_box :divs %>
+  </p>
+  <p>
+    <%= f.label :currently_paying_a_dividend %><br />
+    <%= f.check_box :current_div %>
   </p>
   <p>
     <%= f.label :dilution %><br />
     <%= f.text_field :dilution %>
   </p>
+
+  <p>
+    (G5)
+    <%= f.label :earnings_growth %><br />
+    <%= f.check_box :earning_growth %>
+  </p>
+
+  <p>
+    (G6)
+    <%= f.label :defensive_price %><br />
+    <%= f.check_box :defensive_price %>
+  </p>
+
   <p>
     <%= f.submit 'Create' %>
   </p>

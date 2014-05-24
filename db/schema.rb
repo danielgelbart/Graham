@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140514133348) do
+ActiveRecord::Schema.define(:version => 20140524101155) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -77,6 +77,13 @@ ActiveRecord::Schema.define(:version => 20140514133348) do
     t.float    "dilution"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "good_balance"
+    t.integer  "book"
+    t.boolean  "current_div"
+    t.boolean  "earning_growth"
+    t.boolean  "defensive_price"
+    t.boolean  "big_enough"
+    t.integer  "market_cap"
   end
 
   create_table "splits", :force => true do |t|

@@ -4,20 +4,58 @@
 %br
 - crit = 1
 
+- if @search.big_enough
+  %p
+    %strong #{crit}. (G1) SALES more than 500 mil
+    - crit = crit + 1
+
+- if @search.market_cap != 0
+  %p
+    %strong #{crit}. MARKET CAP > #{ @search.market_cap.to_s }
+    - crit = crit + 1
+
+- if @search.good_balance
+  %p
+    %strong #{crit}. (G2) BALANCE ratios are good
+    - crit = crit + 1
+
+- if @search.book != 0
+  %p
+    - str = "positive"
+    - str = "negative" if @search.book < 0
+    %strong #{crit}. BOOK VALUE is #{str} 
+    - crit = crit + 1
+
 - if @search.no_losses
   %p
-    %strong #{crit}. NO LOSSES in past 10 years
+    %strong #{crit}. (G3) NO LOSSES in past 10 years
     - crit = crit + 1
 
 - if @search.divs
   %p
-    %strong #{crit}. DIVIDEND consistant for 20 years
+    %strong #{crit}. (G4) DIVIDEND consistant for 20 years
+    - crit = crit + 1
+
+- if @search.current_div
+  %p
+    %strong #{crit}. DIVIDEND is paid currently
     - crit = crit + 1
 
 - if !@search.dilution.nil? #returning flase!?
   %p
     %strong #{crit}. DILUTION less than #{@search.dilution} % 
     - crit = crit + 1
+
+- if @search.earning_growth
+  %p
+    %strong #{crit}. (G5) EARNINGS GROWTH
+    - crit = crit + 1
+
+- if @search.defensive_price
+  %p
+    %strong #{crit}. (G6) PRICE is below defensive limit
+    - crit = crit + 1
+
 %br
 %br
 %p
