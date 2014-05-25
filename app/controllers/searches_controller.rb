@@ -15,7 +15,7 @@ class SearchesController < ApplicationController
   def show
     @search = Search.find(params[:id])
     
-    @stocks = @search.stocks
+    @stocks = @search.stocks(params[:sort])
 
     respond_to do |format|
       format.html # show.html.erb

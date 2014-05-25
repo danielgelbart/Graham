@@ -114,6 +114,17 @@ class Stock < ActiveRecord::Base
     price / ttm_eps * ( price / book_value_per_share ) <= 22.5
   end
 
+  def price_to_limit_ratio
+    return 0.0 if price_limit.nil? or price_limit == 0
+    (price.to_f / price_limit.to_f)
+  end
+
+  def price_to_book_ratio
+    return 0.0 if book_value_per_share.nil? or book_value_per_share == 0
+    price.to_f / book_value_per_share.to_f
+  end
+
+
   # / End, Defensive buy breackdown---------------------------------------
 
   def cheap?

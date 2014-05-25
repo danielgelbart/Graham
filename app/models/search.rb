@@ -1,7 +1,7 @@
 class Search < ActiveRecord::Base
 
 # This method returns a list of stock per search request
-  def stocks
+  def stocks(sort_by = "pe_10")
     @stocks = Stock.all.select{ |s| s.listed == true}
 
     if big_enough
@@ -48,9 +48,19 @@ class Search < ActiveRecord::Base
       @stocks = @stocks.select{ |s| s.cheap? } 
     end
     
+    # sort the results
+   case sort_by
+   when "price_to_limit"
+    @stocks = @stocks.sort_by{ |s| s.price_to_limit_ratio }
+   when "price_to_book"
+    @stocks = @stocks.sort_by{ |s| s.price_to_book_ratio }
+   else  
     @stocks = @stocks.sort_by{ |s| s.ten_year_eps }
-  end  
-end
+   end
+  
+  end #method stocks
+
+end #class search
 
 # == Schema Information
 #

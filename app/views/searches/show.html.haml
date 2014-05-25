@@ -9,7 +9,7 @@
     %strong #{crit}. (G1) SALES more than 500 mil
     - crit = crit + 1
 
-- if @search.market_cap != 0
+- if !@search.market_cap.nil?
   %p
     %strong #{crit}. MARKET CAP > #{ @search.market_cap.to_s }
     - crit = crit + 1
@@ -75,11 +75,11 @@
     %th
       Price limit
     %th
-      Price/Limit
+      = link_to "Price/Limit", :sort => "price_to_limit"
     %th
-      Price/Book
+      = link_to "Price/Book", :sort => "price_to_book"
     %th
-      10 year P/E
+      = link_to "10 year P/E", :sort => "pe_10"
   %tbody
     - @stocks.each do |stock|
       %tr
@@ -96,8 +96,8 @@
         %td
           = short_float(stock.price_limit)
         %td
-          = short_float(stock.price.to_f / stock.price_limit.to_f)
+          = short_float( stock.price_to_limit_ratio) #stock.price.to_f / stock.price_limit.to_f)
         %td
-          = short_float(stock.price.to_f / stock.book_value_per_share.to_f)
+          = short_float(stock.price_to_book_ratio) #.to_f / stock.book_value_per_share.to_f)
         %td
           = short_float(stock.ten_year_eps)
