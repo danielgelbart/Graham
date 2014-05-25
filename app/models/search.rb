@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: searches
+#
+#  id              :integer(4)      not null, primary key
+#  no_losses       :boolean(1)
+#  divs            :boolean(1)
+#  dilution        :float
+#  created_at      :datetime
+#  updated_at      :datetime
+#  good_balance    :boolean(1)
+#  book            :integer(4)
+#  current_div     :boolean(1)
+#  earning_growth  :boolean(1)
+#  defensive_price :boolean(1)
+#  big_enough      :boolean(1)
+#  market_cap      :integer(4)
+#
+
 class Search < ActiveRecord::Base
 
 # This method returns a list of stock per search request
@@ -62,15 +81,4 @@ class Search < ActiveRecord::Base
 
 end #class search
 
-# == Schema Information
-#
-# Table name: searches
-#
-#  id         :integer(4)      not null, primary key
-#  no_losses  :boolean(1)
-#  divs       :boolean(1)
-#  dilution   :float
-#  created_at :datetime
-#  updated_at :datetime
-#
 

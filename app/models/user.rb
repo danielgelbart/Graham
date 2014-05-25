@@ -1,7 +1,3 @@
-class User < ActiveRecord::Base
-  has_many :portfolios
-end
-
 # == Schema Information
 #
 # Table name: users
@@ -11,4 +7,8 @@ end
 #  created_at :datetime
 #  updated_at :datetime
 #
+
+class User < ActiveRecord::Base
+  has_many :portfolios
+end
 

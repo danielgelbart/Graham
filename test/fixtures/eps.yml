@@ -1,17 +1,3 @@
-# == Schema Information
-# Schema version: 20100408183735
-#
-# Table name: eps
-#
-#  id         :integer(4)      not null, primary key
-#  year       :integer(4)
-#  source     :string(255)
-#  eps        :decimal(12, 6)
-#  stock_id   :integer(4)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:

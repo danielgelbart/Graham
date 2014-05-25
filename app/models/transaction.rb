@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: transactions
+#
+#  id           :integer(4)      not null, primary key
+#  date         :date
+#  comission    :decimal(10, 2)
+#  stock_id     :integer(4)
+#  shares       :integer(4)
+#  type         :boolean(1)
+#  price        :decimal(10, 2)
+#  portfolio_id :integer(4)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class Transaction < ActiveRecord::Base
   belongs_to :stock
   belongs_to :portfolio
@@ -44,20 +60,4 @@ class Transaction < ActiveRecord::Base
 
 
 end
-
-# == Schema Information
-#
-# Table name: transactions
-#
-#  id           :integer(4)      not null, primary key
-#  date         :date
-#  comission    :decimal(10, 2)
-#  stock_id     :integer(4)
-#  shares       :integer(4)
-#  type         :boolean(1)
-#  price        :decimal(10, 2)
-#  portfolio_id :integer(4)
-#  created_at   :datetime
-#  updated_at   :datetime
-#
 

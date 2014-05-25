@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: portfolios
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Portfolio < ActiveRecord::Base
   belongs_to :user
   has_many :transactions
@@ -11,15 +22,4 @@ class Portfolio < ActiveRecord::Base
   end
 
 end
-
-# == Schema Information
-#
-# Table name: portfolios
-#
-#  id         :integer(4)      not null, primary key
-#  user_id    :integer(4)
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
 

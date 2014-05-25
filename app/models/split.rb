@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: splits
+#
+#  id                       :integer(4)      not null, primary key
+#  stock_id                 :integer(4)
+#  old                      :integer(4)
+#  new                      :integer(4)
+#  split_mul_factor         :decimal(10, 2)
+#  date                     :date
+#  stock_adjusted_for_split :boolean(1)      default(FALSE)
+#  created_at               :datetime
+#  updated_at               :datetime
+#
+
 class Split < ActiveRecord::Base
   belongs_to :stock
   after_create :adjust_stock!
@@ -32,19 +47,4 @@ class Split < ActiveRecord::Base
 
 
 end
-
-# == Schema Information
-#
-# Table name: splits
-#
-#  id                       :integer(4)      not null, primary key
-#  stock_id                 :integer(4)
-#  old                      :integer(4)
-#  new                      :integer(4)
-#  split_mul_factor         :decimal(10, 2)
-#  date                     :date
-#  stock_adjusted_for_split :boolean(1)      default(FALSE)
-#  created_at               :datetime
-#  updated_at               :datetime
-#
 

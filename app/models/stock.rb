@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: stocks
+#
+#  id                     :integer(4)      not null, primary key
+#  name                   :string(255)
+#  ticker                 :string(255)
+#  created_at             :datetime
+#  updated_at             :datetime
+#  ttm_eps                :decimal(12, 6)
+#  book_value_per_share   :decimal(12, 6)
+#  finantial_data_updated :date
+#  dividends_per_year     :integer(4)      default(4)
+#  latest_price           :decimal(12, 6)
+#  market_cap             :string(255)
+#  ttm_div                :decimal(10, 3)
+#  yield                  :decimal(6, 3)
+#  listed                 :boolean(1)      default(TRUE)
+#  has_currant_ratio      :boolean(1)      default(TRUE)
+#  mark                   :string(255)
+#
+
 class Stock < ActiveRecord::Base
   has_many :splits
   has_many :owned_stocks
@@ -417,24 +439,4 @@ class Stock < ActiveRecord::Base
 
 end
 
-# == Schema Information
-#
-# Table name: stocks
-#
-#  id                     :integer(4)      not null, primary key
-#  name                   :string(255)
-#  ticker                 :string(255)
-#  created_at             :datetime
-#  updated_at             :datetime
-#  ttm_eps                :decimal(12, 6)
-#  book_value_per_share   :decimal(12, 6)
-#  finantial_data_updated :date
-#  dividends_per_year     :integer(4)      default(4)
-#  latest_price           :decimal(12, 6)
-#  market_cap             :string(255)
-#  ttm_div                :decimal(10, 3)
-#  yield                  :decimal(6, 3)
-#  listed                 :boolean(1)      default(TRUE)
-#  has_currant_ratio      :boolean(1)      default(TRUE)
-#
 
