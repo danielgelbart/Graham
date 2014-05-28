@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140524101155) do
+ActiveRecord::Schema.define(:version => 20140528125209) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20140524101155) do
     t.boolean  "listed",                                                :default => true
     t.boolean  "has_currant_ratio",                                     :default => true
     t.string   "mark"
+    t.integer  "cik"
   end
 
   create_table "transactions", :force => true do |t|
