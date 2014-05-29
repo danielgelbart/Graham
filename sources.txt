@@ -13,6 +13,11 @@ it online
 
 Should use:
 Edgar:
+This is the url for the IBM 2013 10-K
+http://www.sec.gov/Archives/edgar/data/51143/0001047469-14-001302.txt
+where the numbers are data/cik/accession_number.txt
+
+
 
 2013 Income statment for IBM:
 https://www.sec.gov/cgi-bin/viewer?action=view&cik=51143&accession_number=0001047469-14-001302&xbrl_type=v#
@@ -27,13 +32,27 @@ Has interactive data only for past few years.
 ABSOLUTELY NO COMMOM INTERFACE between companies. 
 
 We want:
+
 Total Revenue
+-Sales
 Net Income
+
 Current Assests
 Total Assets
 Current Liabilities
 Total Liabilities
+-Total Debt
+
 Number of shares (diluted)
 
-*IF net income and diluted number of share are available, we can
+*EPS(diluted)
+*Book Value
+
+-Market Cap
+-Divs
+
+---splits
+
+- Get these on second pass
+* IF net income and diluted number of share are available, we can
  calculate EPS on our own.
