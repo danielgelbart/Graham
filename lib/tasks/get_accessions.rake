@@ -42,11 +42,9 @@ namespace :stock do
         #check that this row is for a 10-k
         next if tds[0].text != "10-K"
 
-        # TODO
-        # THIS REGEX IS NOT GOOD ENOUGH
-        # It eiterh chops the ac number to short, or adds an '_' at the end
+        # Capture the accistion number from the string
+        acn = tds[2].text[/.*Acc-no: (?<acn>(\d|\-)*)/,"acn"]
 
-        acn = tds[2].text[/.*Acc-no:([^(3|Si]*)/,1] #No idea how this regex works
 
         year = tds[3].text.first(4).to_i - 1
         year = year.to_s
@@ -76,13 +74,31 @@ namespace :stock do
   end
 
   # get the doc from a url
-  def get_doc(url)
+  def get_xml_doc(url)
+    xml_file = File.new("#{ticker}10K_#{year}.txt","w")
+
+    open(url) do |f|
+      found = false
+      f.each_line do |line|
+        xml_file.puts(line)  if found
+        found = true if line ~= /<DESCRIPTION>IDEA: XBRL DOCUMENT/
+      end
+    end
+
+    doc = get_nokogiri_doc_from_file(xml_file)
+  end
+
+  #return a doc or nil if there was a problem
+  def get_nokogiri_doc(file)
     begin
-      doc = Nokogiri::HTML(open(url))
+      doc = Nokogiri::HTML(file)
     rescue OpenURI::HTTPError => e
-      puts "Could not open url: #{e.message}"
+      puts "Could not open file #{file}: #{e.message}"
+      puts "For ticker #{ticker}"
+      nil
     end
   end
+
 
   def extract_income_statement(doc)
 
