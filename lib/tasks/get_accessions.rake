@@ -17,10 +17,9 @@ namespace :stock do
       cik = stock.cik
       ticker = stock.ticker
       puts "Getting ACN for #{ticker}"
-      out_file.puts("Ticker: "+ticker+" ; CIK: "+cik.to_s+"\n")
+      out_file.puts("Name: "+ stock.name + " ; Ticker: "+ticker+" ; CIK: "+cik.to_s+"\n")
 
       url = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=#{cik}&type=10-k&dateb=&owner=exclude&count=40"
-
 
       begin
         doc = Nokogiri::HTML(open(url))
@@ -45,11 +44,19 @@ namespace :stock do
         # Capture the accistion number from the string
         acn = tds[2].text[/.*Acc-no: (?<acn>(\d|\-)*)/,"acn"]
 
-
         year = tds[3].text.first(4).to_i - 1
         year = year.to_s
 
-        get_data(cik,acn,year)
+        #At this point we have all the data needed to retriev 10 Ks
+        # We have: cik and acn
+        # We can either 1) Write this info to a file for latter use
+        #               2) Get the file and save it for latter use
+        #               3) Get the file, parse it and save the finantial data
+
+        # Consider changing this method to end with
+        # return ticker, cik, acn, year
+
+#        get_data(cik,acn,year)
 
         out_file.puts("YEAR "+ year +" ; ACN "+ acn +"\n")
         puts "Wrot acn for #{year}"
@@ -81,7 +88,7 @@ namespace :stock do
       found = false
       f.each_line do |line|
         xml_file.puts(line)  if found
-        found = true if line ~= /<DESCRIPTION>IDEA: XBRL DOCUMENT/
+#        found = true if line ~= /<DESCRIPTION>IDEA: XBRL DOCUMENT/
       end
     end
 
