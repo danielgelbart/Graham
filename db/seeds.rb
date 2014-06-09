@@ -25,6 +25,10 @@ file = File.open("nyse_stocks_list.txt","r")
      ticker = line.split.first
      name = line.split("\t").last.chop
      s = Stock.create(:ticker => ticker, :name => name)
-     puts "created #{s.ticker}" if s
+     if s
+       puts "created #{s.ticker}"
+       s.scrape_data
+     end
+
    end
 file.close

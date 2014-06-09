@@ -18,9 +18,7 @@ cucumber:
   <<: *TEST
 
 production:
-  adapter: mysql
-  database: graham_pro
-  username: root
-  password: 
-  timeout: 5000
-  socket: /var/run/mysqld/mysqld.sock
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+

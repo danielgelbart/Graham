@@ -5,6 +5,7 @@ ruby '1.9.2'
 
 gem "rails", "2.3.8"
 gem "mysql"
+gem 'pg'
 gem "coderay", "1.0.5"
 gem "haml", "~> 3.0"
 gem "passenger", '>=4.0.0' #passenger does not work well with rvm
