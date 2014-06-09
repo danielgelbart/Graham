@@ -15,7 +15,7 @@ gem 'annotate', "2.4.0"
 gem 'rake', "0.9.1"
 gem 'rdoc' #needed for rake
 
-gem 'pry-debugger', '~> 0.2.2'
+#gem 'pry-debugger', '~> 0.2.2' #can't install debuggers on heroku
 
 
 group :cucumber do
