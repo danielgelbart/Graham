@@ -1,14 +1,15 @@
 # Takes a stock ticker to get data for as an argument
 namespace :stock do
-  desc "Add cik number to each stock"
+  desc "Add cik number to each stock marked as 'listed'. Will skip over listed stocks which have a cik. NOTE: can add additional look up of ciks as described under 'TODO'"
 
   task :add_cik => :environment do |task, args|
     require 'active_record'
     require 'nokogiri'
     require 'open-uri'
+    require 'uri'
 
-    er_file = File.new("list_of_stocks_with_no_cik.txt","w")
-    er_file.puts("The following is a list of stocks I could not find the cik for:\n")
+    log = File.new("add_cik.log","w+")
+
     stocks = Stock.all.select{ |s| s.listed == true}
 
     stocks.each do |stock|
@@ -20,47 +21,81 @@ namespace :stock do
         next
       end
 
-      url = "http://finance.yahoo.com/q/sec?s=#{ticker}+SEC+Filings"
+      url = "http://www.sec.gov/cgi-bin/browse-edgar?CIK=#{ticker}&Find=Search&owner=exclude&action=getcompany"
+
       puts "\n Getting cik for #{ticker}"
 
       begin
         doc = Nokogiri::HTML(open(url))
       rescue OpenURI::HTTPError => e
-        puts "Could not open url: #{e.message}"
-        puts "For ticker #{ticker}"
-        er_file.puts(ticker+"\n")
+        log.puts "Could not open url: #{e.message} \n for ticker: #{ticker}"
         next
       end
 
-      link_node = doc.css("table#yfncsumtab").xpath('.//a').last
+      link_node = doc.css("div.companyInfo").xpath('.//a').first
+
 
       if link_node.nil?
-        puts "Did not find cik number for #{ticker}"
-        er_file.puts(ticker+"\n")
-        next
-      end
+        log.puts "Did not find cik number for #{ticker} in link"
+        name = stock.name
+        log.puts "***Trying to get cik from company: #{stock.name}"
+
+        # try getting cik from name lookup
+        url = "http://www.sec.gov/cgi-bin/browse-edgar?company=#{URI.escape(stock.name)}&owner=exclude&action=getcompany"
+
+        begin
+          doc = Nokogiri::HTML(open(url))
+        rescue OpenURI::HTTPError => e
+          log.puts "Could not open url: #{e.message} \n for ticker: #{ticker}"
+          next
+        end
+
+        link_node = doc.css("div.companyInfo").xpath('.//a').first
+
+        if link_node.nil?
+          log.puts "NOT succefull in getting cik"
+          log.puts "looking up in table on edgar"
+
+          url = "http://www.sec.gov/divisions/corpfin/organization/cfia-#{name[0].downcase}.htm"
+          begin
+            doc = Nokogiri::HTML(open(url))
+          rescue OpenURI::HTTPError => e
+            log.puts "Could not open url: #{e.message} \n for ticker: #{ticker}"
+            next
+          end
+          # TODO:
+          # can iterate over table of stock names untill we find the cik
+          next
+
+        else
+          log.puts "SUCCESS! in getting cik from company name"
+        end
+
+      end # end getting link from other url
 
       link = link_node['href']
 
       if link.nil?
-        puts "Was unable to extract cik from link for #{ticker}"
-        er_file.puts(ticker+"\n")
+        puts "Link node did not contain a link for #{ticker}"
         next
       end
 
-      cik = link[/cik=(?<match>.*)/,"match"].to_i
+      cik = link[/CIK=(?<match>.*)/,"match"].to_i
 
       if cik != 0
         stock.update_attributes(:cik => cik)
-        puts "Updated #{ticker} with cik #{cik}"
+        if stock.cik != cik
+          log.puts "***Old cik was #{stock.cik}"
+          puts "found cik mismatch for #{ticker}: old: #{stock.cik} new: #{cik}"
+        end
+        log.puts "Updated #{ticker} with cik #{cik}"
       else
-        puts "Could not get cik for #{ticker}"
-        er_file.puts(ticker+"\n")
+        log.puts "Could not get cik for #{ticker}"
       end
 
     end #end iteration over all stocks
 
-    er_file.close
+    log.close
   end
 end
 
