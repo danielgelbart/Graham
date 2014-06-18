@@ -1,5 +1,15 @@
 TODO:
 
+1. stock list up to date?
+
+
+
+2. Edgar ------------------------
+
+   2.1 check acns on 10-k from 90's
+   2.2 Move all rake tasks into edgar.rake and edgar.rb
+   2.3 Extract finantial data from financial reports
+
 1. fix get eps for stocks. The following stocks do NOT have eps records:
 => ["ABH", "AEI", "ACL", "AYE", "ALY", "ACRE", "ACF", "APO", "AHD", "AVO", "BEZ", "BVF", "BHS", "BF.A", "CBC", "CSFS", "CBF", "DCS", "CNB", "CTV", "CML", "CAL", "CYS", "DHRWI", "DLM", "DYP", "ECT", "FISWD", "FMR", "FRC", "FCEB", "FCEA", "GEOWI", "GLG", "GSL", "GTNA", "GAP", "GEFB", "HCA", "HEW", "HUBA", "HII", "IAR", "IMP", "VLT", "JCG", "JAS", "JWA", "KG", "KVA", "KVB", "LNY", "LEAWI", "LRP", "MX", "MSGY", "MFE", "MDRWI", "NNA", "NTY", "PLAA", "NAL", "PMG", "PLA", "Q", "RYI", "SEMG", "SVR", "TOD", "TRY", "UBP", "VRWD", "VZWI", "VOL", "JWB", "ZL"] 
 
