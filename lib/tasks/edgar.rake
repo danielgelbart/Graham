@@ -15,7 +15,7 @@ namespace :edgar do
 
     stocks.each do |stock|
       ed = Edgar.new(stock)
-      ed.get_acns(out_file)
+      out_file.puts(ed.get_acns.to_s)
     end
 
     out_file.close

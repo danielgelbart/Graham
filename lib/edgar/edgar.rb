@@ -6,32 +6,41 @@ class Acn
     @ticker = ticker
     @year = year
     @acn = acn
+    @cik = cik
   end
 
   def to_s
-
+    "TICKER: "+ticker.to_s+" , YEAR: "+year.to_s+" , ACN: "+acn.to_s+"\n"
   end
+
+  def url
+    "http://www.sec.gov/Archives/edgar/data/#{cik}/#{acn}.txt"
+  end
+
 
 end
 
-class AcnList
-  attr_accessor :ticker
 
-  def initialize(ticker)
-    @ticker = ticker
+class AcnList
+  attr_accessor :ticker, :name, :cik
+
+  def initialize(stock)
+    @name = stock.name
+    @cik = stock.cik
+    @ticker = stock.ticker
     @list = []
   end
 
   def add(acn)
-    list << acn
+    @list << acn
   end
 
   def to_s
-
+    str = "NAME: "+name+" , TICKER: "+ticker+" , CIK: "+cik.to_s+"\n"
     @list.each do |rec|
-      rec.to_s
+      str += rec.to_s
     end
-
+    str
   end
 
 end
@@ -53,13 +62,13 @@ class Edgar
 
   end
 
-  def get_all_available_finantials
+  def get_all_available_financials
 
   end
 
 
 
-  def get_acns(out_file)
+  def get_acns
     ticker = stock.ticker
     cik = stock.cik
 
@@ -69,7 +78,7 @@ class Edgar
     end
 
     puts "Getting ACN for #{ticker}"
-    out_file.puts("Name: "+ stock.name + " ; Ticker: "+ticker+" ; CIK: "+cik.to_s+"\n")
+    #out_file.puts("Name: "+ stock.name + " ; Ticker: "+ticker+" ; CIK: "+cik.to_s+"\n")
 
     url = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=#{cik}&type=10-k&dateb=&owner=exclude&count=40"
 
@@ -79,6 +88,8 @@ class Edgar
     table = doc.css('div#seriesDiv').xpath('.//tr')
     table.shift # get rid of first tr in table wich is headers
 
+
+    acns = AcnList.new(stock)
     table.each do |tr|
 
       tds = tr.xpath('./td')
@@ -103,9 +114,13 @@ class Edgar
 
       #        get_data(cik,acn,year)
 
-      out_file.puts("YEAR "+ year +" ; ACN "+ acn +"\n")
-      puts "Wrote acn for #{year}"
+
+      acns.add(Acn.new(ticker,year,acn,cik))
+#      out_file.puts("YEAR "+ year +" ; ACN "+ acn +"\n")
+#      puts "Wrote acn for #{year}"
     end
+
+    acns
   end
 
 private
@@ -116,7 +131,7 @@ private
       rescue OpenURI::HTTPError => e
         puts "Could not open url: #{e.message}"
         puts "For ticker #{ticker}"
-        out_file.puts("NO DATA\n")
+        #out_file.puts("NO DATA\n")
         return
       end
     end
