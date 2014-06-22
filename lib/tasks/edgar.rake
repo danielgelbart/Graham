@@ -22,18 +22,53 @@ namespace :edgar do
   end # task :get_acns
 
 
-  desc "Get 10-k"
-  task :get_10k
 
+  desc "Get all statments for stock"
+  task :get_statements, [:ticker] => :environment do |task, args|
+
+#    ticker = "IBM"
+    ticker = args[:ticker]
+    stock = Stock.find_by_ticker(ticker)
+
+    log = File.new(log_path("edgar_get_statements"),"w+")
+    ed = Edgar.new(stock,log)
+
+    ed.get_acns.list.each do |acn|
+      # Only handle xbrl files, which only exist since 2009
+      break if acn.year.to_i < 2009
+
+      tenk = ed.get10k_text(acn)
+      report_names = ed.find_names_of_income_and_balance_statements(tenk)
+      ed.extract_and_save_income_and_balance_reports(report_names,acn.year)
+    end
+
+    log.close
   end
 
-  desc "Get Income and Balance statements from 10-k"
-  task :get_financials => :environment do
 
-    stock = Stock.find_by_ticker("IBM")
+  desc "Get Income and Balance statements single year (specific) 10-k"
+  task :get_single_year_statements => :environment do
 
+    ticker = "IBM"
+    stock = Stock.find_by_ticker(ticker)
+
+    log = File.new(log_path("edgar_get_financials"),"w+")
     ed = Edgar.new(stock,log)
-    puts ed.stock
+
+    tenks = ed.get_acns
+    acn = tenks.first
+    tenk = ed.get10k_text(acn)
+    report_names = ed.find_names_of_income_and_balance_statements(tenk)
+    ed.extract_and_save_income_and_balance_reports(report_names,acn.year)
+
+    log.close
   end # task
+
+  def log_path(name)
+    dir = "financials"
+    Dir.mkdir(dir) unless Dir.exists?(dir)
+    log_path = File.join(dir,name+".log")
+  end
+
 
 end # namespace

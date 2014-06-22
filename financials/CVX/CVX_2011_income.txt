@@ -1,7 +1,7 @@
 <DOCUMENT>
 
 <TYPE>XML
-<SEQUENCE>118
+<SEQUENCE>116
 <FILENAME>R2.htm
 <DESCRIPTION>IDEA: XBRL DOCUMENT
 <TEXT>
@@ -9,7 +9,7 @@
   <head>
     <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
     <link rel="StyleSheet" type="text/css" href="report.css"><script type="text/javascript" src="Show.js">/* Do Not Remove This Comment */</script></head>
-  <body><span style="display: none;">v2.4.0.8</span><table class="report" border="0" cellspacing="2" id="ID0EVDAG">
+  <body><span style="display: none;">v2.4.0.6</span><table class="report" border="0" cellspacing="2" id="ID0EOIAG">
       <tr>
         <th class="tl" colspan="1" rowspan="2">
           <div style="width: 200px;"><strong>Consolidated Statement of Income (USD $)<br>In Millions, except Per Share data, unless otherwise specified</strong></div>
@@ -18,13 +18,13 @@
       </tr>
       <tr>
         <th class="th" colspan="2">
-          <div>Dec. 31, 2013</div>
-        </th>
-        <th class="th" colspan="2">
-          <div>Dec. 31, 2012</div>
-        </th>
-        <th class="th" colspan="2">
           <div>Dec. 31, 2011</div>
+        </th>
+        <th class="th" colspan="2">
+          <div>Dec. 31, 2010</div>
+        </th>
+        <th class="th" colspan="2">
+          <div>Dec. 31, 2009</div>
         </th>
       </tr>
       <tr class="re">
@@ -38,38 +38,38 @@
       </tr>
       <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window );">Sales and other operating revenues</a></td>
-        <td class="nump">$ 220,156<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
-        <td class="nump">$ 230,590<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
         <td class="nump">$ 244,371<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
+        <td class="nump">$ 198,198<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
+        <td class="nump">$ 167,402<span></span></td>
         <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
       </tr>
       <tr class="re">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window );">Income from equity affiliates</a></td>
-        <td class="nump">7,527<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">6,889<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">7,363<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">5,637<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">3,316<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window );">Other income</a></td>
-        <td class="nump">1,165<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">4,430<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">1,972<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">1,093<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">918<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="reu">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_Revenues', window );">Total Revenues and Other Income</a></td>
-        <td class="nump">228,848<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">241,909<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">253,706<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">204,928<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">171,636<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="ro">
@@ -83,113 +83,122 @@
       </tr>
       <tr class="re">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_CostOfPurchasedOilAndGas', window );">Purchased crude oil and products</a></td>
-        <td class="nump">134,696<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">140,766<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">149,923<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">116,467<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">99,653<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_OperatingCostsAndExpenses', window );">Operating expenses</a></td>
-        <td class="nump">24,627<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">22,570<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">21,649<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">19,188<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">17,857<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="re">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_SellingGeneralAndAdministrativeExpense', window );">Selling, general and administrative expenses</a></td>
-        <td class="nump">4,510<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">4,724<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">4,745<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">4,767<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">4,527<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_ExplorationExpense', window );">Exploration expenses</a></td>
-        <td class="nump">1,861<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">1,728<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">1,216<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">1,147<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">1,342<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="re">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_DepreciationDepletionAndAmortization', window );">Depreciation, depletion and amortization</a></td>
-        <td class="nump">14,186<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[2],[3]</sup></td>
-        <td class="nump">13,413<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[2],[3]</sup></td>
         <td class="nump">12,911<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[2],[3]</sup></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">13,063<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">12,110<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_cvx_TaxesOtherThanOnIncome', window );">Taxes other than on income</a></td>
-        <td class="nump">13,063<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
-        <td class="nump">12,376<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
         <td class="nump">15,628<span></span></td>
         <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
+        <td class="nump">18,191<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
+        <td class="nump">17,591<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"><sup>[1]</sup></td>
       </tr>
-      <tr class="reu">
+      <tr class="re">
+        <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_InterestExpenseDebt', window );">Interest and debt expense</a></td>
+        <td class="text">&#xA0;<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">50<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">28<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+      </tr>
+      <tr class="rou">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_CostsAndExpenses', window );">Total Costs and Other Deductions</a></td>
-        <td class="nump">192,943<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">195,577<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">206,072<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">172,873<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">153,108<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
-      <tr class="rou">
+      <tr class="reu">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments', window );">Income Before Income Tax Expense</a></td>
-        <td class="nump">35,905<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">46,332<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">47,634<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">32,055<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">18,528<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
-      <tr class="re">
+      <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_IncomeTaxExpenseBenefit', window );">Income Tax Expense</a></td>
-        <td class="nump">14,308<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">19,996<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">20,626<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">12,919<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">7,965<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
-      <tr class="rou">
+      <tr class="reu">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_ProfitLoss', window );">Net Income</a></td>
-        <td class="nump">21,597<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">26,336<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">27,008<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">19,136<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">10,563<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
-      <tr class="re">
+      <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_NetIncomeLossAttributableToNoncontrollingInterest', window );">Less: Net income attributable to noncontrolling interests</a></td>
-        <td class="nump">174<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">157<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">113<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
-      </tr>
-      <tr class="rou">
-        <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window );">Net Income Attributable to Chevron Corporation</a></td>
-        <td class="nump">$ 21,423<span></span></td>
+        <td class="nump">112<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">$ 26,179<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[4]</sup></td>
-        <td class="nump">$ 26,895<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"><sup>[4]</sup></td>
+        <td class="nump">80<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
-      <tr class="re">
+      <tr class="reu">
+        <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window );">Net Income attributable to Chevron Corporation</a></td>
+        <td class="nump">26,895<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">19,024<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">10,483<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+      </tr>
+      <tr class="ro">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareAbstract', window );"><strong>Per Share of Common Stock</strong></a></td>
         <td class="text">&#xA0;<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
@@ -198,22 +207,31 @@
         <td class="text">&#xA0;<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
-      <tr class="ro">
+      <tr class="re">
         <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareBasic', window );">Net Income Attributable to Chevron Corporation - Basic</a></td>
-        <td class="nump">$ 11.18<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">$ 13.42<span></span></td>
-        <td class="fn" style="border-bottom: 0px;"></td>
         <td class="nump">$ 13.54<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">$ 9.53<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">$ 5.26<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+      </tr>
+      <tr class="ro">
+        <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareDiluted', window );">Net Income Attributable to Chevron Corporation - Diluted</a></td>
+        <td class="nump">$ 13.44<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">$ 9.48<span></span></td>
+        <td class="fn" style="border-bottom: 0px;"></td>
+        <td class="nump">$ 5.24<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr class="re">
-        <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareDiluted', window );">Net Income Attributable to Chevron Corporation - Diluted</a></td>
-        <td class="nump">$ 11.09<span></span></td>
+        <td class="pl" style="border-bottom: 0px;" valign="top"><a class="a" href="javascript:void(0);" onclick="top.Show.showAR( this, 'defref_us-gaap_ExciseAndSalesTaxes', window );">Includes excise, value-added and similar taxes:</a></td>
+        <td class="nump">$ 8,085<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">$ 13.32<span></span></td>
+        <td class="nump">$ 8,591<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
-        <td class="nump">$ 13.44<span></span></td>
+        <td class="nump">$ 8,109<span></span></td>
         <td class="fn" style="border-bottom: 0px;"></td>
       </tr>
       <tr>
@@ -224,19 +242,7 @@
           <table class="outerFootnotes" width="100%">
             <tr class="outerFootnote">
               <td style="vertical-align: top;" valign="top">[1]</td>
-              <td style="vertical-align: top;" valign="top">*Includes excise, value-added and similar taxes.$8,492 $8,010&#xA0;$8,085See accompanying Notes to the Consolidated Financial Statements.</td>
-            </tr>
-            <tr class="outerFootnote">
-              <td style="vertical-align: top;" valign="top">[2]</td>
-              <td style="vertical-align: top;" valign="top">Depreciation expense includes accretion expense of $627, $629 and $628 in 2013, 2012 and 2011, respectively.</td>
-            </tr>
-            <tr class="outerFootnote">
-              <td style="vertical-align: top;" valign="top">[3]</td>
-              <td style="vertical-align: top;" valign="top">Other than the United States, Australia and Nigeria, no other country accounted for 10&#xA0;percent or more of the company&#x2019;s net properties, plant and equipment (PP&amp;E) in 2013. Australia had $31,464, $21,770 and $12,423 in 2013, 2012, and 2011, respectively. Nigeria had PP&amp;E of $18,429, $17,485 and $15,601 for 2013, 2012 and 2011, respectively.</td>
-            </tr>
-            <tr class="outerFootnote">
-              <td style="vertical-align: top;" valign="top">[4]</td>
-              <td style="vertical-align: top;" valign="top">There was no effect of dividend equivalents paid on stock units or dilutive impact of employee stock-based awards on earnings.</td>
+              <td style="vertical-align: top;" valign="top">Includes excise, value-added and similar taxes.</td>
             </tr>
           </table>
         </td>
@@ -290,7 +296,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>Cost of oil and gas purchased during the reporting period.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.2)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 235<br><br> -Section 50<br><br> -Paragraph 23<br><br> -URI http://asc.fasb.org/extlink&amp;oid=8451039&amp;loc=d3e62136-109447<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.2)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 235<br><br> -Section 50<br><br> -Paragraph 23<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6821537&amp;loc=d3e62136-109447<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -328,7 +334,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>Total costs of sales and operating expenses for the period.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -400,7 +406,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>The aggregate expense recognized in the current period that allocates the cost of tangible assets, intangible assets, or depleting assets to periods that benefit from use of the assets.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 230<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 28<br><br> -Subparagraph (b)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=31042434&amp;loc=d3e3602-108585<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 230<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 28<br><br> -Subparagraph (b)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6943989&amp;loc=d3e3602-108585<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -472,7 +478,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>The amount of net income (loss) for the period per each share of common stock or unit outstanding during the reporting period.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6371337&amp;loc=d3e3550-109257<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 2<br><br> -URI http://asc.fasb.org/extlink&amp;oid=7655603&amp;loc=d3e1252-109256<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 52<br><br> -URI http://asc.fasb.org/extlink&amp;oid=32703322&amp;loc=d3e4984-109258<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.21)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 944<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.7-04.19)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879464&amp;loc=d3e573970-122913<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 942<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.9-04.23)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879574&amp;loc=d3e536633-122882<br><br><br><br>Reference 7: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 18<br><br> -Article 7<br><br><br><br>Reference 8: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 20<br><br> -Article 5<br><br><br><br>Reference 9: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 21<br><br> -Article 9<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 52<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6945512&amp;loc=d3e4984-109258<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Emerging Issues Task Force (EITF)<br><br> -Number 07-4<br><br> -Paragraph 4<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 20<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 944<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.7-04.19)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879464&amp;loc=d3e573970-122913<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Article 7<br><br> -Paragraph 18<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 942<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.9-04.23)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879574&amp;loc=d3e536633-122882<br><br><br><br>Reference 7: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 128<br><br> -Paragraph 36, 37, 38<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 8: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6371337&amp;loc=d3e3550-109257<br><br><br><br>Reference 9: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.21)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br>Reference 10: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 21<br><br> -Article 9<br><br><br><br>Reference 11: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 2<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6920599&amp;loc=d3e1252-109256<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -510,7 +516,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>The amount of net income (loss) for the period available to each share of common stock or common unit outstanding during the reporting period and to each share or unit that would have been outstanding assuming the issuance of common shares or units for all dilutive potential common shares or units outstanding during the reporting period.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 2<br><br> -URI http://asc.fasb.org/extlink&amp;oid=7655603&amp;loc=d3e1252-109256<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.21)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 18<br><br> -Article 7<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 20<br><br> -Article 5<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 21<br><br> -Article 9<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 128<br><br> -Paragraph 11, 12, 36<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.21)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 20<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 2<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6920599&amp;loc=d3e1252-109256<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Article 7<br><br> -Paragraph 18<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 21<br><br> -Article 9<br><br><br><br>Reference 7: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Emerging Issues Task Force (EITF)<br><br> -Number 07-4<br><br> -Paragraph 4<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -539,6 +545,44 @@
           </td>
         </tr>
       </table>
+      <table border="0" cellpadding="0" cellspacing="0" class="authRefData" style="display: none;" id="defref_us-gaap_ExciseAndSalesTaxes">
+        <tr>
+          <td class="hide"><a style="color: white;" href="javascript:void(0);" onclick="top.Show.hideAR();">X</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
+                <p>The amount of excise and sales taxes included in sales and revenues, which are then deducted as a cost of sales. Includes excise taxes, which are applied to specific types of transactions or items (such as gasoline or alcohol); and sales, use and value added taxes, which are applied to a broad class of revenue-producing transactions involving a wide range of goods and services.</p>
+              </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 605<br><br> -SubTopic 45<br><br> -Section 50<br><br> -Paragraph 4<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6408196&amp;loc=d3e61097-111654<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 1<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Emerging Issues Task Force (EITF)<br><br> -Number 06-3<br><br> -Paragraph 4<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.1)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br></p>
+              </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td><strong> Name:</strong></td>
+                    <td><nobr>us-gaap_ExciseAndSalesTaxes</nobr></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right: 4px;"><nobr><strong> Namespace Prefix:</strong></nobr></td>
+                    <td>us-gaap_</td>
+                  </tr>
+                  <tr>
+                    <td><strong> Data Type:</strong></td>
+                    <td>xbrli:monetaryItemType</td>
+                  </tr>
+                  <tr>
+                    <td><strong> Balance Type:</strong></td>
+                    <td>debit</td>
+                  </tr>
+                  <tr>
+                    <td><strong> Period Type:</strong></td>
+                    <td>duration</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
       <table border="0" cellpadding="0" cellspacing="0" class="authRefData" style="display: none;" id="defref_us-gaap_ExplorationExpense">
         <tr>
           <td class="hide"><a style="color: white;" href="javascript:void(0);" onclick="top.Show.hideAR();">X</a></td>
@@ -548,7 +592,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>Exploration expenses (including prospecting) related to oil and gas producing entities and would be included in operating expenses of that entity. Costs incurred in identifying areas that may warrant examination and in examining specific areas that are considered to have prospects of containing oil and gas reserves, including costs of drilling exploratory wells and exploratory-type stratigraphic test wells. Exploration costs may be incurred both before acquiring the related property (sometimes referred to in part as prospecting costs) and after acquiring the property. Principal types of exploration costs, which include depreciation and applicable operating costs of support equipment and facilities and other costs of exploration activities, are: (i) Costs of topographical, geographical and geophysical studies, rights of access to properties to conduct those studies, and salaries and other expenses of geologists, geophysical crews, and others conducting those studies. Collectively, these are sometimes referred to as geological and geophysical or "G&amp;G" costs. (ii) Costs of carrying and retaining undeveloped properties, such as delay rentals, ad valorem taxes on properties, legal costs for title defense, and the maintenance of land and lease records. (iii) Dry hole contributions and bottom hole contributions. (iv) Costs of drilling and equipping exploratory wells. (v) Costs of drilling exploratory-type stratigraphic test wells.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 360<br><br> -Section 25<br><br> -Paragraph 9<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6474861&amp;loc=d3e64954-109465<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.4-10.(a)(15))<br><br> -URI http://asc.fasb.org/extlink&amp;oid=27015464&amp;loc=d3e511914-122862<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 10<br><br> -Paragraph a<br><br> -Subparagraph 15<br><br> -Article 4<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 360<br><br> -Section 25<br><br> -Paragraph 9<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6474861&amp;loc=d3e64954-109465<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.4-10.(a)(15))<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6949603&amp;loc=d3e511914-122862<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Audit and Accounting Guide (AAG)<br><br> -Number AAG-OGP<br><br> -Chapter 2<br><br> -Paragraph 48<br><br> -IssueDate 2006-05-01<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 19<br><br> -Paragraph 17<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 10<br><br> -Paragraph a<br><br> -Subparagraph 15<br><br> -Article 4<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -586,7 +630,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>Sum of operating profit and nonoperating income or expense before Income or Loss from equity method investments, income taxes, extraordinary items, and noncontrolling interest.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 235<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.4-08.(h)(1)(i))<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26873400&amp;loc=d3e23780-122690<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 4<br><br> -Section 08<br><br> -Paragraph h<br><br> -Subparagraph 1(i)<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 235<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.4-08.(h)(1)(i))<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6881521&amp;loc=d3e23780-122690<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -624,7 +668,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>This item represents the entity's proportionate share for the period of the net income (loss) of its investee (such as unconsolidated subsidiaries and joint ventures) to which the equity method of accounting is applied. This item includes income or expense related to stock-based compensation based on the investor's grant of stock to employees of an equity method investee.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 230<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 28<br><br> -Subparagraph (b)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=31042434&amp;loc=d3e3602-108585<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 9<br><br> -Article 5<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 323<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 1<br><br> -URI http://asc.fasb.org/extlink&amp;oid=16385135&amp;loc=d3e33749-111570<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.12)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 11<br><br> -Article 7<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 323<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 1<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6382870&amp;loc=d3e33749-111570<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Principles Board Opinion (APB)<br><br> -Number 18<br><br> -Paragraph 19<br><br> -Subparagraph c<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Principles Board Opinion (APB)<br><br> -Number 18<br><br> -Paragraph 6<br><br> -Subparagraph b<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 95<br><br> -Paragraph 28<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 11<br><br> -Article 7<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 230<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 28<br><br> -Subparagraph (b)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6943989&amp;loc=d3e3602-108585<br><br><br><br>Reference 7: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 9<br><br><br><br>Reference 8: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.12)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -660,14 +704,52 @@
         <tr>
           <td>
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
-                <p>Amount of current income tax expense (benefit) and deferred income tax expense (benefit) pertaining to continuing operations.</p>
+                <p>The sum of the current income tax expense or benefit and the deferred income tax expense or benefit pertaining to continuing operations.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 235<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.4-08.(h))<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26873400&amp;loc=d3e23780-122690<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 08<br><br> -Paragraph h<br><br> -Article 4<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Glossary Income Tax Expense (or Benefit)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6515339<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 740<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 9<br><br> -Subparagraph (a),(b)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6907707&amp;loc=d3e32639-109319<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Glossary Income Tax Expense (or Benefit)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6515339<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 740<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 9<br><br> -Subparagraph (a),(b)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6907707&amp;loc=d3e32639-109319<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 08<br><br> -Paragraph h<br><br> -Article 4<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 109<br><br> -Paragraph 45<br><br> -Subparagraph a, b<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 235<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.4-08.(h))<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6881521&amp;loc=d3e23780-122690<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
                     <td><strong> Name:</strong></td>
                     <td><nobr>us-gaap_IncomeTaxExpenseBenefit</nobr></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right: 4px;"><nobr><strong> Namespace Prefix:</strong></nobr></td>
+                    <td>us-gaap_</td>
+                  </tr>
+                  <tr>
+                    <td><strong> Data Type:</strong></td>
+                    <td>xbrli:monetaryItemType</td>
+                  </tr>
+                  <tr>
+                    <td><strong> Balance Type:</strong></td>
+                    <td>debit</td>
+                  </tr>
+                  <tr>
+                    <td><strong> Period Type:</strong></td>
+                    <td>duration</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <table border="0" cellpadding="0" cellspacing="0" class="authRefData" style="display: none;" id="defref_us-gaap_InterestExpenseDebt">
+        <tr>
+          <td class="hide"><a style="color: white;" href="javascript:void(0);" onclick="top.Show.hideAR();">X</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
+                <p>Represents the portion of interest incurred in the period on debt arrangements that was charged against earnings.</p>
+              </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 8<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 34<br><br> -Paragraph 21<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.8)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br></p>
+              </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td><strong> Name:</strong></td>
+                    <td><nobr>us-gaap_InterestExpenseDebt</nobr></td>
                   </tr>
                   <tr>
                     <td style="padding-right: 4px;"><nobr><strong> Namespace Prefix:</strong></nobr></td>
@@ -700,7 +782,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>The portion of profit or loss for the period, net of income taxes, which is attributable to the parent.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 20<br><br> -Article 9<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 230<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 28<br><br> -URI http://asc.fasb.org/extlink&amp;oid=31042434&amp;loc=d3e3602-108585<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Glossary Other Comprehensive Income<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6519514<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Glossary Net Income<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6518256<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6371337&amp;loc=d3e3550-109257<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 944<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.7-04.19)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879464&amp;loc=d3e573970-122913<br><br><br><br>Reference 7: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.18)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 8: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 944<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.7-04.22)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879464&amp;loc=d3e573970-122913<br><br><br><br>Reference 9: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 220<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 6<br><br> -URI http://asc.fasb.org/extlink&amp;oid=28358780&amp;loc=d3e565-108580<br><br><br><br>Reference 10: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 19<br><br> -Article 5<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 944<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.7-04.22)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879464&amp;loc=d3e573970-122913<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 230<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 28<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6943989&amp;loc=d3e3602-108585<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.18)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 38<br><br> -Subparagraph a<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 260<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6371337&amp;loc=d3e3550-109257<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 220<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 6<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6920043&amp;loc=d3e565-108580<br><br><br><br>Reference 7: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph A7<br><br> -Appendix A<br><br><br><br>Reference 8: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 130<br><br> -Paragraph 10, 15<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 9: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Glossary Other Comprehensive Income<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6519514<br><br><br><br>Reference 10: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 38<br><br> -Subparagraph d<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 11: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Emerging Issues Task Force (EITF)<br><br> -Number 87-21<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 12: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Glossary Net Income<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6518256<br><br><br><br>Reference 13: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 944<br><br> -SubTopic 225<br><br> -Section S99<br><br> -Paragraph 1<br><br> -Subparagraph (SX 210.7-04.19)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6879464&amp;loc=d3e573970-122913<br><br><br><br>Reference 14: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 19<br><br><br><br>Reference 15: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Statement of Financial Accounting Standard (FAS)<br><br> -Number 95<br><br> -Paragraph 28, 29, 30<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 16: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 04<br><br> -Paragraph 20<br><br> -Article 9<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -736,9 +818,9 @@
         <tr>
           <td>
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
-                <p>Amount of Net Income (Loss) attributable to noncontrolling interest.</p>
+                <p>The portion of net Income or Loss attributable to the noncontrolling interest (if any) deducted in order to derive the portion attributable to the parent.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1A<br><br> -URI http://asc.fasb.org/extlink&amp;oid=18733093&amp;loc=SL4573702-111684<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 4J<br><br> -URI http://asc.fasb.org/extlink&amp;oid=31814832&amp;loc=SL4591551-111686<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1A<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6921930&amp;loc=SL4573702-111684<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 4J<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6922042&amp;loc=SL4591551-111686<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 38<br><br> -Subparagraph a<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 38<br><br> -Subparagraph c(1)<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph A1, A4, A5<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 4K<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6922042&amp;loc=SL4591552-111686<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -776,7 +858,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>Aggregate revenue during the period related to oil and gas business activities.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.1)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 235<br><br> -Section 50<br><br> -Paragraph 23<br><br> -Subparagraph (a)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=8451039&amp;loc=d3e62136-109447<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 235<br><br> -Section 50<br><br> -Paragraph 24<br><br> -URI http://asc.fasb.org/extlink&amp;oid=8451039&amp;loc=d3e62246-109447<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 1<br><br> -Article 5<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 235<br><br> -Section 50<br><br> -Paragraph 24<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6821537&amp;loc=d3e62246-109447<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 1<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.1)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 932<br><br> -SubTopic 235<br><br> -Section 50<br><br> -Paragraph 23<br><br> -Subparagraph (a)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6821537&amp;loc=d3e62136-109447<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -852,7 +934,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>The aggregate amount of other income amounts, the components of which are not separately disclosed on the income statement, resulting from ancillary business-related activities (that is, excluding major activities considered part of the normal operations of the business) also known as other nonoperating income recognized for the period. Such amounts may include: (a) dividends, (b) interest on securities, (c) profits on securities (net of losses), and (d) miscellaneous other income items.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.7)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 7<br><br> -Article 5<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 7<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Audit and Accounting Guide (AAG)<br><br> -Number AAG-BRD<br><br> -Chapter 4<br><br> -Paragraph 80<br><br> -Subparagraph Exhibit 4-4<br><br> -IssueDate 2006-05-01<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.7)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -890,7 +972,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>The consolidated profit or loss for the period, net of income taxes, including the portion attributable to the noncontrolling interest.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 4K<br><br> -URI http://asc.fasb.org/extlink&amp;oid=31814832&amp;loc=SL4591552-111686<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 19<br><br> -URI http://asc.fasb.org/extlink&amp;oid=7656940&amp;loc=SL4569616-111683<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1A<br><br> -Subparagraph (a),(c)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=18733093&amp;loc=SL4573702-111684<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 4J<br><br> -URI http://asc.fasb.org/extlink&amp;oid=31814832&amp;loc=SL4591551-111686<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 4J<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6922042&amp;loc=SL4591551-111686<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 38<br><br> -Subparagraph a<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph A1, A4, A5<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 38<br><br> -Subparagraph c(1)<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 5: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 29<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 6: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 50<br><br> -Paragraph 1A<br><br> -Subparagraph (a),(c)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6921930&amp;loc=SL4573702-111684<br><br><br><br>Reference 7: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 55<br><br> -Paragraph 4K<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6922042&amp;loc=SL4591552-111686<br><br><br><br>Reference 8: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 51<br><br> -Paragraph 5<br><br> -Subparagraph b<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 9: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 810<br><br> -SubTopic 10<br><br> -Section 45<br><br> -Paragraph 19<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6921628&amp;loc=SL4569616-111683<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -926,9 +1008,9 @@
         <tr>
           <td>
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
-                <p>Amount of revenue recognized from goods sold, services rendered, insurance premiums, or other activities that constitute an earning process. Includes, but is not limited to, investment and interest income before deduction of interest expense when recognized as a component of revenue, and sales and trading gain (loss).</p>
+                <p>Aggregate revenue recognized during the period (derived from goods sold, services rendered, insurance premiums, or other activities that constitute an entity's earning process). For financial services companies, also includes investment and interest income, and sales and trading gains.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.1)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 1<br><br> -Article 5<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 1<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.1)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -1000,7 +1082,7 @@
             <div class="body" style="padding: 2px;"><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">- Definition</a><div>
                 <p>The aggregate total costs related to selling a firm's product and services, as well as all other general and administrative expenses. Direct selling expenses (for example, credit, warranty, and advertising) are expenses that can be directly linked to the sale of specific products. Indirect selling expenses are expenses that cannot be directly linked to the sale of specific products, for example telephone expenses, Internet, and postal charges. General and administrative expenses include salaries of non-sales personnel, rent, utilities, communication, etc.</p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ References</a><div style="display: none;">
-                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.4)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 4<br><br> -Article 5<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 330<br><br> -SubTopic 10<br><br> -Section 30<br><br> -Paragraph 8<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6386349&amp;loc=d3e3636-108311<br><br><br><br></p>
+                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher AICPA<br><br> -Name Accounting Research Bulletin (ARB)<br><br> -Number 43<br><br> -Chapter 4<br><br> -Paragraph 5A<br><br> -LegacyDoc This reference is SUPERSEDED by the Accounting Standards Codification effective for interim and annual periods ending after September 15, 2009.  This reference is included to help users transition from the previous accounting hierarchy and will be removed from future versions of this taxonomy.<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Article 5<br><br> -Section 03<br><br> -Paragraph 4<br><br><br><br>Reference 3: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.4)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6880815&amp;loc=d3e20235-122688<br><br><br><br>Reference 4: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 330<br><br> -SubTopic 10<br><br> -Section 30<br><br> -Paragraph 8<br><br> -URI http://asc.fasb.org/extlink&amp;oid=6386349&amp;loc=d3e3636-108311<br><br><br><br></p>
               </div><a href="javascript:void(0);" onclick="top.Show.toggleNext( this );">+ Details</a><div style="display: none;">
                 <table border="0" cellpadding="0" cellspacing="0">
                   <tr>

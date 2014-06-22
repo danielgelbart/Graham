@@ -1,8 +1,8 @@
 # this class is retrieves data from edgar.gov
 class Acn
-  attr_accessor :ticker, :year, :acn
+  attr_accessor :ticker, :year, :acn, :cik
 
-  def initialize(ticker,year,acn)
+  def initialize(ticker,year,acn,cik)
     @ticker = ticker
     @year = year
     @acn = acn
@@ -16,13 +16,11 @@ class Acn
   def url
     "http://www.sec.gov/Archives/edgar/data/#{cik}/#{acn}.txt"
   end
-
-
 end
 
 
 class AcnList
-  attr_accessor :ticker, :name, :cik
+  attr_accessor :ticker, :name, :cik, :list
 
   def initialize(stock)
     @name = stock.name
@@ -35,6 +33,10 @@ class AcnList
     @list << acn
   end
 
+  def first
+    @list.first
+  end
+
   def to_s
     str = "NAME: "+name+" , TICKER: "+ticker+" , CIK: "+cik.to_s+"\n"
     @list.each do |rec|
@@ -42,31 +44,16 @@ class AcnList
     end
     str
   end
-
 end
 
 class Edgar
 
   attr_accessor :documents, :log, :stock
 
-  def initialize(stock)
+  def initialize(stock, log)
     self.stock = stock
+    self.log = log
   end
-
-  def get_10k(year,acn)
-
-
-  end
-
-  def extract_finantials
-
-  end
-
-  def get_all_available_financials
-
-  end
-
-
 
   def get_acns
     ticker = stock.ticker
@@ -123,18 +110,168 @@ class Edgar
     acns
   end
 
+
+  def get10k_text(acn)
+    log.puts("edgar.rb get10k called with acn #{acn.to_s}")
+
+    url = "http://www.sec.gov/Archives/edgar/data/#{acn.cik}/#{acn.acn}.txt"
+
+    doc = open(url).read
+    if doc.nil?
+      log.puts("Could not get 10k for #{acn.ticker} #{acn.year} edgar.gov")
+      return nil
+    end
+
+    doc
+   # temporary open file for testing
+#   File.open("IBM2013.txt","r").read
+  end
+
+  def find_names_of_income_and_balance_statements(doc)
+    log.puts("Called find_names_of_income_and_balance_statements()")
+
+    # Find the document in the text file that contains summary of all reports
+    @documents = doc.split("<DOCUMENT>")
+
+    found = false
+    report_list = nil
+
+    @documents.reverse_each do |document|
+      document.each_line do |line|
+        if line[/^<FILENAME>/]
+          log.puts "Found filename for document"
+          if !line.match("FilingSummary.xml").nil?
+            log.puts "Found the filing Summary!!!!!"
+            report_list = Nokogiri::XML(document)
+            found = true
+          end
+          break
+        end #dealing with filename line
+      end # lines
+      break if found
+    end # iterating over docs
+
+    if report_list.nil?
+      log.puts("Could not get report list for #{stock.ticker}")
+      log.close
+      return
+    end
+
+    income_report_name = nil
+    balance_report_name = nil
+    #find wich reports are the income and balance statements
+    report_list.search('//Report').each do |report|
+
+      report_name = report.xpath('ShortName').text
+      log.puts "checking a report #{report_name}"
+
+      # skip if:
+      next if !report_name[/.*\(Parenthetical\)/i].nil?
+
+      if !report_name[/\s*consolidated statement of (earnings|income)\s*/i].nil?
+
+        income_report_name = report.xpath('HtmlFileName').text
+        log.puts "Found income report!!!!! its in the file: #{income_report_name}"
+      end
+
+      if !report_name[/\s*consolidated (statement of financial position|balance sheet)/i].nil?
+        balance_report_name = report.xpath('HtmlFileName').text
+        log.puts "Found Balance report!!!!! its in the file: #{balance_report_name}"
+      end
+
+      break if !income_report_name.nil? && !balance_report_name.nil?
+    end
+
+    {:income => income_report_name ,
+     :balance => balance_report_name }
+  end
+
+
+  def extract_and_save_income_and_balance_reports(names,year)
+    if @documents.nil? || names.nil?
+      log.puts("Nead to get 10k text file first")
+      return
+    end
+
+    income_report_name = names[:income]
+    balance_report_name = names[:balance]
+
+    dir = "financials"
+
+    stock_dir = ticker = stock.ticker
+    stock_path = File.join(dir,stock_dir)
+    Dir.mkdir(stock_path) unless Dir.exists?(stock_path)
+
+    if !income_report_name.nil?
+      found = false
+      @documents.each do |document|
+        document.each_line do |line|
+          if line[/^<FILENAME>/]
+            log.puts "found line #{line}"
+            if !line.match(income_report_name).nil?
+              file_path = File.join(stock_path,"#{ticker}_#{year}_income.txt")
+              write_report_to_file(document,file_path)
+              log.puts "created file #{file_path} containing file #{income_report_name}"
+              found = true
+            end
+            break
+          end
+        end #line
+        break if found
+      end #documents
+    else
+      log.puts("Could not get income report for #{ticker} for #{year}")
+    end
+
+
+    #extract balance and incmoe report
+    if !balance_report_name.nil?
+      found = false
+      @documents.each do |document|
+        document.each_line do |line|
+          if line[/^<FILENAME>/]
+            log.puts "found line #{line}"
+            if !line.match(balance_report_name).nil?
+              file_path = File.join(stock_path,"#{ticker}_#{year}_balance.txt")
+              write_report_to_file(document,file_path)
+              log.puts "created file #{file_path} containing file #{balance_report_name}"
+              found = true
+            end
+            break
+          end
+        end #line
+        break if found
+      end #documents
+    else
+      log.puts("Could not get balance report for #{ticker} for #{year}")
+    end
+  end
+
+
+  def get_data_from_statement
+
+
+  end
+
+
 private
 
-    def open_doc(url)
-      begin
-        doc = Nokogiri::HTML(open(url))
-      rescue OpenURI::HTTPError => e
-        puts "Could not open url: #{e.message}"
-        puts "For ticker #{ticker}"
-        #out_file.puts("NO DATA\n")
-        return
-      end
+  def write_report_to_file(document,file_path)
+    file = File.new(file_path,"w")
+    file.puts("<DOCUMENT>\n") # this got choped off earliear
+    file.puts(document)
+    file.close
+  end
+
+  def open_doc(url)
+    begin
+      doc = Nokogiri::HTML(open(url))
+    rescue OpenURI::HTTPError => e
+      puts "Could not open url: #{e.message}"
+      puts "For ticker #{ticker}"
+      return
     end
+  end
 
 end # class
 
