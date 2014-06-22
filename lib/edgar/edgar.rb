@@ -248,16 +248,157 @@ class Edgar
   end
 
 
-  def get_data_from_statement
+  def get_income_data_from_statement(file)
+
+    tab = get_table(file)
+
+    units = get_units(tab)
+    years = get_years(tab)
+
+    numyears = years.size
+    revs = get_revs(tab)
+    incs = get_incs(tab)
+    eps = get_dil_eps(tab)
 
 
+    #    cal_dil_sharenum = incs / eps
+    #    get_dil_sharenum
+
+    (0..numyears-1).each do |i|
+      x_ep = stock.ep_for_year(years[i])
+
+      ep = Ep.create(:year => years[i].to_i,
+                     :stock_id => stock.id,
+                     :source => "edgar.gov",
+                     :eps => eps[i].to_f,
+                     :revenue => clean(revs[i],units),
+                     :net_income => clean(incs[i],units))
+      if ep.id.nil?
+        puts "Could NOT create ep for #{stock.ticker} #{years[i]}"
+        update_missing_data(x_ep,ep)
+      else
+        puts "SUCCESFULY created ep for #{stock.ticker} #{years[i]}"
+      end
+    end
+  end
+
+  private
+
+  def clean(str,units)
+    v = (str.gsub(",","").to_i * units).to_s
+    puts v
+    v
   end
 
 
-private
+  def get_table(file)
+    doc = Nokogiri::HTML(file)
+    tab = doc.css('//table').first if !doc.nil?
+  end
+
+  def get_years(tab)
+    titels = tab.css('th')
+    years = []
+    titels.each do |th|
+      begin
+        date = th.text.to_date
+        years << date.year
+      rescue
+        next
+      end
+    end
+    years
+  end
+
+  def get_units(tab)
+    titels = tab.css('th')
+    unit = 1
+    titels.each do |th|
+      case th.text
+      when /.*(in thou).*/i
+        unit = 1000
+        break
+      when /.*(in mill).*/i
+        unit = 1000000
+        break
+      when /.*(in bill).*/i
+        unit = 1000000000
+        break
+      else
+        next
+      end
+    end
+    unit
+  end
+
+  def get_revs(tab)
+    pattern = /(total revenue)/i
+    num_pattern = /(\d+,?\d*,?\d*)/
+    get_values_from_row(tab,pattern,num_pattern)
+  end
+
+  def get_incs(tab)
+    pattern = /(net income)/i
+    num_pattern = /(\d+,?\d*,?\d*)/
+    get_values_from_row(tab,pattern,num_pattern)
+  end
+
+  def get_dil_eps(tab)
+    pattern = /diluted|dilution/i
+    per_share_pattern = /\$\s?(\d+\.\d\d)/
+    get_values_from_row(tab,pattern,per_share_pattern)
+  end
+
+  def get_values_from_row(tab,pattern,num_pattern)
+    vals = [""]
+    tab.css('tr').each do |row|
+      if !row.text[pattern].nil?
+        vals = row.text.scan(num_pattern).flatten
+        break
+      end
+    end
+    if vals[0] == ""
+      log.puts("ERROR: could not retriev total values from table")
+    end
+
+    puts "Values found for #{pattern.to_s} are:"
+    vals.each do |v|
+      puts v
+    end
+    vals
+  end
+
+  def differ(o,n)
+    dif = (o - n).abs.to_f
+    total = (o+n).to_f
+    return (dif/total < 0.05)
+  end
+
+  def update_missing_data(o,n)
+    if differ(o.revenue.to_i,n.revenue.to_i)
+      log.puts("UPDATED revenue for #{o.year} from #{o.revenue} to #{n.revenue}")
+      o.revenue = n.revenue
+    end
+
+    if differ(o.net_income.to_i,n.net_income.to_i)
+      log.puts("UPDATED income for #{o.year} from #{o.net_income} to #{n.net_income}")
+      o.net_income = n.net_income
+    end
+
+    if differ(o.eps.to_f,n.eps.to_f)
+      log.puts("UPDATED eps for #{o.year} from #{o.eps} to #{n.eps}")
+      o.eps = n.eps
+    end
+    o.save
+  end
+
+
 
   def write_report_to_file(document,file_path)
     file = File.new(file_path,"w")
+
+    # can write only table using get_table()
+
     file.puts("<DOCUMENT>\n") # this got choped off earliear
     file.puts(document)
     file.close

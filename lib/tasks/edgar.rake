@@ -64,6 +64,22 @@ namespace :edgar do
     log.close
   end # task
 
+  desc "Testing the parsing of financial data"
+  task :extract_data => :environment do
+
+    ticker = "IBM"
+    stock = Stock.find_by_ticker(ticker)
+
+    log = File.new(log_path("edgar_get_financials"),"w+")
+    ed = Edgar.new(stock,log)
+
+    doc = open("financials/IBM/IBM_2013_income.txt").read
+    ed.get_income_data_from_statement(doc)
+
+    log.close
+
+  end
+
   def log_path(name)
     dir = "financials"
     Dir.mkdir(dir) unless Dir.exists?(dir)

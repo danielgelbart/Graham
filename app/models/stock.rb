@@ -28,7 +28,7 @@ class Stock < ActiveRecord::Base
   has_many :balance_sheets
   has_many :numshares, :dependent => :destroy
   has_many :balance_sheets, :dependent => :destroy
- 
+
   accepts_nested_attributes_for :balance_sheets, :allow_destroy => true
   accepts_nested_attributes_for :eps, :allow_destroy => true
 
@@ -45,7 +45,7 @@ class Stock < ActiveRecord::Base
   MIN_BV = 2500000000 # 2.5B
 
   # defining this hear, since for some reason it was not working if set from data_scraper
-  YEAR = Time.new.year 
+  YEAR = Time.new.year
 
 
 
@@ -62,7 +62,7 @@ class Stock < ActiveRecord::Base
     size = (bs.assets_t - bs.liabilities_t) > MIN_BV if size.nil? && !bs.nil? && !bs.assets_t.nil?  && !bs.liabilities_t.nil?
 
     return size if !size.nil?
-    
+
     false
 
     # sales needs to be added to balance sheets along with assets
@@ -123,8 +123,8 @@ class Stock < ActiveRecord::Base
   # second criteria from page 182
   def price_limit
     # earning records do not go back far enough to compute price limit
-    return 0 if historic_eps(7).nil? || ttm_eps.nil? 
-    
+    return 0 if historic_eps(7).nil? || ttm_eps.nil?
+
 # || historic_eps(7).to_i == 0
 
     lim = min( historic_eps(7).to_f*25, ttm_eps*20 )
@@ -193,7 +193,7 @@ class Stock < ActiveRecord::Base
 
   def price
     @price ||= latest_price
-    
+
   end
 
   def update_price
@@ -212,7 +212,7 @@ class Stock < ActiveRecord::Base
   def oldest_dividend
     dividends.sort_by{ |d| d.date }.first
   end
-  
+
   def pays_dividends
     !dividends.empty? && newest_dividend.date > Date.today - 6.months
   end
@@ -226,13 +226,13 @@ class Stock < ActiveRecord::Base
   def update_current_data(markp = "0")
     markn = markp
     return if self.mark == markn
-    
+
     ttm_eps = get_eps
     book_value = get_book_value
     sales = get_sales
     div = get_ttm_div
     get_market_cap
-    
+
     if ttm_eps && book_value
       update_attributes(:finantial_data_updated => Date.today)
     end
@@ -266,16 +266,16 @@ class Stock < ActiveRecord::Base
       2013 => 1.0157
       }
 
-      
+
     # Now muliply the earnings from a given year, by all the years AFTER it
     mul = 1
     last_year = YEAR - 1
-    return mul if year == last_year 
-     
+    return mul if year == last_year
+
     ((year + 1)..(last_year)).each do |i|
       mul *= ir[i]
-    end  
-    
+    end
+
     mul
   end
 
@@ -289,19 +289,19 @@ class Stock < ActiveRecord::Base
 
   # Returns nil if earnings record does not exist going 'years' back
   def historic_eps(years)
-    
+
     if eps.size < years
       return "Do not have #{years} of earnings for #{ticker}"
     end
-    
+
     current_year = YEAR
     # Create copy array with only last number of years
     recent = eps.select{|e| e.year >= current_year - years }
-      
+
     recent = adjust_for_inflation(recent)
-    # Calculate the avarage 
+    # Calculate the avarage
     recent.inject(0.0){|sum, e| sum + e } / years
-   
+
   end
 
 # returns true only if there exist earnings for the last 10 years
@@ -329,7 +329,7 @@ class Stock < ActiveRecord::Base
     dil_rate =  endd/startd
   end
 
-  # Gets most recent balance sheet, regardles if updated 
+  # Gets most recent balance sheet, regardles if updated
   def latest_balance_sheet
     balance_sheets.sort{ |b,y| b.year <=> y.year }.last
   end
@@ -337,17 +337,22 @@ class Stock < ActiveRecord::Base
   def book_value
     latest_balance_sheet.book_val
   end
-  
-  # Gets most recent number of shares outstanding, regardles if updated 
+
+  # Gets most recent number of shares outstanding, regardles if updated
   def latest_numshare
     lns = numshares.sort{ |b,y| b.year <=> y.year }.last
     #Numshare.new(:shares => "1") if lns.nil? # about 4 stocks on PLC I don't have data for
   end
-  
-  # Gets most recent earnings, regardles if updated 
+
+  # Gets most recent earnings, regardles if updated
   def latest_eps
     eps.sort{ |b,y| b.year <=> y.year }.last
   end
+
+  def ep_for_year(year)
+    eps.select{ |e| e.year == year}.first
+  end
+
 
   def bv_per_share
     return 1 if latest_numshare.nil?
@@ -405,7 +410,7 @@ class Stock < ActiveRecord::Base
   def eps_avg(set)
     set.inject(0.0){|sum, e| sum + e.eps} / set.size
   end
-  
+
   # String.to_i
   class String
 
