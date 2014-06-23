@@ -5,7 +5,7 @@ namespace :edgar do
   require 'edgar/edgar'
 
 
-  desc "get data from edgar"
+  desc "get accestion numbers of 10-ks frmo edgar"
   task :get_acns => :environment do |task, args|
 
     out_file = File.new("accession_numbers.txt","w+")
@@ -23,25 +23,27 @@ namespace :edgar do
 
 
 
-  desc "Get all statments for stock"
+  desc "Get all available xbrl statments for single stock"
   task :get_statements, [:ticker] => :environment do |task, args|
 
 #    ticker = "IBM"
     ticker = args[:ticker]
     stock = Stock.find_by_ticker(ticker)
 
-    log = File.new(log_path("edgar_get_statements"),"w+")
+    log = File.new(log_path("edgar_get_statements_#{ticker}",ticker),"w+")
+
     ed = Edgar.new(stock,log)
 
-    ed.get_acns.list.each do |acn|
-      # Only handle xbrl files, which only exist since 2009
-      break if acn.year.to_i < 2009
-
+    # Only getting reports for:
+    # - 2013 Most recent
+    # - 2011 (overlaps for 2011 with 2013 report)
+    # - 2009 The FIRST available xbrl report (overlaps for 2009 with 2011 report
+    # These are the only 3 reports returned by AcnList.xbrls
+    ed.get_acns.xbrls.each do |acn|
       tenk = ed.get10k_text(acn)
       report_names = ed.find_names_of_income_and_balance_statements(tenk)
-      ed.extract_and_save_income_and_balance_reports(report_names,acn.year)
+      ed.extract_and_save_data(report_names,acn.year)
     end
-
     log.close
   end
 
@@ -80,9 +82,14 @@ namespace :edgar do
 
   end
 
-  def log_path(name)
+  def log_path(name, stock_dir = nil)
     dir = "financials"
     Dir.mkdir(dir) unless Dir.exists?(dir)
+
+    if !stock_dir.nil?
+      dir = File.join(dir,stock_dir)
+      Dir.mkdir(dir) unless Dir.exists?(dir)
+    end
     log_path = File.join(dir,name+".log")
   end
 

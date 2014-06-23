@@ -1,12 +1,13 @@
 # this class is retrieves data from edgar.gov
 class Acn
-  attr_accessor :ticker, :year, :acn, :cik
+  attr_accessor :ticker, :year, :acn, :cik, :is_xml
 
   def initialize(ticker,year,acn,cik)
     @ticker = ticker
     @year = year
     @acn = acn
     @cik = cik
+    @is_xml = false
   end
 
   def to_s
@@ -29,6 +30,20 @@ class AcnList
     @list = []
   end
 
+  def xbrls
+    xbrls = []
+    @list.each do |acn|
+      #DEBUG
+      if [ 2009 ].include?(acn.year.to_i)
+        puts("Found year #{acn.year}, adding to xbrls")
+        xbrls << acn
+      end
+    end
+
+    xbrls
+  end
+
+
   def add(acn)
     @list << acn
   end
@@ -48,7 +63,7 @@ end
 
 class Edgar
 
-  attr_accessor :documents, :log, :stock
+  attr_accessor :documents, :log, :stock, :cur_acn
 
   def initialize(stock, log)
     self.stock = stock
@@ -65,20 +80,20 @@ class Edgar
     end
 
     puts "Getting ACN for #{ticker}"
-    #out_file.puts("Name: "+ stock.name + " ; Ticker: "+ticker+" ; CIK: "+cik.to_s+"\n")
 
     url = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=#{cik}&type=10-k&dateb=&owner=exclude&count=40"
 
     doc = open_doc(url)
-    return if doc.nil?
+    if doc.nil?
+      puts("Could not get reply from url:\n#{url}")
+      return
+    end
 
     table = doc.css('div#seriesDiv').xpath('.//tr')
     table.shift # get rid of first tr in table wich is headers
 
-
     acns = AcnList.new(stock)
     table.each do |tr|
-
       tds = tr.xpath('./td')
 
       #check that this row is for a 10-k
@@ -104,9 +119,9 @@ class Edgar
 
       acns.add(Acn.new(ticker,year,acn,cik))
 #      out_file.puts("YEAR "+ year +" ; ACN "+ acn +"\n")
-#      puts "Wrote acn for #{year}"
+      puts "Found acn for #{year}"
     end
-
+    puts "Finished finding ACNs"
     acns
   end
 
@@ -114,15 +129,15 @@ class Edgar
   def get10k_text(acn)
     log.puts("edgar.rb get10k called with acn #{acn.to_s}")
 
+    @cur_acn = acn
     url = "http://www.sec.gov/Archives/edgar/data/#{acn.cik}/#{acn.acn}.txt"
 
-    doc = open(url).read
+    doc = open(url)
     if doc.nil?
       log.puts("Could not get 10k for #{acn.ticker} #{acn.year} edgar.gov")
       return nil
     end
-
-    doc
+    doc.read
    # temporary open file for testing
 #   File.open("IBM2013.txt","r").read
   end
@@ -163,19 +178,28 @@ class Edgar
     report_list.search('//Report').each do |report|
 
       report_name = report.xpath('ShortName').text
-      log.puts "checking a report #{report_name}"
+      log.puts "checking a report named: #{report_name}"
 
       # skip if:
       next if !report_name[/.*\(Parenthetical\)/i].nil?
 
       if !report_name[/\s*consolidated statement of (earnings|income)\s*/i].nil?
 
-        income_report_name = report.xpath('HtmlFileName').text
+        income_report_name = report.xpath('HtmlFileName').first.text
+        if income_report_name.nil?
+          income_report_name = report.xpath('XmlFileName').first.text
+          if income_report_name.nil?
+            log.puts("ERROR: Could not get the name of Income statment file from FilingSummary")
+            break
+          end
+          @cur_acn.is_xml = true
+        end
+
         log.puts "Found income report!!!!! its in the file: #{income_report_name}"
       end
 
       if !report_name[/\s*consolidated (statement of financial position|balance sheet)/i].nil?
-        balance_report_name = report.xpath('HtmlFileName').text
+        balance_report_name = report.xpath('HtmlFileName','XmlFileName').first.text
         log.puts "Found Balance report!!!!! its in the file: #{balance_report_name}"
       end
 
@@ -247,11 +271,61 @@ class Edgar
     end
   end
 
+  def extract_and_save_data(names, year)
+    if @documents.nil? || names.nil?
+      log.puts("Nead to get 10k text file first")
+      return
+    end
+
+    income_report_name = names[:income]
+    balance_report_name = names[:balance]
+
+    if !income_report_name.nil?
+      inc_report = locate_report_from_documents(income_report_name)
+      get_income_data_from_statement(inc_report)
+    else
+      log.puts("Could not get income report for #{ticker} for #{year}")
+    end
+
+    #extract balance and incmoe report
+    if !balance_report_name.nil?
+      report = locate_report_from_documents(balance_report_name)
+      #TODO
+    else
+      log.puts("Could not get balance report for #{ticker} for #{year}")
+    end
+  end
+
+
+  def locate_report_from_documents(report_name)
+    report = nil
+    @documents.each do |document|
+      document.each_line do |line|
+        if line[/^<FILENAME>/]
+          log.puts "found line #{line}"
+          if !line.match(report_name).nil?
+            report = document
+          end
+          break
+        end
+      end #line
+      break if !report.nil?
+    end #documents
+
+    if report.nil?
+      log.puts("Could not find #{report_name} for #{ticker} for #{year}")
+    end
+    report
+  end
+
 
   def get_income_data_from_statement(file)
-
     tab = get_table(file)
 
+    if tab.nil?
+      log.puts("ERROR cannot procceed to extract data")
+      return
+    end
     units = get_units(tab)
     years = get_years(tab)
 
@@ -274,10 +348,10 @@ class Edgar
                      :revenue => clean(revs[i],units),
                      :net_income => clean(incs[i],units))
       if ep.id.nil?
-        puts "Could NOT create ep for #{stock.ticker} #{years[i]}"
+        log.puts "Could NOT create ep for #{stock.ticker} #{years[i]}"
         update_missing_data(x_ep,ep)
       else
-        puts "SUCCESFULY created ep for #{stock.ticker} #{years[i]}"
+        log.puts "SUCCESFULY created ep for #{stock.ticker} #{years[i]}"
       end
     end
   end
@@ -285,15 +359,17 @@ class Edgar
   private
 
   def clean(str,units)
-    v = (str.gsub(",","").to_i * units).to_s
-    puts v
-    v
+    (str.gsub(",","").to_i * units).to_s
   end
 
 
   def get_table(file)
     doc = Nokogiri::HTML(file)
     tab = doc.css('//table').first if !doc.nil?
+    if tab.nil?
+      log.puts("ERROR no talbel in document:\n#{file}")
+    end
+    tab
   end
 
   def get_years(tab)
@@ -306,6 +382,14 @@ class Edgar
       rescue
         next
       end
+    end
+    if years.size == 0
+      guess_back = tab.css('//tr')[5].css('td').size - 2
+      (0..guess_back).each do |i|
+        years << @cur_acn.year - i
+        i = i+1
+      end
+    log.puts("WARN: Acn #{@cur_acn.year} is missing years - proceeding with guessing them: #{years.size} back")
     end
     years
   end
@@ -371,25 +455,29 @@ class Edgar
   def differ(o,n)
     dif = (o - n).abs.to_f
     total = (o+n).to_f
-    return (dif/total < 0.05)
+    return (dif/total > 0.04)
   end
 
   def update_missing_data(o,n)
+    updated = false
     if differ(o.revenue.to_i,n.revenue.to_i)
       log.puts("UPDATED revenue for #{o.year} from #{o.revenue} to #{n.revenue}")
       o.revenue = n.revenue
+      updated = true
     end
 
     if differ(o.net_income.to_i,n.net_income.to_i)
       log.puts("UPDATED income for #{o.year} from #{o.net_income} to #{n.net_income}")
       o.net_income = n.net_income
+      updated = true
     end
 
     if differ(o.eps.to_f,n.eps.to_f)
       log.puts("UPDATED eps for #{o.year} from #{o.eps} to #{n.eps}")
       o.eps = n.eps
+      updated = true
     end
-    o.save
+    o.save if updated
   end
 
 
