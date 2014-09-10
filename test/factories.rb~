@@ -1,5 +1,0 @@
- Factory.define :portfolio do |p|
-   u.first_name 'John'
-   u.last_name  'Doe'
-   u.admin false
- end

@@ -1,6 +1,0 @@
-module DataScraper
-  # last day of 1999 (December 31st) is equal to 100
-  # every year is taken at that date as well
-  inflation_ratio_by_year = { 2000 =>    , 2000 =>    ,2000 =>    , }
-
-  end

@@ -1,8 +1,0 @@
-<tr id=<% dom_id(owned_stock)>
-<td><%= owned_stock.name %></td>
-<td><%= owned_stock.ticker %></td>
-<td><%= owned_stock.shares %></td>
-<td> price </td>
-<td><%= owned_stock.shares %></td>
-<td><%= owned_stock.shares %></td>
-</tr>

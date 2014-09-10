@@ -4,7 +4,6 @@ namespace :edgar do
   require 'open-uri'
   require 'edgar/edgar'
 
-
   desc "get accestion numbers of 10-ks frmo edgar"
   task :get_acns => :environment do |task, args|
 
@@ -20,8 +19,6 @@ namespace :edgar do
 
     out_file.close
   end # task :get_acns
-
-
 
   desc "Get all available xbrl statments for single stock"
   task :get_statements, [:ticker] => :environment do |task, args|
