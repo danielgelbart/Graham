@@ -1,0 +1,11 @@
+cflags = -std=c++0x -Wall -g -fno-inline
+#cflags = -std=c++0x- Wall -O3 -D TEST_VERSION
+#cflags = -std=c++0x -Wall -O3 -g -pg
+#cflags = -std=c++0x -Wall -O3 -g
+
+#disable optimization
+#cflags = -std=c++0x -Wall -O0 -g
+
+linkflags = -pg
+#linkflags =
+
