@@ -18,6 +18,7 @@ gem 'rdoc' #needed for rake
 
 #gem 'pry-debugger', '~> 0.2.2' #can't install debuggers on heroku
 
+gem 'dm-metamapper', path: "../dm-metamapper", require: false
 
 group :cucumber do
 end

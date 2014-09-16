@@ -4,6 +4,8 @@ database.yml
 log/development.log
 
 rdoc/
+reports/
+cpp/bin/
 
 # for bundler
 vendor/gems/gems
