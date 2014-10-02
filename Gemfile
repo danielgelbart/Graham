@@ -1,24 +1,37 @@
-source 'http://rubygems.org'
-source "http://gems.github.com"
+source 'https://rubygems.org'
 
 ruby '1.9.2'
+gem 'rails', '3.2.0'
 
-gem "rails", "2.3.8"
-gem "mysql"
+gem 'mysql2'
+#gem "mysql"
+
 gem 'pg'
 gem "coderay", "1.0.5"
 gem "haml", "~> 3.0"
 gem "passenger", '>=4.0.0' #passenger does not work well with rvm
-gem "rack", "1.1.6"
+gem "rack", "1.4.0"
 gem "seed-fu", "1.2.3"
 gem "nokogiri"
 gem 'annotate', "2.4.0"
 gem 'rake', "0.9.1"
 gem 'rdoc' #needed for rake
 
-#gem 'pry-debugger', '~> 0.2.2' #can't install debuggers on heroku
-
 gem 'dm-metamapper', path: "../dm-metamapper", require: false
 
-group :cucumber do
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer'
+
+  gem 'uglifier', '>= 1.0.3'
 end
+
+gem 'jquery-rails'
+
+

@@ -9,7 +9,7 @@
   = link_to "on_google", "http://www.google.com/finance?q=#{@stock.ticker}"
 %p
   = "last price: #{@stock.price}"
-  = button_to( "Update price", stock_path(@stock, :price => @stock.update_price ), :method => :put )
+  = button_to("Update price", {:price => @stock.update_price }, :method => :put )
     
 %script{ :type => "text/javascript", :charset => "utf-8"}
   :plain

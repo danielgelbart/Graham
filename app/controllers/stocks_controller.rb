@@ -36,18 +36,18 @@ class StocksController < ApplicationController
   end
 
   def pots
-    @stocks = Stock.all.select{ |s| s.no_earnings_deficit? } 
+    @stocks = Stock.all.select{ |s| s.no_earnings_deficit? }
     @stocks = @stocks.select{ |s| s.dilution < 1.11 } # less than 10% dilution
     @stocks = @stocks.select{ |s| s.continous_dividend_record? } # has dividends
     @stocks = @stocks.sort_by{ |s| s.ten_year_eps }
   end
-  
+
   def cheap_profitables
-    @stocks = Stock.all.select{ |s| s.no_earnings_deficit? } 
+    @stocks = Stock.all.select{ |s| s.no_earnings_deficit? }
     @stocks = @stocks.select{ |s| s.dilution < 1.11 } # less than 10% dilution
     @stocks = @stocks.select{ |s| s.latest_balance_sheet.equity > 0 } # Positive book value
     @stocks = @stocks.select{ |s| s.financialy_strong?} # Ratios at least 2 to 1
-    @stocks = @stocks.select{ |s| s.ten_year_eps < 20 && (s.price < s.ttm_eps*10 || s.price < s.historic_eps(3)*8) } # Cheap: defined as: less than 20 ten year PE and 8 3 year PE OR 10 current year PE 
+    @stocks = @stocks.select{ |s| s.ten_year_eps < 20 && (s.price < s.ttm_eps*10 || s.price < s.historic_eps(3)*8) } # Cheap: defined as: less than 20 ten year PE and 8 3 year PE OR 10 current year PE
     @stocks = @stocks.sort_by{ |s| s.historic_eps(3) }
   end
 
@@ -62,12 +62,13 @@ class StocksController < ApplicationController
   def show
     # This acceps bot id and ticker to find the stock
     # wrap this in a helper or before filter
-    if (params[:id]).to_i > 0
-      @stock = Stock.find_by_ticker(params[:id])
+    id = params["id"]
+    if (id.to_i > 0)
+      @stock = Stock.find_by_ticker(id)
     else
-      @stock = Stock.find_by_ticker(params[:id])
-      @stock = Stock.all.select{ |s| s.to_param == params[:id] }.first if @stock.nil?
-      
+      @stock = Stock.find_by_ticker(id)
+      @stock = Stock.all.select{ |s| s.to_param == id }.first if @stock.nil?
+
     end
   end
 
@@ -108,7 +109,7 @@ class StocksController < ApplicationController
   # PUT /stocks/1.xml
   def update
     @stock = Stock.find_by_ticker(params[:id])
-     
+
     if @stock.update_attributes(params[:stock])
       flash[:notice] = 'Stock was successfully updated.'
     end

@@ -1,0 +1,24 @@
+development:
+  adapter: mysql
+  database: graham_dev
+  username: root
+  password: 
+  timeout: 5000
+  socket: /var/run/mysqld/mysqld.sock
+
+test: &TEST
+  adapter: mysql
+  encoding: utf8
+  database: graham_test
+  username: root
+  password: 
+  socket: /var/run/mysqld/mysqld.sock
+
+cucumber:
+  <<: *TEST
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+

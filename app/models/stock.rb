@@ -178,7 +178,8 @@ class Stock < ActiveRecord::Base
   end
 
   def bargain?
-    price * 1.5 <= bv_per_share
+    (price * 1.5) < bv_per_share #Not working in rails 3: 'price' is somehow morphed to a nokogiri::element  of some sort
+    false
   end
 
   # This is from page 62 of "Inteligent investor":
@@ -193,7 +194,6 @@ class Stock < ActiveRecord::Base
 
   def price
     @price ||= latest_price
-
   end
 
   def update_price

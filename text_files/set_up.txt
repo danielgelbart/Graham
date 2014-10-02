@@ -10,6 +10,9 @@ this command did not work anymore. Instead, I did:
   Then I was requested to run:
   $ source /home/daniel/.rvm/scripts/rvm
 
+OR- 
+rvm install 1.9.2-p320 //which is the last stable 1.9.2
+
 $) sudo apt-get  install libmysqlclient-dev mysql-client mysql-server
 
 ---------- Set up rails -----------

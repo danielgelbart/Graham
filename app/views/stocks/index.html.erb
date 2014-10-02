@@ -1,7 +1,7 @@
 <h1>Listing stocks</h1>
 
 
-<% form_tag stocks_path, :method => 'get' do %>
+<%= form_tag stocks_path, :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search]%>
     <%= submit_tag "Find", :name => nil %>
