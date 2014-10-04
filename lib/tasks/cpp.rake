@@ -15,8 +15,6 @@ task :mm => :environment do
   models = ActiveRecord::Base.descendants
   models.sort!{ |a,b| a.name <=> b.name }
 
-  #  take out unneeded modesl here
-
   MetaMapper.generate(:cpp,
                       :orm => :activerecord,
                       :models => models,

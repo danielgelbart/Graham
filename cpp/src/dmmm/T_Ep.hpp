@@ -23,6 +23,13 @@ public:
         _tables.push_back("eps");
     }
 
+ 
+    T_Ep(const I_Stock& parentId)
+    {
+        _tables.push_back("eps");
+        
+        _constraint._cond = "(eps.stock_id = " + parentId.to_s() + ")";
+    } 
     
     struct E_id{
         E_id() 

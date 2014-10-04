@@ -17,6 +17,9 @@ class O_Ep{
 public:
 
     O_Ep() {}
+    O_Ep(const I_Stock& parent_id) 
+        : _f_stock_id(parent_id)
+        {}
 
 O_Ep(const I_Ep& id) 
         : _f_id(id)

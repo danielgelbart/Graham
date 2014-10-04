@@ -1,5 +1,5 @@
-#ifndef O_PORTFOLIO
-#define O_PORTFOLIO
+#ifndef O_USER
+#define O_USER
 
 #include <map>
 #include <string>
@@ -8,63 +8,27 @@
 #include "dmmm_identifiers.hpp"
 #include "dmmm_fields.hpp"
 #include "dmmm_comparators.hpp"
-#include "T_Transaction.hpp"
-#include "T_OwnedStock.hpp"
 
 
 
 namespace DMMM {
 
-class O_Portfolio{
+class O_User{
 public:
 
-    O_Portfolio() {}
-    O_Portfolio(const I_User& parent_id) 
-        : _f_user_id(parent_id)
-        {}
+    O_User() {}
 
-O_Portfolio(const I_Portfolio& id) 
+O_User(const I_User& id) 
         : _f_id(id)
         {}
 
 
-    std::vector<O_Transaction> _transactions() const
-    {
-        T_Transaction table;
-        return table.select(table._portfolio_id() == _id());   
-    }
-    std::vector<O_Transaction> 
-        _transactions(const T_Transaction::Condition& c) const
-    {
-        T_Transaction table(c);
-        return table.select(table._portfolio_id() == _id());   
-    }
-
-    std::vector<O_OwnedStock> _owned_stocks() const
-    {
-        T_OwnedStock table;
-        return table.select(table._portfolio_id() == _id());   
-    }
-    std::vector<O_OwnedStock> 
-        _owned_stocks(const T_OwnedStock::Condition& c) const
-    {
-        T_OwnedStock table(c);
-        return table.select(table._portfolio_id() == _id());   
-    }
-
-    const Field<I_Portfolio>::Base& _id() const { 
+    const Field<I_User>::Base& _id() const { 
         return _f_id._base; 
     }
-    Field<I_Portfolio>::Base& _id() { 
+    Field<I_User>::Base& _id() { 
         _f_id._dirty = true; 
         return _f_id._base; 
-    }
-    const F_Fixnum::Base& _user_id() const { 
-        return _f_user_id._base; 
-    }
-    F_Fixnum::Base& _user_id() { 
-        _f_user_id._dirty = true; 
-        return _f_user_id._base; 
     }
     const F_String::Base& _name() const { 
         return _f_name._base; 
@@ -93,9 +57,6 @@ O_Portfolio(const I_Portfolio& id)
         if (_f_id._dirty)
             field2Val["id"] = 
                 toSQLString(_f_id._base);
-        if (_f_user_id._dirty)
-            field2Val["user_id"] = 
-                toSQLString(_f_user_id._base);
         if (_f_name._dirty)
             field2Val["name"] = 
                 toSQLString(_f_name._base);
@@ -107,11 +68,10 @@ O_Portfolio(const I_Portfolio& id)
 
         std::string where =
             "id=" + toSQLString(_f_id._base);
-        if (DBFace::instance()->update("portfolios", 
+        if (DBFace::instance()->update("users", 
                                        field2Val, where))
         {
             _f_id._dirty = false;
-            _f_user_id._dirty = false;
             _f_name._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
@@ -126,9 +86,6 @@ O_Portfolio(const I_Portfolio& id)
         if (_f_id._dirty)
             field2Val["id"] = 
                 toSQLString(_f_id._base);
-        if (_f_user_id._dirty)
-            field2Val["user_id"] = 
-                toSQLString(_f_user_id._base);
         if (_f_name._dirty)
             field2Val["name"] = 
                 toSQLString(_f_name._base);
@@ -141,11 +98,10 @@ O_Portfolio(const I_Portfolio& id)
 
         
         if (DBFace::instance()->
-                insert("portfolios", field2Val,
+                insert("users", field2Val,
                        _f_id._base.serialization()))
         {
             _f_id._dirty = false;
-            _f_user_id._dirty = false;
             _f_name._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
@@ -156,14 +112,13 @@ O_Portfolio(const I_Portfolio& id)
                                    
     }
 private:
-    Field<I_Portfolio> _f_id;
-    F_Fixnum _f_user_id;
+    Field<I_User> _f_id;
     F_String _f_name;
     F_Time _f_created_at;
     F_Time _f_updated_at;
 
-    friend class T_Portfolio;
+    friend class T_User;
 };
 
 } //namespace DMMM
-#endif //O_PORTFOLIO
+#endif //O_USER

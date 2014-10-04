@@ -16,9 +16,11 @@
 
 class Ep < ActiveRecord::Base
 
+  belongs_to :stock
+
   validates_uniqueness_of :year, :scope => :stock_id
   validates_presence_of :stock_id
- 
+
   def margin
     if net_income && revenue
      net_income.to_f / revenue.to_f
