@@ -17,6 +17,8 @@ gem 'annotate', "2.4.0"
 gem 'rake', "0.9.1"
 gem 'rdoc' #needed for rake
 
+gem 'pry'
+#gem 'pry_debug'
 gem 'dm-metamapper', path: "../dm-metamapper", require: false
 
 
