@@ -6,7 +6,6 @@
 
 using namespace boost::filesystem;
 
-
 class EdgarData {
 public:
     EdgarData() : 
@@ -15,9 +14,8 @@ public:
     
     void updateFinancials();
     void downloadAndSave(Url& url, std::string& info, const path& writeDest);
+    void extractBalance();
 private:
-
-    //
     void write_to_disk(std::string& doc, 
                        std::string& info, 
                        const path& writeDest);

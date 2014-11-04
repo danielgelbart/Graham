@@ -100,8 +100,16 @@ mainMain(int argc, char* argv[])
 // find rigt command to execute and call relavent comand methods
     if (command == string("update_financials")){
         EdgarData eData = EdgarData();
-        eData.updateFinancials(reportsDir);
+        eData.updateFinancials();
     }
+// find rigt command to execute and call relavent comand methods
+    if (command == string("extract_balance")){
+        EdgarData eData = EdgarData();
+        string fileName = "";
+        eData.extractBalance();
+    }
+
+
     else
         if (command != string("")){
             showHelpMessage(argv[0]);

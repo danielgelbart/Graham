@@ -1,7 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem/fstream.hpp>
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+
+#include "Parser.h"
+#include "Url.h"
+
 #include "Logger.h"
+
 #include "Financials.h"
 
 using namespace std;
@@ -80,8 +90,26 @@ EdgarData::updateFinancials(){
     downloadAndSave(url, info, reportsDir);
 
 // get current date
-// retreive most recent annual report
+// retreive most recent annual repor
 // open interned connection and download 
+
+}
+
+void
+EdgarData::extractBalance(){
+// get the full download document
+// find the 'doc list'
+// locat the relavent doc which representst the balance statment
+// 
+
+    string fileName =  "../../text_files/IBM2013.txt";
+    Parser parser = Parser();
+    parser.extract_and_save_reports(fileName);
+
+
+// extract ANY xpath tag
+
+//close
 
 }
 

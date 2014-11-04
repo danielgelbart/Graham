@@ -1,17 +1,10 @@
-2014-Sep-15 16:47:39Logger up
+2014-Nov-04 18:23:09Logger up
 
-2014-Sep-15 16:47:39 INFO 5MB PID 184 Main.cpp:mainMain() --- Analysing data 0.0
-2014-Sep-15 16:47:39 INFO 5MB PID 184 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
-2014-Sep-15 16:47:39 INFO 6MB PID 184 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2014-Sep-15 16:47:39 INFO 6MB PID 184 HttpClient.cpp:HttpClient() --- Got curl handle 0x919720
-2014-Sep-15 16:47:39 INFO 6MB PID 184 HttpClient.cpp:HttpClient() --- Using default interface
-2014-Sep-15 16:47:39 INFO 6MB PID 184 Financials.cpp:updateFinancials() --- updateFinancials method was called 
-
-2014-Sep-15 16:47:39 INFO 6MB PID 184 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/51143/000005114314000007/0000051143-14-000007.txt
-2014-Sep-15 16:47:39 INFO 6MB PID 184 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/51143/000005114314000007/0000051143-14-000007.txt
-2014-Sep-15 16:47:42 INFO 32MB PID 184 HttpClient.cpp:httpGet() --- Not saving: Content-Type: text/plain rather than text/html
-2014-Sep-15 16:47:42 INFO 32MB PID 184 Financials.cpp:write_to_disk() --- writing to disk at ../../reports
-2014-Sep-15 16:47:42 INFO 32MB PID 184 Financials.cpp:write_to_disk() --- Writing to "../../reports/IBM_10-q_2nd_2014"
-2014-Sep-15 16:47:42 INFO 7MB PID 184 HttpClient.cpp:~HttpClient() --- shutting down httpclient
-2014-Sep-15 16:47:42 INFO 7MB PID 184 Main.cpp:mainMain() --- deleting Config
-2014-Sep-15 16:47:42 INFO 7MB PID 184 Main.cpp:mainMain() --- Last log message: deleting Logger
+2014-Nov-04 18:23:09 INFO 5MB PID 296 Main.cpp:mainMain() --- Analysing data 0.0
+2014-Nov-04 18:23:09 INFO 5MB PID 296 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
+2014-Nov-04 18:23:09 INFO 6MB PID 296 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2014-Nov-04 18:23:09 INFO 6MB PID 296 HttpClient.cpp:HttpClient() --- Got curl handle 0x7766f0
+2014-Nov-04 18:23:09 INFO 6MB PID 296 HttpClient.cpp:HttpClient() --- Using default interface
+2014-Nov-04 18:23:11 INFO 7MB PID 296 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2014-Nov-04 18:23:11 INFO 7MB PID 296 Main.cpp:mainMain() --- deleting Config
+2014-Nov-04 18:23:11 INFO 7MB PID 296 Main.cpp:mainMain() --- Last log message: deleting Logger

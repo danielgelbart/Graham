@@ -1,17 +1,17 @@
 
 maintarget = graham
 
-sources = Main.cpp Config.cpp Logger.cpp CurrentTime.cpp Utils.cpp Thread.cpp dmmm_dbface.cpp dmmm_utils.cpp MemUsage.cpp RunInfo.cpp ServerUtils.cpp Financials.cpp HttpClient.cpp Url.cpp
+sources = Main.cpp Config.cpp Logger.cpp CurrentTime.cpp Utils.cpp Thread.cpp dmmm_dbface.cpp dmmm_utils.cpp MemUsage.cpp RunInfo.cpp ServerUtils.cpp Financials.cpp HttpClient.cpp Url.cpp Tokenizer.cpp Parser.cpp
 
-VPATH = utils main dmmm financials html 
+VPATH = utils main dmmm financials html parser 
 
 objects := $(patsubst %.cpp, %.o, $(sources))
 dependencies := $(patsubst %.cpp, %.d, $(sources))
 
 # Directories to include must be either added to this list, or to an include file in the 'include' directory
-include_dirs = -I include -I dmmm -I utils -I include -I /usr/include/mysql -I /usr/include/mysql++/ -I /usr/include/boost -I html  
+include_dirs = -I include -I dmmm -I utils -I include -I /usr/include/mysql -I /usr/include/mysql++/ -I /usr/include/boost -I html 
 
-include_libs = -lm -L/usr/lib -lboost_system -lboost_filesystem -lboost_thread -lboost_regex -lboost_date_time /usr/lib/x86_64-linux-gnu/libarchive.so -lmysqlclient /usr/lib/libmysqlpp.so.3 -lcurl 
+include_libs = -lm -L/usr/lib -lboost_system -lboost_filesystem -lboost_thread -lboost_regex -lboost_date_time /usr/lib/x86_64-linux-gnu/libarchive.so -lmysqlclient /usr/lib/libmysqlpp.so.3 -lcurl -lboost_regex
 
 include Makefile.flags
 
