@@ -40,3 +40,6 @@ $ mysql -u root  graham_dev < databackup
 
 open mysql
 $ mysql 
+
+----------------------------------------
+backup: 'regular'+ssh1

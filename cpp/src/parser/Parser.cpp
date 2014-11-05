@@ -24,7 +24,7 @@ Parser::extract_and_save_reports(string& fileName){
     
     Tokenizer tokenizer(str);
 
-    tokenizer.parseToDocuments();
+ 
 
     // find Filing summary
     string filingSummary = tokenizer.findFilingSummary();

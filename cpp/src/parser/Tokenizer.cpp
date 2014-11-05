@@ -20,6 +20,8 @@ Tokenizer::getNextDelString(string& delimiter)
     size_t lastPos = _pos;
     _pos = nextPos;
 
+    //  cout << "\n Found FL starts with: " << _text.substr(lastPos, 200) << endl;
+
     return _text.substr(lastPos, (nextPos-lastPos));
 }
 
@@ -52,9 +54,8 @@ Tokenizer::parseToDocuments()
 string
 Tokenizer::findFilingSummary()
 {
-    string filingString("<FILENAME>FilingSummary.xml");
-
     parseToDocuments();
+    string filingString("<FILENAME>FilingSummary.xml");
 
     //iterate over docs in REVERSE
     //for each one, check if it is filing summary
