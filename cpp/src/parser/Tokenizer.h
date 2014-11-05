@@ -1,10 +1,9 @@
 #ifndef TOKENIZER_H
 #define TOKENIZER_H
 #include <string>
+#include "types.h"
 
 using namespace std;
-
-enum class ReportType{INCOME,BALANCE};
 
 class Tokenizer {
 
@@ -22,7 +21,6 @@ public:
     string findFilingSummary();
     void getReportDocNames(map<ReportType,string>* reports_map);
     string extractTagContent(string& tagName,string& content);
-    void extractIncome(string& docNmae);
     void parseToDocuments();
     string findDoc(string& docName);
 

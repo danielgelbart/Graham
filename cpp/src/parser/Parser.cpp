@@ -3,12 +3,21 @@
 #include <iostream>
 #include <map>
 
-#include "Parser.h"
+#include "Utils.hpp"
+
 #include "Tokenizer.h"
+#include "Parser.h"
+/*
+@fileName - a 10-k dump file from edgar.com
 
+The file will be parsed for Income and Balance reports
+They will be writen to disk
+After all reprots are extracted, the dump file @fileName will be deleted
+ */
 void
-Parser::extract_and_save_reports(string& fileName){
-
+Parser::extract_reports(string& fileName, 
+                        map<ReportType,string>* extracted_reports)
+{
     ifstream t(fileName);
     string str;
 
@@ -19,35 +28,42 @@ Parser::extract_and_save_reports(string& fileName){
     t.seekg(0, std::ios::beg);
 
     // read the file into the string
+    //NOTE: "the most vexing parse" - c011 has syntax to fix this using '{'
     str.assign( (istreambuf_iterator<char>(t) ),
                istreambuf_iterator<char>());
     
     Tokenizer tokenizer(str);
 
- 
-
-    // find Filing summary
     string filingSummary = tokenizer.findFilingSummary();
 
     Tokenizer filingSummaryTok(filingSummary);
-
-    map<ReportType,string>* reports = new map<ReportType,string>;
+    auto reports = new map<ReportType,string>;
     filingSummaryTok.getReportDocNames(reports);
 
-    cout << "\n\nReport names are: "<< endl;
-    for(auto it = reports->begin(); it != reports->end(); ++it)
-    {
-        cout << "\n->" << it->second << endl;
-    }
-
+    //extract INCOME statement from dump file
     string reportKey;
-    if ( (reports->find(ReportType::INCOME)) != reports->end() )
+    ReportType reportType = ReportType::INCOME;
+    if ( (reports->find(reportType)) != reports->end() )
     {   
-        reportKey = reports->find(ReportType::INCOME)->second;
-        tokenizer.extractIncome(reportKey);
+        reportKey = reports->find(reportType)->second;
+        string docString = "<FILENAME>"+reportKey;
+        string docFileString = tokenizer.findDoc(docString);
+        extracted_reports->insert( pair<ReportType,string>( 
+                                       reportType, 
+                                       docFileString) );
     }
 
-//    tokenizer.extract_balace();
+    //extract BALANCE statement from dump file
+    reportType = ReportType::BALANCE;
+    if ( (reports->find(reportType)) != reports->end() )
+    {   
+        reportKey = reports->find(reportType)->second;
+        string docString = "<FILENAME>"+reportKey;
+        string docFileString = tokenizer.findDoc(docString);
+        extracted_reports->insert( pair<ReportType,string>( 
+                                       reportType, 
+                                       docFileString) );
+    }
 }
 
 

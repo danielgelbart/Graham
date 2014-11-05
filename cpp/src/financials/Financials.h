@@ -13,13 +13,13 @@ public:
         {}
     
     void updateFinancials();
-    void downloadAndSave(Url& url, std::string& info, const path& writeDest);
+    void extractFinantialStatementsToDisk(path& fileName);
+
     void extractBalance();
+
 private:
-    void write_to_disk(std::string& doc, 
-                       std::string& info, 
-                       const path& writeDest);
-    
+    void downloadAndSave(Url& url, string& info, const path& writeDest);
+
 private:
     HttpClient mHttpClient;
 

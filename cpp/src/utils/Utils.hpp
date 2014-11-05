@@ -11,7 +11,6 @@
 
 using namespace std;
 
-
 template<class I>
 void
 deleteRange(I begin, I end)
@@ -286,6 +285,9 @@ join(const std::vector<std::basic_string<T> >& v)
         ret += v[i];
     return ret;
 }
+
+// file writing methods
+void write_to_disk(string& content, string& info, const boost::filesystem::path& writeDest);
 
 std::string firstWord(const std::string& s);
 

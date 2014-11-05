@@ -20,8 +20,6 @@ Tokenizer::getNextDelString(string& delimiter)
     size_t lastPos = _pos;
     _pos = nextPos;
 
-    //  cout << "\n Found FL starts with: " << _text.substr(lastPos, 200) << endl;
-
     return _text.substr(lastPos, (nextPos-lastPos));
 }
 
@@ -139,7 +137,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     string tagName("ShortName");
     string report = "";
     string reportName = "";
-    size_t i = 0;
+
     boost::regex income_pattern(
         "(\\s)*consolidated statement of (earnings|income)(\\s)*",
         boost::regex_constants::icase);
@@ -173,26 +171,8 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
                                      readReportHtmlNameFromFS(report)) ); 
         }
 
-        if (i>12)
-            break;  
-        ++i;
         if (foundBalanceRep && foundIncomeRep)
             break;
     }
-    
-
-}
-
-
-void
-Tokenizer::extractIncome(string& docName)
-{
-// find doc with name docName
-    string docString = "<FILENAME>"+docName;
-    string docFileString = findDoc(docString);
-    cout << "\n\n found income doc" << docFileString.substr(0,300) << endl;
-// Save it to /financials/IBM/IBM_2013_income
-
-
 }
 

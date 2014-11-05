@@ -5,7 +5,6 @@
 #include <fstream>
 #include <iostream>
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
 #include "Utils.hpp"
@@ -13,6 +12,50 @@
 
 using namespace boost::filesystem;
 using namespace boost::algorithm;
+
+/*
+  @content - content of file to create (string)
+  @info - file name (to create)
+  @writedest - destination path 'directory'
+*/
+void
+write_to_disk(string& content, string& info, const path& writeDest)
+{
+//    LOG_INFO << "writing to disk at " << writeDest.string();
+    path dir = writeDest;
+    path filePath = writeDest / info;
+//    LOG_INFO << "Writing to " << filePath;
+    if (!exists(dir)){
+        path partial;
+        for (auto it = dir.begin(); it != dir.end(); ++it){
+//            LOG_INFO << "checking for existance of " << *it;
+            if (*it != "."){
+                partial /= *it;
+                if (!exists(partial)){
+//                    LOG_INFO << "Creating directory " << partial;
+                    create_directory(partial);
+                    //if (!exists(partial))
+//                        LOG_ERROR << "Could not create directory "                                               << partial.string();
+                }
+            }
+        }
+    }
+    cout << "\n File path is: " << filePath << "\n";
+
+    boost::filesystem::ofstream outFile(filePath);
+    outFile << content;
+    outFile.close();
+
+    // use info to determine derectory path and file name       
+    
+    // base directrory is:
+// write to ../../../reprots
+    
+    // remove first element (ticker) from string 
+
+    // write file
+}
+
 
 string
 pathFrom(const string& full, const string& from)

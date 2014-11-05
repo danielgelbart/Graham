@@ -11,58 +11,15 @@
 #include "Url.h"
 
 #include "Logger.h"
+#include "types.h"
 
 #include "Financials.h"
 
 using namespace std;
 
-// can be a utility function
-void
-EdgarData::write_to_disk(string& content, string& info, const path& writeDest)
-{
-    LOG_INFO << "writing to disk at " << writeDest.string();
-    path dir = writeDest;
-    path filePath = writeDest / info;
-    LOG_INFO << "Writing to " << filePath;
-    if (!exists(dir)){
-        path partial;
-        for (auto it = dir.begin(); it != dir.end(); ++it){
-            LOG_INFO << "checking for existance of " << *it;
-            if (*it != "."){
-                partial /= *it;
-                if (!exists(partial)){
-                    LOG_INFO << "Creating directory " << partial;
-                    create_directory(partial);
-                    if (!exists(partial))
-                        LOG_ERROR << "Could not create directory " 
-                                  << partial.string();
-                }
-            }
-        }
-    }
-
-    cout << "\n File path is: " << filePath << "\n";
-
-    boost::filesystem::ofstream outFile(filePath);
-    outFile << content;
-    outFile.close();
-
-    // use info to determine derectory path and file name       
-    
-    // base directrory is:
-// write to ../../../reprots
-    
-    // remove first element (ticker) from string 
-
-    // write file
-
-
-}
-
 void
 EdgarData::downloadAndSave(Url& url, string& info, const path& writeDest)
 {
-
     string rContent; // will hold the returned text
 
     // add tests for failure to retrieve?
@@ -71,16 +28,11 @@ EdgarData::downloadAndSave(Url& url, string& info, const path& writeDest)
     write_to_disk(rContent, info, writeDest);
 }
 
-
 void 
 EdgarData::updateFinancials(){
     LOG_INFO << "updateFinancials method was called \n";
     
     // check what needs to be downladed
-    
-
-
-
 
     // IBM 10-q 2nd 2014
     string uri("http://www.sec.gov/Archives/edgar/data/51143/000005114314000007/0000051143-14-000007.txt");
@@ -92,25 +44,36 @@ EdgarData::updateFinancials(){
 // get current date
 // retreive most recent annual repor
 // open interned connection and download 
-
 }
 
+
+// Shoud be extract finantial statments from 10-k dump file down load
+// Pass path to downloaded file
 void
-EdgarData::extractBalance(){
-// get the full download document
-// find the 'doc list'
-// locat the relavent doc which representst the balance statment
-// 
+EdgarData::extractFinantialStatementsToDisk(path& fileName){
+// get path to 10k on disk
 
-    string fileName =  "../../text_files/IBM2013.txt";
+    string fileSource =  "../../text_files/IBM2013.txt";
+    path fileDest = "../../financials/IBM/";
+    string info = "IBM_2013_";
     Parser parser = Parser();
-    parser.extract_and_save_reports(fileName);
+    auto extracted_reports = new map<ReportType,string>;
+    parser.extract_reports(fileSource,extracted_reports);
 
-
-// extract ANY xpath tag
-
-//close
-
+    //iterate over extracted_reports and write each one to disk
+    for(auto it=extracted_reports->begin();it!= extracted_reports->end();++it)
+    {
+        if (it->first == ReportType::INCOME)
+        {
+            string infoString(info+"income.txt");
+            write_to_disk(it->second, infoString, fileDest);
+        }
+        if (it->first == ReportType::BALANCE)
+        {
+            string infoString(info+"balance.txt");
+            write_to_disk(it->second, infoString, fileDest);
+        }
+    }
 }
 
 

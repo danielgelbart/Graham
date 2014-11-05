@@ -1,1 +1,3 @@
-Parser.o Parser.d : parser/Parser.cpp parser/Parser.h parser/Tokenizer.h
+Parser.o Parser.d : parser/Parser.cpp include/Utils.hpp include/../utils/Utils.hpp \
+ include/../utils/Identifier.h parser/Tokenizer.h parser/types.h \
+ parser/Parser.h

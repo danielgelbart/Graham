@@ -106,7 +106,8 @@ mainMain(int argc, char* argv[])
     if (command == string("extract_balance")){
         EdgarData eData = EdgarData();
         string fileName = "";
-        eData.extractBalance();
+        path p("../../somepath");
+        eData.extractFinantialStatementsToDisk(p);
     }
 
 
