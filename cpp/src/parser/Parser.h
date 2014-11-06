@@ -13,7 +13,7 @@ public:
     Parser() {}
 
     void extractBalance();
-    void extract_reports(string& fileName, 
+    void extract_reports(string& k10, 
                          map<ReportType,string>* extract_reports);
     
 private:

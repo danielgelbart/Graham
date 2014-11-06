@@ -15,9 +15,10 @@ They will be writen to disk
 After all reprots are extracted, the dump file @fileName will be deleted
  */
 void
-Parser::extract_reports(string& fileName, 
+Parser::extract_reports(string& k10, 
                         map<ReportType,string>* extracted_reports)
 {
+    /*
     ifstream t(fileName);
     string str;
 
@@ -32,7 +33,9 @@ Parser::extract_reports(string& fileName,
     str.assign( (istreambuf_iterator<char>(t) ),
                istreambuf_iterator<char>());
     
-    Tokenizer tokenizer(str);
+    */
+
+    Tokenizer tokenizer(k10);
 
     string filingSummary = tokenizer.findFilingSummary();
 

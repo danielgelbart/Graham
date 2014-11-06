@@ -239,7 +239,6 @@ HttpClient::httpGet(const string& url, const string& contentType,
     
     string encoding;
     string utf8Body;
-
     
     long tempStatusCode;
     curl_easy_getinfo(mCurlHandle, CURLINFO_RESPONSE_CODE, &tempStatusCode);

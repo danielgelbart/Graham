@@ -1,10 +1,15 @@
-2014-Nov-05 15:31:24Logger up
+2014-Nov-06 15:17:52Logger up
 
-2014-Nov-05 15:31:24 INFO 5MB PID 192 Main.cpp:mainMain() --- Analysing data 0.0
-2014-Nov-05 15:31:24 INFO 5MB PID 192 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
-2014-Nov-05 15:31:24 INFO 6MB PID 192 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2014-Nov-05 15:31:24 INFO 6MB PID 192 HttpClient.cpp:HttpClient() --- Got curl handle 0x19e66f0
-2014-Nov-05 15:31:24 INFO 6MB PID 192 HttpClient.cpp:HttpClient() --- Using default interface
-2014-Nov-05 15:31:26 INFO 7MB PID 192 HttpClient.cpp:~HttpClient() --- shutting down httpclient
-2014-Nov-05 15:31:26 INFO 7MB PID 192 Main.cpp:mainMain() --- deleting Config
-2014-Nov-05 15:31:26 INFO 7MB PID 192 Main.cpp:mainMain() --- Last log message: deleting Logger
+2014-Nov-06 15:17:52 INFO 5MB PID 720 Main.cpp:mainMain() --- Analysing data 0.0
+2014-Nov-06 15:17:52 INFO 5MB PID 720 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
+2014-Nov-06 15:17:52 INFO 6MB PID 720 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2014-Nov-06 15:17:52 INFO 6MB PID 720 HttpClient.cpp:HttpClient() --- Got curl handle 0x11636f0
+2014-Nov-06 15:17:52 INFO 6MB PID 720 HttpClient.cpp:HttpClient() --- Using default interface
+2014-Nov-06 15:17:52 INFO 6MB PID 720 Financials.cpp:updateFinancials() --- updateFinancials method was called 
+
+2014-Nov-06 15:17:52 INFO 6MB PID 720 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/51143/000104746914001302/0001047469-14-001302.txt
+2014-Nov-06 15:17:52 INFO 6MB PID 720 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/51143/000104746914001302/0001047469-14-001302.txt
+2014-Nov-06 15:17:55 INFO 48MB PID 720 HttpClient.cpp:httpGet() --- Not saving: Content-Type: text/plain rather than text/html
+2014-Nov-06 15:17:55 INFO 7MB PID 720 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2014-Nov-06 15:17:55 INFO 7MB PID 720 Main.cpp:mainMain() --- deleting Config
+2014-Nov-06 15:17:55 INFO 7MB PID 720 Main.cpp:mainMain() --- Last log message: deleting Logger

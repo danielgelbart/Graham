@@ -3,8 +3,11 @@
 
 #include <boost/filesystem.hpp>   
 #include "HttpClient.h"
+#include "info.h"
 
 using namespace boost::filesystem;
+
+#define FINANCIALS_PATH "../../financials"
 
 class EdgarData {
 public:
@@ -13,12 +16,12 @@ public:
         {}
     
     void updateFinancials();
-    void extractFinantialStatementsToDisk(path& fileName);
-
-    void extractBalance();
+    void extractFinantialStatementsToDisk(string& k10, Info& info);
 
 private:
-    void downloadAndSave(Url& url, string& info, const path& writeDest);
+    void downloadAndSave10k(Url& url, Info& info);
+    void downloadToString(Url& url, Info& info, string& rContent);
+    void downloadAndSave(Url& url, Info& info, const path& writeDest);
 
 private:
     HttpClient mHttpClient;

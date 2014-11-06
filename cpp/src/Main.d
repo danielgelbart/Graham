@@ -25,4 +25,4 @@ Main.o Main.d : main/Main.cpp utils/Identifier.h utils/Config.h utils/Utils.hpp 
  /usr/include/mysql++/scopedconnection.h /usr/include/mysql++/sql_types.h \
  dmmm/dmmm_id.hpp include/Financials.h include/../financials/Financials.h \
  include/HttpClient.h include/../utils/HttpClient.h include/Url.h \
- include/../html/Url.h
+ include/../html/Url.h include/info.h include/../financials/Info.h

@@ -105,9 +105,14 @@ mainMain(int argc, char* argv[])
 // find rigt command to execute and call relavent comand methods
     if (command == string("extract_balance")){
         EdgarData eData = EdgarData();
-        string fileName = "";
+        string str = "";
         path p("../../somepath");
-        eData.extractFinantialStatementsToDisk(p);
+//        eData.extractFinantialStatementsToDisk(str);
+    }
+// should be passed a ticker?
+    if (command == string("update_10k")){
+        EdgarData eData = EdgarData();
+        eData.updateFinancials();
     }
 
 
