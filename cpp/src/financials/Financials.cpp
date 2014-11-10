@@ -18,6 +18,29 @@
 using namespace std;
 
 
+
+void
+printXmlTree(XmlElement* node, size_t depth)
+{
+    for(size_t i; i < depth; ++i)
+        cout << "  ";
+    
+    cout << "< " << node->_tagName; 
+
+    if ( node->_attributes.empty() )
+        cout << " (no attrs) ";
+    else
+        cout << " Has attrs: ";
+
+    if ( node->_text == "" )
+        cout << ". Contains no text" << endl;
+    else
+        cout << " Content is: " << node->_text << endl;
+
+    for( auto it = node->_children.begin(); it != node->_children.end(); ++it )
+        printXmlTree( *it, depth+1);
+}
+
 void
 EdgarData::downloadAndSave10k(Url& url, Info& info)
 {
@@ -109,4 +132,16 @@ EdgarData::extractFinantialStatementsToDisk(string& k10, Info& info){
     }
 }
 
+void 
+EdgarData::parseStatementsToDB(){
 
+    string test_str = 
+        "<div class=\"body\" style=\"padding: 2px;\">             <a href=\"javascript:void(0);\" onclick=\"top.Show.toggleNext( this );\">- Definition</a>             <div>                <p>The aggregate cost of goods produced and sold and services rendered during the reporting period.</p>             </div>               <a href=\"javascript:void(0);\" onclick=\"top.Show.toggleNext( this );\">+ References</a>             <div style=\"display: none;\">                <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher FASB<br><br> -Name Accounting Standards Codification<br><br> -Topic 225<br><br> -SubTopic 10<br><br> -Section S99<br><br> -Paragraph 2<br><br> -Subparagraph (SX 210.5-03.2)<br><br> -URI http://asc.fasb.org/extlink&amp;oid=26872669&amp;loc=d3e20235-122688<br><br><br><br>Reference 2: http://www.xbrl.org/2003/role/presentationRef<br><br> -Publisher SEC<br><br> -Name Regulation S-X (SX)<br><br> -Number 210<br><br> -Section 03<br><br> -Paragraph 2<br><br> -Article 5<br><br><br><br></p>             </div>          </div>";
+
+        Parser parser;
+        XmlElement* tree = parser.buildXmlTree(test_str);
+        
+        //test
+        printXmlTree(tree,0);
+
+}

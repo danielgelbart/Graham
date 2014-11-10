@@ -14,6 +14,12 @@ public:
         _pos = 0;
     }
 
+    // -------- XML parsing -----------------------------------------
+    
+    string xmlNextTok();
+
+    // -------- varius text specific parsing functions ---------------
+
     /* return the next segment delimited by the string "<DOCUMENT>"
        advances the _pos marker */
     string getNextDelString(string& delimiter);

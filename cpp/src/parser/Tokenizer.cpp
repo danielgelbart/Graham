@@ -8,6 +8,42 @@
 #include "Logger.h"
 #include "Tokenizer.h"
 
+/*
+Every call retures either:
+  - an open tag (with attributes)
+  - a close tag
+  - text (text between tags)
+
+  _pos always points 1 place after last xml token returned
+*/
+string 
+Tokenizer::xmlNextTok(){
+    string openSign("<");
+    string closeSign(">");
+    size_t startPos = _text.find(openSign, _pos);
+    size_t endPos;
+
+    // check if at end of xml document string
+    if( startPos == string::npos )
+        return "";
+
+    // check if a text elemtnt
+    if( startPos > _pos )
+    {
+        endPos = startPos;
+        startPos = _pos;
+        _pos = endPos;
+        return _text.substr(startPos, (endPos-startPos - 1) ); 
+    }
+
+    // regular open or close tag
+    endPos = _text.find(closeSign, _pos);
+    _pos = endPos + 1;
+    return _text.substr(startPos, (endPos-startPos) );
+}
+
+
+
 //Returns empty string if no match
 string
 Tokenizer::getNextDelString(string& delimiter)

@@ -5,18 +5,46 @@
 #include <map>
 
 #include "types.h"
+#include "Tokenizer.h"
 
 using namespace std;
+
+enum class XmlTokenType {OPEN, CLOSE, TEXT, IGNORE };
+
+class XmlElement {
+public:
+    XmlElement(string& tagName)
+        {
+            _tagName = tagName;
+            _text = "";
+        }
+
+    void addChild(XmlElement* child);
+    void addAttr(string& xml);
+    void addText(string& text);
+    
+
+public: //members
+    string              _tagName;
+    vector<XmlElement*> _children;
+    map<string,string>  _attributes;
+    string              _text;
+}; // end class XmlElement
 
 class Parser {
 public:
     Parser() {}
 
-    void extractBalance();
+    XmlElement* buildXmlTree(string& xmlDocument);
+    void parseXML(XmlElement* node, Tokenizer& tok);
+
     void extract_reports(string& k10, 
                          map<ReportType,string>* extract_reports);
     
 private:
+
+    XmlTokenType tokenType( string& xml);
+
 // members
 
 };

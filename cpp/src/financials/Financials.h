@@ -17,6 +17,7 @@ public:
     
     void updateFinancials();
     void extractFinantialStatementsToDisk(string& k10, Info& info);
+    void parseStatementsToDB();
 
 private:
     void downloadAndSave10k(Url& url, Info& info);
