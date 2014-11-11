@@ -17,6 +17,7 @@ public:
     // -------- XML parsing -----------------------------------------
     
     string xmlNextTok();
+    bool atEnd();
 
     // -------- varius text specific parsing functions ---------------
 

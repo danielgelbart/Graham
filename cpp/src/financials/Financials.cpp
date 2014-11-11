@@ -22,7 +22,7 @@ using namespace std;
 void
 printXmlTree(XmlElement* node, size_t depth)
 {
-    for(size_t i; i < depth; ++i)
+    for(size_t i = 0; i < depth; ++i)
         cout << "  ";
     
     cout << "< " << node->_tagName; 
@@ -30,15 +30,21 @@ printXmlTree(XmlElement* node, size_t depth)
     if ( node->_attributes.empty() )
         cout << " (no attrs) ";
     else
-        cout << " Has attrs: ";
-
+    {
+        cout << " Has attrs: \n";
+        for(auto it = node->_attributes.begin(); 
+            it != node->_attributes.end(); ++it)
+            cout << "\t" << it->first << " = " << it->second << endl;
+    }
+    for(size_t i = 0; i < depth+1; ++i)
+        cout << "  ";
     if ( node->_text == "" )
-        cout << ". Contains no text" << endl;
+        cout << " Contains no text" << endl;
     else
         cout << " Content is: " << node->_text << endl;
 
     for( auto it = node->_children.begin(); it != node->_children.end(); ++it )
-        printXmlTree( *it, depth+1);
+        printXmlTree( *it, (depth+1) );
 }
 
 void

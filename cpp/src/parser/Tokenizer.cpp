@@ -33,16 +33,24 @@ Tokenizer::xmlNextTok(){
         endPos = startPos;
         startPos = _pos;
         _pos = endPos;
-        return _text.substr(startPos, (endPos-startPos - 1) ); 
+        return _text.substr(startPos, (endPos-startPos) ); 
     }
 
     // regular open or close tag
     endPos = _text.find(closeSign, _pos);
     _pos = endPos + 1;
-    return _text.substr(startPos, (endPos-startPos) );
+    return _text.substr(startPos, (endPos-startPos) + 1);
 }
 
-
+bool
+Tokenizer::atEnd()
+{
+    // Call to xmlNextTok() advances _pos, so save and reset it
+    size_t myPos = _pos;
+    string token = xmlNextTok();
+    _pos = myPos;
+    return (token == "");
+}
 
 //Returns empty string if no match
 string

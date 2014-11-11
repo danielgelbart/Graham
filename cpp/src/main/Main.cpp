@@ -114,23 +114,16 @@ mainMain(int argc, char* argv[])
         eData.updateFinancials();
     }
 
-
-    else
-        if (command != string("")){
-            showHelpMessage(argv[0]);
-            LOG_ERROR << "unknown command: " << command;
+    if (command == string("")){
+        showHelpMessage(argv[0]);
+        LOG_ERROR << "unknown command: " << command;
     }
-
-
-    
-
 
     LOG_INFO << "deleting Config";
     delete config;
     
     LOG_INFO << "Last log message: deleting Logger";
     delete logger;
-    
 
     return 0;
 } 

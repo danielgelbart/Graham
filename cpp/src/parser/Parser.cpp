@@ -20,19 +20,18 @@ XmlElement::addAttr( string& xml )
 {
     //string test_str = "<a href=\"javascript:void(0);\" onclick=\"top.Show.toggleNext( this );\"> ";
     
-    // split sting by " " (space delimiter)
-    boost::regex pattern( "(?<KEY>(\\w*))=\"(?<VALUE>(.*))\"\\s");
+    boost::regex pattern( "(\\w+)=\"(.+?)\"");
 
-    // use an iterator!
     boost::sregex_iterator mit(xml.begin(), xml.end(), pattern);
     boost::sregex_iterator mEnd;
 
     for(; mit != mEnd; ++mit)
     {
+//        for(size_t i = 0 ; i < mit->size() ; ++i)
+//            cout << "\n Match " << to_string(i) << " is : " << (*mit)[i].str() << endl;
         string key = (*mit)[1].str();
-        string value = (*mit)[3].str();
-
-        cout << "\n Found attr: " << key << " = " << value << endl;
+        string value = (*mit)[2].str();
+        //      cout << "\n Found attr: " << key << " = " << value << endl;
         _attributes.insert( pair<string,string>(key,value) );
     }
 }
@@ -48,12 +47,15 @@ XmlElement::addText( string& xml )
 XmlTokenType
 Parser::tokenType( string& xml)
 {
-    if ( xml == "<br>") 
+    boost::regex blank_string("\\s*");
+
+    if ( ( xml == "<br>") ||
+         ( boost::regex_match(xml, blank_string) ) )
         return XmlTokenType::IGNORE;
     
     if ( xml.at(0) == '<')
     {
-        if ( xml.at(10) == '/')
+        if ( xml.at(1) == '/')
         {
             return XmlTokenType::CLOSE;
         }
@@ -70,8 +72,9 @@ Parser::buildXmlTree(string& xmlDocument)
     
     string rootName("__ROOT__");
     XmlElement* root = new XmlElement(rootName);
-        
-    parseXML( root, xmlTok);
+    
+    while ( ! xmlTok.atEnd() )
+        parseXML( root, xmlTok);
 
     return root;
 }
@@ -91,6 +94,8 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
 
     string xml_token = tok.xmlNextTok();
 
+    cout << "\n procesing token: " << xml_token << endl;
+
     // need to declare before case switch
     string name;
     XmlElement* child;
@@ -105,7 +110,7 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
         name =  extract_tag_name(xml_token);
         child = new XmlElement( name );
         node->addChild( child );
-        node->addAttr( xml_token );
+        child->addAttr( xml_token );
         parseXML( child, tok );
         break;
 

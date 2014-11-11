@@ -1,9 +1,10 @@
-2014-Nov-10 17:33:03Logger up
+2014-Nov-11 16:20:55Logger up
 
-2014-Nov-10 17:33:03 INFO 5MB PID 528 Main.cpp:mainMain() --- Analysing data 0.0
-2014-Nov-10 17:33:03 INFO 5MB PID 528 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
-2014-Nov-10 17:33:03 INFO 6MB PID 528 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2014-Nov-10 17:33:03 INFO 6MB PID 528 HttpClient.cpp:HttpClient() --- Got curl handle 0x1bd66f0
-2014-Nov-10 17:33:03 INFO 6MB PID 528 HttpClient.cpp:HttpClient() --- Using default interface
-2014-Nov-10 17:33:03 INFO 7MB PID 528 HttpClient.cpp:~HttpClient() --- shutting down httpclient
-2014-Nov-10 17:33:03 ERROR 7MB PID 528 Main.cpp:main() --- basic_string::at
+2014-Nov-11 16:20:55 INFO 5MB PID 568 Main.cpp:mainMain() --- Analysing data 0.0
+2014-Nov-11 16:20:55 INFO 5MB PID 568 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
+2014-Nov-11 16:20:55 INFO 6MB PID 568 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2014-Nov-11 16:20:55 INFO 6MB PID 568 HttpClient.cpp:HttpClient() --- Got curl handle 0x1c036f0
+2014-Nov-11 16:20:55 INFO 6MB PID 568 HttpClient.cpp:HttpClient() --- Using default interface
+2014-Nov-11 16:20:55 INFO 6MB PID 568 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2014-Nov-11 16:20:55 INFO 6MB PID 568 Main.cpp:mainMain() --- deleting Config
+2014-Nov-11 16:20:55 INFO 6MB PID 568 Main.cpp:mainMain() --- Last log message: deleting Logger
