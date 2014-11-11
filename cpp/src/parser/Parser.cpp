@@ -47,7 +47,7 @@ XmlElement::addText( string& xml )
 XmlTokenType
 Parser::tokenType( string& xml)
 {
-    boost::regex blank_string("\\s*");
+    boost::regex blank_string("\\s+");
 
     if ( ( xml == "<br>") ||
          ( boost::regex_match(xml, blank_string) ) )
@@ -72,8 +72,8 @@ Parser::buildXmlTree(string& xmlDocument)
     
     string rootName("__ROOT__");
     XmlElement* root = new XmlElement(rootName);
-    
-    while ( ! xmlTok.atEnd() )
+
+
         parseXML( root, xmlTok);
 
     return root;
@@ -92,41 +92,42 @@ extract_tag_name(string& xmlOpenTag)
 void
 Parser::parseXML(XmlElement* node, Tokenizer& tok){
 
-    string xml_token = tok.xmlNextTok();
-
-    cout << "\n procesing token: " << xml_token << endl;
+    string xml_token;
 
     // need to declare before case switch
-    string name;
+    string name;    
     XmlElement* child;
 
-    switch ( tokenType(xml_token) )
+    while ( ! tok.atEnd() )
     {
-    case XmlTokenType::IGNORE :
-        parseXML( node, tok );
-        break;
+        xml_token = tok.xmlNextTok();
+        cout << "\n procesing token: " << xml_token << endl;
 
-    case XmlTokenType::OPEN :
-        name =  extract_tag_name(xml_token);
-        child = new XmlElement( name );
-        node->addChild( child );
-        child->addAttr( xml_token );
-        parseXML( child, tok );
-        break;
+        switch ( tokenType(xml_token) )
+        {
+        case XmlTokenType::OPEN :
+            name =  extract_tag_name(xml_token);
+            child = new XmlElement( name );
+            node->addChild( child );
+            child->addAttr( xml_token );
+            parseXML( child, tok );
+            break;
 
-    case XmlTokenType::CLOSE :
-        return;
+        case XmlTokenType::CLOSE :
+            return;
 
-    case XmlTokenType::TEXT :
-        node->addText( xml_token );
-        parseXML( node, tok);
-        break;
+        case XmlTokenType::TEXT :
+            node->addText( xml_token );
+            continue;
 
-    default :
-        ;
+        case XmlTokenType::IGNORE :
+            continue;
 
-    }
+        default :
+            ;
 
+        } // switch
+    } // while
 }
 
 

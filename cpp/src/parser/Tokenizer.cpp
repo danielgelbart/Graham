@@ -21,11 +21,22 @@ Tokenizer::xmlNextTok(){
     string openSign("<");
     string closeSign(">");
     size_t startPos = _text.find(openSign, _pos);
-    size_t endPos;
+    size_t endPos = 0;
 
     // check if at end of xml document string
     if( startPos == string::npos )
         return "";
+
+    // check for blank space between tags
+    // if found return next open tag
+/*    boost::regex blank_pattern("[\\s\\t\\n]*");
+
+    if( boost::regex_match( _text.substr( startPos, (endPos-startPos) ),
+                             blank_pattern) ) 
+    {                      
+        return xmlNextTok();
+    }
+*/
 
     // check if a text elemtnt
     if( startPos > _pos )
