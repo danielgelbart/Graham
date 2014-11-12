@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141004134524) do
+ActiveRecord::Schema.define(:version => 20141112112448) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -78,16 +78,16 @@ ActiveRecord::Schema.define(:version => 20141004134524) do
     t.string   "ticker"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "ttm_eps",                :precision => 12, :scale => 6
-    t.decimal  "book_value_per_share",   :precision => 12, :scale => 6
-    t.date     "finantial_data_updated"
-    t.integer  "dividends_per_year",                                    :default => 4
-    t.decimal  "latest_price",           :precision => 12, :scale => 6
+    t.decimal  "ttm_eps",              :precision => 12, :scale => 6
+    t.decimal  "book_value_per_share", :precision => 12, :scale => 6
+    t.date     "fiscal_year_end"
+    t.integer  "dividends_per_year",                                  :default => 4
+    t.decimal  "latest_price",         :precision => 12, :scale => 6
     t.string   "market_cap"
-    t.decimal  "ttm_div",                :precision => 10, :scale => 3
-    t.decimal  "yield",                  :precision => 6,  :scale => 3
-    t.boolean  "listed",                                                :default => true
-    t.boolean  "has_currant_ratio",                                     :default => true
+    t.decimal  "ttm_div",              :precision => 10, :scale => 3
+    t.decimal  "yield",                :precision => 6,  :scale => 3
+    t.boolean  "listed",                                              :default => true
+    t.boolean  "has_currant_ratio",                                   :default => true
     t.string   "mark"
     t.integer  "cik"
   end

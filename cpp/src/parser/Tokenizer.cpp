@@ -27,17 +27,6 @@ Tokenizer::xmlNextTok(){
     if( startPos == string::npos )
         return "";
 
-    // check for blank space between tags
-    // if found return next open tag
-/*    boost::regex blank_pattern("[\\s\\t\\n]*");
-
-    if( boost::regex_match( _text.substr( startPos, (endPos-startPos) ),
-                             blank_pattern) ) 
-    {                      
-        return xmlNextTok();
-    }
-*/
-
     // check if a text elemtnt
     if( startPos > _pos )
     {

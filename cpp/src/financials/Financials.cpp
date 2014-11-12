@@ -144,14 +144,44 @@ EdgarData::parseStatementsToDB(){
     string test_str = 
         "<div> class=\"body\" style=\"padding: 2px;\">                                     <a>- Definition                                                                </a>                                                                           <div>                                                                            <p>The aggregate cost of goods produced and sold and services rendered during the reporting period.                                                           </p>                                                                         </div>                                                                         <a>+ References                                                                </a>                                                                           <div style=\"display: none;\">                                                   <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br>ticle 5<br><br><br><br>                                                                      </p>                                                                         </div>                                                                       </div>";
 
-        Parser parser;
-//        string docTable = parser.extractBalanceFromFile();
 
-        XmlElement* tree = parser.buildXmlTree(test_str);
-        
-        //test
-        printXmlTree(tree,0);
+    // load file from disk into string
+    string incomeFilePath( FINANCIALS_PATH );
+    incomeFilePath += "/IBM/IBM_2013_income.txt";
+    string incomeFileStr = loadFileToString(incomeFilePath);
 
-        // O_Income = new
-        
+    Parser parser;    
+    string incomeTableStr = parser.extractIncomeTableStr(incomeFileStr); 
+    
+    // extract table into xml tree
+    XmlElement* tree = parser.buildXmlTree(incomeTableStr);
+    
+    // returns
+    // tInfo[0] - units (bil or mil)
+    // tInfo[1] - currency
+    // tInfo[2,3,4..] years for wich data is given
+    vector<string> tInfo = parser.titleInfo(tree);
+
+    for(auto it = tInfo.begin(); it != tInfo.end(); ++it)
+        cout << "\n " << *it << endl;
+
+    size_t colNum = tInfo.size() - 2; 
+
+//    cout << "Title text is: " << titleText << endl;
+    // get years, end date, and order of columns
+    //vector<> dates = ;
+    //vector<>
+
+
+    //test
+    //printXmlTree(tree,0);
+
+    for (size_t i = 0; i < colNum; ++i)
+    {
+        // O_Ep incomeS;
+        // incomeS.year = years[i];
+        // incomeS.revenue = revs[i];
+        // incomeS.net_income = incs[i];
+        // incomeS.insert();
+    }    
 }

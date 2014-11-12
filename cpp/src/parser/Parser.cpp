@@ -18,8 +18,6 @@ XmlElement::addChild( XmlElement* child )
 void
 XmlElement::addAttr( string& xml )
 {
-    //string test_str = "<a href=\"javascript:void(0);\" onclick=\"top.Show.toggleNext( this );\"> ";
-    
     boost::regex pattern( "(\\w+)=\"(.+?)\"");
 
     boost::sregex_iterator mit(xml.begin(), xml.end(), pattern);
@@ -42,7 +40,19 @@ XmlElement::addText( string& xml )
     _text += xml;
 }
 
+string
+XmlElement::text()
+{
+    string rText = "";
 
+    if ( _text != "" )
+        rText += " : " + _text;
+ 
+    for( auto it = _children.begin(); it != _children.end(); ++it )
+        rText += (*it)->text();
+
+    return rText;
+}
 
 XmlTokenType
 Parser::tokenType( string& xml)
@@ -73,8 +83,7 @@ Parser::buildXmlTree(string& xmlDocument)
     string rootName("__ROOT__");
     XmlElement* root = new XmlElement(rootName);
 
-
-        parseXML( root, xmlTok);
+    parseXML( root, xmlTok);
 
     return root;
 }
@@ -86,7 +95,8 @@ extract_tag_name(string& xmlOpenTag)
     size_t endPos = xmlOpenTag.find(" ",0);
     if (endPos == string::npos)
         return xmlOpenTag.substr(1, xmlOpenTag.length() - 2);
-    return xmlOpenTag.substr(1, endPos - 1);
+    string name = xmlOpenTag.substr(1, endPos - 1);
+    return trimSpaces(name);
 }
 
 void
@@ -101,7 +111,7 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
     while ( ! tok.atEnd() )
     {
         xml_token = tok.xmlNextTok();
-        cout << "\n procesing token: " << xml_token << endl;
+        //       cout << "\n procesing token: " << xml_token << endl;
 
         switch ( tokenType(xml_token) )
         {
@@ -144,23 +154,6 @@ void
 Parser::extract_reports(string& k10, 
                         map<ReportType,string>* extracted_reports)
 {
-    /*
-    ifstream t(fileName);
-    string str;
-
-    // allocate memory first, as files are huge and therefore
-    // this is quicker than realocting as you go
-    t.seekg(0, std::ios::end);   
-    str.reserve(t.tellg());
-    t.seekg(0, std::ios::beg);
-
-    // read the file into the string
-    //NOTE: "the most vexing parse" - c011 has syntax to fix this using '{'
-    str.assign( (istreambuf_iterator<char>(t) ),
-               istreambuf_iterator<char>());
-    
-    */
-
     Tokenizer tokenizer(k10);
 
     string filingSummary = tokenizer.findFilingSummary();
@@ -196,3 +189,67 @@ Parser::extract_reports(string& k10,
 }
 
 
+string 
+Parser::extractIncomeTableStr(string& incomeStr){
+    
+    string openTab("<table");
+    string closeTab("</table");
+    size_t startPos = incomeStr.find(openTab, 0);
+    size_t endPos = incomeStr.find(closeTab, startPos);
+    return incomeStr.substr( startPos , (endPos-startPos) );
+}
+
+vector<string> 
+Parser::titleInfo(XmlElement* tree){
+    vector<string> rInfo;       
+    vector<XmlElement*>* elements = new vector<XmlElement*>;
+    string tagName("tr");
+    tree->getNodes(tagName, 2, elements);
+ 
+    string titleText  = (*elements)[0]->text() + (*elements)[1]->text() ;
+    
+    cout << "\n Title text is : " << titleText << endl; 
+    
+    // get units
+    string units = "Bil";
+    rInfo.push_back(units);
+    // get currency
+    string currency = "USD";
+    rInfo.push_back(currency);
+    
+    // get dates
+    boost::regex datePat("(\\w\\w\\w). (\\d+)?, (\\d+)?");
+    boost::sregex_iterator mit(titleText.begin(), titleText.end(), datePat);
+    boost::sregex_iterator mEnd;
+
+
+    // TODO - get fiscal year end date??
+
+
+    for(; mit != mEnd; ++mit)
+    {
+        for(size_t i = 0 ; i < mit->size() ; ++i)
+            cout << "\n Match " << to_string(i) << " is : " << (*mit)[i].str() << endl;
+
+        // returns the YEAR
+        rInfo.push_back( (*mit)[3].str() );
+    }
+
+    return rInfo;
+}
+
+void
+XmlElement::getNodes(string tagName, 
+                     size_t number, 
+                     vector<XmlElement*>* collected)
+{
+    if (collected->size() >= number )
+        return;
+
+    if (_tagName == tagName)
+        collected->push_back(this);     
+
+    for(auto it = _children.begin() ; it != _children.end() ; ++it)
+        (*it)->getNodes(tagName, number, collected);
+
+}

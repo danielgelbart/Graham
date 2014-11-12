@@ -45,17 +45,29 @@ write_to_disk(string& content, string& info, const path& writeDest)
     boost::filesystem::ofstream outFile(filePath);
     outFile << content;
     outFile.close();
-
-    // use info to determine derectory path and file name       
-    
-    // base directrory is:
-// write to ../../../reprots
-    
-    // remove first element (ticker) from string 
-
-    // write file
 }
 
+/*
+string
+loadFileToString(path& fileName)
+{
+    ifstream t(fileName.string());
+    string str;
+    
+    // allocate memory first, as files are huge and therefore
+    // this is quicker than realocting as you go
+    t.seekg(0, std::ios::end);   
+    str.reserve(t.tellg());
+    t.seekg(0, std::ios::beg);
+    
+    // read the file into the string
+    //NOTE: "the most vexing parse" - c011 has syntax to fix this using '{'
+    str.assign( (istreambuf_iterator<char>(t) ),
+                istreambuf_iterator<char>() );
+    
+    return str;
+}
+*/
 
 string
 pathFrom(const string& full, const string& from)
