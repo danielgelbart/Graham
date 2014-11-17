@@ -10,8 +10,8 @@
 #include "dmmm_comparators.hpp"
 #include "T_Dividend.hpp"
 #include "T_Ep.hpp"
-#include "T_BalanceSheet.hpp"
 #include "T_Numshare.hpp"
+#include "T_BalanceSheet.hpp"
 
 
 
@@ -51,18 +51,6 @@ O_Stock(const I_Stock& id)
         return table.select(table._stock_id() == _id());   
     }
 
-    std::vector<O_BalanceSheet> _balance_sheets() const
-    {
-        T_BalanceSheet table;
-        return table.select(table._stock_id() == _id());   
-    }
-    std::vector<O_BalanceSheet> 
-        _balance_sheets(const T_BalanceSheet::Condition& c) const
-    {
-        T_BalanceSheet table(c);
-        return table.select(table._stock_id() == _id());   
-    }
-
     std::vector<O_Numshare> _numshares() const
     {
         T_Numshare table;
@@ -72,6 +60,18 @@ O_Stock(const I_Stock& id)
         _numshares(const T_Numshare::Condition& c) const
     {
         T_Numshare table(c);
+        return table.select(table._stock_id() == _id());   
+    }
+
+    std::vector<O_BalanceSheet> _balance_sheets() const
+    {
+        T_BalanceSheet table;
+        return table.select(table._stock_id() == _id());   
+    }
+    std::vector<O_BalanceSheet> 
+        _balance_sheets(const T_BalanceSheet::Condition& c) const
+    {
+        T_BalanceSheet table(c);
         return table.select(table._stock_id() == _id());   
     }
 

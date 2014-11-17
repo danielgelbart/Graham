@@ -50,6 +50,9 @@ public:
         return oss.str();
     }
 
+    operator int() const{
+        return _id;
+    }
 
     inline size_t& serialization() { return _id; }
     inline const size_t& serialization() const { return _id; }

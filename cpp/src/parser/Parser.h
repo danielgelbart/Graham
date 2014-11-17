@@ -24,7 +24,9 @@ public:
     void addText(string& text);
     
     string text();
+    void printXmlTree(size_t depth);
 
+    XmlElement* tagWithText(string& tagName, string& phrase);
     void getNodes(string tagName, //with no leading or trailng whitespace 
                   size_t number, // the number of such xml elements to collect
                   vector<XmlElement*>* collected);
@@ -47,11 +49,18 @@ public:
                          map<ReportType,string>* extract_reports);
     string extractIncomeTableStr(string& incomeStr);
 
+    string extractLatest10kAcn(string& page);
+
+
     vector<string> titleInfo(XmlElement* tree);
+    vector<string> getRevenues(XmlElement* tree);
+    vector<string> getIncs(XmlElement* tree);
+    vector<float> getEps(XmlElement* tree);
 
 private:
 
     XmlTokenType tokenType( string& xml);
+    vector<string> getTrByName(XmlElement* tree, string& trTitlePattern);
 
 // members
 

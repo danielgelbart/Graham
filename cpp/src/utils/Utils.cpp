@@ -6,6 +6,8 @@
 #include <iostream>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/regex.hpp>
+
 
 #include "Utils.hpp"
 
@@ -47,27 +49,6 @@ write_to_disk(string& content, string& info, const path& writeDest)
     outFile.close();
 }
 
-/*
-string
-loadFileToString(path& fileName)
-{
-    ifstream t(fileName.string());
-    string str;
-    
-    // allocate memory first, as files are huge and therefore
-    // this is quicker than realocting as you go
-    t.seekg(0, std::ios::end);   
-    str.reserve(t.tellg());
-    t.seekg(0, std::ios::beg);
-    
-    // read the file into the string
-    //NOTE: "the most vexing parse" - c011 has syntax to fix this using '{'
-    str.assign( (istreambuf_iterator<char>(t) ),
-                istreambuf_iterator<char>() );
-    
-    return str;
-}
-*/
 
 string
 pathFrom(const string& full, const string& from)
@@ -121,6 +102,24 @@ loadFileToString(const string& fileName)
 
     return ret;
 }
+
+string
+removeNonDigit(string& str)
+{
+    string ret("");
+    //boost::regex digitPat("\\d");
+
+    for ( auto it = str.begin() ; it != str.end() ; ++it)
+    {
+//        string singleChar( *it );
+        if ( ((*it) - '0') > 9 ) //boost::regex_match( singleChar, digitPat) ) 
+            continue;
+        ret += *it;
+    }
+    return ret;
+}
+
+
 
 string
 trimSpaces(const string& s)

@@ -293,6 +293,8 @@ std::string firstWord(const std::string& s);
 
 std::string substitute(const std::string& orig, const std::string& cut, 
                        const std::string& paste);
+
+std::string removeNonDigit(string& str);
 std::string trimSpaces(const std::string& s);
 
 std::string toLower(const std::string& s);

@@ -23,6 +23,11 @@ Main.o Main.d : main/Main.cpp utils/Identifier.h utils/Config.h utils/Utils.hpp 
  /usr/include/mysql++/stream2string.h /usr/include/mysql++/sqlstream.h \
  /usr/include/mysql++/transaction.h /usr/include/mysql++/insertpolicy.h \
  /usr/include/mysql++/scopedconnection.h /usr/include/mysql++/sql_types.h \
- dmmm/dmmm_id.hpp include/Financials.h include/../financials/Financials.h \
- include/HttpClient.h include/../utils/HttpClient.h include/Url.h \
- include/../html/Url.h include/info.h include/../financials/Info.h
+ dmmm/dmmm_id.hpp dmmm/T_Stock.hpp dmmm/O_Stock.hpp dmmm/dmmm_utils.hpp \
+ dmmm/dmmm_dbface.h dmmm/dmmm_identifiers.hpp dmmm/dmmm_fields.hpp \
+ dmmm/dmmm_comparators.hpp dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp \
+ dmmm/T_Ep.hpp dmmm/O_Ep.hpp dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp \
+ dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp include/Financials.h \
+ include/../financials/Financials.h include/HttpClient.h \
+ include/../utils/HttpClient.h include/Url.h include/../html/Url.h \
+ dmmm/O_Stock.hpp include/info.h include/../financials/Info.h

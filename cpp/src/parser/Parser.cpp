@@ -10,6 +10,36 @@
 #include "Parser.h"
 
 void
+XmlElement::printXmlTree(size_t depth)
+{
+    for(size_t i = 0; i < depth; ++i)
+        cout << "  ";
+    
+    cout << "< " << _tagName; 
+/*
+    if ( _attributes.empty() )
+        cout << " (no attrs) ";
+    else
+    {
+        cout << " Has attrs: \n";
+        for(auto it = _attributes.begin(); 
+            it != _attributes.end(); ++it)
+            cout << "\t" << it->first << " = " << it->second << endl;
+    }
+*/
+    for(size_t i = 0; i < depth+1; ++i)
+        cout << "  ";
+    if ( _text == "" )
+        cout << " Contains no text" << endl;
+    else
+        cout << " Content is: " << _text << endl;
+
+    for( auto it = _children.begin(); it != _children.end(); ++it )
+        (*it)->printXmlTree( depth+1);
+}
+
+
+void
 XmlElement::addChild( XmlElement* child )
 {
     _children.push_back(child);
@@ -38,6 +68,29 @@ void
 XmlElement::addText( string& xml )
 {
     _text += xml;
+}
+
+XmlElement* 
+XmlElement::tagWithText(string& tagName, string& phrase)
+{
+    boost::regex pattern( phrase );
+
+    if (_tagName == tagName)
+    {
+        if ( boost::regex_search( text(), pattern ) )
+            return this;
+    }
+    if ( _children.empty() )
+        return NULL;
+    
+    XmlElement* node = NULL;
+    for( auto it = _children.begin(); it != _children.end(); ++it )
+    {
+        node = (*it)->tagWithText( tagName,phrase );
+        if ( node != NULL )
+            break;
+    }
+    return node;
 }
 
 string
@@ -107,6 +160,8 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
     // need to declare before case switch
     string name;    
     XmlElement* child;
+
+//TODO -- does not build correctly from 10k of IBM
 
     while ( ! tok.atEnd() )
     {
@@ -211,10 +266,23 @@ Parser::titleInfo(XmlElement* tree){
     cout << "\n Title text is : " << titleText << endl; 
     
     // get units
-    string units = "Bil";
+    string units(MILL);
+    boost::regex pattern ("In Thousands");
+    if (boost::regex_search(titleText, pattern) )
+        units = THOU;
+    pattern = "In Millions";
+    if (boost::regex_search(titleText, pattern) )
+        units = MILL;
+    pattern = "In Billions";
+    if (boost::regex_search(titleText, pattern) )
+        units = BILL;
     rInfo.push_back(units);
+
     // get currency
     string currency = "USD";
+    pattern = "USD";
+    if (!boost::regex_search(titleText, pattern) )
+        currency = "OTHER";
     rInfo.push_back(currency);
     
     // get dates
@@ -228,9 +296,8 @@ Parser::titleInfo(XmlElement* tree){
 
     for(; mit != mEnd; ++mit)
     {
-        for(size_t i = 0 ; i < mit->size() ; ++i)
-            cout << "\n Match " << to_string(i) << " is : " << (*mit)[i].str() << endl;
-
+        //    for(size_t i = 0 ; i < mit->size() ; ++i)
+            //   cout << "\n Match " << to_string(i) << " is : " << (*mit)[i].str() << endl;
         // returns the YEAR
         rInfo.push_back( (*mit)[3].str() );
     }
@@ -251,5 +318,90 @@ XmlElement::getNodes(string tagName,
 
     for(auto it = _children.begin() ; it != _children.end() ; ++it)
         (*it)->getNodes(tagName, number, collected);
+}
 
+
+vector<string>
+Parser::getRevenues(XmlElement* tree)
+{
+    string trTitle("Total revenue");
+    return getTrByName(tree, trTitle);
+}
+
+vector<string> 
+Parser::getIncs(XmlElement* tree){
+    string trTitle("Net income");
+    return getTrByName(tree, trTitle);
+}
+
+vector<float> 
+Parser::getEps(XmlElement* tree){
+    string trTitle("(diluted|dilution)");
+    vector<float> retVec;
+    vector<string> epsStrings = getTrByName(tree, trTitle);
+
+    for(auto it = epsStrings.begin(); it != epsStrings.end(); ++it)
+    {
+        string clean = removeNonDigit( *it );
+        retVec.push_back( stof(clean) );
+    }
+    return retVec;
+}
+
+
+vector<string> 
+Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
+
+    string tagName("tr");
+    XmlElement* dataLine = tree->tagWithText(tagName,trTitlePattern);
+    string dataText = dataLine->text();
+
+    cout << " \n Data line text is : " << dataText << endl;
+
+    boost::regex pattern("(\\()?(\\d+)([,.]?\\d+)?(,?)(\\d+)?(\\))?");
+    boost::sregex_iterator mit(dataText.begin(), dataText.end(), pattern);
+    boost::sregex_iterator mEnd;
+
+    vector<string> retVals;
+    for(; mit != mEnd; ++mit)
+    {
+        string matchString = (*mit)[0].str();
+        string cleanMatch = removeNonDigit( matchString );
+        cout << "\n Adding extracted val : " << cleanMatch << endl;
+        retVals.push_back( cleanMatch );
+    }
+    return retVals;
+}
+
+
+string 
+Parser::extractLatest10kAcn(string& page)
+{
+    string startSearchS("<div id=\"seriesDiv");
+    string openTag("<table");
+    string closeTag("<\table");
+    size_t startPos = page.find(startSearchS,0);
+    startPos = page.find(openTag, startPos);
+    size_t endPos = page.find(closeTag, startPos);
+    string table = page.substr( startPos, (endPos-startPos) );
+
+    cout << " Parsing out from string - \n" << table.substr(0,300) << endl;
+
+    XmlElement* tree = buildXmlTree(table);
+    string tagName("td");
+    string ar("Annual report");
+    XmlElement* tr = tree->tagWithText(tagName,ar);
+
+    tr->printXmlTree(0);
+
+    boost::regex pattern("(\\d+-\\d\\d-\\d+)");
+    boost::smatch match;
+    boost::regex_search(tr->text(), match, pattern);
+//    cout << "\n Found text : " << tr->text() << endl;
+
+    string acn = match[0]; 
+    cout << "\n Found in it acn  : " << acn << endl;
+   
+    //
+    return acn;
 }

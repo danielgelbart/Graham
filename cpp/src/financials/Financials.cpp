@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/date_time/gregorian/gregorian.hpp>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,39 +14,16 @@
 #include "Logger.h"
 #include "types.h"
 
+
+#include "T_Stock.hpp"
+#include "T_Ep.hpp"
+
 #include "Financials.h"
 
 using namespace std;
+using namespace DMMM;
+using namespace boost::gregorian;
 
-
-
-void
-printXmlTree(XmlElement* node, size_t depth)
-{
-    for(size_t i = 0; i < depth; ++i)
-        cout << "  ";
-    
-    cout << "< " << node->_tagName; 
-
-    if ( node->_attributes.empty() )
-        cout << " (no attrs) ";
-    else
-    {
-        cout << " Has attrs: \n";
-        for(auto it = node->_attributes.begin(); 
-            it != node->_attributes.end(); ++it)
-            cout << "\t" << it->first << " = " << it->second << endl;
-    }
-    for(size_t i = 0; i < depth+1; ++i)
-        cout << "  ";
-    if ( node->_text == "" )
-        cout << " Contains no text" << endl;
-    else
-        cout << " Content is: " << node->_text << endl;
-
-    for( auto it = node->_children.begin(); it != node->_children.end(); ++it )
-        printXmlTree( *it, (depth+1) );
-}
 
 void
 EdgarData::downloadAndSave10k(Url& url, Info& info)
@@ -56,7 +34,7 @@ EdgarData::downloadAndSave10k(Url& url, Info& info)
 }
 
 void
-EdgarData::downloadToString(Url& url, Info& info, string& rContent)
+EdgarData::downloadToString(Url& url, string& rContent)
 {
     // add tests for failure to retrieve?
     mHttpClient.httpGet(url.fullAddr(), "text/html", rContent);
@@ -75,39 +53,81 @@ EdgarData::downloadAndSave(Url& url, Info& info, const path& writeDest)
     write_to_disk(rContent, infoString, writeDest);
 }
 
+string
+EdgarData::getLastYear10KAcn( O_Stock& stock)
+{
+    string cik( to_string(stock._cik()) );
+    string uri = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=10-k&dateb=&owner=exclude&count=40";
+    Url url = Url(uri);
+//    Info info( stock._ticker(), last_year, StatementType::K10) ;
+    string page;
+    downloadToString( url, page);
+    Parser parser;
+    string acn = parser.extractLatest10kAcn(page);
+
+    cout << " \n Got acn : " << acn << endl;
+    return acn;
+}
+
+
+
 /*
 Download the latest available 10-k for a specific ticker
 save only the extracted financial statments to disk
 */
 void 
-EdgarData::updateFinancials(){
-    LOG_INFO << "updateFinancials method was called \n";
-
+EdgarData::updateFinancials(O_Stock& stock)
+{
+    LOG_INFO << "updateFinancials method was called for " << stock._ticker() << "\n";
+    string cik = to_string( stock._cik() );
 // get current date
-    // check if last 4 quarters exist
-    // check if 10k is available
+    date today = day_clock::local_day();
+    greg_year last_year = today.year() - 1;
+
+// check if last years 10k exists
+    T_Ep t;
+    if (stock._eps( t._year() == last_year && 
+                    t._quarter() == 0 ).empty() )
+    {
+        cout << "\n Going to get last year 10k" << endl;
+        // Get last year 10k as well as 4th quarter
+        string acn10k = getLastYear10KAcn( stock );
+        string uri = "http://www.sec.gov/Archives/edgar/data/" +
+            cik + "/" + acn10k + ".txt";
+        Url url = Url(uri);
+//        Info info( stock._ticker(), last_year, StatementType::K10) ;
+        string k10text;
+//        downloadToString( url, k10text );
+//        extractFinantialStatementsToDisk( k10text, info );
+//        parseStatementsToDB();
+    }
+    else
+        cout << "\n No need to download" << endl;
+    // try to get last 4 (3) quarters
+    
+    // retrive last four (3) avavilbel on edgar
+    // iterate over - if not exist : add
+
+
+
 // open interned connection and download 
 
 //* 4th quarter needs to be retrieved from 10-k 
-    Info info;   
-    info.ticker = "IBM";
-    info.year = 2013; // get from current time
-    info.type = StatementType::K10;
-        
+          
     // IBM 10-q 2nd 2014
     // string uri("http://www.sec.gov/Archives/edgar/data/51143/000005114314000007/0000051143-14-000007.txt");
 
     // IBM 2013 10-k
-    string uri("http://www.sec.gov/Archives/edgar/data/51143/000104746914001302/0001047469-14-001302.txt");
+//    string uri("http://www.sec.gov/Archives/edgar/data/51143/000104746914001302/0001047469-14-001302.txt");
     //string info("IBM_10-q_2nd_2014");
     
-    Url url = Url(uri);
+//    Url url = Url(uri);
 //    downloadAndSave10k(url, info);
 
     //replace with:
-    string k10;
-    downloadToString( url, info, k10 );
-    extractFinantialStatementsToDisk( k10, info );
+//    string k10;
+//    downloadToString( url, k10 );
+//    extractFinantialStatementsToDisk( k10, info );
 }
 
 // Shoud be extract finantial statments from 10-k dump file down load
@@ -138,17 +158,25 @@ EdgarData::extractFinantialStatementsToDisk(string& k10, Info& info){
     }
 }
 
+O_Stock
+getStock(string ticker)
+{
+    T_Stock ta;
+    return ta.select( ta._ticker() == ticker ).front();
+}
+
+
 void 
 EdgarData::parseStatementsToDB(){
-
-    string test_str = 
-        "<div> class=\"body\" style=\"padding: 2px;\">                                     <a>- Definition                                                                </a>                                                                           <div>                                                                            <p>The aggregate cost of goods produced and sold and services rendered during the reporting period.                                                           </p>                                                                         </div>                                                                         <a>+ References                                                                </a>                                                                           <div style=\"display: none;\">                                                   <p>Reference 1: http://www.xbrl.org/2003/role/presentationRef<br>ticle 5<br><br><br><br>                                                                      </p>                                                                         </div>                                                                       </div>";
-
-
+ 
     // load file from disk into string
     string incomeFilePath( FINANCIALS_PATH );
     incomeFilePath += "/IBM/IBM_2013_income.txt";
     string incomeFileStr = loadFileToString(incomeFilePath);
+
+    string ticker = "IBM";
+    T_Stock ta;
+    O_Stock stock =  ta.select( ta._ticker() == ticker ).front() ;
 
     Parser parser;    
     string incomeTableStr = parser.extractIncomeTableStr(incomeFileStr); 
@@ -166,22 +194,27 @@ EdgarData::parseStatementsToDB(){
         cout << "\n " << *it << endl;
 
     size_t colNum = tInfo.size() - 2; 
+    vector<size_t> years;
+
+    for( size_t i = 2; i < colNum; ++i)
+        years.push_back( stoi( tInfo[i] ) );
 
 //    cout << "Title text is: " << titleText << endl;
     // get years, end date, and order of columns
-    //vector<> dates = ;
-    //vector<>
-
-
-    //test
-    //printXmlTree(tree,0);
+  
+    vector<string> revenues = parser.getRevenues(tree);
+    vector<string> incs = parser.getIncs(tree);
+    vector<float> eps = parser.getEps(tree);
 
     for (size_t i = 0; i < colNum; ++i)
     {
-        // O_Ep incomeS;
-        // incomeS.year = years[i];
-        // incomeS.revenue = revs[i];
-        // incomeS.net_income = incs[i];
-        // incomeS.insert();
+        O_Ep incomeS( stock._id() );
+        incomeS._year() = years[i];
+        incomeS._revenue() = revenues[i];
+        incomeS._net_income() = incs[i];
+
+//        incomeS.insert();
+
+        //      cout << "\n inserted object " << incomeS._id() << endl;
     }    
 }

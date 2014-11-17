@@ -11,6 +11,8 @@
 #include "Logger.h"
 #include "dmmm_dbface.h"
 
+#include "T_Stock.hpp"
+
 #include "Financials.h"
 
 using namespace DMMM;
@@ -52,6 +54,12 @@ dirFor(const path& logDir)
     }
 }
 
+O_Stock
+findStockByTicker( string& ticker )
+{
+    T_Stock ts;
+    return ts.select( ts._ticker() == ticker ).front();
+}
 
 
 int
@@ -100,7 +108,9 @@ mainMain(int argc, char* argv[])
 // find rigt command to execute and call relavent comand methods
     if (command == string("update_financials")){
         EdgarData eData = EdgarData();
-        eData.updateFinancials();
+        string ticker("IBM");
+        O_Stock stock = findStockByTicker( ticker );
+        eData.updateFinancials( stock );
     }
 // find rigt command to execute and call relavent comand methods
     if (command == string("xml")){
@@ -111,7 +121,8 @@ mainMain(int argc, char* argv[])
 // should be passed a ticker?
     if (command == string("update_10k")){
         EdgarData eData = EdgarData();
-        eData.updateFinancials();
+        string ticker("IBM");
+        //eData.updateFinancials( ticker );
     }
 
     if (command == string("")){

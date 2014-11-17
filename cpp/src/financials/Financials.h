@@ -3,9 +3,12 @@
 
 #include <boost/filesystem.hpp>   
 #include "HttpClient.h"
+
+#include "O_Stock.hpp"
 #include "info.h"
 
 using namespace boost::filesystem;
+using namespace DMMM;
 
 #define FINANCIALS_PATH "../../financials"
 
@@ -15,13 +18,15 @@ public:
         mHttpClient(std::string("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"))
         {}
     
-    void updateFinancials();
+    void updateFinancials(O_Stock& stock);
     void extractFinantialStatementsToDisk(string& k10, Info& info);
     void parseStatementsToDB();
 
 private:
+    string getLastYear10KAcn(O_Stock& stock);
+
     void downloadAndSave10k(Url& url, Info& info);
-    void downloadToString(Url& url, Info& info, string& rContent);
+    void downloadToString(Url& url, string& rContent);
     void downloadAndSave(Url& url, Info& info, const path& writeDest);
 
 private:
