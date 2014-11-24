@@ -1,6 +1,7 @@
 Financials.o Financials.d : financials/Financials.cpp include/Parser.h \
  include/../parser/Parser.h include/../parser/types.h \
- include/../parser/Tokenizer.h include/Url.h include/../html/Url.h \
+ include/../parser/Tokenizer.h include/info.h \
+ include/../financials/Info.h include/Url.h include/../html/Url.h \
  utils/Logger.h utils/Utils.hpp utils/Identifier.h include/types.h \
  include/../parser/types.h dmmm/T_Stock.hpp dmmm/O_Stock.hpp \
  dmmm/dmmm_utils.hpp dmmm/dmmm_id.hpp dmmm/dmmm_dbface.h \
@@ -31,5 +32,4 @@ Financials.o Financials.d : financials/Financials.cpp include/Parser.h \
  dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp \
  dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp \
  dmmm/O_BalanceSheet.hpp dmmm/T_Ep.hpp financials/Financials.h \
- include/HttpClient.h include/../utils/HttpClient.h dmmm/O_Stock.hpp \
- include/info.h include/../financials/Info.h
+ include/HttpClient.h include/../utils/HttpClient.h dmmm/O_Stock.hpp

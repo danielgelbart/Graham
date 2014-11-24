@@ -2,15 +2,18 @@
 #define FINANCIALS_H
 
 #include <boost/filesystem.hpp>   
+#include <boost/date_time/gregorian/gregorian.hpp>
 #include "HttpClient.h"
 
 #include "O_Stock.hpp"
 #include "info.h"
 
 using namespace boost::filesystem;
+using namespace boost::gregorian;
 using namespace DMMM;
 
 #define FINANCIALS_PATH "../../financials"
+
 
 class EdgarData {
 public:
@@ -19,6 +22,8 @@ public:
         {}
     
     void updateFinancials(O_Stock& stock);
+    void getQuarters(O_Stock& stock);
+
     void extractFinantialStatementsToDisk(string& k10, Info& info);
     void parseStatementsToDB();
 
@@ -33,5 +38,7 @@ private:
     HttpClient mHttpClient;
 
 };
+
+
 
 #endif //FINANCIALS_H

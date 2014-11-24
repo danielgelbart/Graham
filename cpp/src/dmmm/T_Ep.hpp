@@ -161,6 +161,19 @@ public:
     static E_quarter _quarter(){ 
         return E_quarter();
     }
+    struct E_report_date{
+        E_report_date() 
+        {  
+            _field = "eps.report_date";
+        }
+        std::string _field;
+        typedef T_Ep::Condition ConditionType;
+        typedef F_Time::Base ComparerType;
+    };
+
+    static E_report_date _report_date(){ 
+        return E_report_date();
+    }
     
 
     std::vector<std::string> getFields()
@@ -177,6 +190,7 @@ public:
         ret.push_back("revenue");
         ret.push_back("net_income");
         ret.push_back("quarter");
+        ret.push_back("report_date");
         return ret;
     }
 
@@ -211,6 +225,8 @@ public:
                 UTILS::fromString<F_String::Base>(res[i]["net_income"]);
             ret[i]._f_quarter._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["quarter"]);
+            ret[i]._f_report_date._base =
+                UTILS::fromString<F_Time::Base>(res[i]["report_date"]);
         }
         return ret;
     }
@@ -299,6 +315,9 @@ public:
         
 
         fields.push_back(std::string("quarter"));
+        
+
+        fields.push_back(std::string("report_date"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Ep& r = *begin;
@@ -321,6 +340,8 @@ public:
             row.push_back(toSQLString(r._net_income()));
             
             row.push_back(toSQLString(r._quarter()));
+            
+            row.push_back(toSQLString(r._report_date()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("eps",
@@ -391,6 +412,12 @@ public:
             if (it->_f_quarter._dirty){
                 fields.push_back(std::string("quarter"));
                 row.push_back(toSQLString(it->_quarter()));
+            }
+            
+
+            if (it->_f_report_date._dirty){
+                fields.push_back(std::string("report_date"));
+                row.push_back(toSQLString(it->_report_date()));
             }
             fields2Rows[fields].push_back(row);
 	}

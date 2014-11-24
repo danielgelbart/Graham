@@ -18,7 +18,7 @@ public:
 
     O_Numshare() {}
     O_Numshare(const I_Stock& parent_id) 
-    : _f_stock_id(parent_id)
+        : _f_stock_id(parent_id)
         {}
 
 O_Numshare(const I_Numshare& id) 

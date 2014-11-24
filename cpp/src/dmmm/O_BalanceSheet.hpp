@@ -18,7 +18,7 @@ public:
 
     O_BalanceSheet() {}
     O_BalanceSheet(const I_Stock& parent_id) 
-    : _f_stock_id(parent_id)
+        : _f_stock_id(parent_id)
         {}
 
 O_BalanceSheet(const I_BalanceSheet& id) 

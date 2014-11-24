@@ -6,6 +6,7 @@
 
 #include "types.h"
 #include "Tokenizer.h"
+#include "info.h"
 
 using namespace std;
 
@@ -26,11 +27,13 @@ public:
     string text();
     void printXmlTree(size_t depth);
 
+    XmlElement* firstNodebyName(string& tagName);
     XmlElement* tagWithText(string& tagName, string& phrase);
     void getNodes(string tagName, //with no leading or trailng whitespace 
                   size_t number, // the number of such xml elements to collect
                   vector<XmlElement*>* collected);
 
+    
 public: //members
     string              _tagName;
     vector<XmlElement*> _children;
@@ -50,6 +53,8 @@ public:
     string extractIncomeTableStr(string& incomeStr);
 
     string extractLatest10kAcn(string& page);
+    vector<Acn*> getQuarterAcns(string& page);
+    Acn* trToAcn( XmlElement* tr );
 
 
     vector<string> titleInfo(XmlElement* tree);
@@ -61,6 +66,7 @@ private:
 
     XmlTokenType tokenType( string& xml);
     vector<string> getTrByName(XmlElement* tree, string& trTitlePattern);
+    XmlElement* edgarResultsTableToTree(string& page);
 
 // members
 

@@ -26,13 +26,15 @@ XmlElement::printXmlTree(size_t depth)
             it != _attributes.end(); ++it)
             cout << "\t" << it->first << " = " << it->second << endl;
     }
-*/
+
     for(size_t i = 0; i < depth+1; ++i)
         cout << "  ";
+
+*/
     if ( _text == "" )
-        cout << " Contains no text" << endl;
+        cout << " \t Contains no text" << endl;
     else
-        cout << " Content is: " << _text << endl;
+        cout << " \t Content is: " << _text << endl;
 
     for( auto it = _children.begin(); it != _children.end(); ++it )
         (*it)->printXmlTree( depth+1);
@@ -68,6 +70,21 @@ void
 XmlElement::addText( string& xml )
 {
     _text += xml;
+}
+
+XmlElement* 
+XmlElement::firstNodebyName(string& tagName ){
+    if ( _tagName == tagName )
+        return this;
+   
+    XmlElement* node = NULL;
+    for( auto it = _children.begin(); it != _children.end(); ++it )
+    {
+        node = (*it)->firstNodebyName( tagName );
+        if (node != NULL)
+            return node;
+    }
+    return NULL;
 }
 
 XmlElement* 
@@ -113,6 +130,7 @@ Parser::tokenType( string& xml)
     boost::regex blank_string("\\s+");
 
     if ( ( xml == "<br>") ||
+         ( xml.substr(0,4) == "<!--")    ||
          ( boost::regex_match(xml, blank_string) ) )
         return XmlTokenType::IGNORE;
     
@@ -166,7 +184,7 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
     while ( ! tok.atEnd() )
     {
         xml_token = tok.xmlNextTok();
-        //       cout << "\n procesing token: " << xml_token << endl;
+        cout << "\n procesing token: " << xml_token << endl;
 
         switch ( tokenType(xml_token) )
         {
@@ -186,6 +204,7 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
             continue;
 
         case XmlTokenType::IGNORE :
+            //cout << "<- IGNORE token" << endl;
             continue;
 
         default :
@@ -373,13 +392,13 @@ Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
     return retVals;
 }
 
-
-string 
-Parser::extractLatest10kAcn(string& page)
+XmlElement*
+Parser::edgarResultsTableToTree(string& page)
 {
     string startSearchS("<div id=\"seriesDiv");
+
     string openTag("<table");
-    string closeTag("<\table");
+    string closeTag("</table");
     size_t startPos = page.find(startSearchS,0);
     startPos = page.find(openTag, startPos);
     size_t endPos = page.find(closeTag, startPos);
@@ -388,6 +407,15 @@ Parser::extractLatest10kAcn(string& page)
     cout << " Parsing out from string - \n" << table.substr(0,300) << endl;
 
     XmlElement* tree = buildXmlTree(table);
+    return tree;
+}
+
+
+string 
+Parser::extractLatest10kAcn(string& page)
+{
+    XmlElement* tree = edgarResultsTableToTree( page );
+
     string tagName("td");
     string ar("Annual report");
     XmlElement* tr = tree->tagWithText(tagName,ar);
@@ -401,7 +429,67 @@ Parser::extractLatest10kAcn(string& page)
 
     string acn = match[0]; 
     cout << "\n Found in it acn  : " << acn << endl;
-   
-    //
     return acn;
 }
+
+// return NULL on failure
+Acn*
+Parser::trToAcn( XmlElement* tr )
+{
+    if ( tr->_tagName != "tr" )
+        return NULL;    
+
+    string text = tr->text();
+
+    boost::regex acn_pattern("(\\d+-\\d\\d-\\d+)");
+    boost::smatch match1;
+    boost::regex_search(text, match1, acn_pattern);
+    if (match1.empty() )
+    {
+        cout << "\n Could not extract acn from tr with text: " << text << endl;
+        return NULL;
+    }
+
+    string acn = match1[0];
+
+    boost::regex date_pattern("(\\d\\d\\d\\d-\\d\\d-\\d\\d)");
+    boost::smatch match;
+    boost::regex_search(text, match, date_pattern);
+    
+    date report_date( from_string( match[0] ) );
+
+    Acn* acn_rec = new Acn( acn, report_date, 1);
+    acn_rec->set_quarter_from_date();
+
+    return acn_rec;
+}
+
+vector<Acn*> 
+Parser::getQuarterAcns(string& page)
+{
+    vector<Acn*> acns;
+    date today = day_clock::local_day();
+    greg_year last_year = today.year() - 1;
+
+    XmlElement* tree = edgarResultsTableToTree( page );
+
+    cout <<  "\n Built tree: " << endl;
+    tree->printXmlTree(0);
+
+
+    string tagName("tbody");
+    XmlElement* tbody = tree->firstNodebyName( tagName );
+
+    // iterate over all rows (trs)
+    for(auto it = tbody->_children.begin() ; it != tbody->_children.end(); ++it)
+        if ( (*it)->_tagName == "tr" )
+        {
+            Acn* acn = trToAcn( *it );
+            if ( acn->_report_date.year() < last_year )
+                break;
+            acns.push_back( acn );
+        }
+    return acns;
+}
+
+

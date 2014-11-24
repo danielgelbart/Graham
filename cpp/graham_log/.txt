@@ -1,16 +1,12 @@
-2014-Nov-17 17:42:17Logger up
+2014-Nov-24 17:50:41Logger up
 
-2014-Nov-17 17:42:17 INFO 5MB PID 128 Main.cpp:mainMain() --- Analysing data 0.0
-2014-Nov-17 17:42:17 INFO 5MB PID 128 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
-2014-Nov-17 17:42:17 INFO 6MB PID 128 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2014-Nov-17 17:42:17 INFO 6MB PID 128 HttpClient.cpp:HttpClient() --- Got curl handle 0x1ea9730
-2014-Nov-17 17:42:17 INFO 6MB PID 128 HttpClient.cpp:HttpClient() --- Using default interface17:42:17 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.fiscal_year_end,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik FROM stocks WHERE stocks.ticker = 'IBM'
+2014-Nov-24 17:50:41 INFO 5MB PID  40 Main.cpp:mainMain() --- Analysing data 0.0
+2014-Nov-24 17:50:41 INFO 5MB PID  40 Main.cpp:mainMain() --- Command line arguments: ../bin/graham
+2014-Nov-24 17:50:41 INFO 6MB PID  40 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2014-Nov-24 17:50:41 INFO 6MB PID  40 HttpClient.cpp:HttpClient() --- Got curl handle 0x13cd730
+2014-Nov-24 17:50:41 INFO 6MB PID  40 HttpClient.cpp:HttpClient() --- Using default interface17:50:41 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.fiscal_year_end,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik FROM stocks WHERE stocks.ticker = 'IBM'
 
-2014-Nov-17 17:42:17 INFO 6MB PID 128 Financials.cpp:updateFinancials() --- updateFinancials method was called for IBM
-17:42:17 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter FROM eps WHERE ((eps.year = '2013') AND (eps.quarter = '0')) AND (((eps.year = '2013') AND (eps.quarter = '0')) AND (eps.stock_id = '827'))
+2014-Nov-24 17:50:41 INFO 6MB PID  40 Financials.cpp:updateFinancials() --- updateFinancials method was called for IBM
 
-2014-Nov-17 17:42:17 INFO 7MB PID 128 HttpClient.cpp:httpGet() --- GETing https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=51143&type=10-k&dateb=&owner=exclude&count=40
-2014-Nov-17 17:42:17 INFO 7MB PID 128 HttpClient.cpp:escapeUrl() --- actual get string: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=51143&type=10-k&dateb=&owner=exclude&count=40
-2014-Nov-17 17:42:18 INFO 8MB PID 128 HttpClient.cpp:~HttpClient() --- shutting down httpclient
-2014-Nov-17 17:42:18 INFO 8MB PID 128 Main.cpp:mainMain() --- deleting Config
-2014-Nov-17 17:42:18 INFO 8MB PID 128 Main.cpp:mainMain() --- Last log message: deleting Logger
+2014-Nov-24 17:50:41 INFO 7MB PID  40 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=51143&type=10-q&dateb=&owner=exclude&count=40
+2014-Nov-24 17:50:41 INFO 7MB PID  40 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=51143&type=10-q&dateb=&owner=exclude&count=40

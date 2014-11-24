@@ -18,7 +18,7 @@ public:
 
     O_Dividend() {}
     O_Dividend(const I_Stock& parent_id) 
-    : _f_stock_id(parent_id)
+        : _f_stock_id(parent_id)
         {}
 
 O_Dividend(const I_Dividend& id) 

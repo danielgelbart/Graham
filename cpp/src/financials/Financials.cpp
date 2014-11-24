@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem/fstream.hpp>
-#include <boost/date_time/gregorian/gregorian.hpp>
+
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,8 +22,6 @@
 
 using namespace std;
 using namespace DMMM;
-using namespace boost::gregorian;
-
 
 void
 EdgarData::downloadAndSave10k(Url& url, Info& info)
@@ -69,6 +67,27 @@ EdgarData::getLastYear10KAcn( O_Stock& stock)
     return acn;
 }
 
+void
+EdgarData::getQuarters(O_Stock& stock)
+{
+    // get back to Q1 LAST year
+    Parser parser;
+    string cik( to_string(stock._cik()) );
+    string page;
+    string uri = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=10-q&dateb=&owner=exclude&count=40";
+    Url url = Url(uri);
+    downloadToString( url, page);
+
+    vector<Acn*> qAcns = parser.getQuarterAcns( page );
+    
+    cout << "\n Retrived acn quartryly data as follows :\n" << endl;
+
+    for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
+        cout << "\n Acn: " << (*it)->_acn << " date: " << 
+            (*it)->_report_date << " quartr: " << (*it)->_quarter << endl;
+    // for each do -
+
+}    
 
 
 /*
@@ -84,6 +103,11 @@ EdgarData::updateFinancials(O_Stock& stock)
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
+
+// for testing porpuses
+    getQuarters( stock );
+    
+
 // check if last years 10k exists
     T_Ep t;
     if (stock._eps( t._year() == last_year && 
@@ -95,39 +119,20 @@ EdgarData::updateFinancials(O_Stock& stock)
         string uri = "http://www.sec.gov/Archives/edgar/data/" +
             cik + "/" + acn10k + ".txt";
         Url url = Url(uri);
-//        Info info( stock._ticker(), last_year, StatementType::K10) ;
+        Info info( stock._ticker(), last_year, StatementType::K10) ;
         string k10text;
-//        downloadToString( url, k10text );
-//        extractFinantialStatementsToDisk( k10text, info );
-//        parseStatementsToDB();
+        downloadToString( url, k10text );
+        extractFinantialStatementsToDisk( k10text, info );
+        parseStatementsToDB();
+
+        getQuarters( stock );
+//        createFourthQfrom10k( stock );
     }
     else
         cout << "\n No need to download" << endl;
-    // try to get last 4 (3) quarters
-    
-    // retrive last four (3) avavilbel on edgar
-    // iterate over - if not exist : add
 
+    // Get all 10-q from this year
 
-
-// open interned connection and download 
-
-//* 4th quarter needs to be retrieved from 10-k 
-          
-    // IBM 10-q 2nd 2014
-    // string uri("http://www.sec.gov/Archives/edgar/data/51143/000005114314000007/0000051143-14-000007.txt");
-
-    // IBM 2013 10-k
-//    string uri("http://www.sec.gov/Archives/edgar/data/51143/000104746914001302/0001047469-14-001302.txt");
-    //string info("IBM_10-q_2nd_2014");
-    
-//    Url url = Url(uri);
-//    downloadAndSave10k(url, info);
-
-    //replace with:
-//    string k10;
-//    downloadToString( url, k10 );
-//    extractFinantialStatementsToDisk( k10, info );
 }
 
 // Shoud be extract finantial statments from 10-k dump file down load
@@ -156,7 +161,13 @@ EdgarData::extractFinantialStatementsToDisk(string& k10, Info& info){
             write_to_disk(it->second, infoString, fileDest);
         }
     }
+    
+    // Cretate fourth quarter from 10k - 3 x 10q
+
 }
+
+
+
 
 O_Stock
 getStock(string ticker)
