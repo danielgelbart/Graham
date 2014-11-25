@@ -80,7 +80,7 @@ EdgarData::getQuarters(O_Stock& stock)
 
     vector<Acn*> qAcns = parser.getQuarterAcns( page );
     
-    cout << "\n Retrived acn quartryly data as follows :\n" << endl;
+    cout << "\n Retrived acn quartryly data as follows :" << endl;
 
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
         cout << "\n Acn: " << (*it)->_acn << " date: " << 

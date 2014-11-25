@@ -32,10 +32,10 @@ struct Acn {
             if ( secondQ.contains( _report_date) )
                 _quarter = 1;
             date_period thirdQ( date(year,Jul,1), date(year,Sep,30) );
-            if ( secondQ.contains( _report_date) )
+            if ( thirdQ.contains( _report_date) )
                 _quarter = 2;
             date_period fourthQ( date(year,Oct,1), date(year,Dec,31) );
-            if ( secondQ.contains( _report_date) )
+            if ( fourthQ.contains( _report_date) )
                 _quarter = 3;
         }
 // members

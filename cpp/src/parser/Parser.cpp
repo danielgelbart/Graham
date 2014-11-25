@@ -129,7 +129,8 @@ Parser::tokenType( string& xml)
 {
     boost::regex blank_string("\\s+");
 
-    if ( ( xml == "<br>") ||
+    if ( ( xml == "<br>")       ||
+         ( xml == "<br />")     ||
          ( xml.substr(0,4) == "<!--")    ||
          ( boost::regex_match(xml, blank_string) ) )
         return XmlTokenType::IGNORE;
@@ -441,10 +442,11 @@ Parser::trToAcn( XmlElement* tr )
 
     string text = tr->text();
 
+    cout << "\n Going to convert tr tag : \n" << text << "\n to acn object" << endl;
+
     boost::regex acn_pattern("(\\d+-\\d\\d-\\d+)");
     boost::smatch match1;
-    boost::regex_search(text, match1, acn_pattern);
-    if (match1.empty() )
+    if (! boost::regex_search(text, match1, acn_pattern) )
     {
         cout << "\n Could not extract acn from tr with text: " << text << endl;
         return NULL;
@@ -452,10 +454,10 @@ Parser::trToAcn( XmlElement* tr )
 
     string acn = match1[0];
 
-    boost::regex date_pattern("(\\d\\d\\d\\d-\\d\\d-\\d\\d)");
+    boost::regex date_pattern("(\\s\\d\\d\\d\\d-\\d\\d-\\d\\d\\s)");
     boost::smatch match;
     boost::regex_search(text, match, date_pattern);
-    
+
     date report_date( from_string( match[0] ) );
 
     Acn* acn_rec = new Acn( acn, report_date, 1);
@@ -471,20 +473,18 @@ Parser::getQuarterAcns(string& page)
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
-    XmlElement* tree = edgarResultsTableToTree( page );
+    XmlElement* table = edgarResultsTableToTree( page );
 
-    cout <<  "\n Built tree: " << endl;
-    tree->printXmlTree(0);
-
-
-    string tagName("tbody");
-    XmlElement* tbody = tree->firstNodebyName( tagName );
+    string tagName("table");
+    table = table->firstNodebyName( tagName );
 
     // iterate over all rows (trs)
-    for(auto it = tbody->_children.begin() ; it != tbody->_children.end(); ++it)
+    for(auto it = table->_children.begin() ; it != table->_children.end(); ++it)
         if ( (*it)->_tagName == "tr" )
         {
             Acn* acn = trToAcn( *it );
+            if (acn == NULL)
+                continue;
             if ( acn->_report_date.year() < last_year )
                 break;
             acns.push_back( acn );
