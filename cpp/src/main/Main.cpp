@@ -112,17 +112,12 @@ mainMain(int argc, char* argv[])
         O_Stock stock = findStockByTicker( ticker );
         eData.updateFinancials( stock );
     }
-// find rigt command to execute and call relavent comand methods
-    if (command == string("xml")){
-        EdgarData eData = EdgarData();
-        eData.parseStatementsToDB();
-
-    }
 // should be passed a ticker?
-    if (command == string("update_10k")){
+    if (command == string("get_quarters")){
         EdgarData eData = EdgarData();
         string ticker("IBM");
-        //eData.updateFinancials( ticker );
+        O_Stock stock = findStockByTicker( ticker );
+        eData.getQuarters( stock );
     }
 
     if (command == string("")){

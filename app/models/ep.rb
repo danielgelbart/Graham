@@ -19,6 +19,7 @@ class Ep < ActiveRecord::Base
 
   belongs_to :stock
 
+  # validate uniquness of year And quarter in stock_id scope
   validates_uniqueness_of :year, :scope => :stock_id
   validates_presence_of :stock_id
 

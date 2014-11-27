@@ -104,6 +104,9 @@ Tokenizer::findFilingSummary()
     bool FLfound(false);
     for (auto rit = _doc_poses.rbegin(); rit!= _doc_poses.rend(); ++rit)
     {
+
+        cout << "\n Handling doc" << _text.substr( *rit, 350) << endl;
+
         if (_text.find(filingString,*rit) != string::npos)
         {       
             FLfound = true;
@@ -112,8 +115,10 @@ Tokenizer::findFilingSummary()
             break;
         }           
     }                      
-    if (!FLfound){
+    if (!FLfound)
+    {
         LOG_ERROR << "Could NOT locate FilingSummary\n" ;
+        return "";
     }
 
     string delimiter("<DOCUMENT>");

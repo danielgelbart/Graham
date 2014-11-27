@@ -41,7 +41,7 @@ struct Acn {
 // members
     string _acn;
     date _report_date;
-    size_t _quarter;
+    int _quarter;
 };
 
 

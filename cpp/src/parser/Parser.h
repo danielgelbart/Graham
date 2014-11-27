@@ -41,6 +41,18 @@ public: //members
     string              _text;
 }; // end class XmlElement
 
+class Iterator {
+public:
+    Iterator(XmlElement* node): _node(node), _i(0){}
+    
+    XmlElement* nextTr();
+
+private:
+    //members   
+    XmlElement* _node;
+    size_t _i;
+}; // class iterator
+
 class Parser {
 public:
     Parser() {}
@@ -50,17 +62,26 @@ public:
 
     void extract_reports(string& k10, 
                          map<ReportType,string>* extract_reports);
+    string extract_quarterly_income(string& page);
+
     string extractIncomeTableStr(string& incomeStr);
 
     string extractLatest10kAcn(string& page);
     vector<Acn*> getQuarterAcns(string& page);
     Acn* trToAcn( XmlElement* tr );
 
-
+    void parseQuarterlyIncomeStatment(XmlElement* tree, 
+                                 string& units, string& currency,
+                                 string& revenue, string& income, 
+                                 double& eps);
+    string getUnitsAndCurrency(XmlElement* tree, 
+                             string& units, string& currency);
+    
     vector<string> titleInfo(XmlElement* tree);
     vector<string> getRevenues(XmlElement* tree);
     vector<string> getIncs(XmlElement* tree);
     vector<float> getEps(XmlElement* tree);
+    double getQarterEps(XmlElement* tree);
 
 private:
 

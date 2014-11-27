@@ -40,6 +40,22 @@ XmlElement::printXmlTree(size_t depth)
         (*it)->printXmlTree( depth+1);
 }
 
+XmlElement*
+Iterator::nextTr()
+{
+    size_t num_children = _node->_children.size();
+    if ( _i >= num_children )
+        return NULL;
+
+    while ( _node->_children[_i]->_tagName != "tr")
+    {
+        _i = _i + 1;
+        if ( _i >= num_children )
+            return NULL;
+    }
+    _i = _i + 1;
+    return _node->_children[_i-1];
+}
 
 void
 XmlElement::addChild( XmlElement* child )
@@ -265,8 +281,31 @@ Parser::extract_reports(string& k10,
 
 
 string 
+Parser::extract_quarterly_income(string& page)
+{
+    Tokenizer tokenizer(page);
+    string filingSummary = tokenizer.findFilingSummary();
+
+    Tokenizer filingSummaryTok(filingSummary);
+    auto reports = new map<ReportType,string>;
+    filingSummaryTok.getReportDocNames(reports);
+
+    //extract INCOME statement from dump file
+    string retIncRep("");
+    string reportKey;
+    ReportType reportType = ReportType::INCOME;
+    if ( (reports->find(reportType)) != reports->end() )
+    {   
+        reportKey = reports->find(reportType)->second;
+        string docString = "<FILENAME>"+reportKey;
+        retIncRep = tokenizer.findDoc(docString);
+    }
+    return retIncRep;
+}
+
+
+string 
 Parser::extractIncomeTableStr(string& incomeStr){
-    
     string openTab("<table");
     string closeTab("</table");
     size_t startPos = incomeStr.find(openTab, 0);
@@ -274,35 +313,16 @@ Parser::extractIncomeTableStr(string& incomeStr){
     return incomeStr.substr( startPos , (endPos-startPos) );
 }
 
+
 vector<string> 
 Parser::titleInfo(XmlElement* tree){
     vector<string> rInfo;       
-    vector<XmlElement*>* elements = new vector<XmlElement*>;
-    string tagName("tr");
-    tree->getNodes(tagName, 2, elements);
+    string units;
+    string currency;
  
-    string titleText  = (*elements)[0]->text() + (*elements)[1]->text() ;
-    
-    cout << "\n Title text is : " << titleText << endl; 
-    
-    // get units
-    string units(MILL);
-    boost::regex pattern ("In Thousands");
-    if (boost::regex_search(titleText, pattern) )
-        units = THOU;
-    pattern = "In Millions";
-    if (boost::regex_search(titleText, pattern) )
-        units = MILL;
-    pattern = "In Billions";
-    if (boost::regex_search(titleText, pattern) )
-        units = BILL;
-    rInfo.push_back(units);
+    string titleText = getUnitsAndCurrency( tree, units, currency );
 
-    // get currency
-    string currency = "USD";
-    pattern = "USD";
-    if (!boost::regex_search(titleText, pattern) )
-        currency = "OTHER";
+    rInfo.push_back(units);
     rInfo.push_back(currency);
     
     // get dates
@@ -310,9 +330,7 @@ Parser::titleInfo(XmlElement* tree){
     boost::sregex_iterator mit(titleText.begin(), titleText.end(), datePat);
     boost::sregex_iterator mEnd;
 
-
     // TODO - get fiscal year end date??
-
 
     for(; mit != mEnd; ++mit)
     {
@@ -323,6 +341,56 @@ Parser::titleInfo(XmlElement* tree){
     }
 
     return rInfo;
+}
+
+string
+Parser::getUnitsAndCurrency(XmlElement* tree, 
+                            string& units, string& currency)
+{
+    vector<XmlElement*>* elements = new vector<XmlElement*>;
+    string tagName("tr");
+    tree->getNodes(tagName, 2, elements);
+ 
+    string titleText  = (*elements)[0]->text() + (*elements)[1]->text() ;
+    
+    cout << "\n Title text is : " << titleText << endl; 
+    
+    // get units
+    boost::regex pattern ("In Thousands");
+    if (boost::regex_search(titleText, pattern) )
+        units = THOU;
+    pattern = "In Millions";
+    if (boost::regex_search(titleText, pattern) )
+        units = MILL;
+    pattern = "In Billions";
+    if (boost::regex_search(titleText, pattern) )
+        units = BILL;
+
+    // get currency
+    pattern = "USD";
+    if (!boost::regex_search(titleText, pattern) )
+        currency = "OTHER";
+    currency = "USD";    
+
+    return titleText;
+}
+
+void
+Parser::parseQuarterlyIncomeStatment(XmlElement* tree, 
+                                     string& units, string& currency,
+                                     string& revenue, string& income, 
+                                     double& eps)
+{
+    getUnitsAndCurrency( tree, units, currency );
+
+    // get rev, inc, eps        
+    revenue = removeNonDigit( getRevenues(tree).front() ) + units;
+    income = removeNonDigit( getIncs(tree).front() ) + units;
+    eps = getQarterEps(tree);
+    
+    cout << "\n Got income data: rev = " << revenue
+         << "; inc = " << income << "; eps = " << to_string(eps) << endl;
+
 }
 
 void
@@ -362,12 +430,52 @@ Parser::getEps(XmlElement* tree){
 
     for(auto it = epsStrings.begin(); it != epsStrings.end(); ++it)
     {
-        string clean = removeNonDigit( *it );
-        retVec.push_back( stof(clean) );
+        //string clean = removeNonDigit( *it );
+        retVec.push_back( stof(*it) );
     }
     return retVec;
 }
 
+double
+Parser::getQarterEps(XmlElement* tree)
+{
+
+    cout << "\n Going to retrieve diluted eps for quarter" << endl;
+    double retEps(0);
+    // find correct eps BLOCK in tree
+  
+    string tagName("table");
+    XmlElement* tab = tree->firstNodebyName(tagName);
+    Iterator iter(tab);
+    XmlElement* tr;
+    // advance up to relavent block
+    while ( (tr = iter.nextTr()) != NULL)
+    {
+        boost::regex block_pattern("(Assuming dilution)");
+        boost::smatch match1;
+        if ( boost::regex_search(tr->text(), match1, block_pattern) )
+        {
+            cout << "\n Found block : \n" << tr->text() << endl;
+            break;
+        }
+    }
+    // find diluted - n
+    while ( (tr = iter.nextTr()) != NULL)
+    {
+        boost::regex eps_pattern("(Total \\(in dollars per share\\))");
+        boost::smatch match2;
+        if ( boost::regex_search(tr->text(), match2, eps_pattern) )
+        {
+            cout << "\n Found eps in : \n" << tr->text() << endl;
+            boost::regex dig_pat("\\d+.(\\d+)?");
+            boost::smatch match3;
+            boost::regex_search(tr->text(), match3, dig_pat);
+            retEps = stof( match3[0] );
+            break;
+        }
+    }
+    return retEps;
+}
 
 vector<string> 
 Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
@@ -478,7 +586,6 @@ Parser::getQuarterAcns(string& page)
     string tagName("table");
     table = table->firstNodebyName( tagName );
 
-    // iterate over all rows (trs)
     for(auto it = table->_children.begin() ; it != table->_children.end(); ++it)
         if ( (*it)->_tagName == "tr" )
         {

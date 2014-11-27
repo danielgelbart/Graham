@@ -112,7 +112,8 @@ removeNonDigit(string& str)
     for ( auto it = str.begin() ; it != str.end() ; ++it)
     {
 //        string singleChar( *it );
-        if ( ((*it) - '0') > 9 ) //boost::regex_match( singleChar, digitPat) ) 
+        if ( ((*it - '0') > 9)  ||
+             ((*it - '0') < 0) ) //boost::regex_match( singleChar, digitPat) ) 
             continue;
         ret += *it;
     }

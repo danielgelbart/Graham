@@ -22,10 +22,15 @@ public:
         {}
     
     void updateFinancials(O_Stock& stock);
+
     void getQuarters(O_Stock& stock);
 
-    void extractFinantialStatementsToDisk(string& k10, Info& info);
-    void parseStatementsToDB();
+
+    void extract10kToDisk(string& k10, O_Stock& stock, Info& info);
+    void addAnualIncomeStatmentToDB(string& incomeFileStr, 
+                                    O_Stock& stock, Info& info);
+    void addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock);
+
 
 private:
     string getLastYear10KAcn(O_Stock& stock);
@@ -33,6 +38,8 @@ private:
     void downloadAndSave10k(Url& url, Info& info);
     void downloadToString(Url& url, string& rContent);
     void downloadAndSave(Url& url, Info& info, const path& writeDest);
+
+    bool insertEp( O_Ep& ep );
 
 private:
     HttpClient mHttpClient;

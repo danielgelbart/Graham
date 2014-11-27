@@ -1,23 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem/fstream.hpp>
-
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-
 #include "Parser.h"
 #include "Url.h"
-
 #include "Logger.h"
 #include "types.h"
-
-
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
-
 #include "Financials.h"
 
 using namespace std;
@@ -34,17 +27,13 @@ EdgarData::downloadAndSave10k(Url& url, Info& info)
 void
 EdgarData::downloadToString(Url& url, string& rContent)
 {
-    // add tests for failure to retrieve?
     mHttpClient.httpGet(url.fullAddr(), "text/html", rContent);
 }
-
 
 void
 EdgarData::downloadAndSave(Url& url, Info& info, const path& writeDest)
 {
     string rContent; // will hold the returned text
-
-    // add tests for failure to retrieve?
     mHttpClient.httpGet(url.fullAddr(), "text/html", rContent);
 
     string infoString( info.ticker + "_" + to_string(info.year) );
@@ -67,6 +56,16 @@ EdgarData::getLastYear10KAcn( O_Stock& stock)
     return acn;
 }
 
+bool
+stock_contains_acn(O_Stock& stock, Acn& acn)
+{
+    for (auto it = stock._eps().begin() ; it != stock._eps().end(); ++it )
+        if ( it->_year()    == acn._report_date.year() &&
+             it->_quarter() == acn._quarter )
+            return true;
+    return false;
+}
+
 void
 EdgarData::getQuarters(O_Stock& stock)
 {
@@ -79,16 +78,86 @@ EdgarData::getQuarters(O_Stock& stock)
     downloadToString( url, page);
 
     vector<Acn*> qAcns = parser.getQuarterAcns( page );
-    
-    cout << "\n Retrived acn quartryly data as follows :" << endl;
-
+ 
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
-        cout << "\n Acn: " << (*it)->_acn << " date: " << 
+    {
+        cout << "\n Going to get Acn: " << (*it)->_acn << " date: " << 
             (*it)->_report_date << " quartr: " << (*it)->_quarter << endl;
-    // for each do -
-
+        
+        if ( ! stock_contains_acn( stock, *(*it) ) )
+            addQuarterIncomeStatmentToDB( *(*it), stock );
+    }  
 }    
 
+void
+EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
+{
+ 
+    string cik( to_string(stock._cik()) );
+    string uri("http://www.sec.gov/Archives/edgar/data/");
+    uri += cik + "/" + acn._acn + ".txt";
+    Url url = Url(uri);
+    string page;
+    
+    // check for 404
+    downloadToString( url, page );
+
+    Parser parser = Parser();
+    string incomeStr = parser.extract_quarterly_income(page);
+
+    incomeStr = parser.extractIncomeTableStr( incomeStr );
+    XmlElement* tree = parser.buildXmlTree(incomeStr);
+
+    string units;
+    string currency;
+    string revenue;
+    string income;
+    double eps;
+    parser.parseQuarterlyIncomeStatment(tree, units, currency,
+                                        revenue, income, eps);
+    O_Ep incomeS( stock._id() );
+    incomeS._year() = acn._report_date.year();
+    incomeS._revenue() = revenue;
+    incomeS._net_income() = income;
+    incomeS._eps() = eps;
+    incomeS._quarter() = acn._quarter;
+    incomeS._source() = "edgar.com";
+    cout << " \n Going to insert to DB!" << endl;
+    if ( ! insertEp( incomeS ) )
+        cout << "\n Could not add earnings for quarter" << acn._quarter << "to DB" << endl;
+
+}
+
+bool
+EdgarData::insertEp( O_Ep& ep )
+{
+    // check that ep is valid
+    if ( (ep._stock_id() <= 0 )         || 
+         (ep._year() < greg_year(2012)) ||
+         (ep._quarter() > 4 )           ||
+         (ep._quarter() < 0 )           ||
+         (ep._revenue() <= 0 )          )
+        return false;
+
+    T_Stock ta;
+    I_Stock stock_id( ep._stock_id() );
+    pair<O_Stock, bool> spair = ta.select( stock_id );
+    if (!spair.second)
+        return false;
+   
+    O_Stock stock = spair.first;
+   
+    // check if it already exits in DB
+    string dummy("dummy "); 
+    date dd( ep._year(),Jan,1);
+    Acn acn( dummy, dd, ep._quarter() );
+    if ( stock_contains_acn( stock, acn ) )
+        return false;
+
+    // insert
+    ep.insert();
+    return true;
+}
 
 /*
 Download the latest available 10-k for a specific ticker
@@ -103,10 +172,9 @@ EdgarData::updateFinancials(O_Stock& stock)
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
-
+    
 // for testing porpuses
     getQuarters( stock );
-    
 
 // check if last years 10k exists
     T_Ep t;
@@ -114,19 +182,21 @@ EdgarData::updateFinancials(O_Stock& stock)
                     t._quarter() == 0 ).empty() )
     {
         cout << "\n Going to get last year 10k" << endl;
-        // Get last year 10k as well as 4th quarter
         string acn10k = getLastYear10KAcn( stock );
         string uri = "http://www.sec.gov/Archives/edgar/data/" +
             cik + "/" + acn10k + ".txt";
         Url url = Url(uri);
-        Info info( stock._ticker(), last_year, StatementType::K10) ;
         string k10text;
         downloadToString( url, k10text );
-        extractFinantialStatementsToDisk( k10text, info );
-        parseStatementsToDB();
+        Info info( stock._ticker(), last_year, StatementType::K10) ;
+        extract10kToDisk( k10text, stock, info);
 
         getQuarters( stock );
+
 //        createFourthQfrom10k( stock );
+
+
+
     }
     else
         cout << "\n No need to download" << endl;
@@ -135,13 +205,8 @@ EdgarData::updateFinancials(O_Stock& stock)
 
 }
 
-// Shoud be extract finantial statments from 10-k dump file down load
-// Pass path to downloaded file
 void
-EdgarData::extractFinantialStatementsToDisk(string& k10, Info& info){
-
-    path fileDest = FINANCIALS_PATH / info.ticker;
-    string fileNameStr = info.ticker + "_" + to_string(info.year) + "_";
+EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
 
     Parser parser = Parser();
     auto extracted_reports = new map<ReportType,string>;
@@ -152,43 +217,19 @@ EdgarData::extractFinantialStatementsToDisk(string& k10, Info& info){
     {
         if (it->first == ReportType::INCOME)
         {
-            string infoString(fileNameStr+"income.txt");
-            write_to_disk(it->second, infoString, fileDest);
+            addAnualIncomeStatmentToDB(it->second, stock, info);
         }
         if (it->first == ReportType::BALANCE)
         {
-            string infoString(fileNameStr+"balance.txt");
-            write_to_disk(it->second, infoString, fileDest);
+            //addBalanceStatmentToDB(it->second, info);
         }
     }
-    
-    // Cretate fourth quarter from 10k - 3 x 10q
-
 }
-
-
-
-
-O_Stock
-getStock(string ticker)
-{
-    T_Stock ta;
-    return ta.select( ta._ticker() == ticker ).front();
-}
-
 
 void 
-EdgarData::parseStatementsToDB(){
- 
-    // load file from disk into string
-    string incomeFilePath( FINANCIALS_PATH );
-    incomeFilePath += "/IBM/IBM_2013_income.txt";
-    string incomeFileStr = loadFileToString(incomeFilePath);
-
-    string ticker = "IBM";
-    T_Stock ta;
-    O_Stock stock =  ta.select( ta._ticker() == ticker ).front() ;
-
+EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr, 
+                                      O_Stock& stock, 
+                                      Info& info){
     Parser parser;    
     string incomeTableStr = parser.extractIncomeTableStr(incomeFileStr); 
     
@@ -224,6 +265,8 @@ EdgarData::parseStatementsToDB(){
         incomeS._revenue() = revenues[i];
         incomeS._net_income() = incs[i];
 
+
+// insertIncomeSTtoDB( incomeS );
 //        incomeS.insert();
 
         //      cout << "\n inserted object " << incomeS._id() << endl;
