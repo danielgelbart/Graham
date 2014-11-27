@@ -451,7 +451,7 @@ Parser::getQarterEps(XmlElement* tree)
     // advance up to relavent block
     while ( (tr = iter.nextTr()) != NULL)
     {
-        boost::regex block_pattern("(Assuming dilution)");
+        boost::regex block_pattern("(Assuming dilution|Earnings per share of common stock)");
         boost::smatch match1;
         if ( boost::regex_search(tr->text(), match1, block_pattern) )
         {
@@ -462,7 +462,7 @@ Parser::getQarterEps(XmlElement* tree)
     // find diluted - n
     while ( (tr = iter.nextTr()) != NULL)
     {
-        boost::regex eps_pattern("(Total \\(in dollars per share\\))");
+        boost::regex eps_pattern("(Total \\(in dollars per share\\)|dilution)");
         boost::smatch match2;
         if ( boost::regex_search(tr->text(), match2, eps_pattern) )
         {

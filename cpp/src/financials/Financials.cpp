@@ -59,7 +59,8 @@ EdgarData::getLastYear10KAcn( O_Stock& stock)
 bool
 stock_contains_acn(O_Stock& stock, Acn& acn)
 {
-    for (auto it = stock._eps().begin() ; it != stock._eps().end(); ++it )
+    vector<O_Ep> epss = stock._eps();
+    for (auto it = epss.begin() ; it != epss.end(); ++it )
         if ( it->_year()    == acn._report_date.year() &&
              it->_quarter() == acn._quarter )
             return true;
@@ -85,7 +86,10 @@ EdgarData::getQuarters(O_Stock& stock)
             (*it)->_report_date << " quartr: " << (*it)->_quarter << endl;
         
         if ( ! stock_contains_acn( stock, *(*it) ) )
+        {
+            cout << "\n Stock does not have this data yet" << endl;
             addQuarterIncomeStatmentToDB( *(*it), stock );
+        }
     }  
 }    
 
@@ -122,6 +126,7 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
     incomeS._eps() = eps;
     incomeS._quarter() = acn._quarter;
     incomeS._source() = "edgar.com";
+    incomeS._report_date() = acn._report_date.year();
     cout << " \n Going to insert to DB!" << endl;
     if ( ! insertEp( incomeS ) )
         cout << "\n Could not add earnings for quarter" << acn._quarter << "to DB" << endl;
@@ -136,7 +141,7 @@ EdgarData::insertEp( O_Ep& ep )
          (ep._year() < greg_year(2012)) ||
          (ep._quarter() > 4 )           ||
          (ep._quarter() < 0 )           ||
-         (ep._revenue() <= 0 )          )
+         (ep._revenue() == "")          )
         return false;
 
     T_Stock ta;
