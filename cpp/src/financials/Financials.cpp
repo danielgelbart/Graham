@@ -96,7 +96,6 @@ EdgarData::getQuarters(O_Stock& stock)
 void
 EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
 {
- 
     string cik( to_string(stock._cik()) );
     string uri("http://www.sec.gov/Archives/edgar/data/");
     uri += cik + "/" + acn._acn + ".txt";
@@ -130,7 +129,6 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
     cout << " \n Going to insert to DB!" << endl;
     if ( ! insertEp( incomeS ) )
         cout << "\n Could not add earnings for quarter" << acn._quarter << "to DB" << endl;
-
 }
 
 bool
@@ -138,7 +136,8 @@ EdgarData::insertEp( O_Ep& ep )
 {
     // check that ep is valid
     if ( (ep._stock_id() <= 0 )         || 
-         (ep._year() < greg_year(2012)) ||
+         (ep._year() < greg_year(1980)) ||
+         (ep._year() > greg_year(2020)) ||
          (ep._quarter() > 4 )           ||
          (ep._quarter() < 0 )           ||
          (ep._revenue() == "")          )
@@ -164,6 +163,50 @@ EdgarData::insertEp( O_Ep& ep )
     return true;
 }
 
+void
+EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
+{
+    T_Ep t;
+    vector<O_Ep> incs = stock._eps( t._year() == year );
+
+    if ( incs.size() != 4 )
+    {
+        //LOG_ERROR << " " << endl;
+        return;
+    }
+
+    long revp(0);
+    long incp(0);
+    //float epsp(0);
+    long numshares(1);
+    for ( auto it = incs.begin(); it != incs.end(); ++it)
+    {
+        if ( it->_quarter() == 0 )
+        {
+            revp += stol( it->_revenue() );
+            incp += stol( it->_net_income() );
+            //epsp += it->_eps();
+            numshares = stol( it->_shares() );
+            continue;
+        }
+        revp -= stol( it->_revenue() );
+        incp -= stol( it->_net_income() );
+        //epsp -= it->_eps();
+    }
+    
+    O_Ep fourth( stock._id());    
+    fourth._year() = year;
+    fourth._quarter() = 4;
+    fourth._revenue() = to_string( revp );
+    fourth._net_income() = to_string( incp );
+    fourth._eps() = ((double)incp) / numshares;
+    fourth._source() = "calculated";
+    
+    cout << "\n created fourth quarter with rev: " << to_string(revp) << " inc = " << to_string( incp ) << endl;
+    if ( ! insertEp( fourth ) )
+        cout << "\n Could not add calculated forth quarter" << endl;
+}
+
 /*
 Download the latest available 10-k for a specific ticker
 save only the extracted financial statments to disk
@@ -177,8 +220,6 @@ EdgarData::updateFinancials(O_Stock& stock)
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
-    
-// for testing porpuses
     getQuarters( stock );
 
 // check if last years 10k exists
@@ -196,18 +237,10 @@ EdgarData::updateFinancials(O_Stock& stock)
         Info info( stock._ticker(), last_year, StatementType::K10) ;
         extract10kToDisk( k10text, stock, info);
 
-        getQuarters( stock );
-
-//        createFourthQfrom10k( stock );
-
-
-
+        createFourthQuarter( stock, last_year );
     }
     else
         cout << "\n No need to download" << endl;
-
-    // Get all 10-q from this year
-
 }
 
 void
@@ -222,58 +255,63 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
     {
         if (it->first == ReportType::INCOME)
         {
-            addAnualIncomeStatmentToDB(it->second, stock, info);
+            addAnualIncomeStatmentToDB(it->second, stock);
         }
         if (it->first == ReportType::BALANCE)
         {
-            //addBalanceStatmentToDB(it->second, info);
+            addBalanceStatmentToDB(it->second, stock);
         }
     }
 }
 
 void 
 EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr, 
-                                      O_Stock& stock, 
-                                      Info& info){
+                                      O_Stock& stock)
+{
     Parser parser;    
     string incomeTableStr = parser.extractIncomeTableStr(incomeFileStr); 
     
     // extract table into xml tree
     XmlElement* tree = parser.buildXmlTree(incomeTableStr);
-    
-    // returns
-    // tInfo[0] - units (bil or mil)
-    // tInfo[1] - currency
-    // tInfo[2,3,4..] years for wich data is given
-    vector<string> tInfo = parser.titleInfo(tree);
 
-    for(auto it = tInfo.begin(); it != tInfo.end(); ++it)
-        cout << "\n " << *it << endl;
-
-    size_t colNum = tInfo.size() - 2; 
-    vector<size_t> years;
-
-    for( size_t i = 2; i < colNum; ++i)
-        years.push_back( stoi( tInfo[i] ) );
-
-//    cout << "Title text is: " << titleText << endl;
-    // get years, end date, and order of columns
-  
+    string units;
+    string currency;
+    vector<size_t> years = parser.titleInfo(tree,units,currency);
     vector<string> revenues = parser.getRevenues(tree);
     vector<string> incs = parser.getIncs(tree);
-    vector<float> eps = parser.getEps(tree);
+    vector<float> eps = parser.getAnualEps(tree);
+    vector<string> shares = parser.getNumShares(tree,units);
 
-    for (size_t i = 0; i < colNum; ++i)
+    for (size_t i = 0; i < years.size(); ++i)
     {
         O_Ep incomeS( stock._id() );
         incomeS._year() = years[i];
-        incomeS._revenue() = revenues[i];
-        incomeS._net_income() = incs[i];
-
-
-// insertIncomeSTtoDB( incomeS );
-//        incomeS.insert();
-
-        //      cout << "\n inserted object " << incomeS._id() << endl;
+        incomeS._quarter() = 0;    
+        incomeS._revenue() = revenues[i] + units;
+        incomeS._net_income() = incs[i] + units;
+        incomeS._eps() = eps[i];
+        incomeS._shares() = shares[i];
+        incomeS._source() = "edgar.com";
+        cout << " \n Going to insert to DB!" << endl;
+        if ( ! insertEp( incomeS ) )
+            cout << "\n Could not add earnings for year" << to_string(years[i]) << "to DB" << endl;
     }    
+}
+
+void
+EdgarData::addBalanceStatmentToDB(string& incomeFileStr, 
+                                  O_Stock& stock)
+{
+// #  current_assets      :string(255)
+//#  total_assets        :string(255)
+//#  current_liabilities :string(255)
+//#  total_liabilities   :string(255)
+//#  long_term_debt      :string(255)
+//#  net_tangible_assets :string(255)
+//-calculate:
+//#  book_value          :string(255)
+
+
+
+
 }

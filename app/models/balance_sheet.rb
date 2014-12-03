@@ -14,8 +14,8 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  net_tangible_assets :string(255)
-#  total_sales         :string(255)
-#  quarter             :integer(4)      default(0)
+#  // total_sales         :string(255)
+#  // quarter             :integer(4)      default(0)
 #
 
 class BalanceSheet < ActiveRecord::Base
@@ -26,7 +26,7 @@ class BalanceSheet < ActiveRecord::Base
   validates_uniqueness_of :year, :scope => :stock_id
 
   include CommonDefs
-  
+
   def equity
     sum_to_i(total_assets) - sum_to_i(total_liabilities)
   end
@@ -71,10 +71,10 @@ class BalanceSheet < ActiveRecord::Base
   def sales
     translate_to_int(self.total_sales)
   end
-  
+
   def current_ratio
     return nil if translate_to_int(self.current_liabilities).nil? || translate_to_int(self.current_assets).nil?
-    translate_to_int(self.current_assets).to_f / translate_to_int(self.current_liabilities).to_f 
+    translate_to_int(self.current_assets).to_f / translate_to_int(self.current_liabilities).to_f
   end
 
 

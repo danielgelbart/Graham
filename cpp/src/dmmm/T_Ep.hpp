@@ -174,6 +174,19 @@ public:
     static E_report_date _report_date(){ 
         return E_report_date();
     }
+    struct E_shares{
+        E_shares() 
+        {  
+            _field = "eps.shares";
+        }
+        std::string _field;
+        typedef T_Ep::Condition ConditionType;
+        typedef F_String::Base ComparerType;
+    };
+
+    static E_shares _shares(){ 
+        return E_shares();
+    }
     
 
     std::vector<std::string> getFields()
@@ -191,6 +204,7 @@ public:
         ret.push_back("net_income");
         ret.push_back("quarter");
         ret.push_back("report_date");
+        ret.push_back("shares");
         return ret;
     }
 
@@ -227,6 +241,8 @@ public:
                 UTILS::fromString<F_Fixnum::Base>(res[i]["quarter"]);
             ret[i]._f_report_date._base =
                 UTILS::fromString<F_Time::Base>(res[i]["report_date"]);
+            ret[i]._f_shares._base =
+                UTILS::fromString<F_String::Base>(res[i]["shares"]);
         }
         return ret;
     }
@@ -318,6 +334,9 @@ public:
         
 
         fields.push_back(std::string("report_date"));
+        
+
+        fields.push_back(std::string("shares"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Ep& r = *begin;
@@ -342,6 +361,8 @@ public:
             row.push_back(toSQLString(r._quarter()));
             
             row.push_back(toSQLString(r._report_date()));
+            
+            row.push_back(toSQLString(r._shares()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("eps",
@@ -418,6 +439,12 @@ public:
             if (it->_f_report_date._dirty){
                 fields.push_back(std::string("report_date"));
                 row.push_back(toSQLString(it->_report_date()));
+            }
+            
+
+            if (it->_f_shares._dirty){
+                fields.push_back(std::string("shares"));
+                row.push_back(toSQLString(it->_shares()));
             }
             fields2Rows[fields].push_back(row);
 	}

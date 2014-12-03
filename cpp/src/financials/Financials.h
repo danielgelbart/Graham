@@ -22,15 +22,13 @@ public:
         {}
     
     void updateFinancials(O_Stock& stock);
-
     void getQuarters(O_Stock& stock);
 
-
     void extract10kToDisk(string& k10, O_Stock& stock, Info& info);
-    void addAnualIncomeStatmentToDB(string& incomeFileStr, 
-                                    O_Stock& stock, Info& info);
+    void addAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock);
+    void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock);
     void addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock);
-
+    void createFourthQuarter(O_Stock& stock, size_t year);
 
 private:
     string getLastYear10KAcn(O_Stock& stock);

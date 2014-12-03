@@ -32,7 +32,6 @@ public:
     void getNodes(string tagName, //with no leading or trailng whitespace 
                   size_t number, // the number of such xml elements to collect
                   vector<XmlElement*>* collected);
-
     
 public: //members
     string              _tagName;
@@ -63,9 +62,7 @@ public:
     void extract_reports(string& k10, 
                          map<ReportType,string>* extract_reports);
     string extract_quarterly_income(string& page);
-
     string extractIncomeTableStr(string& incomeStr);
-
     string extractLatest10kAcn(string& page);
     vector<Acn*> getQuarterAcns(string& page);
     Acn* trToAcn( XmlElement* tr );
@@ -77,11 +74,13 @@ public:
     string getUnitsAndCurrency(XmlElement* tree, 
                              string& units, string& currency);
     
-    vector<string> titleInfo(XmlElement* tree);
+    vector<size_t> titleInfo(XmlElement* tree, string& units, string& currency);
     vector<string> getRevenues(XmlElement* tree);
     vector<string> getIncs(XmlElement* tree);
-    vector<float> getEps(XmlElement* tree);
+    vector<float> getAnualEps(XmlElement* tree);
     double getQarterEps(XmlElement* tree);
+    vector<string> getNumShares(XmlElement* tree, string& bunits);
+
 
 private:
 

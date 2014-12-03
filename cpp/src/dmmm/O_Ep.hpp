@@ -103,6 +103,13 @@ O_Ep(const I_Ep& id)
         _f_report_date._dirty = true; 
         return _f_report_date._base; 
     }
+    const F_String::Base& _shares() const { 
+        return _f_shares._base; 
+    }
+    F_String::Base& _shares() { 
+        _f_shares._dirty = true; 
+        return _f_shares._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -139,6 +146,9 @@ O_Ep(const I_Ep& id)
         if (_f_report_date._dirty)
             field2Val["report_date"] = 
                 toSQLString(_f_report_date._base);
+        if (_f_shares._dirty)
+            field2Val["shares"] = 
+                toSQLString(_f_shares._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("eps", 
@@ -155,6 +165,7 @@ O_Ep(const I_Ep& id)
             _f_net_income._dirty = false;
             _f_quarter._dirty = false;
             _f_report_date._dirty = false;
+            _f_shares._dirty = false;
             return true;
         }
         else
@@ -196,6 +207,9 @@ O_Ep(const I_Ep& id)
         if (_f_report_date._dirty)
             field2Val["report_date"] = 
                 toSQLString(_f_report_date._base);
+        if (_f_shares._dirty)
+            field2Val["shares"] = 
+                toSQLString(_f_shares._base);
 
         
         if (DBFace::instance()->
@@ -213,6 +227,7 @@ O_Ep(const I_Ep& id)
             _f_net_income._dirty = false;
             _f_quarter._dirty = false;
             _f_report_date._dirty = false;
+            _f_shares._dirty = false;
             return true;
         }
         else
@@ -231,6 +246,7 @@ private:
     F_String _f_net_income;
     F_Fixnum _f_quarter;
     F_Time _f_report_date;
+    F_String _f_shares;
 
     friend class T_Ep;
 };

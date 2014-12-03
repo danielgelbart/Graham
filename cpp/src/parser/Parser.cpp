@@ -201,7 +201,7 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
     while ( ! tok.atEnd() )
     {
         xml_token = tok.xmlNextTok();
-        cout << "\n procesing token: " << xml_token << endl;
+        //cout << "\n procesing token: " << xml_token << endl;
 
         switch ( tokenType(xml_token) )
         {
@@ -314,17 +314,12 @@ Parser::extractIncomeTableStr(string& incomeStr){
 }
 
 
-vector<string> 
-Parser::titleInfo(XmlElement* tree){
-    vector<string> rInfo;       
-    string units;
-    string currency;
- 
+vector<size_t> 
+Parser::titleInfo(XmlElement* tree, string& units, string& currency)
+{
     string titleText = getUnitsAndCurrency( tree, units, currency );
 
-    rInfo.push_back(units);
-    rInfo.push_back(currency);
-    
+    vector<size_t> years;    
     // get dates
     boost::regex datePat("(\\w\\w\\w). (\\d+)?, (\\d+)?");
     boost::sregex_iterator mit(titleText.begin(), titleText.end(), datePat);
@@ -336,11 +331,10 @@ Parser::titleInfo(XmlElement* tree){
     {
         //    for(size_t i = 0 ; i < mit->size() ; ++i)
             //   cout << "\n Match " << to_string(i) << " is : " << (*mit)[i].str() << endl;
-        // returns the YEAR
-        rInfo.push_back( (*mit)[3].str() );
+        string yearStr = (*mit)[3].str();
+        years.push_back( stoi(yearStr) );
     }
-
-    return rInfo;
+    return years;
 }
 
 string
@@ -353,7 +347,7 @@ Parser::getUnitsAndCurrency(XmlElement* tree,
  
     string titleText  = (*elements)[0]->text() + (*elements)[1]->text() ;
     
-    cout << "\n Title text is : " << titleText << endl; 
+    //cout << "\n Title text is : " << titleText << endl; 
     
     // get units
     boost::regex pattern ("In Thousands");
@@ -390,7 +384,6 @@ Parser::parseQuarterlyIncomeStatment(XmlElement* tree,
     
     cout << "\n Got income data: rev = " << revenue
          << "; inc = " << income << "; eps = " << to_string(eps) << endl;
-
 }
 
 void
@@ -422,24 +415,101 @@ Parser::getIncs(XmlElement* tree){
     return getTrByName(tree, trTitle);
 }
 
-vector<float> 
-Parser::getEps(XmlElement* tree){
-    string trTitle("(diluted|dilution)");
-    vector<float> retVec;
-    vector<string> epsStrings = getTrByName(tree, trTitle);
+vector<string>
+Parser::getNumShares(XmlElement* tree, string& bunits)
+{
+    cout << "\n Going to retrieve num shares" << endl;
+    vector<string> shares;
+    string units("");
 
-    for(auto it = epsStrings.begin(); it != epsStrings.end(); ++it)
+    // find correct eps BLOCK in tree
+    string tagName("table");
+    XmlElement* tab = tree->firstNodebyName(tagName);
+    Iterator iter(tab);
+    XmlElement* tr;
+
+    boost::regex u_pattern("\\(in (\\w+)\\)|(millions)\\)", boost::regex::icase);
+      
+    // advance up to relavent block
+    while ( (tr = iter.nextTr()) != NULL)
     {
-        //string clean = removeNonDigit( *it );
-        retVec.push_back( stof(*it) );
+        boost::regex block_pattern("(shares outstanding)", boost::regex::icase);
+        boost::smatch match1;
+        if ( boost::regex_search(tr->text(), match1, block_pattern) )
+        {
+            cout << "\n Found Num shares block : \n" << tr->text() << endl;
+            // check for units
+            if ( boost::regex_search(tr->text(), match1, u_pattern) )
+            {
+                units =  match1[1].str();
+                cout << "Units are " << units << endl;
+            }
+            break;
+        }
     }
-    return retVec;
+    // find diluted - n
+    while ( (tr = iter.nextTr()) != NULL)
+    {
+        boost::regex dil_pattern("(dilution)");
+        boost::smatch match2;
+        string text = tr->text();
+        if ( boost::regex_search(text, match2, dil_pattern) )
+        {
+            cout << "\n Found num shares diluted  in : \n" << text << endl;
+
+            if ( boost::regex_search(text, match2, u_pattern) )
+            {
+                units =  match2[1].str();
+                cout << "Units (from line) are " << units << endl;
+            }
+
+            boost::regex dig_pat("[\\d,]+.?\\d+?");
+            boost::sregex_iterator mit(text.begin(), text.end(), dig_pat);
+            boost::sregex_iterator mEnd;
+            for(; mit != mEnd; ++mit)
+            {
+                string matchString = (*mit)[0].str();
+                string cleanMatch = removeNonDigit( matchString );
+                if ( units != "")
+                    //stod(matchString) * unitsToInt( units);
+                    ;
+                cout << "\n Adding extracted val : " << cleanMatch << endl;
+                shares.push_back( cleanMatch );
+            }
+    
+        }
+    }
+    return shares;
+}
+
+
+vector<float> 
+Parser::getAnualEps(XmlElement* tree){
+    string trTitle("(diluted|dilution)");
+    string tagName("tr");
+
+    XmlElement* dataLine = tree->tagWithText(tagName,trTitle);
+    string dataText = dataLine->text();
+
+//    cout << " \n Data line text is : " << dataText << endl;
+
+    boost::regex pattern("\\(?(\\d+)(.\\d+)?\\)?");
+    boost::sregex_iterator mit(dataText.begin(), dataText.end(), pattern);
+    boost::sregex_iterator mEnd;
+
+    vector<float> retVals;
+    for(; mit != mEnd; ++mit)
+    {
+        string val = (*mit)[0].str();
+        //      cout << "\n Adding extracted val : " << val << endl;
+        retVals.push_back( stof(val) );
+    }
+    return retVals;
 }
 
 double
 Parser::getQarterEps(XmlElement* tree)
 {
-
     cout << "\n Going to retrieve diluted eps for quarter" << endl;
     double retEps(0);
     // find correct eps BLOCK in tree
@@ -455,7 +525,7 @@ Parser::getQarterEps(XmlElement* tree)
         boost::smatch match1;
         if ( boost::regex_search(tr->text(), match1, block_pattern) )
         {
-            cout << "\n Found block : \n" << tr->text() << endl;
+            //cout << "\n Found block : \n" << tr->text() << endl;
             break;
         }
     }
@@ -466,7 +536,7 @@ Parser::getQarterEps(XmlElement* tree)
         boost::smatch match2;
         if ( boost::regex_search(tr->text(), match2, eps_pattern) )
         {
-            cout << "\n Found eps in : \n" << tr->text() << endl;
+//            cout << "\n Found eps in : \n" << tr->text() << endl;
             boost::regex dig_pat("\\d+.(\\d+)?");
             boost::smatch match3;
             boost::regex_search(tr->text(), match3, dig_pat);
@@ -484,7 +554,7 @@ Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
     XmlElement* dataLine = tree->tagWithText(tagName,trTitlePattern);
     string dataText = dataLine->text();
 
-    cout << " \n Data line text is : " << dataText << endl;
+    //cout << " \n Data line text is : " << dataText << endl;
 
     boost::regex pattern("(\\()?(\\d+)([,.]?\\d+)?(,?)(\\d+)?(\\))?");
     boost::sregex_iterator mit(dataText.begin(), dataText.end(), pattern);
@@ -495,7 +565,7 @@ Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
     {
         string matchString = (*mit)[0].str();
         string cleanMatch = removeNonDigit( matchString );
-        cout << "\n Adding extracted val : " << cleanMatch << endl;
+        //cout << "\n Adding extracted val : " << cleanMatch << endl;
         retVals.push_back( cleanMatch );
     }
     return retVals;
@@ -512,8 +582,6 @@ Parser::edgarResultsTableToTree(string& page)
     startPos = page.find(openTag, startPos);
     size_t endPos = page.find(closeTag, startPos);
     string table = page.substr( startPos, (endPos-startPos) );
-
-    cout << " Parsing out from string - \n" << table.substr(0,300) << endl;
 
     XmlElement* tree = buildXmlTree(table);
     return tree;
@@ -537,7 +605,7 @@ Parser::extractLatest10kAcn(string& page)
 //    cout << "\n Found text : " << tr->text() << endl;
 
     string acn = match[0]; 
-    cout << "\n Found in it acn  : " << acn << endl;
+//    cout << "\n Found in it acn  : " << acn << endl;
     return acn;
 }
 
@@ -549,8 +617,6 @@ Parser::trToAcn( XmlElement* tr )
         return NULL;    
 
     string text = tr->text();
-
-    cout << "\n Going to convert tr tag : \n" << text << "\n to acn object" << endl;
 
     boost::regex acn_pattern("(\\d+-\\d\\d-\\d+)");
     boost::smatch match1;
