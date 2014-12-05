@@ -3,12 +3,41 @@
 #include <iostream>
 #include <map>
 #include <boost/regex.hpp>
-
+#include <math.h>  
 #include "Utils.hpp"
 
 #include "Tokenizer.h"
 #include "Parser.h"
 
+long
+unitsToInt(string& units)
+{
+    units = toLower(units);
+    if ( units == "billions")
+        return 1000000000;
+    if ( units == "millions")
+        return 1000000;
+    if ( units == "thousands")
+        return 1000;
+    return 1;
+}
+
+size_t
+countDecimals(string& num)
+{
+    size_t pos = num.find('.',0);
+    if ( pos == string::npos )
+        return 0;
+
+    size_t num_dec(0);
+    for(size_t i = pos + 1 ; i < num.size() ; ++i)
+    {
+        if ( ((num.at(i) - '0') > 9) || ((num.at(i) - '0') < 0) )
+            break;
+        ++num_dec;
+    }
+    return num_dec;
+}
 void
 XmlElement::printXmlTree(size_t depth)
 {
@@ -373,7 +402,7 @@ void
 Parser::parseQuarterlyIncomeStatment(XmlElement* tree, 
                                      string& units, string& currency,
                                      string& revenue, string& income, 
-                                     double& eps)
+                                     double& eps, string& numshares)
 {
     getUnitsAndCurrency( tree, units, currency );
 
@@ -381,9 +410,10 @@ Parser::parseQuarterlyIncomeStatment(XmlElement* tree,
     revenue = removeNonDigit( getRevenues(tree).front() ) + units;
     income = removeNonDigit( getIncs(tree).front() ) + units;
     eps = getQarterEps(tree);
-    
+    numshares = getNumShares(tree, units)[0];
     cout << "\n Got income data: rev = " << revenue
-         << "; inc = " << income << "; eps = " << to_string(eps) << endl;
+         << "; inc = " << income << "; eps = " << to_string(eps) 
+         << " numshares " << numshares << endl;
 }
 
 void
@@ -428,7 +458,7 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
     Iterator iter(tab);
     XmlElement* tr;
 
-    boost::regex u_pattern("\\(in (\\w+)\\)|(millions)\\)", boost::regex::icase);
+    boost::regex u_pattern("(millions|thousands|billions)", boost::regex::icase);
       
     // advance up to relavent block
     while ( (tr = iter.nextTr()) != NULL)
@@ -441,7 +471,7 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
             // check for units
             if ( boost::regex_search(tr->text(), match1, u_pattern) )
             {
-                units =  match1[1].str();
+                units =  match1[0].str();
                 cout << "Units are " << units << endl;
             }
             break;
@@ -456,10 +486,11 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
         if ( boost::regex_search(text, match2, dil_pattern) )
         {
             cout << "\n Found num shares diluted  in : \n" << text << endl;
-
-            if ( boost::regex_search(text, match2, u_pattern) )
+            
+            if ( (units != "") &&
+                 (boost::regex_search(text, match2, u_pattern)) )
             {
-                units =  match2[1].str();
+                units =  match2[0].str();
                 cout << "Units (from line) are " << units << endl;
             }
 
@@ -469,14 +500,21 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
             for(; mit != mEnd; ++mit)
             {
                 string matchString = (*mit)[0].str();
+                size_t decimals = countDecimals( matchString );
+                cout << "\n Numshares extracted are: " << matchString << 
+                    " wich has " << to_string(decimals) << " decimals"<<endl;
                 string cleanMatch = removeNonDigit( matchString );
                 if ( units != "")
-                    //stod(matchString) * unitsToInt( units);
-                    ;
+                {
+                    cout<<"\n Units are "<<units<<" for " <<cleanMatch<<endl;
+                    long ns = stol(cleanMatch) * unitsToInt( units);
+                    if( decimals > 0)
+                        ns = ns / pow(10,decimals);
+                    cleanMatch = to_string( ns );
+                }
                 cout << "\n Adding extracted val : " << cleanMatch << endl;
                 shares.push_back( cleanMatch );
             }
-    
         }
     }
     return shares;

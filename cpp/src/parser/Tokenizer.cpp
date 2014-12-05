@@ -104,9 +104,7 @@ Tokenizer::findFilingSummary()
     bool FLfound(false);
     for (auto rit = _doc_poses.rbegin(); rit!= _doc_poses.rend(); ++rit)
     {
-
-        cout << "\n Handling doc" << _text.substr( *rit, 350) << endl;
-
+        //cout << "\n Handling doc" << _text.substr( *rit, 350) << endl;
         if (_text.find(filingString,*rit) != string::npos)
         {       
             FLfound = true;
@@ -200,12 +198,11 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
 
         // TODOcheck that name does NOT inclue (Parenthetical)
 
-        cout << "\nName: " << reportName << endl;
+        //cout << "\nName: " << reportName << endl;
         if (boost::regex_match(reportName, income_pattern))
             {
                 foundIncomeRep = true;
-                cout << "FOUND INCOME MATCH!!\n"<< reportName << endl;
-
+                //      cout << "FOUND INCOME MATCH!!\n"<< reportName << endl;
                 reports_map->insert( pair<ReportType,string>(
                                         ReportType::INCOME,
                                         readReportHtmlNameFromFS(report)) ); 
@@ -213,8 +210,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
         if (boost::regex_match(reportName, balance_pattern))
         {
             foundBalanceRep = true;
-            cout << "FOUND BALANCE MATCH!!\n"<< reportName << endl;
-
+//            cout << "FOUND BALANCE MATCH!!\n"<< reportName << endl;
             reports_map->insert( pair<ReportType,string>(
                                      ReportType::BALANCE,
                                      readReportHtmlNameFromFS(report)) ); 

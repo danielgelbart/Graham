@@ -7,10 +7,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/regex.hpp>
-
-
 #include "Utils.hpp"
-
 
 using namespace boost::filesystem;
 using namespace boost::algorithm;
@@ -112,8 +109,7 @@ removeNonDigit(string& str)
     for ( auto it = str.begin() ; it != str.end() ; ++it)
     {
 //       allow decimal point;
-        if ( (*it == '.')        || 
-             ((*it - '0') > 9)   ||
+        if ( ((*it - '0') > 9)   ||
              ((*it - '0') < 0) ) //boost::regex_match( singleChar, digitPat) ) 
             continue;
         ret += *it;

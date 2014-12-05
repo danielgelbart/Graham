@@ -116,16 +116,19 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
     string revenue;
     string income;
     double eps;
+    string numshares;
     parser.parseQuarterlyIncomeStatment(tree, units, currency,
-                                        revenue, income, eps);
+                                        revenue, income, eps, numshares);
     O_Ep incomeS( stock._id() );
     incomeS._year() = acn._report_date.year();
+    incomeS._quarter() = acn._quarter;
     incomeS._revenue() = revenue;
     incomeS._net_income() = income;
     incomeS._eps() = eps;
-    incomeS._quarter() = acn._quarter;
+    incomeS._shares() = numshares;
     incomeS._source() = "edgar.com";
     incomeS._report_date() = acn._report_date.year();
+
     cout << " \n Going to insert to DB!" << endl;
     if ( ! insertEp( incomeS ) )
         cout << "\n Could not add earnings for quarter" << acn._quarter << "to DB" << endl;
@@ -199,9 +202,9 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
     fourth._quarter() = 4;
     fourth._revenue() = to_string( revp );
     fourth._net_income() = to_string( incp );
+    fourth._shares() = to_string(numshares);
     fourth._eps() = ((double)incp) / numshares;
     fourth._source() = "calculated";
-    
     cout << "\n created fourth quarter with rev: " << to_string(revp) << " inc = " << to_string( incp ) << endl;
     if ( ! insertEp( fourth ) )
         cout << "\n Could not add calculated forth quarter" << endl;
@@ -224,7 +227,8 @@ EdgarData::updateFinancials(O_Stock& stock)
 
 // check if last years 10k exists
     T_Ep t;
-    if (stock._eps( t._year() == last_year && 
+
+    if (stock._eps( t._year() == last_year &&  
                     t._quarter() == 0 ).empty() )
     {
         cout << "\n Going to get last year 10k" << endl;
@@ -241,6 +245,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     }
     else
         cout << "\n No need to download" << endl;
+
 }
 
 void
