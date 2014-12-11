@@ -14,8 +14,8 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  net_tangible_assets :string(255)
-#  // total_sales         :string(255)
-#  // quarter             :integer(4)      default(0)
+#  total_sales         :string(255)
+#  quarter             :integer(4)      default(0)
 #
 
 class BalanceSheet < ActiveRecord::Base

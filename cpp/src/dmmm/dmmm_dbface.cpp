@@ -173,6 +173,19 @@ DBFace::erase(const vector<string>& tables,
     
 }
 
+bool 
+DBFace::erase(const std::string& table, 
+              const std::string& where)
+{
+    Query q = _connection.query();
+    q << "DELETE FROM " << table;
+    if (where.size())
+	q << " WHERE " << where;
+    log(q.str());
+    boost::mutex::scoped_lock lock(_mutex);
+    return executeQuery(q);
+}
+    
 
 bool
 DBFace::executeQuery(Query& q)

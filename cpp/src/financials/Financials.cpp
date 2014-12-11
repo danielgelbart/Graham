@@ -9,6 +9,7 @@
 #include "Url.h"
 #include "Logger.h"
 #include "types.h"
+#include "dmmm_dbface.h"
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
 #include "Financials.h"
@@ -24,10 +25,10 @@ EdgarData::downloadAndSave10k(Url& url, Info& info)
     downloadAndSave(url,info,writeDest);
 }
 
-void
+bool
 EdgarData::downloadToString(Url& url, string& rContent)
 {
-    mHttpClient.httpGet(url.fullAddr(), "text/html", rContent);
+    return mHttpClient.httpGet(url.fullAddr(), "text/html", rContent);
 }
 
 void
@@ -67,7 +68,7 @@ stock_contains_acn(O_Stock& stock, Acn& acn)
     return false;
 }
 
-void
+bool
 EdgarData::getQuarters(O_Stock& stock)
 {
     // get back to Q1 LAST year
@@ -76,10 +77,11 @@ EdgarData::getQuarters(O_Stock& stock)
     string page;
     string uri = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=10-q&dateb=&owner=exclude&count=40";
     Url url = Url(uri);
+    
     downloadToString( url, page);
-
     vector<Acn*> qAcns = parser.getQuarterAcns( page );
- 
+
+    bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
     {
         cout << "\n Going to get Acn: " << (*it)->_acn << " date: " << 
@@ -89,8 +91,10 @@ EdgarData::getQuarters(O_Stock& stock)
         {
             cout << "\n Stock does not have this data yet" << endl;
             addQuarterIncomeStatmentToDB( *(*it), stock );
+            updated = true;
         }
     }  
+    return updated;
 }    
 
 void
@@ -102,8 +106,14 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
     Url url = Url(uri);
     string page;
     
+    
     // check for 404
-    downloadToString( url, page );
+    if (! downloadToString( url, page ) )
+    {
+        cout << "\n failed to retrieve webpage." <<
+            " NOT getting info for quarter " << to_string(acn._quarter) << endl;
+        return;
+    }
 
     Parser parser = Parser();
     string incomeStr = parser.extract_quarterly_income(page);
@@ -141,7 +151,7 @@ EdgarData::insertEp( O_Ep& ep )
     if ( (ep._stock_id() <= 0 )         || 
          (ep._year() < greg_year(1980)) ||
          (ep._year() > greg_year(2020)) ||
-         (ep._quarter() > 4 )           ||
+         (ep._quarter() > 5 )           ||
          (ep._quarter() < 0 )           ||
          (ep._revenue() == "")          )
         return false;
@@ -210,6 +220,74 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
         cout << "\n Could not add calculated forth quarter" << endl;
 }
 
+struct ep_comp {
+    bool operator() (const O_Ep& i, const O_Ep& j) const 
+        { 
+            if ( i._year() != j._year() )
+                return (i._year() > j._year() );
+            return ( i._quarter() > j._quarter() );
+        }
+} ep_comp;
+
+void
+EdgarData::createTtmEps(O_Stock& stock)
+{
+    // delete last ttm
+    T_Ep t;
+//    O_Ep old_ttm = stock._eps( t._quarter() == 5)[0];
+    string table("eps");
+    string where = "stock_id=" + to_string(stock._id())+" AND quarter=5";
+    
+    DBFace::instance()->erase(table,where);
+
+    // get all quarter reports, and SORT - NEWEST FIRST
+    vector<O_Ep> qrts = stock._eps( t._quarter() > 0);
+    if ( qrts.size() < 4 )
+    {
+        cout << " Stock does not have enough quarters."
+             << " Cannot procede to calculate ttm eps" << endl;
+        return;
+        
+    }
+    sort( qrts.begin(), qrts.end(), ep_comp );
+
+    // print for sort inspection
+    cout << "\n Sorted quarters for " << stock._ticker() << " are: " << endl;
+    for( auto it = qrts.begin(); it != qrts.end(); ++it)
+        cout << to_string(it->_year()) << " qrt- " << to_string(it->_quarter()) << endl;
+
+    // sum latest 4 quarters
+    long revp(0);
+    long incp(0);
+    bool check[4] = {false,false,false,false};
+
+    for( size_t i=0 ; i < 4; ++i)
+    {
+        revp += stol( qrts[i]._revenue() );
+        incp += stol( qrts[i]._net_income() );
+        check[ qrts[i]._quarter() - 1 ] = true;
+    }
+    if ( !(check[0] && check[1] && check[2] && check[3]) )
+    {
+        cout << " Mising a quarter for " << stock._ticker() <<
+            " cannot procede to calculate ttm eps" << endl;
+        return;
+    }
+    long numshares = stol( qrts[0]._shares() );
+    
+    O_Ep ttm( stock._id());    
+    ttm._year() = qrts[0]._year();
+    ttm._quarter() = 5;
+    ttm._revenue() = to_string( revp );
+    ttm._net_income() = to_string( incp );
+    ttm._shares() = to_string(numshares);
+    ttm._eps() = ((double)incp) / numshares;
+    ttm._source() = "calculated";
+    cout << "\n created fourth quarter with rev: " << to_string(revp) << " inc = " << to_string( incp ) << endl;
+    if ( ! insertEp( ttm ) )
+        cout << "\n Could not add calculated forth quarter" << endl;
+}
+
 /*
 Download the latest available 10-k for a specific ticker
 save only the extracted financial statments to disk
@@ -223,7 +301,8 @@ EdgarData::updateFinancials(O_Stock& stock)
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
-    getQuarters( stock );
+    bool updated(false);
+    updated = getQuarters( stock );
 
 // check if last years 10k exists
     T_Ep t;
@@ -242,10 +321,20 @@ EdgarData::updateFinancials(O_Stock& stock)
         extract10kToDisk( k10text, stock, info);
 
         createFourthQuarter( stock, last_year );
+        updated = true;
     }
     else
+    {
         cout << "\n No need to download" << endl;
-
+        if (stock._eps( t._year() == last_year &&  
+                        t._quarter() == 5 ).empty() )
+        {
+            createFourthQuarter( stock, last_year );
+            updated = true;
+        }
+    }
+    if (updated)
+        createTtmEps( stock );
 }
 
 void

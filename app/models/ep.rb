@@ -13,6 +13,7 @@
 #  net_income  :string(255)
 #  quarter     :integer(4)      default(0)
 #  report_date :datetime
+#  shares      :string(255)
 #
 
 class Ep < ActiveRecord::Base

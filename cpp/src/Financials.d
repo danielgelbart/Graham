@@ -3,8 +3,7 @@ Financials.o Financials.d : financials/Financials.cpp include/Parser.h \
  include/../parser/Tokenizer.h include/info.h \
  include/../financials/Info.h include/Url.h include/../html/Url.h \
  utils/Logger.h utils/Utils.hpp utils/Identifier.h include/types.h \
- include/../parser/types.h dmmm/T_Stock.hpp dmmm/O_Stock.hpp \
- dmmm/dmmm_utils.hpp dmmm/dmmm_id.hpp dmmm/dmmm_dbface.h \
+ include/../parser/types.h dmmm/dmmm_dbface.h \
  /usr/include/mysql++/mysql++.h /usr/include/mysql++/connection.h \
  /usr/include/mysql++/common.h /usr/include/mysql/mysql_version.h \
  /usr/include/mysql/mysql.h /usr/include/mysql/mysql_version.h \
@@ -28,8 +27,10 @@ Financials.o Financials.d : financials/Financials.cpp include/Parser.h \
  /usr/include/mysql++/stream2string.h /usr/include/mysql++/sqlstream.h \
  /usr/include/mysql++/transaction.h /usr/include/mysql++/insertpolicy.h \
  /usr/include/mysql++/scopedconnection.h /usr/include/mysql++/sql_types.h \
- dmmm/dmmm_identifiers.hpp dmmm/dmmm_fields.hpp dmmm/dmmm_comparators.hpp \
- dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp \
- dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp \
- dmmm/O_BalanceSheet.hpp dmmm/T_Ep.hpp financials/Financials.h \
- include/HttpClient.h include/../utils/HttpClient.h dmmm/O_Stock.hpp
+ dmmm/dmmm_id.hpp dmmm/T_Stock.hpp dmmm/O_Stock.hpp dmmm/dmmm_utils.hpp \
+ dmmm/dmmm_dbface.h dmmm/dmmm_identifiers.hpp dmmm/dmmm_fields.hpp \
+ dmmm/dmmm_comparators.hpp dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp \
+ dmmm/T_Ep.hpp dmmm/O_Ep.hpp dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp \
+ dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp dmmm/T_Ep.hpp \
+ financials/Financials.h include/HttpClient.h \
+ include/../utils/HttpClient.h dmmm/O_Stock.hpp

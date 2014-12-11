@@ -313,6 +313,8 @@ string
 Parser::extract_quarterly_income(string& page)
 {
     Tokenizer tokenizer(page);
+
+//    cout << "\n looking for filingsummary in " << page.substr(0,300) << endl;
     string filingSummary = tokenizer.findFilingSummary();
 
     Tokenizer filingSummaryTok(filingSummary);

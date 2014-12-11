@@ -251,10 +251,10 @@ HttpClient::httpGet(const string& url, const string& contentType,
         (type.size() < contentType.size() || 
          type.substr(0, contentType.size()) != contentType))
     {
-        LOG_INFO << "Not saving: Content-Type: " << type 
+        LOG_INFO << "Content type differs: Content-Type: " << type 
                  << " rather than " << contentType;
         mWrongType = true;
-        return false;
+        //return false;
     }
     else
         mWrongType = false;
