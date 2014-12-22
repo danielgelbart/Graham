@@ -54,17 +54,18 @@ class Stock < ActiveRecord::Base
 
   # 1) Adequate size
   def big_enough?
-    bs = latest_balance_sheet
+    lbs = latest_balance_sheet
+    lep = latest_eps
 
-    size = (bs.sales >= MIN_SALES || bs.total_assets_balance >= MIN_BV) if !bs.nil? && !bs.sales.nil? && !bs.total_assets_balance.nil?
+    if !lbs.nil? && !lep.nil? && !lbs.total_assets_balance.nil?
+      ret=( lep.revenue.to_i >= MIN_SALES || lbs.total_assets_balance >=MIN_BV)
+    end
 
-    size = (bs.assets_t - bs.liabilities_t) > MIN_BV if size.nil? && !bs.nil? && !bs.assets_t.nil?  && !bs.liabilities_t.nil?
+    if ret.nil? && !lbs.nil? && !lbs.assets_t.nil? && !lbs.liabilities_t.nil?
+      ret = (lbs.assets_t - lbs.liabilities_t) >= MIN_BV
+    end
 
-    return size if !size.nil?
-
-    false
-
-    # sales needs to be added to balance sheets along with assets
+    ret.nil? ? false : ret
   end
 
   # 2) Finantialy strong
@@ -345,11 +346,12 @@ class Stock < ActiveRecord::Base
 
   # Gets most recent earnings, regardles if updated
   def latest_eps
-    eps.sort{ |b,y| b.year <=> y.year }.last
+    epss = eps.select{ |e| e.quarter == 0 }
+    epss.sort{ |b,y| b.year <=> y.year }.last
   end
 
   def ep_for_year(year)
-    eps.select{ |e| e.year == year}.first
+    eps.select{ |e| (e.year == year) && (e.quarter == 0) }.first
   end
 
 

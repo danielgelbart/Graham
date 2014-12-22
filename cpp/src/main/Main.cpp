@@ -55,8 +55,9 @@ dirFor(const path& logDir)
 }
 
 O_Stock
-findStockByTicker( string& ticker )
+findStockByTicker( char* cticker )
 {
+    string ticker(cticker);
     T_Stock ts;
     return ts.select( ts._ticker() == ticker ).front();
 }
@@ -108,15 +109,14 @@ mainMain(int argc, char* argv[])
 // find rigt command to execute and call relavent comand methods
     if (command == string("update_financials")){
         EdgarData eData = EdgarData();
-        string ticker("IBM");
-        O_Stock stock = findStockByTicker( ticker );
+        O_Stock stock = findStockByTicker( argv[2] );
         eData.updateFinancials( stock );
     }
 // should be passed a ticker?
     if (command == string("get_quarters")){
         EdgarData eData = EdgarData();
-        string ticker("IBM");
-        O_Stock stock = findStockByTicker( ticker );
+//        string ticker("IBM");
+        O_Stock stock = findStockByTicker( argv[2] );
         eData.getQuarters( stock );
     }
 

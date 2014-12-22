@@ -76,6 +76,8 @@ class StocksController < ApplicationController
     if !@ttm.nil?
       @income << @ttm.net_income.to_i
       @revenue << @ttm.revenue.to_i
+      @stock.ttm_eps = @ttm.eps
+      @stock.save
     end
 
   end

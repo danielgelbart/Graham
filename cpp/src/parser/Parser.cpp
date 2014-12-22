@@ -313,9 +313,11 @@ string
 Parser::extract_quarterly_income(string& page)
 {
     Tokenizer tokenizer(page);
-
-//    cout << "\n looking for filingsummary in " << page.substr(0,300) << endl;
+    cout << "\n Called extract_quarterly_income() with downladed doc " 
+         << page.substr(0,300) << endl;
     string filingSummary = tokenizer.findFilingSummary();
+
+    cout << "\n Found filing summary, but FAIL to find income report in it in next bloc " << endl;
 
     Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
@@ -326,10 +328,11 @@ Parser::extract_quarterly_income(string& page)
     string reportKey;
     ReportType reportType = ReportType::INCOME;
     if ( (reports->find(reportType)) != reports->end() )
-    {   
+    { 
         reportKey = reports->find(reportType)->second;
         string docString = "<FILENAME>"+reportKey;
         retIncRep = tokenizer.findDoc(docString);
+        cout << "\n Found inc report " << reportKey << endl;
     }
     return retIncRep;
 }
