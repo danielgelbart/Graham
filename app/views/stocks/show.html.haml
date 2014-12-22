@@ -1,5 +1,3 @@
-- @numshares = @stock.numshares.sort{ |a,b| a.year <=> b.year }
-- @earnings = @stock.eps.sort{ |a,b| a.year <=> b.year }
 %p
   Name:
   =h @stock.name
@@ -9,7 +7,11 @@
   = link_to "on_google", "http://www.google.com/finance?q=#{@stock.ticker}"
 %p
   = "last price: #{@stock.price}"
-  = button_to("Update price", {:price => @stock.update_price }, :method => :put )
+  = button_to("Update price", {:price => @stock.update_price },
+  :method => :put )
+- if !@ttm.nil?
+  .red
+    Showing TTM data in last column of chart   
     
 %script{ :type => "text/javascript", :charset => "utf-8"}
   :plain
@@ -22,7 +24,7 @@
           text: "Earnings"
         },
         xAxis: {
-          //margins: #{ @earnings.map{ |s| s.margin.to_f } }
+          //
         },
         yAxis: [{  // For earnings
           title: {
@@ -33,11 +35,6 @@
           title: {
             text: "Shares Outstanding"
           }
-          //},{        // For Margin
-          //title: {
-          //  text: "Margin"
-          //},
-          //opposite: true
         }],
         series: [{ 
           name: "Shares Outstanding",
@@ -46,25 +43,18 @@
           pointStart: #{ @numshares.last.year - @numshares.size + 1 },
           pointInterval: 1,
           data: #{ @numshares.map{|s| s.shares_to_i } }
-          //}, { 
-          //name: "Margin",
-          //type: 'line',
-          //yAxis: 2,
-          //pointStart: #{ @earnings.last.year - @earnings.size + 1 },
-          //pointInterval: 1,
-          //data: #{ @earnings.map{ |s| 100 * s.margin.to_f } }
         }, { 
           name: "Revenue",
           type: 'column',
           pointStart: #{ @earnings.last.year - @earnings.size + 1 },
           pointInterval: 1,
-          data: #{ @earnings.map{|s| s.revenue.to_i } }
+          data: #{ @revenue } 
         }, {
           name: "Net Income",
           type: 'column',
           pointStart: #{ @earnings.last.year - @earnings.size + 1 },
           pointInterval: 1,
-          data: #{ @income = @earnings.map{|s| s.net_income.to_i } },
+          data: #{ @income },
           dataLabels: {
             enabled: false,
             rotation: 0,
@@ -74,6 +64,7 @@
             //}
           }
         }]
+
       });
     });
 #stock_chart{ :style => "width:860px; height:460px;"}

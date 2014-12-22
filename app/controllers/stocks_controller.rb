@@ -57,8 +57,6 @@ class StocksController < ApplicationController
   def aggeresive_buys
   end
 
-
-
   def show
     # This acceps bot id and ticker to find the stock
     # wrap this in a helper or before filter
@@ -68,8 +66,18 @@ class StocksController < ApplicationController
     else
       @stock = Stock.find_by_ticker(id)
       @stock = Stock.all.select{ |s| s.to_param == id }.first if @stock.nil?
-
     end
+    @numshares = @stock.numshares.sort{ |a,b| a.year <=> b.year }
+    @earnings = @stock.eps.select{ |e| e.quarter == 0 }
+    @earnings = @earnings.sort{ |a,b| a.year <=> b.year }
+    @income = @earnings.map{|s| s.net_income.to_i }
+    @revenue = @earnings.map{|s| s.revenue.to_i }
+    @ttm = @stock.get_ttm_earnings
+    if !@ttm.nil?
+      @income << @ttm.net_income.to_i
+      @revenue << @ttm.revenue.to_i
+    end
+
   end
 
   # GET /stocks/new

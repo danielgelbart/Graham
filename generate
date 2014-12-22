@@ -1,0 +1,1377 @@
+Script started on Wed 12 Nov 2014 01:22:15 PM IST
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ ls db/migrate/
+20100225172626_create_stocks.rb
+20100304214409_create_users.rb
+20100304214922_create_owned_stocks.rb
+20100309193254_add_portfolio_id_to_transactions.rb
+20100314171616_create_dividends.rb
+20100315220246_create_eps.rb
+20100317013419_add_data_to_stocks.rb
+20100320003544_add_div_per_year_to_stocks.rb
+20100323141110_add_price_to_stocks.rb
+20100323155045_add_assets_sales_to_stocks.rb
+20100324140315_add_stocks_data.rb
+20100324155212_market_cap.rb
+20100325105147_add_to_stocks.rb
+20100331094540_create_balance_sheets.rb
+20100401155417_add_net_tangibles.rb
+20100408165627_add_listed_to_stocks.rb
+20100408183735_clean_up_stock.rb
+20110311131642_add_bs_indicator_to_stock.rb
+20110331131915_add_sales_to_bs.rb
+20110331212437_add_stocks.rb
+20110401060911_update_stock_names.rb
+20120711172842_create_numshares.rb
+20120719183144_add_income_to_eps.rb
+20130212170618_add_mark_to_stocks.rb
+20130527073313_add_quarter_to_ep.rb
+20130527074043_add_quarter_to_balance_sheet.rb
+20140514133348_create_searches.rb
+20140524101155_add_fields_to_searches.rb
+20140528125209_add_cik_to_stocks.rb
+20141004134524_drop_old_models.rb
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ ls db/migrate/[6Pgit pushcommit -a -m"Implemented parsing  in cpp"[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[21Padd --all .
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksctri[K[K[Kript/generate migration fixStocksC olumnName
+script/generate:3:in `require': no such file to load -- commands/generate (LoadError)
+	from script/generate:3:in `<main>'
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ bi
+bind        biosdecode  bison       bison.yacc  bitmap      
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ bi[K[Kg[Krails generate migration f[KfixSTo[K[KtocksCo lumnNma[K[Kame
+[1m[37m      invoke[0m  active_record
+[1m[32m      create[0m    db/migrate/20141112112448_fix_stocks_column_name.rb
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ rake db:migrate
+==  FixStocksColumnName: migrating ============================================
+-- rename_column(:stocks, :finantial_data_updated, :fiscal_year_end)
+   -> 0.3778s
+==  FixStocksColumnName: migrated (0.3779s) ===================================
+
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [22P(reverse-i-search)`':[Ca': rake db:migraten': ../bin/graham extract_balance[C[8@failed reverse-i-search)`an[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@o[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@t[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[27Preverse-i-search)`an': make clean[1P[C[C[C[C[C[C[C[C[C[C[C[5Pt': path[C[8@failed reverse-i-search)`ata[C[C[C[C[1@t[C[C[C[C[1P[C[C[C[C[Creverse-i-search)`at': sudo apt-get inatll libxml2 libxml2-dev[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@t[C[C[C[C[C[C[C[C[C[C[C[C[C[C[28Pa': git status[1@t[C[C[C[C[C[C[C[C[C[8@failed reverse-i-search)`tate[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[Creverse-i-search)`ta': cd ../dm-metamapper/[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[Ca': git commit -a -m"Cleaned up models for cpp generation"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@n[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ git commit -a -m"Cleaned up models foor cpp generation"[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpush[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[Kannotate --exclude tests,fixtures,fa ctories[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[Cp--exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C --exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[Cb--exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[Ce--exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[C[Cf--exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[Co--exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cr--exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce--exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C --exclude tests,fixtures,factories[A]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+Annotated (1): Stock
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ rake mm
+generating #<MetaMapper::Template:0x00000004f20040 @name="dmmm_identifiers.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_identifiers.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_identifiers.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1ff00 @name="dmmm_comparators.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_comparators.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_comparators.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1fdc0 @name="dmmm_fields.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_fields.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_fields.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1fc80 @name="dmmm_utils.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_utils.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_utils.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1fb40 @name="dmmm_utils.cpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_utils.cpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_utils.cpp.erb">
+generating #<MetaMapper::Template:0x00000004f1fa00 @name="dmmm_dbface.cpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_dbface.cpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_dbface.cpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f8c0 @name="dmmm_dbface.h", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_dbface.h.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_dbface.h.erb">
+generating #<MetaMapper::Template:0x00000004f1f780 @name="dmmm_id.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_id.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_id.hpp.erb">
+generating BalanceSheet
+generating #<MetaMapper::Template:0x00000004f1f618 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f4b0 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Dividend
+generating #<MetaMapper::Template:0x00000004f1f618 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_BalanceSheet.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f4b0 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_BalanceSheet.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Ep
+generating #<MetaMapper::Template:0x00000004f1f618 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Dividend.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f4b0 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Dividend.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Numshare
+generating #<MetaMapper::Template:0x00000004f1f618 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Ep.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f4b0 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Ep.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Search
+generating #<MetaMapper::Template:0x00000004f1f618 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Numshare.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f4b0 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Numshare.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Stock
+generating #<MetaMapper::Template:0x00000004f1f618 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Search.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f4b0 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Search.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating User
+generating #<MetaMapper::Template:0x00000004f1f618 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Stock.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x00000004f1f4b0 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Stock.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [K]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ cd ..
+]0;daniel@daniel-Inspiron-5537: ~/railsdaniel@daniel-Inspiron-5537:~/rails$ ls
+[0m[01;34madd_ons[0m  [01;34mdm-metamapper[0m  [01;34mGraham[0m  [01;34mrails4[0m  [01;34mrankabove[0m
+]0;daniel@daniel-Inspiron-5537: ~/railsdaniel@daniel-Inspiron-5537:~/rails$ cd rankabove/
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabovedaniel@daniel-Inspiron-5537:~/rails/rankabove$ ls
+[0m[01;34mdm-metamapper[0m  [01;34mdrive2[0m  [01;34mdrive-back[0m  [01;34mdrive-front[0m
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabovedaniel@daniel-Inspiron-5537:~/rails/rankabove$ cd drive-back/
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-backdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back$ ls
+[0m[01;34mbin[0m  [01;34mcgi[0m  [01;34mconf[0m  [01;34mcsv[0m  [01;34mdata[0m  drive-back.gemspec  [01;34metc[0m  [01;34mext[0m  gmon.out  [01;34mlib[0m  [01;34mmirrors[0m  [01;34mngrams[0m  q  README  [01;34mscripts[0m  [01;34msrc[0m  TAGS  [01;34mtmp[0m
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-backdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back$ cd src/
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-back/srcdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back/src$ make
+making dependencies for main/RunInfo.cpp
+making dependencies for utils/Config.cpp
+make: *** No rule to make target `Main.d', needed by `Main.o'.  Stop.
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-back/srcdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back/src$ make clean
+rm -f *.o *.d ../bin/* ../cgi/drive.cgi ../ngrams/ngrams
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-back/srcdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back/src$ make
+making dependencies for spider/AhRefsBacklinks.cpp
+In file included from spider/AhRefsBacklinks.cpp:1:0:
+spider/AhRefsBacklinks.hpp:5:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for competition/KeywordRelevance.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../db/WebDB.h:7,
+                 from include/WebDB.h:1,
+                 from competition/KeywordRelevance.cpp:3:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for backcrawler/BackCrawler.cpp
+backcrawler/BackCrawler.cpp:5:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for classifier/DPBuilder.cpp
+In file included from classifier/DPBuilder.h:8:0,
+                 from classifier/DPBuilder.cpp:5:
+classifier/RegexTree.h:6:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for classifier/RegexFitter.cpp
+making dependencies for classifier/UrlClassifier.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../db/WebDB.h:7,
+                 from include/WebDB.h:1,
+                 from classifier/UrlClassifier.cpp:8:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for utils/ServerUtils.cpp
+making dependencies for main/RunInfo.cpp
+making dependencies for analysis/NGramFreqs.cpp
+analysis/NGramFreqs.cpp:9:27: fatal error: HtmlParserObj.h: No such file or directory
+ #include "HtmlParserObj.h"
+                           ^
+compilation terminated.
+making dependencies for html/Phraser.cpp
+In file included from html/HtmlParser.h:7:0,
+                 from html/Phraser.cpp:7:
+html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for utils/MemUsage.cpp
+making dependencies for detectlang/DetectLang.cpp
+detectlang/DetectLang.cpp:6:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for spider/SiteMap.cpp
+spider/SiteMap.cpp:11:17: fatal error: Url.h: No such file or directory
+ #include "Url.h"
+                 ^
+compilation terminated.
+making dependencies for html/HtmlNode.cpp
+html/HtmlNode.cpp:2:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for analysis/PageKeywordMatcher.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../db/WebDB.h:7,
+                 from include/WebDB.h:1,
+                 from analysis/PageKeywordMatcher.cpp:8:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for html/WebPage.cpp
+In file included from html/WebPage.cpp:4:0:
+html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for competition/AverageRanking.cpp
+making dependencies for spider/OpenSSL.cpp
+making dependencies for dmmm/dmmm_utils.cpp
+making dependencies for dmmm/dmmm_dbface.cpp
+making dependencies for sysinfo/Sysinfo.cpp
+sysinfo/Sysinfo.cpp:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for competition/Competition.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../db/WebDB.h:7,
+                 from include/WebDB.h:1,
+                 from competition/Competition.cpp:3:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for spider/Robots.cpp
+spider/Robots.cpp:1:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for utils/Thread.cpp
+making dependencies for spider/Backlinks.cpp
+spider/Backlinks.cpp:6:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for analysis/Keywords.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../above_rank/AboveRank.h:4,
+                 from include/AboveRank.h:1,
+                 from analysis/Keywords.cpp:4:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for localiser/Localiser.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../db/WebDB.h:7,
+                 from include/WebDB.h:1,
+                 from localiser/Localiser.h:6,
+                 from localiser/Localiser.cpp:5:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for classifier/Classifier.cpp
+In file included from classifier/Classifier.cpp:10:0:
+classifier/PageTemplate.h:8:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for classifier/PageTemplate.cpp
+In file included from classifier/PageTemplate.cpp:8:0:
+classifier/PageTemplate.h:8:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for analysis/Score.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../db/WebDB.h:7,
+                 from include/WebDB.h:1,
+                 from analysis/Score.cpp:6:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for html/Url.cpp
+html/Url.cpp:6:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for html/ExcludedKeywords.cpp
+html/ExcludedKeywords.cpp:3:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for utils/Utils.cpp
+making dependencies for spider/HttpClient.cpp
+In file included from spider/HttpClient.cpp:13:0:
+spider/HttpClient.h:9:17: fatal error: Url.h: No such file or directory
+ #include "Url.h"
+                 ^
+compilation terminated.
+making dependencies for utils/CurrentTime.cpp
+making dependencies for above_rank/AboveRank.cpp
+In file included from include/WebPage.h:1:0,
+                 from include/../db/WebDB.h:7,
+                 from include/WebDB.h:1,
+                 from above_rank/AboveRank.cpp:9:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for db/WebDB.cpp
+In file included from include/WebPage.h:1:0,
+                 from db/WebDB.h:7,
+                 from db/WebDB.cpp:4:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for db/MySQL.cpp
+In file included from include/WebPage.h:1:0,
+                 from db/WebDB.h:7,
+                 from db/MySQL.h:7,
+                 from db/MySQL.cpp:8:
+include/../html/WebPage.h:7:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for html/HtmlParser.cpp
+html/HtmlParser.cpp:13:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for spider/Spider.cpp
+In file included from spider/Spider.cpp:11:0:
+spider/HttpClient.h:9:17: fatal error: Url.h: No such file or directory
+ #include "Url.h"
+                 ^
+compilation terminated.
+making dependencies for spider/MajesticBackLinks.cpp
+In file included from spider/MajesticBackLinks.cpp:8:0:
+spider/MajesticBackLinks.h:14:21: fatal error: Utils.hpp: No such file or directory
+ #include "Utils.hpp"
+                     ^
+compilation terminated.
+making dependencies for utils/UTFConverter.cpp
+making dependencies for utils/Logger.cpp
+making dependencies for utils/Config.cpp
+making dependencies for main/Main.cpp
+In file included from include/../spider/Spider.h:9:0,
+                 from include/Spider.h:1,
+                 from main/Main.cpp:11:
+include/../spider/HttpClient.h:9:17: fatal error: Url.h: No such file or directory
+ #include "Url.h"
+                 ^
+compilation terminated.
+g++ utils/beauterror.cpp -o ../bin/beauterror
+compiling main/Main.cpp
+In file included from include/../spider/Spider.h:9:0,
+                 from include/Spider.h:1,
+                 from main/Main.cpp:11:
+include/../spider/HttpClient.h:9:17: fatal error: Url.h: No such file or directo
+ry
+ #include "Url.h"
+                 ^
+compilation terminated.
+compiling utils/Config.cpp
+^Cmake: *** [Config.o] Interrupt
+
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-back/srcdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back/src$ ls
+[0m[01;34mabove_rank[0m         Classifier.d   dmmm_dbface.d       KeywordRelevance.d   Makefile~             RegexFitter.d  TAGS
+AboveRank.d        Classifier.h   dmmm_utils.d        Keywords.d           Makefile.flags        Robots.d       Thread.d
+AhRefsBacklinks.d  [01;34mcompetition[0m    DPBuilder.d         [01;34mlocaliser[0m            MemUsage.d            RunInfo.d      UrlClassifier.d
+[01;34manalysis[0m           Competition.d  ExcludedKeywords.d  Localiser.d          MySQL.d               Score.d        Url.d
+AverageRanking.d   Config.d       gmon.out            Localiser.h          NGramFreqs.d          ServerUtils.d  UTFConverter.d
+[01;34mbackcrawler[0m        CurrentTime.d  [01;34mhtml[0m                Logger.d             [01;34mngrams[0m                SiteMap.d      [01;34mutils[0m
+BackCrawler.d      [01;34mdb[0m             HtmlNode.d          [01;34mmain[0m                 OpenSSL.d             [01;34mspider[0m         Utils.d
+Backlinks.d        [01;34mdetectlang[0m     HtmlParser.d        Main.d               PageKeywordMatcher.d  Spider.d       WebDB.d
+[01;34mcgi[0m                DetectLang.d   HttpClient.d        MajesticBackLinks.d  PageTemplate.d        [01;34msysinfo[0m        WebPage.d
+[01;34mclassifier[0m         [01;34mdmmm[0m           [01;34minclude[0m             Makefile             Phraser.d             Sysinfo.d
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-back/srcdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back/src$ ls dmmm
+dmmm_comparators.hpp             O_IssuePage.hpp                   O_SuperKeyword.hpp                T_Language.hpp
+dmmm_dbface.cpp                  O_KeywordExclusion.hpp            O_TrackedBacklink.hpp             T_MirrorLog.hpp
+dmmm_dbface.h                    O_KeywordGroup.hpp                O_User.hpp                        T_MirrorPage.hpp
+dmmm_fields.hpp                  O_KeywordGroupsSearchKeyword.hpp  T_Account.hpp                     T_MissingElement.hpp
+dmmm_identifiers.hpp             O_KeywordRankResponse.hpp         T_AccountIssue.hpp                T_Oauth2Service.hpp
+dmmm_identifiers.hpp~            O_KeywordTraffic.hpp              T_AccountSearchEngine.hpp         T_Organization.hpp
+dmmm_id.hpp                      O_Language.hpp                    T_AccountType.hpp                 T_PageBacklink.hpp
+dmmm_utils.cpp                   O_MirrorLog.hpp                   T_ActiveAdminComment.hpp          T_PageCanonical.hpp
+dmmm_utils.hpp                   O_MirrorPage.hpp                  T_AnalyticsGoalCompletion.hpp     T_PageClass.hpp
+O_Account.hpp                    O_MissingElement.hpp              T_AnalyticsGoal.hpp               T_PageDuplicate.hpp
+O_AccountIssue.hpp               O_Oauth2Service.hpp               T_AnalyticsTraffic.hpp            T_PageEmphasis.hpp
+O_AccountSearchEngine.hpp        O_Organization.hpp                T_BacklinkDomainSuggestion.hpp    T_PageHeader.hpp
+O_AccountType.hpp                O_PageBacklink.hpp                T_ChartPin.hpp                    T_Page.hpp
+O_ActiveAdminComment.hpp         O_PageCanonical.hpp               T_Competition.hpp                 T_PageHttpError.hpp
+O_AnalyticsGoalCompletion.hpp    O_PageClass.hpp                   T_CrawlLog.hpp                    T_PageImage.hpp
+O_AnalyticsGoal.hpp              O_PageDuplicate.hpp               T_DictionaryWord.hpp              T_PageKeyword.hpp
+O_AnalyticsTraffic.hpp           O_PageEmphasis.hpp                T_Differential.hpp                T_PageLink.hpp
+O_BacklinkDomainSuggestion.hpp   O_PageHeader.hpp                  T_Domain.hpp                      T_PageNonHtml.hpp
+O_ChartPin.hpp                   O_Page.hpp                        T_DriveBackLog.hpp                T_PageRedirect.hpp
+O_Competition.hpp                O_PageHttpError.hpp               T_EngineRank.hpp                  T_PageSearchKeyword.hpp
+O_CrawlLog.hpp                   O_PageImage.hpp                   T_GoogleAdwords.hpp               T_Ranking.hpp
+O_DictionaryWord.hpp             O_PageKeyword.hpp                 T_GoogleAnalytics.hpp             T_ReferencingDomain.hpp
+O_Differential.hpp               O_PageLink.hpp                    T_GoogleWebmaster.hpp             T_ReferringAnchor.hpp
+O_Domain.hpp                     O_PageNonHtml.hpp                 T_HistoricalBacklinkStat.hpp      T_Role.hpp
+O_DriveBackLog.hpp               O_PageRedirect.hpp                T_HistoricalScore.hpp             T_SandboxSetting.hpp
+O_EngineRank.hpp                 O_PageSearchKeyword.hpp           T_HistoricalTotalCompetitor.hpp   T_SearchCompetition.hpp
+O_GoogleAdwords.hpp              O_Ranking.hpp                     T_IndexLog.hpp                    T_SearchEngine.hpp
+O_GoogleAnalytics.hpp            O_ReferencingDomain.hpp           T_IssueAccount.hpp                T_SearchKeyword.hpp
+O_GoogleWebmaster.hpp            O_ReferringAnchor.hpp             T_Issue.hpp                       T_Setting.hpp
+O_HistoricalBacklinkStat.hpp     O_Role.hpp                        T_IssuePageClass.hpp              T_Subdomain.hpp
+O_HistoricalScore.hpp            O_SandboxSetting.hpp              T_IssuePage.hpp                   T_SuperKeyword.hpp
+O_HistoricalTotalCompetitor.hpp  O_SearchCompetition.hpp           T_KeywordExclusion.hpp            T_TrackedBacklink.hpp
+O_IndexLog.hpp                   O_SearchEngine.hpp                T_KeywordGroup.hpp                T_User.hpp
+O_IssueAccount.hpp               O_SearchKeyword.hpp               T_KeywordGroupsSearchKeyword.hpp
+O_Issue.hpp                      O_Setting.hpp                     T_KeywordRankResponse.hpp
+O_IssuePageClass.hpp             O_Subdomain.hpp                   T_KeywordTraffic.hpp
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabove/drive-back/srcdaniel@daniel-Inspiron-5537:~/rails/rankabove/drive-back/src$ cd ../../
+]0;daniel@daniel-Inspiron-5537: ~/rails/rankabovedaniel@daniel-Inspiron-5537:~/rails/rankabove$ cd ../Graham/
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ rake mm
+generating #<MetaMapper::Template:0x00000004031c50 @name="dmmm_identifiers.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_identifiers.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_identifiers.hpp.erb">
+generating #<MetaMapper::Template:0x00000004031ac0 @name="dmmm_comparators.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_comparators.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_comparators.hpp.erb">
+generating #<MetaMapper::Template:0x00000004031980 @name="dmmm_fields.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_fields.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_fields.hpp.erb">
+generating #<MetaMapper::Template:0x00000004031818 @name="dmmm_utils.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_utils.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_utils.hpp.erb">
+generating #<MetaMapper::Template:0x000000040316b0 @name="dmmm_utils.cpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_utils.cpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_utils.cpp.erb">
+generating #<MetaMapper::Template:0x0000000402c4f8 @name="dmmm_dbface.cpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_dbface.cpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_dbface.cpp.erb">
+generating #<MetaMapper::Template:0x0000000402c3b8 @name="dmmm_dbface.h", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_dbface.h.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_dbface.h.erb">
+generating #<MetaMapper::Template:0x0000000402c228 @name="dmmm_id.hpp", @generator=MetaMapper::Generators::CPP, @type=:global, @template_name="dmmm_id.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/dmmm_id.hpp.erb">
+generating BalanceSheet
+generating #<MetaMapper::Template:0x0000000402c098 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x0000000402bf30 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path=nil, @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Dividend
+generating #<MetaMapper::Template:0x0000000402c098 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_BalanceSheet.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x0000000402bf30 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_BalanceSheet.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Ep
+generating #<MetaMapper::Template:0x0000000402c098 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Dividend.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x0000000402bf30 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Dividend.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Numshare
+generating #<MetaMapper::Template:0x0000000402c098 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Ep.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x0000000402bf30 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Ep.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Search
+generating #<MetaMapper::Template:0x0000000402c098 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Numshare.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x0000000402bf30 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Numshare.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating Stock
+generating #<MetaMapper::Template:0x0000000402c098 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Search.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x0000000402bf30 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Search.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+generating User
+generating #<MetaMapper::Template:0x0000000402c098 @name="O_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="instance.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/O_Stock.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/instance.hpp.erb">
+generating #<MetaMapper::Template:0x0000000402bf30 @name="T_%model%.hpp", @generator=MetaMapper::Generators::CPP, @type=:model, @template_name="class.hpp.erb", @output_path="/home/daniel/rails/Graham/cpp/src/dmmm/T_Stock.hpp", @full_path="/home/daniel/rails/dm-metamapper/lib/templates/cpp/class.hpp.erb">
+]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ [K]0;daniel@daniel-Inspiron-5537: ~/rails/Grahamdaniel@daniel-Inspiron-5537:~/rails/Graham$ rake mmcd ../Graham/[4P../[K[K[K[K[K[K[K[K[Kcd cpp/src/
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ [30P(reverse-i-search)`':[Cb': cd drive-back/i': ../bin/graham extract_balance[1@n[C[C[C[C[C[C]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ ../bin/graham extract_balance[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kupdate_financials
+----------------
+Running Edgar Data Retrival
+BinPath is "../bin/graham"
+Loading configuration file ../bin/../conf.conf
+Going to create logger
+
+ Going to get last year 10k
+
+ Found text :  : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-14-001302&nbsp;(34 Act)&nbsp; Size: 42 MB             : 2014-02-25 : 14639952          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-13-001698&nbsp;(34 Act)&nbsp; Size: 49 MB             : 2013-02-26 : 13642470          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-12-001742&nbsp;(34 Act)&nbsp; Size: 48 MB             : 2012-02-28 : 12646432          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-11-001117&nbsp;(34 Act)&nbsp; Size: 54 MB             : 2011-02-22 : 11627632          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-10-001151&nbsp;(34 Act)&nbsp; Size: 16 MB             : 2010-02-23 : 10625157          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-09-001737&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2009-02-24 : 09630468          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-08-001731&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2008-02-26 : 08642368          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-07-001434&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2007-02-27 : 07652971          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-06-002608&nbsp;(34 Act)&nbsp; Size: 5 MB             : 2006-02-28 : 06651674          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-05-004595&nbsp;(34 Act)&nbsp; Size: 2 MB             : 2005-02-24 : 05637403          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-04-006934 Size: 4 MB             : 2004-03-08 : 04654738          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-03-008194 Size: 1 MB             : 2003-03-10 : 03597831          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000912057-02-009402 Size: 435 KB             : 2002-03-11 : 02572393          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000912057-01-007563 Size: 368 KB             : 2001-03-13 : 1567370          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000912057-00-011206 Size: 333 KB             : 2000-03-13 : 567850          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-99-011848 Size: 332 KB             : 1999-03-29 : 99575375          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0001047469-98-012291 Size: 344 KB             : 1998-03-30 : 98577463          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000912057-97-010483 Size: 303 KB             : 1997-03-27 : 97565345          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000950112-96-000889 Size: 328 KB             : 1996-03-26 : 96538325          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000950112-95-000774 Size: 405 KB             : 1995-03-28 : 95523674          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000950112-94-000794 Size: 333 KB             : 1994-03-28 : 94518258          : 001-02360 : http://www.sec.gov/cgi-bin/browse-edgar :  |  |  : Home : Search the Next-Generation EDGAR System : Previous Page : Modified 03/14/2012
+
+ Found in it acn  :   : &nbsp;Docum
+ 
+ Got acn :   : &nbsp;Docum
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ ../bin/graham update_financials[K../bin/graham update_financials[20Pcd cpp/src/[K[K[K[K[K[K[K[K[K[K[Kmake
+making dependencies for parser/Parser.cpp
+compiling parser/Parser.cpp
+linking graham
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make../bin/graham update_financials
+----------------
+Running Edgar Data Retrival
+BinPath is "../bin/graham"
+Loading configuration file ../bin/../conf.conf
+Going to create logger
+
+ Going to get last year 10k
+ Parsing out from string - 
+<table class="tableFile2" summary="Results">
+         <tr>
+            <th width="7%" scope="col">Filings</th>
+            <th width="10%" scope="col">Format</th>
+            <th scope="col">Description</th>
+            <th width="10%" scope="col">Filing Date</th>
+            <th width="15%" scope="
+
+ Found text :  : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-14-001302&nbsp;(34 Act)&nbsp; Size: 42 MB             : 2014-02-25 : 14639952          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-13-001698&nbsp;(34 Act)&nbsp; Size: 49 MB             : 2013-02-26 : 13642470          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-12-001742&nbsp;(34 Act)&nbsp; Size: 48 MB             : 2012-02-28 : 12646432          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-11-001117&nbsp;(34 Act)&nbsp; Size: 54 MB             : 2011-02-22 : 11627632          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-10-001151&nbsp;(34 Act)&nbsp; Size: 16 MB             : 2010-02-23 : 10625157          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-09-001737&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2009-02-24 : 09630468          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-08-001731&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2008-02-26 : 08642368          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-07-001434&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2007-02-27 : 07652971          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-06-002608&nbsp;(34 Act)&nbsp; Size: 5 MB             : 2006-02-28 : 06651674          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-05-004595&nbsp;(34 Act)&nbsp; Size: 2 MB             : 2005-02-24 : 05637403          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-04-006934 Size: 4 MB             : 2004-03-08 : 04654738          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-03-008194 Size: 1 MB             : 2003-03-10 : 03597831          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000912057-02-009402 Size: 435 KB             : 2002-03-11 : 02572393          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000912057-01-007563 Size: 368 KB             : 2001-03-13 : 1567370          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000912057-00-011206 Size: 333 KB             : 2000-03-13 : 567850          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-99-011848 Size: 332 KB             : 1999-03-29 : 99575375          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0001047469-98-012291 Size: 344 KB             : 1998-03-30 : 98577463          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000912057-97-010483 Size: 303 KB             : 1997-03-27 : 97565345          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000950112-96-000889 Size: 328 KB             : 1996-03-26 : 96538325          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000950112-95-000774 Size: 405 KB             : 1995-03-28 : 95523674          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000950112-94-000794 Size: 333 KB             : 1994-03-28 : 94518258          : 001-02360 : http://www.sec.gov/cgi-bin/browse-edgar :  |  |  : Home : Search the Next-Generation EDGAR System : Previous Page : Modified 03/14/2012
+
+ Found in it acn  : 0001047469-14-0
+ 
+ Got acn : 0001047469-14-0
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ ../bin/graham update_financialsmake[K
+making dependencies for parser/Parser.cpp
+compiling parser/Parser.cpp
+parser/Parser.cpp: In member function ‘std::string Parser::extractLatest10kAcn(std::string&)’:
+parser/Parser.cpp:361:22: error: ‘printXmlTree’ was not declared in this scope
+     printXmlTree( tr );
+                      ^
+make: *** [Parser.o] Error 1
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make
+making dependencies for parser/Parser.cpp
+making dependencies for financials/Financials.cpp
+compiling financials/Financials.cpp
+In file included from include/Parser.h:1:0,
+                 from financials/Financials.cpp:11:
+include/../parser/Parser.h:27:35: error: expected ‘;’ at end of member declaration
+     void printXmlTree(size_t depth)
+                                   ^
+make: *** [Financials.o] Error 1
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make
+making dependencies for parser/Parser.cpp
+making dependencies for financials/Financials.cpp
+compiling financials/Financials.cpp
+compiling parser/Parser.cpp
+linking graham
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make../bin/graham update_financials
+----------------
+Running Edgar Data Retrival
+BinPath is "../bin/graham"
+Loading configuration file ../bin/../conf.conf
+Going to create logger
+
+ Going to get last year 10k
+ Parsing out from string - 
+<table class="tableFile2" summary="Results">
+         <tr>
+            <th width="7%" scope="col">Filings</th>
+            <th width="10%" scope="col">Format</th>
+            <th scope="col">Description</th>
+            <th width="10%" scope="col">Filing Date</th>
+            <th width="15%" scope="
+< tr (no attrs)    Contains no text
+  < td Has attrs: 
+	nowrap = nowrap
+     Content is: 10-K
+  < td Has attrs: 
+	nowrap = nowrap
+     Content is: &nbsp; 
+    < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746914001302/0001047469-14-001302-index.htm
+	id = documentsbutton
+       Content is: &nbsp;Documents
+    < a Has attrs: 
+	href = /cgi-bin/viewer?action=view&amp;cik=51143&amp;accession_number=0001047469-14-001302&amp;xbrl_type=v
+	id = interactiveDataBtn
+       Content is: &nbsp;Interactive Data
+  < td Has attrs: 
+	class = small
+     Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+    < br (no attrs)        Content is: Acc-no: 0001047469-14-001302&nbsp;(34 Act)&nbsp; Size: 42 MB            
+    < td (no attrs)        Content is: 2014-02-25
+    < td Has attrs: 
+	nowrap = nowrap
+       Content is: 14639952         
+      < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+         Content is: 001-02360
+  < tr Has attrs: 
+	class = blueRow
+     Contains no text
+    < td Has attrs: 
+	nowrap = nowrap
+       Content is: 10-K
+    < td Has attrs: 
+	nowrap = nowrap
+       Content is: &nbsp; 
+      < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746913001698/0001047469-13-001698-index.htm
+	id = documentsbutton
+         Content is: &nbsp;Documents
+      < a Has attrs: 
+	href = /cgi-bin/viewer?action=view&amp;cik=51143&amp;accession_number=0001047469-13-001698&amp;xbrl_type=v
+	id = interactiveDataBtn
+         Content is: &nbsp;Interactive Data
+    < td Has attrs: 
+	class = small
+       Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+      < br (no attrs)          Content is: Acc-no: 0001047469-13-001698&nbsp;(34 Act)&nbsp; Size: 49 MB            
+      < td (no attrs)          Content is: 2013-02-26
+      < td Has attrs: 
+	nowrap = nowrap
+         Content is: 13642470         
+        < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+           Content is: 001-02360
+    < tr (no attrs)        Contains no text
+      < td Has attrs: 
+	nowrap = nowrap
+         Content is: 10-K
+      < td Has attrs: 
+	nowrap = nowrap
+         Content is: &nbsp; 
+        < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746912001742/0001047469-12-001742-index.htm
+	id = documentsbutton
+           Content is: &nbsp;Documents
+        < a Has attrs: 
+	href = /cgi-bin/viewer?action=view&amp;cik=51143&amp;accession_number=0001047469-12-001742&amp;xbrl_type=v
+	id = interactiveDataBtn
+           Content is: &nbsp;Interactive Data
+      < td Has attrs: 
+	class = small
+         Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+        < br (no attrs)            Content is: Acc-no: 0001047469-12-001742&nbsp;(34 Act)&nbsp; Size: 48 MB            
+        < td (no attrs)            Content is: 2012-02-28
+        < td Has attrs: 
+	nowrap = nowrap
+           Content is: 12646432         
+          < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+             Content is: 001-02360
+      < tr Has attrs: 
+	class = blueRow
+         Contains no text
+        < td Has attrs: 
+	nowrap = nowrap
+           Content is: 10-K
+        < td Has attrs: 
+	nowrap = nowrap
+           Content is: &nbsp; 
+          < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746911001117/0001047469-11-001117-index.htm
+	id = documentsbutton
+             Content is: &nbsp;Documents
+          < a Has attrs: 
+	href = /cgi-bin/viewer?action=view&amp;cik=51143&amp;accession_number=0001047469-11-001117&amp;xbrl_type=v
+	id = interactiveDataBtn
+             Content is: &nbsp;Interactive Data
+        < td Has attrs: 
+	class = small
+           Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+          < br (no attrs)              Content is: Acc-no: 0001047469-11-001117&nbsp;(34 Act)&nbsp; Size: 54 MB            
+          < td (no attrs)              Content is: 2011-02-22
+          < td Has attrs: 
+	nowrap = nowrap
+             Content is: 11627632         
+            < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+               Content is: 001-02360
+        < tr (no attrs)            Contains no text
+          < td Has attrs: 
+	nowrap = nowrap
+             Content is: 10-K
+          < td Has attrs: 
+	nowrap = nowrap
+             Content is: &nbsp; 
+            < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746910001151/0001047469-10-001151-index.htm
+	id = documentsbutton
+               Content is: &nbsp;Documents
+            < a Has attrs: 
+	href = /cgi-bin/viewer?action=view&amp;cik=51143&amp;accession_number=0001047469-10-001151&amp;xbrl_type=v
+	id = interactiveDataBtn
+               Content is: &nbsp;Interactive Data
+          < td Has attrs: 
+	class = small
+             Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+            < br (no attrs)                Content is: Acc-no: 0001047469-10-001151&nbsp;(34 Act)&nbsp; Size: 16 MB            
+            < td (no attrs)                Content is: 2010-02-23
+            < td Has attrs: 
+	nowrap = nowrap
+               Content is: 10625157         
+              < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                 Content is: 001-02360
+          < tr Has attrs: 
+	class = blueRow
+             Contains no text
+            < td Has attrs: 
+	nowrap = nowrap
+               Content is: 10-K
+            < td Has attrs: 
+	nowrap = nowrap
+               Contains no text
+              < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746909001737/0001047469-09-001737-index.htm
+	id = documentsbutton
+                 Content is: &nbsp;Documents
+            < td Has attrs: 
+	class = small
+               Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+              < br (no attrs)                  Content is: Acc-no: 0001047469-09-001737&nbsp;(34 Act)&nbsp; Size: 6 MB            
+              < td (no attrs)                  Content is: 2009-02-24
+              < td Has attrs: 
+	nowrap = nowrap
+                 Content is: 09630468         
+                < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                   Content is: 001-02360
+            < tr (no attrs)                Contains no text
+              < td Has attrs: 
+	nowrap = nowrap
+                 Content is: 10-K
+              < td Has attrs: 
+	nowrap = nowrap
+                 Contains no text
+                < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746908001731/0001047469-08-001731-index.htm
+	id = documentsbutton
+                   Content is: &nbsp;Documents
+              < td Has attrs: 
+	class = small
+                 Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                < br (no attrs)                    Content is: Acc-no: 0001047469-08-001731&nbsp;(34 Act)&nbsp; Size: 6 MB            
+                < td (no attrs)                    Content is: 2008-02-26
+                < td Has attrs: 
+	nowrap = nowrap
+                   Content is: 08642368         
+                  < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                     Content is: 001-02360
+              < tr Has attrs: 
+	class = blueRow
+                 Contains no text
+                < td Has attrs: 
+	nowrap = nowrap
+                   Content is: 10-K
+                < td Has attrs: 
+	nowrap = nowrap
+                   Contains no text
+                  < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746907001434/0001047469-07-001434-index.htm
+	id = documentsbutton
+                     Content is: &nbsp;Documents
+                < td Has attrs: 
+	class = small
+                   Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                  < br (no attrs)                      Content is: Acc-no: 0001047469-07-001434&nbsp;(34 Act)&nbsp; Size: 6 MB            
+                  < td (no attrs)                      Content is: 2007-02-27
+                  < td Has attrs: 
+	nowrap = nowrap
+                     Content is: 07652971         
+                    < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                       Content is: 001-02360
+                < tr (no attrs)                    Contains no text
+                  < td Has attrs: 
+	nowrap = nowrap
+                     Content is: 10-K
+                  < td Has attrs: 
+	nowrap = nowrap
+                     Contains no text
+                    < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746906002608/0001047469-06-002608-index.htm
+	id = documentsbutton
+                       Content is: &nbsp;Documents
+                  < td Has attrs: 
+	class = small
+                     Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                    < br (no attrs)                        Content is: Acc-no: 0001047469-06-002608&nbsp;(34 Act)&nbsp; Size: 5 MB            
+                    < td (no attrs)                        Content is: 2006-02-28
+                    < td Has attrs: 
+	nowrap = nowrap
+                       Content is: 06651674         
+                      < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                         Content is: 001-02360
+                  < tr Has attrs: 
+	class = blueRow
+                     Contains no text
+                    < td Has attrs: 
+	nowrap = nowrap
+                       Content is: 10-K
+                    < td Has attrs: 
+	nowrap = nowrap
+                       Contains no text
+                      < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746905004595/0001047469-05-004595-index.htm
+	id = documentsbutton
+                         Content is: &nbsp;Documents
+                    < td Has attrs: 
+	class = small
+                       Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                      < br (no attrs)                          Content is: Acc-no: 0001047469-05-004595&nbsp;(34 Act)&nbsp; Size: 2 MB            
+                      < td (no attrs)                          Content is: 2005-02-24
+                      < td Has attrs: 
+	nowrap = nowrap
+                         Content is: 05637403         
+                        < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                           Content is: 001-02360
+                    < tr (no attrs)                        Contains no text
+                      < td Has attrs: 
+	nowrap = nowrap
+                         Content is: 10-K
+                      < td Has attrs: 
+	nowrap = nowrap
+                         Contains no text
+                        < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746904006934/0001047469-04-006934-index.htm
+	id = documentsbutton
+                           Content is: &nbsp;Documents
+                      < td Has attrs: 
+	class = small
+                         Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                        < br (no attrs)                            Content is: Acc-no: 0001047469-04-006934 Size: 4 MB            
+                        < td (no attrs)                            Content is: 2004-03-08
+                        < td Has attrs: 
+	nowrap = nowrap
+                           Content is: 04654738         
+                          < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                             Content is: 001-02360
+                      < tr Has attrs: 
+	class = blueRow
+                         Contains no text
+                        < td Has attrs: 
+	nowrap = nowrap
+                           Content is: 10-K
+                        < td Has attrs: 
+	nowrap = nowrap
+                           Contains no text
+                          < a Has attrs: 
+	href = /Archives/edgar/data/51143/000104746903008194/0001047469-03-008194-index.htm
+	id = documentsbutton
+                             Content is: &nbsp;Documents
+                        < td Has attrs: 
+	class = small
+                           Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                          < br (no attrs)                              Content is: Acc-no: 0001047469-03-008194 Size: 1 MB            
+                          < td (no attrs)                              Content is: 2003-03-10
+                          < td Has attrs: 
+	nowrap = nowrap
+                             Content is: 03597831         
+                            < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                               Content is: 001-02360
+                        < tr (no attrs)                            Contains no text
+                          < td Has attrs: 
+	nowrap = nowrap
+                             Content is: 10-K405
+                          < td Has attrs: 
+	nowrap = nowrap
+                             Contains no text
+                            < a Has attrs: 
+	href = /Archives/edgar/data/51143/000091205702009402/0000912057-02-009402-index.htm
+	id = documentsbutton
+                               Content is: &nbsp;Documents
+                          < td Has attrs: 
+	class = small
+                             Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                            < br (no attrs)                                Content is: Acc-no: 0000912057-02-009402 Size: 435 KB            
+                            < td (no attrs)                                Content is: 2002-03-11
+                            < td Has attrs: 
+	nowrap = nowrap
+                               Content is: 02572393         
+                              < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                 Content is: 001-02360
+                          < tr Has attrs: 
+	class = blueRow
+                             Contains no text
+                            < td Has attrs: 
+	nowrap = nowrap
+                               Content is: 10-K
+                            < td Has attrs: 
+	nowrap = nowrap
+                               Contains no text
+                              < a Has attrs: 
+	href = /Archives/edgar/data/51143/000091205701007563/0000912057-01-007563-index.htm
+	id = documentsbutton
+                                 Content is: &nbsp;Documents
+                            < td Has attrs: 
+	class = small
+                               Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                              < br (no attrs)                                  Content is: Acc-no: 0000912057-01-007563 Size: 368 KB            
+                              < td (no attrs)                                  Content is: 2001-03-13
+                              < td Has attrs: 
+	nowrap = nowrap
+                                 Content is: 1567370         
+                                < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                   Content is: 001-02360
+                            < tr (no attrs)                                Contains no text
+                              < td Has attrs: 
+	nowrap = nowrap
+                                 Content is: 10-K405
+                              < td Has attrs: 
+	nowrap = nowrap
+                                 Contains no text
+                                < a Has attrs: 
+	href = /Archives/edgar/data/51143/0000912057-00-011206-index.html
+	id = documentsbutton
+                                   Content is: &nbsp;Documents
+                              < td Has attrs: 
+	class = small
+                                 Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                                < br (no attrs)                                    Content is: Acc-no: 0000912057-00-011206 Size: 333 KB            
+                                < td (no attrs)                                    Content is: 2000-03-13
+                                < td Has attrs: 
+	nowrap = nowrap
+                                   Content is: 567850         
+                                  < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                     Content is: 001-02360
+                              < tr Has attrs: 
+	class = blueRow
+                                 Contains no text
+                                < td Has attrs: 
+	nowrap = nowrap
+                                   Content is: 10-K
+                                < td Has attrs: 
+	nowrap = nowrap
+                                   Contains no text
+                                  < a Has attrs: 
+	href = /Archives/edgar/data/51143/0001047469-99-011848-index.html
+	id = documentsbutton
+                                     Content is: &nbsp;Documents
+                                < td Has attrs: 
+	class = small
+                                   Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                  < br (no attrs)                                      Content is: Acc-no: 0001047469-99-011848 Size: 332 KB            
+                                  < td (no attrs)                                      Content is: 1999-03-29
+                                  < td Has attrs: 
+	nowrap = nowrap
+                                     Content is: 99575375         
+                                    < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                       Content is: 001-02360
+                                < tr (no attrs)                                    Contains no text
+                                  < td Has attrs: 
+	nowrap = nowrap
+                                     Content is: 10-K405
+                                  < td Has attrs: 
+	nowrap = nowrap
+                                     Contains no text
+                                    < a Has attrs: 
+	href = /Archives/edgar/data/51143/0001047469-98-012291-index.html
+	id = documentsbutton
+                                       Content is: &nbsp;Documents
+                                  < td Has attrs: 
+	class = small
+                                     Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                                    < br (no attrs)                                        Content is: Acc-no: 0001047469-98-012291 Size: 344 KB            
+                                    < td (no attrs)                                        Content is: 1998-03-30
+                                    < td Has attrs: 
+	nowrap = nowrap
+                                       Content is: 98577463         
+                                      < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                         Content is: 001-02360
+                                  < tr Has attrs: 
+	class = blueRow
+                                     Contains no text
+                                    < td Has attrs: 
+	nowrap = nowrap
+                                       Content is: 10-K
+                                    < td Has attrs: 
+	nowrap = nowrap
+                                       Contains no text
+                                      < a Has attrs: 
+	href = /Archives/edgar/data/51143/0000912057-97-010483-index.html
+	id = documentsbutton
+                                         Content is: &nbsp;Documents
+                                    < td Has attrs: 
+	class = small
+                                       Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                      < br (no attrs)                                          Content is: Acc-no: 0000912057-97-010483 Size: 303 KB            
+                                      < td (no attrs)                                          Content is: 1997-03-27
+                                      < td Has attrs: 
+	nowrap = nowrap
+                                         Content is: 97565345         
+                                        < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                           Content is: 001-02360
+                                    < tr (no attrs)                                        Contains no text
+                                      < td Has attrs: 
+	nowrap = nowrap
+                                         Content is: 10-K405
+                                      < td Has attrs: 
+	nowrap = nowrap
+                                         Contains no text
+                                        < a Has attrs: 
+	href = /Archives/edgar/data/51143/0000950112-96-000889-index.html
+	id = documentsbutton
+                                           Content is: &nbsp;Documents
+                                      < td Has attrs: 
+	class = small
+                                         Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                                        < br (no attrs)                                            Content is: Acc-no: 0000950112-96-000889 Size: 328 KB            
+                                        < td (no attrs)                                            Content is: 1996-03-26
+                                        < td Has attrs: 
+	nowrap = nowrap
+                                           Content is: 96538325         
+                                          < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                             Content is: 001-02360
+                                      < tr Has attrs: 
+	class = blueRow
+                                         Contains no text
+                                        < td Has attrs: 
+	nowrap = nowrap
+                                           Content is: 10-K
+                                        < td Has attrs: 
+	nowrap = nowrap
+                                           Contains no text
+                                          < a Has attrs: 
+	href = /Archives/edgar/data/51143/0000950112-95-000774-index.html
+	id = documentsbutton
+                                             Content is: &nbsp;Documents
+                                        < td Has attrs: 
+	class = small
+                                           Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                          < br (no attrs)                                              Content is: Acc-no: 0000950112-95-000774 Size: 405 KB            
+                                          < td (no attrs)                                              Content is: 1995-03-28
+                                          < td Has attrs: 
+	nowrap = nowrap
+                                             Content is: 95523674         
+                                            < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                               Content is: 001-02360
+                                        < tr (no attrs)                                            Contains no text
+                                          < td Has attrs: 
+	nowrap = nowrap
+                                             Content is: 10-K
+                                          < td Has attrs: 
+	nowrap = nowrap
+                                             Contains no text
+                                            < a Has attrs: 
+	href = /Archives/edgar/data/51143/0000950112-94-000794-index.html
+	id = documentsbutton
+                                               Content is: &nbsp;Documents
+                                          < td Has attrs: 
+	class = small
+                                             Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                            < br (no attrs)                                                Content is: Acc-no: 0000950112-94-000794 Size: 333 KB            
+                                            < td (no attrs)                                                Content is: 1994-03-28
+                                            < td Has attrs: 
+	nowrap = nowrap
+                                               Content is: 94518258         
+                                              < a Has attrs: 
+	href = /cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-02360&amp;owner=exclude&amp;count=40
+                                                 Content is: 001-02360
+                                    < !-- (no attrs)                                        Contains no text
+                                      < div Has attrs: 
+	id = footer
+                                         Contains no text
+                                        < div Has attrs: 
+	class = currentURL
+                                           Content is: http://www.sec.gov/cgi-bin/browse-edgar
+                                        < div Has attrs: 
+	class = links
+                                           Content is:  |  | 
+                                          < a Has attrs: 
+	href = http://www.sec.gov/index.htm
+                                             Content is: Home
+                                          < a Has attrs: 
+	href = /edgar/searchedgar/webusers.htm
+                                             Content is: Search the Next-Generation EDGAR System
+                                          < a Has attrs: 
+	href = javascript:history.back()
+                                             Content is: Previous Page
+                                        < div Has attrs: 
+	class = modified
+                                           Content is: Modified 03/14/2012
+                                      < !-- (no attrs)                                          Contains no text
+
+ Found text :  : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-14-001302&nbsp;(34 Act)&nbsp; Size: 42 MB             : 2014-02-25 : 14639952          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-13-001698&nbsp;(34 Act)&nbsp; Size: 49 MB             : 2013-02-26 : 13642470          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-12-001742&nbsp;(34 Act)&nbsp; Size: 48 MB             : 2012-02-28 : 12646432          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-11-001117&nbsp;(34 Act)&nbsp; Size: 54 MB             : 2011-02-22 : 11627632          : 001-02360 : 10-K : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-10-001151&nbsp;(34 Act)&nbsp; Size: 16 MB             : 2010-02-23 : 10625157          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-09-001737&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2009-02-24 : 09630468          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-08-001731&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2008-02-26 : 08642368          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-07-001434&nbsp;(34 Act)&nbsp; Size: 6 MB             : 2007-02-27 : 07652971          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-06-002608&nbsp;(34 Act)&nbsp; Size: 5 MB             : 2006-02-28 : 06651674          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-05-004595&nbsp;(34 Act)&nbsp; Size: 2 MB             : 2005-02-24 : 05637403          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-04-006934 Size: 4 MB             : 2004-03-08 : 04654738          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-03-008194 Size: 1 MB             : 2003-03-10 : 03597831          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000912057-02-009402 Size: 435 KB             : 2002-03-11 : 02572393          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000912057-01-007563 Size: 368 KB             : 2001-03-13 : 1567370          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000912057-00-011206 Size: 333 KB             : 2000-03-13 : 567850          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0001047469-99-011848 Size: 332 KB             : 1999-03-29 : 99575375          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0001047469-98-012291 Size: 344 KB             : 1998-03-30 : 98577463          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000912057-97-010483 Size: 303 KB             : 1997-03-27 : 97565345          : 001-02360 : 10-K405 : &nbsp;Documents : Annual report [Sections 13 and 15(d), S-K Item 405] : Acc-no: 0000950112-96-000889 Size: 328 KB             : 1996-03-26 : 96538325          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000950112-95-000774 Size: 405 KB             : 1995-03-28 : 95523674          : 001-02360 : 10-K : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405] : Acc-no: 0000950112-94-000794 Size: 333 KB             : 1994-03-28 : 94518258          : 001-02360 : http://www.sec.gov/cgi-bin/browse-edgar :  |  |  : Home : Search the Next-Generation EDGAR System : Previous Page : Modified 03/14/2012
+
+ Found in it acn  :   : &nbsp;Docum
+ 
+ Got acn :   : &nbsp;Docum
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ ../bin/graham update_financialsmake[K
+making dependencies for parser/Parser.cpp
+compiling parser/Parser.cpp
+linking graham
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make../bin/graham update_financials
+----------------
+Running Edgar Data Retrival
+BinPath is "../bin/graham"
+Loading configuration file ../bin/../conf.conf
+Going to create logger
+
+ Going to get last year 10k
+ Parsing out from string - 
+<table class="tableFile2" summary="Results">
+         <tr>
+            <th width="7%" scope="col">Filings</th>
+            <th width="10%" scope="col">Format</th>
+            <th scope="col">Description</th>
+            <th width="10%" scope="col">Filing Date</th>
+            <th width="15%" scope="
+< tr   Contains no text
+  < td     Content is: 10-K
+  < td     Content is: &nbsp; 
+    < a       Content is: &nbsp;Documents
+    < a       Content is: &nbsp;Interactive Data
+  < td     Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+    < br       Content is: Acc-no: 0001047469-14-001302&nbsp;(34 Act)&nbsp; Size: 42 MB            
+    < td       Content is: 2014-02-25
+    < td       Content is: 14639952         
+      < a         Content is: 001-02360
+  < tr     Contains no text
+    < td       Content is: 10-K
+    < td       Content is: &nbsp; 
+      < a         Content is: &nbsp;Documents
+      < a         Content is: &nbsp;Interactive Data
+    < td       Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+      < br         Content is: Acc-no: 0001047469-13-001698&nbsp;(34 Act)&nbsp; Size: 49 MB            
+      < td         Content is: 2013-02-26
+      < td         Content is: 13642470         
+        < a           Content is: 001-02360
+    < tr       Contains no text
+      < td         Content is: 10-K
+      < td         Content is: &nbsp; 
+        < a           Content is: &nbsp;Documents
+        < a           Content is: &nbsp;Interactive Data
+      < td         Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+        < br           Content is: Acc-no: 0001047469-12-001742&nbsp;(34 Act)&nbsp; Size: 48 MB            
+        < td           Content is: 2012-02-28
+        < td           Content is: 12646432         
+          < a             Content is: 001-02360
+      < tr         Contains no text
+        < td           Content is: 10-K
+        < td           Content is: &nbsp; 
+          < a             Content is: &nbsp;Documents
+          < a             Content is: &nbsp;Interactive Data
+        < td           Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+          < br             Content is: Acc-no: 0001047469-11-001117&nbsp;(34 Act)&nbsp; Size: 54 MB            
+          < td             Content is: 2011-02-22
+          < td             Content is: 11627632         
+            < a               Content is: 001-02360
+        < tr           Contains no text
+          < td             Content is: 10-K
+          < td             Content is: &nbsp; 
+            < a               Content is: &nbsp;Documents
+            < a               Content is: &nbsp;Interactive Data
+          < td             Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+            < br               Content is: Acc-no: 0001047469-10-001151&nbsp;(34 Act)&nbsp; Size: 16 MB            
+            < td               Content is: 2010-02-23
+            < td               Content is: 10625157         
+              < a                 Content is: 001-02360
+          < tr             Contains no text
+            < td               Content is: 10-K
+            < td               Contains no text
+              < a                 Content is: &nbsp;Documents
+            < td               Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+              < br                 Content is: Acc-no: 0001047469-09-001737&nbsp;(34 Act)&nbsp; Size: 6 MB            
+              < td                 Content is: 2009-02-24
+              < td                 Content is: 09630468         
+                < a                   Content is: 001-02360
+            < tr               Contains no text
+              < td                 Content is: 10-K
+              < td                 Contains no text
+                < a                   Content is: &nbsp;Documents
+              < td                 Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                < br                   Content is: Acc-no: 0001047469-08-001731&nbsp;(34 Act)&nbsp; Size: 6 MB            
+                < td                   Content is: 2008-02-26
+                < td                   Content is: 08642368         
+                  < a                     Content is: 001-02360
+              < tr                 Contains no text
+                < td                   Content is: 10-K
+                < td                   Contains no text
+                  < a                     Content is: &nbsp;Documents
+                < td                   Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                  < br                     Content is: Acc-no: 0001047469-07-001434&nbsp;(34 Act)&nbsp; Size: 6 MB            
+                  < td                     Content is: 2007-02-27
+                  < td                     Content is: 07652971         
+                    < a                       Content is: 001-02360
+                < tr                   Contains no text
+                  < td                     Content is: 10-K
+                  < td                     Contains no text
+                    < a                       Content is: &nbsp;Documents
+                  < td                     Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                    < br                       Content is: Acc-no: 0001047469-06-002608&nbsp;(34 Act)&nbsp; Size: 5 MB            
+                    < td                       Content is: 2006-02-28
+                    < td                       Content is: 06651674         
+                      < a                         Content is: 001-02360
+                  < tr                     Contains no text
+                    < td                       Content is: 10-K
+                    < td                       Contains no text
+                      < a                         Content is: &nbsp;Documents
+                    < td                       Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                      < br                         Content is: Acc-no: 0001047469-05-004595&nbsp;(34 Act)&nbsp; Size: 2 MB            
+                      < td                         Content is: 2005-02-24
+                      < td                         Content is: 05637403         
+                        < a                           Content is: 001-02360
+                    < tr                       Contains no text
+                      < td                         Content is: 10-K
+                      < td                         Contains no text
+                        < a                           Content is: &nbsp;Documents
+                      < td                         Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                        < br                           Content is: Acc-no: 0001047469-04-006934 Size: 4 MB            
+                        < td                           Content is: 2004-03-08
+                        < td                           Content is: 04654738         
+                          < a                             Content is: 001-02360
+                      < tr                         Contains no text
+                        < td                           Content is: 10-K
+                        < td                           Contains no text
+                          < a                             Content is: &nbsp;Documents
+                        < td                           Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                          < br                             Content is: Acc-no: 0001047469-03-008194 Size: 1 MB            
+                          < td                             Content is: 2003-03-10
+                          < td                             Content is: 03597831         
+                            < a                               Content is: 001-02360
+                        < tr                           Contains no text
+                          < td                             Content is: 10-K405
+                          < td                             Contains no text
+                            < a                               Content is: &nbsp;Documents
+                          < td                             Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                            < br                               Content is: Acc-no: 0000912057-02-009402 Size: 435 KB            
+                            < td                               Content is: 2002-03-11
+                            < td                               Content is: 02572393         
+                              < a                                 Content is: 001-02360
+                          < tr                             Contains no text
+                            < td                               Content is: 10-K
+                            < td                               Contains no text
+                              < a                                 Content is: &nbsp;Documents
+                            < td                               Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                              < br                                 Content is: Acc-no: 0000912057-01-007563 Size: 368 KB            
+                              < td                                 Content is: 2001-03-13
+                              < td                                 Content is: 1567370         
+                                < a                                   Content is: 001-02360
+                            < tr                               Contains no text
+                              < td                                 Content is: 10-K405
+                              < td                                 Contains no text
+                                < a                                   Content is: &nbsp;Documents
+                              < td                                 Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                                < br                                   Content is: Acc-no: 0000912057-00-011206 Size: 333 KB            
+                                < td                                   Content is: 2000-03-13
+                                < td                                   Content is: 567850         
+                                  < a                                     Content is: 001-02360
+                              < tr                                 Contains no text
+                                < td                                   Content is: 10-K
+                                < td                                   Contains no text
+                                  < a                                     Content is: &nbsp;Documents
+                                < td                                   Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                  < br                                     Content is: Acc-no: 0001047469-99-011848 Size: 332 KB            
+                                  < td                                     Content is: 1999-03-29
+                                  < td                                     Content is: 99575375         
+                                    < a                                       Content is: 001-02360
+                                < tr                                   Contains no text
+                                  < td                                     Content is: 10-K405
+                                  < td                                     Contains no text
+                                    < a                                       Content is: &nbsp;Documents
+                                  < td                                     Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                                    < br                                       Content is: Acc-no: 0001047469-98-012291 Size: 344 KB            
+                                    < td                                       Content is: 1998-03-30
+                                    < td                                       Content is: 98577463         
+                                      < a                                         Content is: 001-02360
+                                  < tr                                     Contains no text
+                                    < td                                       Content is: 10-K
+                                    < td                                       Contains no text
+                                      < a                                         Content is: &nbsp;Documents
+                                    < td                                       Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                      < br                                         Content is: Acc-no: 0000912057-97-010483 Size: 303 KB            
+                                      < td                                         Content is: 1997-03-27
+                                      < td                                         Content is: 97565345         
+                                        < a                                           Content is: 001-02360
+                                    < tr                                       Contains no text
+                                      < td                                         Content is: 10-K405
+                                      < td                                         Contains no text
+                                        < a                                           Content is: &nbsp;Documents
+                                      < td                                         Content is: Annual report [Sections 13 and 15(d), S-K Item 405]
+                                        < br                                           Content is: Acc-no: 0000950112-96-000889 Size: 328 KB            
+                                        < td                                           Content is: 1996-03-26
+                                        < td                                           Content is: 96538325         
+                                          < a                                             Content is: 001-02360
+                                      < tr                                         Contains no text
+                                        < td                                           Content is: 10-K
+                                        < td                                           Contains no text
+                                          < a                                             Content is: &nbsp;Documents
+                                        < td                                           Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                          < br                                             Content is: Acc-no: 0000950112-95-000774 Size: 405 KB            
+                                          < td                                             Content is: 1995-03-28
+                                          < td                                             Content is: 95523674         
+                                            < a                                               Content is: 001-02360
+                                        < tr                                           Contains no text
+                                          < td                                             Content is: 10-K
+                                          < td                                             Contains no text
+                                            < a                                               Content is: &nbsp;Documents
+                                          < td                                             Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+                                            < br                                               Content is: Acc-no: 0000950112-94-000794 Size: 333 KB            
+                                            < td                                               Content is: 1994-03-28
+                                            < td                                               Content is: 94518258         
+                                              < a                                                 Content is: 001-02360
+                                    < !--                                       Contains no text
+                                      < div                                         Contains no text
+                                        < div                                           Content is: http://www.sec.gov/cgi-bin/browse-edgar
+                                        < div                                           Content is:  |  | 
+                                          < a                                             Content is: Home
+                                          < a                                             Content is: Search the Next-Generation EDGAR System
+                                          < a                                             Content is: Previous Page
+                                        < div                                           Content is: Modified 03/14/2012
+                                      < !--                                         Contains no text
+
+ Found in it acn  : 0001047469-14-0
+ 
+ Got acn : 0001047469-14-0
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ ../bin/graham update_financialsmake[K
+making dependencies for parser/Parser.cpp
+making dependencies for financials/Financials.cpp
+compiling financials/Financials.cpp
+compiling parser/Parser.cpp
+parser/Parser.cpp: In member function ‘std::string Parser::extractLatest10kAcn(std::string&)’:
+parser/Parser.cpp:391:28: error: ‘class XmlElement’ has no member named ‘tagWithText’
+     XmlElement* tr = tree->tagWithText(tagName,ar);
+                            ^
+make: *** [Parser.o] Error 1
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make
+making dependencies for parser/Parser.cpp
+making dependencies for financials/Financials.cpp
+compiling financials/Financials.cpp
+compiling parser/Parser.cpp
+parser/Parser.cpp: In member function ‘std::vector<std::basic_string<char> > Parser::getTrByName(XmlElement*, std::string&)’:
+parser/Parser.cpp:354:34: error: ‘class XmlElement’ has no member named ‘trWithText’
+     XmlElement* dataLine = tree->trWithText(tagName,trTitlePattern);
+                                  ^
+make: *** [Parser.o] Error 1
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make
+making dependencies for parser/Parser.cpp
+compiling parser/Parser.cpp
+linking graham
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make../bin/graham update_financials
+----------------
+Running Edgar Data Retrival
+BinPath is "../bin/graham"
+Loading configuration file ../bin/../conf.conf
+Going to create logger
+
+ Going to get last year 10k
+ Parsing out from string - 
+<table class="tableFile2" summary="Results">
+         <tr>
+            <th width="7%" scope="col">Filings</th>
+            <th width="10%" scope="col">Format</th>
+            <th scope="col">Description</th>
+            <th width="10%" scope="col">Filing Date</th>
+            <th width="15%" scope="
+< td   Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+  < br     Content is: Acc-no: 0001047469-14-001302&nbsp;(34 Act)&nbsp; Size: 42 MB            
+  < td     Content is: 2014-02-25
+  < td     Content is: 14639952         
+    < a       Content is: 001-02360
+
+ Found in it acn  : 0001047469-14-0
+ 
+ Got acn : 0001047469-14-0
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ ../bin/graham update_financialsmake[K
+making dependencies for parser/Parser.cpp
+compiling parser/Parser.cpp
+linking graham
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ make../bin/graham update_financials
+----------------
+Running Edgar Data Retrival
+BinPath is "../bin/graham"
+Loading configuration file ../bin/../conf.conf
+Going to create logger
+
+ Going to get last year 10k
+ Parsing out from string - 
+<table class="tableFile2" summary="Results">
+         <tr>
+            <th width="7%" scope="col">Filings</th>
+            <th width="10%" scope="col">Format</th>
+            <th scope="col">Description</th>
+            <th width="10%" scope="col">Filing Date</th>
+            <th width="15%" scope="
+< td   Content is: Annual report [Section 13 and 15(d), not S-K Item 405]
+  < br     Content is: Acc-no: 0001047469-14-001302&nbsp;(34 Act)&nbsp; Size: 42 MB            
+  < td     Content is: 2014-02-25
+  < td     Content is: 14639952         
+    < a       Content is: 001-02360
+
+ Found in it acn  : 0001047469-14-001302
+ 
+ Got acn : 0001047469-14-001302
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ [K]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ git add --all .
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ git commit a[K-a -m" Hooked in db"
+[master 06ef447]  Hooked in db
+ 21 files changed, 387 insertions(+), 124 deletions(-)
+ rewrite cpp/graham_log/.txt (70%)
+ create mode 100644 cpp/src/financials/Acn.cpp
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ git push
+Counting objects: 87, done.
+Delta compression using up to 4 threads.
+Compressing objects:   3% (1/32)   Compressing objects:   6% (2/32)   Compressing objects:   9% (3/32)   Compressing objects:  12% (4/32)   Compressing objects:  15% (5/32)   Compressing objects:  18% (6/32)   Compressing objects:  21% (7/32)   Compressing objects:  25% (8/32)   Compressing objects:  28% (9/32)   Compressing objects:  31% (10/32)   Compressing objects:  34% (11/32)   Compressing objects:  37% (12/32)   Compressing objects:  40% (13/32)   Compressing objects:  43% (14/32)   Compressing objects:  46% (15/32)   Compressing objects:  50% (16/32)   Compressing objects:  53% (17/32)   Compressing objects:  56% (18/32)   Compressing objects:  59% (19/32)   Compressing objects:  62% (20/32)   Compressing objects:  65% (21/32)   Compressing objects:  68% (22/32)   Compressing objects:  71% (23/32)   Compressing objects:  75% (24/32)   Compressing objects:  78% (25/32)   Compressing objects:  81% (26/32)   Compressing objects:  84% (27/32)   Compressing objects:  87% (28/32)   Compressing objects:  90% (29/32)   Compressing objects:  93% (30/32)   Compressing objects:  96% (31/32)   Compressing objects: 100% (32/32)   Compressing objects: 100% (32/32), done.
+Writing objects:   2% (1/34)   Writing objects:   5% (2/34)   Writing objects:   8% (3/34)   Writing objects:  11% (4/34)   Writing objects:  14% (5/34)   Writing objects:  17% (6/34)   Writing objects:  20% (7/34)   Writing objects:  20% (7/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  23% (8/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  26% (9/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  29% (10/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  32% (11/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  35% (12/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  38% (13/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  41% (14/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  44% (15/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  47% (16/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  50% (17/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  52% (18/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  55% (19/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  58% (20/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  61% (21/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  64% (22/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  67% (23/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  70% (24/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  73% (25/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  76% (26/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  79% (27/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  82% (28/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  85% (29/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  88% (30/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  91% (31/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  94% (32/34), 1.30 MiB | 186.00 KiB/s   Writing objects:  97% (33/34), 1.30 MiB | 186.00 KiB/s   Writing objects: 100% (34/34), 1.30 MiB | 186.00 KiB/s   Writing objects: 100% (34/34), 1.63 MiB | 186.00 KiB/s, done.
+Total 34 (delta 23), reused 0 (delta 0)
+To git@github.com:danielgelbart/Graham.git
+   7ad2d9b..06ef447  master -> master
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ [K]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ [30P(reverse-i-search)`':[Cf': ../bin/graham update_financials[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@i[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cr': firefox -P signed_in -no-remote &[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ firefox -P signed_in -no-remmote &[A]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ 
+
+[1] 20856
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ 
+(process:20856): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+console.error: 
+  Message: Unix error 13 during operation open on file /home/daniel/.mozilla/firefox/h98giyhc.default/sessionstore.js (Permission denied)
+[30P(reverse-i-search)`':[Cf': firefox -P signed_in -no-remote &[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@i[C[C[C[1@r[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@out]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ firefox -P signed_out -no-reemote &[A]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ 
+
+[2] 20920
+]0;daniel@daniel-Inspiron-5537: ~/rails/Graham/cpp/srcdaniel@daniel-Inspiron-5537:~/rails/Graham/cpp/src$ 
+(process:20920): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+1416239453658	GMPInstallManager.simpleCheckAndInstall	INFO	Last check was: 612389 seconds ago, minimum seconds: 86400
+1416239453658	GMPInstallManager._getURL	INFO	Using url: https://aus4.mozilla.org/update/3/GMP/%VERSION%/%BUILD_ID%/%BUILD_TARGET%/%LOCALE%/%CHANNEL%/%OS_VERSION%/%DISTRIBUTION%/%DISTRIBUTION_VERSION%/update.xml
+1416239453659	GMPInstallManager._getURL	INFO	Using url (with replacement): https://aus4.mozilla.org/update/3/GMP/33.0/20141013200257/Linux_x86_64-gcc3/en-US/release/Linux%203.13.0-39-generic%20(GTK%202.24.23)/canonical/1.0/update.xml
+1416239453661	GMPInstallManager.checkForAddons	INFO	sending request to: https://aus4.mozilla.org/update/3/GMP/33.0/20141013200257/Linux_x86_64-gcc3/en-US/release/Linux%203.13.0-39-generic%20(GTK%202.24.23)/canonical/1.0/update.xml
+1416239454700	GMPInstallManager.onLoadXML	INFO	request completed downloading document
+1416239454703	GMPInstallManager.onLoadXML	INFO	allowNonBuiltIn: false
+1416239454710	GMPInstallManager.simpleCheckAndInstall	INFO	Found 1 addons advertised.
+1416239454711	GMPInstallManager.simpleCheckAndInstall	INFO	Found addon: gmp-gmpopenh264 (isValid: true, isInstalled: true, isOpenH264: true, hashFunction: sha512, hashValue: 737e49f25aace93d470f1a781c69c3cdd0c9db21afe62221fb171d38a31d8a2b55af01a69cd00e7352e7a34aa450b6b85729509f81582379394785b37997a423, size: 385889)
+1416239454711	GMPInstallManager.simpleCheckAndInstall	INFO	No new addons to install, returning
+1416239465846	GMPInstallManager.simpleCheckAndInstall	INFO	Last check was: 68926 seconds ago, minimum seconds: 86400
+1416239465846	GMPInstallManager.simpleCheckAndInstall	INFO	Will not check for updates.
+1416256572296	GMPInstallManager.simpleCheckAndInstall	INFO	Last check was: 86032 seconds ago, minimum seconds: 86400
+1416256572296	GMPInstallManager.simpleCheckAndInstall	INFO	Will not check for updates.
+1416292248067	addons.repository	WARN	Unknown type id when parsing addon: 5
+1416292248071	addons.repository	WARN	Unknown type id when parsing addon: 5
+1416292248074	addons.repository	WARN	Unknown type id when parsing addon: 5
+1416292249181	addons.update-checker	WARN	Update manifest for ubufox@ubuntu.com did not contain an updates property
+1416292249409	addons.update-checker	WARN	Update manifest for webapps-team@lists.launchpad.net did not contain an updates property
+1416292249636	addons.update-checker	WARN	Update manifest for online-accounts@lists.launchpad.net did not contain an updates property
+1416292250084	addons.update-ch

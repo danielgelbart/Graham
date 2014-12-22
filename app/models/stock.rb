@@ -388,6 +388,17 @@ class Stock < ActiveRecord::Base
     ticker.gsub(/\./,"")
   end
 
+  def get_ttm_eps
+    ttm = eps.select{ |e| e.quarter == 5}.first.eps
+    ttm ||= ttm_eps
+    ttm
+  end
+
+  def get_ttm_earnings
+    ttmep = eps.select{ |e| e.quarter == 5}.first
+#    ttmep.nil? ? nil : ttmep.net_income
+  end
+
   def pe
     price / ttm_eps.to_f
   end
