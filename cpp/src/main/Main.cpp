@@ -92,7 +92,7 @@ mainMain(int argc, char* argv[])
         path(confParam<string>("log_file_name"));
 
     dirFor(logDir);
-    logFile = logDir / string(".txt");       
+    logFile = logDir / string("log.txt");       
     cout << "Going to create logger" << endl;
      
     Logger* logger = new Logger(logFile.string().c_str());

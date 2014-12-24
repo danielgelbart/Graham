@@ -178,6 +178,7 @@ Tokenizer::readReportHtmlNameFromFS(string& report)
 void
 Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
 {
+    LOG_INFO << "Tokenizer::getReportDocNames() called\n";
     bool foundIncomeRep(false);
     bool foundBalanceRep(false);
     string delimiter("<Report>");
@@ -198,19 +199,22 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
 
         // TODOcheck that name does NOT inclue (Parenthetical)
 
-        //cout << "\nName: " << reportName << endl;
-        if (boost::regex_match(reportName, income_pattern))
-            {
-                foundIncomeRep = true;
-                //      cout << "FOUND INCOME MATCH!!\n"<< reportName << endl;
-                reports_map->insert( pair<ReportType,string>(
-                                        ReportType::INCOME,
-                                        readReportHtmlNameFromFS(report)) ); 
-            }
-        if (boost::regex_match(reportName, balance_pattern))
+        LOG_INFO << "\n Handling report named: " << reportName << "\n";
+        if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
+        {
+            // continue of treating "Parenthetical"
+            
+            foundIncomeRep = true;
+            LOG_INFO << "FOUND INCOME REPORT MATCH!\n"<< reportName << "\n";
+            reports_map->insert( pair<ReportType,string>(
+                                     ReportType::INCOME,
+                                     readReportHtmlNameFromFS(report)) ); 
+        }
+        if (!foundBalanceRep && boost::regex_search(
+                reportName, balance_pattern))
         {
             foundBalanceRep = true;
-//            cout << "FOUND BALANCE MATCH!!\n"<< reportName << endl;
+            LOG_INFO << "FOUND BALANCE REPORT MATCH!\n"<< reportName << "\n";
             reports_map->insert( pair<ReportType,string>(
                                      ReportType::BALANCE,
                                      readReportHtmlNameFromFS(report)) ); 

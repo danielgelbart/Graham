@@ -5,6 +5,7 @@
 #include <boost/regex.hpp>
 #include <math.h>  
 #include "Utils.hpp"
+#include "Logger.h"
 
 #include "Tokenizer.h"
 #include "Parser.h"
@@ -13,11 +14,14 @@ long
 unitsToInt(string& units)
 {
     units = toLower(units);
-    if ( units == "billions")
+    if ( (units == "billions") ||
+         (units == BILL) )
         return 1000000000;
-    if ( units == "millions")
+    if ( (units == MILL) ||
+         (units == "millions") )
         return 1000000;
-    if ( units == "thousands")
+    if ( (units == THOU) ||
+         (units == "thousands") )
         return 1000;
     return 1;
 }
@@ -135,7 +139,7 @@ XmlElement::firstNodebyName(string& tagName ){
 XmlElement* 
 XmlElement::tagWithText(string& tagName, string& phrase)
 {
-    boost::regex pattern( phrase );
+    boost::regex pattern( phrase, boost::regex::icase );
 
     if (_tagName == tagName)
     {
@@ -195,12 +199,14 @@ Parser::tokenType( string& xml)
 XmlElement* 
 Parser::buildXmlTree(string& xmlDocument)
 {
+    LOG_INFO << "\n going to build xml tree";
     Tokenizer xmlTok = Tokenizer(xmlDocument);
     
     string rootName("__ROOT__");
     XmlElement* root = new XmlElement(rootName);
 
     parseXML( root, xmlTok);
+    LOG_INFO << "Completed construction of tree";
 
     return root;
 }
@@ -225,12 +231,10 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
     string name;    
     XmlElement* child;
 
-//TODO -- does not build correctly from 10k of IBM
-
     while ( ! tok.atEnd() )
     {
         xml_token = tok.xmlNextTok();
-        //cout << "\n procesing token: " << xml_token << endl;
+//        LOG_INFO << "\n procesing token: " << xml_token << "\n";
 
         switch ( tokenType(xml_token) )
         {
@@ -317,8 +321,6 @@ Parser::extract_quarterly_income(string& page)
          << page.substr(0,300) << endl;
     string filingSummary = tokenizer.findFilingSummary();
 
-    cout << "\n Found filing summary, but FAIL to find income report in it in next bloc " << endl;
-
     Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
     filingSummaryTok.getReportDocNames(reports);
@@ -351,7 +353,7 @@ Parser::extractIncomeTableStr(string& incomeStr){
 vector<size_t> 
 Parser::titleInfo(XmlElement* tree, string& units, string& currency)
 {
-    string titleText = getUnitsAndCurrency( tree, units, currency );
+    string titleText = getUnitsAndCurrency( tree, units, currency);
 
     vector<size_t> years;    
     // get dates
@@ -372,33 +374,59 @@ Parser::titleInfo(XmlElement* tree, string& units, string& currency)
 }
 
 string
-Parser::getUnitsAndCurrency(XmlElement* tree, 
-                            string& units, string& currency)
+get_units_from_text(string& text)
+{
+    boost::regex t_pattern ("In Thousands", boost::regex::icase);
+    boost::regex m_pattern ("In Millions", boost::regex::icase);
+    boost::regex b_pattern ("In Billions", boost::regex::icase);
+
+    if (boost::regex_search(text, t_pattern) )
+        return THOU;
+
+    if (boost::regex_search(text, m_pattern) )
+        return MILL;
+
+    if (boost::regex_search(text, b_pattern) )
+        return BILL;
+
+    LOG_ERROR << "Could not extract units from text: \n " << text;
+    return "";
+}
+
+string
+get_title_text(XmlElement* tree)
 {
     vector<XmlElement*>* elements = new vector<XmlElement*>;
     string tagName("tr");
     tree->getNodes(tagName, 2, elements);
- 
     string titleText  = (*elements)[0]->text() + (*elements)[1]->text() ;
-    
-    //cout << "\n Title text is : " << titleText << endl; 
-    
-    // get units
-    boost::regex pattern ("In Thousands");
-    if (boost::regex_search(titleText, pattern) )
-        units = THOU;
-    pattern = "In Millions";
-    if (boost::regex_search(titleText, pattern) )
-        units = MILL;
-    pattern = "In Billions";
-    if (boost::regex_search(titleText, pattern) )
-        units = BILL;
+    return titleText;
+}
+
+string
+Parser::getUnitsAndCurrency(XmlElement* tree, string& units, string& currency)
+{
+    string titleText  = get_title_text(tree);
+    LOG_INFO << "\n Title text is : " << titleText;
 
     // get currency
-    pattern = "USD";
+    boost::regex pattern("USD");
+    currency = "USD";    
     if (!boost::regex_search(titleText, pattern) )
         currency = "OTHER";
-    currency = "USD";    
+
+    // get default units, make sure only first units appear in title text 
+    size_t split = titleText.find("except");
+    if (split != string::npos)
+    {
+        LOG_INFO << "Title text contains more than one specification of units"
+                 << "Extacting default units only (for now)";
+        titleText = titleText.substr(0, split);
+    }
+    units = get_units_from_text( titleText );
+
+    LOG_INFO << "(general) Units are being set to " << units 
+             << " Currency is being set to " << currency ;
 
     return titleText;
 }
@@ -453,17 +481,34 @@ Parser::getIncs(XmlElement* tree){
 vector<string>
 Parser::getNumShares(XmlElement* tree, string& bunits)
 {
-    cout << "\n Going to retrieve num shares" << endl;
     vector<string> shares;
     string units("");
+
+    //check if units for share number are specifide in table titles
+    string titleText = get_title_text(tree);
+    size_t split = titleText.find("except");
+    if (split != string::npos)
+    {
+        string additional = titleText.substr(split, titleText.size()-split);
+        LOG_INFO << "title text for table is " << titleText << 
+            ". Which contains additional units information: " <<  additional;
+
+        boost::regex a_pattern ("share data", boost::regex::icase);
+        if (boost::regex_search(additional, a_pattern) )
+        {
+            units = get_units_from_text( additional );
+            LOG_INFO << " Share data units found in title text of table."
+                     << " units have been set to " << units; 
+        }
+    }
 
     // find correct eps BLOCK in tree
     string tagName("table");
     XmlElement* tab = tree->firstNodebyName(tagName);
     Iterator iter(tab);
     XmlElement* tr;
-
-    boost::regex u_pattern("(millions|thousands|billions)", boost::regex::icase);
+    boost::regex u_pattern("(millions|thousands|billions)",
+                           boost::regex::icase);
       
     // advance up to relavent block
     while ( (tr = iter.nextTr()) != NULL)
@@ -472,12 +517,17 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
         boost::smatch match1;
         if ( boost::regex_search(tr->text(), match1, block_pattern) )
         {
-            cout << "\n Found Num shares block : \n" << tr->text() << endl;
+            LOG_INFO << "\n Found Num shares block : \n" << tr->text();
             // check for units
             if ( boost::regex_search(tr->text(), match1, u_pattern) )
             {
+                if (units != "")
+                {
+                    LOG_ERROR << "Found units both in title text, and in block"
+                              << " title, using block info";
+                }
                 units =  match1[0].str();
-                cout << "Units are " << units << endl;
+                LOG_INFO <<"Units for numshares from block title are "<<units;
             }
             break;
         }
@@ -485,18 +535,23 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
     // find diluted - n
     while ( (tr = iter.nextTr()) != NULL)
     {
-        boost::regex dil_pattern("(dilution)");
+        boost::regex dil_pattern("(dilution|diluted)",boost::regex::icase);
         boost::smatch match2;
         string text = tr->text();
         if ( boost::regex_search(text, match2, dil_pattern) )
         {
-            cout << "\n Found num shares diluted  in : \n" << text << endl;
+            LOG_INFO << "\n Found num shares diluted  in : \n" << text;
             
-            if ( (units != "") &&
-                 (boost::regex_search(text, match2, u_pattern)) )
+            if ( boost::regex_search(text, match2, u_pattern) )
             {
+                if (units != "")
+                {
+                    LOG_ERROR << "Found units both in data line, as well as"
+                              << " previously. using data line units";
+                }
+
                 units =  match2[0].str();
-                cout << "Units (from line) are " << units << endl;
+                LOG_INFO << "numshare Units (from line) are " << units;
             }
 
             boost::regex dig_pat("[\\d,]+.?\\d+?");
@@ -506,22 +561,29 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
             {
                 string matchString = (*mit)[0].str();
                 size_t decimals = countDecimals( matchString );
-                cout << "\n Numshares extracted are: " << matchString << 
-                    " wich has " << to_string(decimals) << " decimals"<<endl;
+                LOG_INFO << "\n Numshares extracted are: " << matchString << 
+                    " wich has " << to_string(decimals) << " decimals";
                 string cleanMatch = removeNonDigit( matchString );
                 if ( units != "")
                 {
-                    cout<<"\n Units are "<<units<<" for " <<cleanMatch<<endl;
-                    long ns = stol(cleanMatch) * unitsToInt( units);
-                    if( decimals > 0)
-                        ns = ns / pow(10,decimals);
-                    cleanMatch = to_string( ns );
-                }
-                cout << "\n Adding extracted val : " << cleanMatch << endl;
+                    LOG_INFO<<"\n using Units "<<units<<
+                        " , wich differ from table units. Applying to "
+                            <<cleanMatch;
+                } else
+                    units = bunits;
+
+                long ns = stol(cleanMatch) * unitsToInt( units);
+                if( decimals > 0)
+                    ns = ns / pow(10,decimals);
+                cleanMatch = to_string( ns );
+            
+                LOG_INFO << "\n Adding extracted val : " << cleanMatch;
                 shares.push_back( cleanMatch );
             }
         }
     }
+    if ( shares.empty() )
+        LOG_ERROR << " Could not read number of shares outstanding";
     return shares;
 }
 
@@ -532,6 +594,11 @@ Parser::getAnualEps(XmlElement* tree){
     string tagName("tr");
 
     XmlElement* dataLine = tree->tagWithText(tagName,trTitle);
+
+    if ( dataLine == NULL )
+        LOG_ERROR << "Could not extract " << tagName 
+                  << " with text matching pattern " << trTitle;
+
     string dataText = dataLine->text();
 
 //    cout << " \n Data line text is : " << dataText << endl;
@@ -553,8 +620,8 @@ Parser::getAnualEps(XmlElement* tree){
 double
 Parser::getQarterEps(XmlElement* tree)
 {
-    cout << "\n Going to retrieve diluted eps for quarter" << endl;
     double retEps(0);
+    bool foundEps(false);
     // find correct eps BLOCK in tree
   
     string tagName("table");
@@ -568,7 +635,7 @@ Parser::getQarterEps(XmlElement* tree)
         boost::smatch match1;
         if ( boost::regex_search(tr->text(), match1, block_pattern) )
         {
-            //cout << "\n Found block : \n" << tr->text() << endl;
+            LOG_INFO << "\n Found eps block : \n" << tr->text();
             break;
         }
     }
@@ -579,14 +646,52 @@ Parser::getQarterEps(XmlElement* tree)
         boost::smatch match2;
         if ( boost::regex_search(tr->text(), match2, eps_pattern) )
         {
-//            cout << "\n Found eps in : \n" << tr->text() << endl;
+            LOG_INFO << "\n Found eps in : \n" << tr->text();
             boost::regex dig_pat("\\d+.(\\d+)?");
             boost::smatch match3;
             boost::regex_search(tr->text(), match3, dig_pat);
             retEps = stof( match3[0] );
+            foundEps = true;
             break;
         }
     }
+    if (foundEps)
+        return retEps;
+
+    // The above code faild to retrieve eps data
+    // we will start heuristic number 2:
+    LOG_INFO << "Failed to find eps so far. Going to use heuristic #2";
+    Iterator iterb(tab);
+
+    // advance up to relavent block
+    while ( (tr = iterb.nextTr()) != NULL)
+    {
+        boost::regex block_pattern("(per share of common stock)",
+                                   boost::regex::icase);
+        boost::smatch match1;
+        if ( boost::regex_search(tr->text(), match1, block_pattern) )
+        {
+            LOG_INFO << "\n (H2) Found eps block : \n" << tr->text();
+            break;
+        }
+    }
+
+    boost::regex h2_pattern("diluted",boost::regex::icase);
+    while ( (tr = iterb.nextTr()) != NULL)
+    {
+        boost::smatch match4;
+        if ( boost::regex_search(tr->text(), match4, h2_pattern) )
+        {
+            LOG_INFO << "\n Found eps in tr : \n" << tr->text();
+            boost::regex dig_pat("\\d+.(\\d+)?");
+            boost::smatch match3;
+            boost::regex_search(tr->text(), match3, dig_pat);
+            retEps = stof( match3[0] );
+            foundEps = true;
+            break;
+        }
+    }
+    LOG_INFO << "Returning eps value" << to_string(retEps);
     return retEps;
 }
 
@@ -595,9 +700,13 @@ Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
 
     string tagName("tr");
     XmlElement* dataLine = tree->tagWithText(tagName,trTitlePattern);
-    string dataText = dataLine->text();
 
-    //cout << " \n Data line text is : " << dataText << endl;
+    if ( dataLine == NULL )
+        LOG_ERROR << "Could not extract " << tagName 
+                  << " with text matching pattern " << trTitlePattern;
+
+    string dataText = dataLine->text();
+    LOG_INFO << " \n Data line text is : " << dataText;
 
     boost::regex pattern("(\\()?(\\d+)([,.]?\\d+)?(,?)(\\d+)?(\\))?");
     boost::sregex_iterator mit(dataText.begin(), dataText.end(), pattern);
@@ -608,8 +717,9 @@ Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
     {
         string matchString = (*mit)[0].str();
         string cleanMatch = removeNonDigit( matchString );
-        //cout << "\n Adding extracted val : " << cleanMatch << endl;
+        LOG_INFO << "\n Adding extracted val : " << cleanMatch;
         retVals.push_back( cleanMatch );
+
     }
     return retVals;
 }

@@ -106,12 +106,11 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
     Url url = Url(uri);
     string page;
     
-    
     // check for 404
     if (! downloadToString( url, page ) )
     {
-        cout << "\n failed to retrieve webpage." <<
-            " NOT getting info for quarter " << to_string(acn._quarter) << endl;
+        LOG_INFO << "\n failed to retrieve webpage." <<
+            " NOT getting info for quarter " << to_string(acn._quarter) << "\n";
         return;
     }
 
@@ -176,6 +175,18 @@ EdgarData::insertEp( O_Ep& ep )
     return true;
 }
 
+long
+convert_string_to_long( string& str)
+{
+    long ret(1);
+    size_t pos;
+    if ( (pos = str.find("Bil")) != string::npos )
+        return stod( str.substr(0,pos) ) * 1000000000 ;
+    if ( (pos = str.find("Mil")) != string::npos )
+        return stod( str.substr(0,pos) )* 1000000;
+    return ret;
+}
+
 void
 EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
 {
@@ -184,13 +195,12 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
 
     if ( incs.size() != 4 )
     {
-        //LOG_ERROR << " " << endl;
+        LOG_ERROR << "Cannot create fourth quarter. Missing quarters ";
         return;
     }
 
     long revp(0);
     long incp(0);
-    //float epsp(0);
     long numshares(1);
     for ( auto it = incs.begin(); it != incs.end(); ++it)
     {
@@ -198,13 +208,15 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
         {
             revp += stol( it->_revenue() );
             incp += stol( it->_net_income() );
-            //epsp += it->_eps();
-            numshares = stol( it->_shares() );
+            string annual_shares = it->_shares();
+            if ( annual_shares.find("il") != string::npos )
+                numshares = convert_string_to_long( annual_shares );
+            else    
+                numshares = stol( annual_shares );
             continue;
         }
         revp -= stol( it->_revenue() );
         incp -= stol( it->_net_income() );
-        //epsp -= it->_eps();
     }
     
     O_Ep fourth( stock._id());    
@@ -244,17 +256,18 @@ EdgarData::createTtmEps(O_Stock& stock)
     vector<O_Ep> qrts = stock._eps( t._quarter() > 0);
     if ( qrts.size() < 4 )
     {
-        cout << " Stock does not have enough quarters."
-             << " Cannot procede to calculate ttm eps" << endl;
+        LOG_ERROR << " Stock does not have enough quarters."
+             << " Cannot procede to calculate ttm eps";
         return;
         
     }
     sort( qrts.begin(), qrts.end(), ep_comp );
 
     // print for sort inspection
-    cout << "\n Sorted quarters for " << stock._ticker() << " are: " << endl;
+    /* cout << "\n Sorted quarters for " << stock._ticker() << " are: " << endl;
     for( auto it = qrts.begin(); it != qrts.end(); ++it)
         cout << to_string(it->_year()) << " qrt- " << to_string(it->_quarter()) << endl;
+    */
 
     // sum latest 4 quarters
     long revp(0);
@@ -269,8 +282,8 @@ EdgarData::createTtmEps(O_Stock& stock)
     }
     if ( !(check[0] && check[1] && check[2] && check[3]) )
     {
-        cout << " Mising a quarter for " << stock._ticker() <<
-            " cannot procede to calculate ttm eps" << endl;
+        LOG_ERROR << " Mising a quarter for " << stock._ticker() <<
+            " cannot procede to calculate ttm eps";
         return;
     }
     long numshares = stol( qrts[0]._shares() );
@@ -283,9 +296,13 @@ EdgarData::createTtmEps(O_Stock& stock)
     ttm._shares() = to_string(numshares);
     ttm._eps() = ((double)incp) / numshares;
     ttm._source() = "calculated";
-    cout << "\n created fourth quarter with rev: " << to_string(revp) << " inc = " << to_string( incp ) << endl;
+
+    LOG_INFO << "\n created ttm income, with rev: " << to_string(revp) 
+             << " inc = " << to_string( incp );
+
     if ( ! insertEp( ttm ) )
-        cout << "\n Could not add calculated forth quarter" << endl;
+        LOG_ERROR << "\n Could not add calculated ttm data for " 
+                  << stock._ticker();
 }
 
 /*
@@ -370,7 +387,7 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
 
     string units;
     string currency;
-    vector<size_t> years = parser.titleInfo(tree,units,currency);
+    vector<size_t> years = parser.titleInfo( tree, units, currency);
     vector<string> revenues = parser.getRevenues(tree);
     vector<string> incs = parser.getIncs(tree);
     vector<float> eps = parser.getAnualEps(tree);
