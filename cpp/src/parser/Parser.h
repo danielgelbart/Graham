@@ -62,7 +62,7 @@ public:
     void extract_reports(string& k10, 
                          map<ReportType,string>* extract_reports);
     string extract_quarterly_income(string& page);
-    string extractIncomeTableStr(string& incomeStr);
+    string extractFirstTableStr(string& incomeStr);
     string extractLatest10kAcn(string& page);
     vector<Acn*> getQuarterAcns(string& page);
     Acn* trToAcn( XmlElement* tr );
@@ -80,7 +80,7 @@ public:
     vector<float> getAnualEps(XmlElement* tree);
     double getQarterEps(XmlElement* tree);
     vector<string> getNumShares(XmlElement* tree, string& bunits);
-
+    string getNumSharesFromCoverReport(string& report);
 
 private:
 

@@ -76,7 +76,7 @@ HttpClient::HttpClient(const string& userAgent)
     curl_easy_setopt(mCurlHandle, CURLOPT_TIMEOUT, mTimeoutSecs);
     curl_easy_setopt(mCurlHandle, CURLOPT_CONNECTTIMEOUT, mTimeoutSecs);
     curl_easy_setopt(mCurlHandle, CURLOPT_NOSIGNAL, 1);
-    curl_easy_setopt(mCurlHandle, CURLOPT_MAXFILESIZE, 5000000);
+    //curl_easy_setopt(mCurlHandle, CURLOPT_MAXFILESIZE, 5000000);
 
     string interfaces = 
 	haveParam("httpclient.interfaces") ?

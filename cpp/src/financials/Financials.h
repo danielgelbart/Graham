@@ -7,6 +7,7 @@
 
 #include "O_Stock.hpp"
 #include "info.h"
+#include "types.h"
 
 using namespace boost::filesystem;
 using namespace boost::gregorian;
@@ -42,7 +43,7 @@ private:
 
 private:
     HttpClient mHttpClient;
-
+    map<ReportType,string> _reports;
 };
 
 

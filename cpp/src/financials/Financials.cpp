@@ -117,7 +117,7 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
     Parser parser = Parser();
     string incomeStr = parser.extract_quarterly_income(page);
 
-    incomeStr = parser.extractIncomeTableStr( incomeStr );
+    incomeStr = parser.extractFirstTableStr( incomeStr );
     XmlElement* tree = parser.buildXmlTree(incomeStr);
 
     string units;
@@ -360,6 +360,9 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
     Parser parser = Parser();
     auto extracted_reports = new map<ReportType,string>;
     parser.extract_reports(k10, extracted_reports);
+    
+    // Save extracted reports
+    _reports = *extracted_reports;
 
     //iterate over extracted_reports and write each one to disk
     for(auto it=extracted_reports->begin();it!= extracted_reports->end();++it)
@@ -380,11 +383,12 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
                                       O_Stock& stock)
 {
     Parser parser;    
-    string incomeTableStr = parser.extractIncomeTableStr(incomeFileStr); 
+    string incomeTableStr = parser.extractFirstTableStr(incomeFileStr); 
     
     // extract table into xml tree
     XmlElement* tree = parser.buildXmlTree(incomeTableStr);
-
+    
+    bool onlyLatestYear(false);
     string units;
     string currency;
     vector<size_t> years = parser.titleInfo( tree, units, currency);
@@ -393,19 +397,50 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
     vector<float> eps = parser.getAnualEps(tree);
     vector<string> shares = parser.getNumShares(tree,units);
 
-    for (size_t i = 0; i < years.size(); ++i)
+    size_t numToAdd(1);
+
+    if ( shares.empty() )
     {
+//        LOG_INFO << "\n cover report is: \n" << _reports[ReportType::COVER];
+        onlyLatestYear = true;
+        string sharesNum =      
+            parser.getNumSharesFromCoverReport(_reports[ReportType::COVER]);
+        sharesNum = removeNonDigit( sharesNum );
+        if ( sharesNum != "")
+        {
+            shares.push_back(sharesNum);
+            LOG_INFO << "Succeeded to get num shares from cover report. Only adding most recent year information to DB; numshares: "<< shares[0];
+        }else{
+            LOG_ERROR << "Failed to retrieve num shares from cover report"
+                      << "Not going to add any info.";
+            numToAdd = 0;
+        }
+    }
+
+    if (!onlyLatestYear)
+        numToAdd = years.size();
+
+    cout << "Adding data for " << to_string(numToAdd) << " years.\n";
+    cout << "Size of years vector is " << to_string( years.size());
+    for (size_t i = 0; i < numToAdd; ++i)
+    {
+        cout << " I'm still going1\n";
         O_Ep incomeS( stock._id() );
         incomeS._year() = years[i];
+        cout << " I'm still going2\n";
         incomeS._quarter() = 0;    
+        cout << " I'm still going3\n";
         incomeS._revenue() = revenues[i] + units;
         incomeS._net_income() = incs[i] + units;
+        cout << " I'm still going4\n";
         incomeS._eps() = eps[i];
         incomeS._shares() = shares[i];
         incomeS._source() = "edgar.com";
-        cout << " \n Going to insert to DB!" << endl;
+        LOG_INFO << " \n Going to try to inser to DB, annual eps data for year "
+                 << to_string(years[i]);
         if ( ! insertEp( incomeS ) )
-            cout << "\n Could not add earnings for year" << to_string(years[i]) << "to DB" << endl;
+            LOG_ERROR << "\n Failed to insert to DB earnings for year" 
+                      << to_string(years[i]) << ". ";
     }    
 }
 

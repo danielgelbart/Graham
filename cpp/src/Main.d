@@ -30,4 +30,5 @@ Main.o Main.d : main/Main.cpp utils/Identifier.h utils/Config.h utils/Utils.hpp 
  dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp include/Financials.h \
  include/../financials/Financials.h include/HttpClient.h \
  include/../utils/HttpClient.h include/Url.h include/../html/Url.h \
- dmmm/O_Stock.hpp include/info.h include/../financials/Info.h
+ dmmm/O_Stock.hpp include/info.h include/../financials/Info.h \
+ include/types.h include/../parser/types.h

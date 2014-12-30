@@ -286,6 +286,7 @@ Parser::extract_reports(string& k10,
     auto reports = new map<ReportType,string>;
     filingSummaryTok.getReportDocNames(reports);
 
+
     //extract INCOME statement from dump file
     string reportKey;
     ReportType reportType = ReportType::INCOME;
@@ -310,6 +311,19 @@ Parser::extract_reports(string& k10,
                                        reportType, 
                                        docFileString) );
     }
+
+    //extract COVER report statement from dump file
+    reportType = ReportType::COVER;
+    if ( (reports->find(reportType)) != reports->end() )
+    {   
+        reportKey = reports->find(reportType)->second;
+        string docString = "<FILENAME>"+reportKey;
+        string docFileString = tokenizer.findDoc(docString);
+        extracted_reports->insert( pair<ReportType,string>( 
+                                       reportType, 
+                                       docFileString) );
+    }
+
 }
 
 
@@ -341,7 +355,7 @@ Parser::extract_quarterly_income(string& page)
 
 
 string 
-Parser::extractIncomeTableStr(string& incomeStr){
+Parser::extractFirstTableStr(string& incomeStr){
     string openTab("<table");
     string closeTab("</table");
     size_t startPos = incomeStr.find(openTab, 0);
@@ -491,14 +505,21 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
     {
         string additional = titleText.substr(split, titleText.size()-split);
         LOG_INFO << "title text for table is " << titleText << 
-            ". Which contains additional units information: " <<  additional;
+            ". Which may contain additional info about units in the text: " 
+                 <<  additional;
 
         boost::regex a_pattern ("share data", boost::regex::icase);
         if (boost::regex_search(additional, a_pattern) )
         {
             units = get_units_from_text( additional );
-            LOG_INFO << " Share data units found in title text of table."
-                     << " units have been set to " << units; 
+            if ( units != "")
+            {   
+                LOG_INFO << " Share data units found in title text of table."
+                         << " units have been set to " << units; 
+            }else{
+                LOG_INFO << " Did not find addional units information in title text";
+            }
+            
         }
     }
 
@@ -583,8 +604,36 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
         }
     }
     if ( shares.empty() )
+    {
         LOG_ERROR << " Could not read number of shares outstanding";
+        // Where to get data from????
+
+    }
     return shares;
+}
+
+
+string 
+Parser::getNumSharesFromCoverReport(string& report)
+{
+    string tableStr = extractFirstTableStr(report); 
+    XmlElement* tree = buildXmlTree(tableStr);
+    string trTitle("Entity Common Stock, Shares Outstanding");
+    string tagName("tr");
+    XmlElement* dataLine = tree->tagWithText(tagName,trTitle);
+    string dataText = dataLine->text();
+    LOG_INFO << " Text containing number of shares is " << dataText;
+    
+    boost::regex pattern("\\d+[,\\d]+\\d+");
+    boost::smatch match;
+    string numshares("");
+    if (boost::regex_search(dataText, match, pattern) )
+    {
+        numshares = match[0];
+        LOG_INFO << "Got num shares from cover report. They are: "<< numshares;
+    } else
+        LOG_ERROR << "Could not get numshares from cover report";
+    return numshares;
 }
 
 

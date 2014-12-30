@@ -181,15 +181,22 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     LOG_INFO << "Tokenizer::getReportDocNames() called\n";
     bool foundIncomeRep(false);
     bool foundBalanceRep(false);
+    bool foundCoverRep(false);
+
     string delimiter("<Report>");
     string tagName("ShortName");
     string report = "";
     string reportName = "";
 
+    boost::regex cover_pattern(
+        "(\\s)*Document and Entity Information(\\s)*",
+        boost::regex_constants::icase);
+  
     boost::regex income_pattern(
         "(\\s)*consolidated statement of (earnings|income)(\\s)*",
         boost::regex_constants::icase);
-    boost::regex balance_pattern(
+  
+  boost::regex balance_pattern(
         "(\\s)*consolidated (statement of financial position|balance sheet)(\\s)*",
         boost::regex_constants::icase);
 
@@ -198,8 +205,16 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
         reportName = extractTagContent(tagName,report);
 
         // TODOcheck that name does NOT inclue (Parenthetical)
-
         LOG_INFO << "\n Handling report named: " << reportName << "\n";
+
+        if (!foundCoverRep && boost::regex_search(reportName, cover_pattern))
+        {
+            foundCoverRep = true;
+            LOG_INFO << "FOUND COVER REPORT\n"<< reportName << "\n";
+            reports_map->insert( pair<ReportType,string>(
+                                     ReportType::COVER,
+                                     readReportHtmlNameFromFS(report)) ); 
+        }
         if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
         {
             // continue of treating "Parenthetical"

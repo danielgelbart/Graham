@@ -6,6 +6,6 @@
 #define BILL "000000000"
 
 using namespace std;
-enum class ReportType{INCOME,BALANCE};
+enum class ReportType{INCOME,BALANCE,COVER};
 
 #endif
