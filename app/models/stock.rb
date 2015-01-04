@@ -263,7 +263,8 @@ class Stock < ActiveRecord::Base
       2010 => 1.0162,
       2011 => 1.0292,
       2012 => 1.0159, #Not as precise as previous year's data
-      2013 => 1.0157
+      2013 => 1.0157,
+      2014 => 1.013   #NOT OUT YET!!!
       }
 
 

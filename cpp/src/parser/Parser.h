@@ -63,8 +63,9 @@ public:
                          map<ReportType,string>* extract_reports);
     string extract_quarterly_income(string& page);
     string extractFirstTableStr(string& incomeStr);
-    string extractLatest10kAcn(string& page);
-    vector<Acn*> getQuarterAcns(string& page);
+    vector<Acn*> getAcnsFromSearchResults(string& page,
+                                    bool limit = true,
+                                    StatementType st = StatementType::Q10);
     Acn* trToAcn( XmlElement* tr );
 
     void parseQuarterlyIncomeStatment(XmlElement* tree, 
@@ -74,10 +75,11 @@ public:
     string getUnitsAndCurrency(XmlElement* tree, 
                              string& units, string& currency);
     
-    vector<size_t> titleInfo(XmlElement* tree, string& units, string& currency);
-    vector<string> getRevenues(XmlElement* tree);
-    vector<string> getIncs(XmlElement* tree);
-    vector<float> getAnualEps(XmlElement* tree);
+    vector<size_t> titleInfo(XmlElement* tree, string& units, 
+                             string& currency, bool singleYear);
+    vector<string> getRevenues(XmlElement* tree, bool singleYear);
+    vector<string> getIncs(XmlElement* tree, bool singleYear);
+    vector<float> getAnualEps(XmlElement* tree, bool singleYear);
     double getQarterEps(XmlElement* tree);
     vector<string> getNumShares(XmlElement* tree, string& bunits);
     string getNumSharesFromCoverReport(string& report);
@@ -85,7 +87,8 @@ public:
 private:
 
     XmlTokenType tokenType( string& xml);
-    vector<string> getTrByName(XmlElement* tree, string& trTitlePattern);
+    vector<string> getTrByName(XmlElement* tree, string& trTitlePattern,
+        bool singleYear);
     XmlElement* edgarResultsTableToTree(string& page);
 
 // members

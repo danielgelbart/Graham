@@ -21,19 +21,25 @@ public:
     EdgarData() : 
         mHttpClient(std::string("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"))
         {}
-    
-    void updateFinancials(O_Stock& stock);
-    bool getQuarters(O_Stock& stock);
 
-    void extract10kToDisk(string& k10, O_Stock& stock, Info& info);
-    void addAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock);
-    void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock);
+    bool getQuarters(O_Stock& stock);
     void addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock);
     void createFourthQuarter(O_Stock& stock, size_t year);
     void createTtmEps(O_Stock& stock);
 
+    bool getSingleYear(O_Stock& stock, size_t year);    
+    void extract10kToDisk(string& k10, O_Stock& stock, Info& info);
+    void addAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
+                                    bool singleYear = true);
+    void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock);
+
+    void updateFinancials(O_Stock& stock);
+
 private:
-    string getLastYear10KAcn(O_Stock& stock);
+    string getEdgarSearchResultsPage(O_Stock& stock, StatementType st);
+    string getEdgarFiling( O_Stock& stock, Acn& acn);
+
+    Acn* getLastYear10KAcn(O_Stock& stock);
 
     void downloadAndSave10k(Url& url, Info& info);
     bool downloadToString(Url& url, string& rContent);

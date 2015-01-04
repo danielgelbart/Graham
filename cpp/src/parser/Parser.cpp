@@ -365,9 +365,11 @@ Parser::extractFirstTableStr(string& incomeStr){
 
 
 vector<size_t> 
-Parser::titleInfo(XmlElement* tree, string& units, string& currency)
+Parser::titleInfo(XmlElement* tree, string& units, string& currency,
+    bool singleYear)
 {
     string titleText = getUnitsAndCurrency( tree, units, currency);
+//    LOG_INFO << "titleText is " << titleText;
 
     vector<size_t> years;    
     // get dates
@@ -379,10 +381,16 @@ Parser::titleInfo(XmlElement* tree, string& units, string& currency)
 
     for(; mit != mEnd; ++mit)
     {
-        //    for(size_t i = 0 ; i < mit->size() ; ++i)
-            //   cout << "\n Match " << to_string(i) << " is : " << (*mit)[i].str() << endl;
+        LOG_INFO << "Matches from title info for years are" 
+                 << (*mit)[0].str() << " |  "
+                 << (*mit)[1].str() << " |  "
+                 << (*mit)[2].str() << " |  "
+                 << (*mit)[3].str() << " |  ";
         string yearStr = (*mit)[3].str();
+        LOG_INFO << "Adding year " << yearStr << " for data";
         years.push_back( stoi(yearStr) );
+        if(singleYear)
+            break;
     }
     return years;
 }
@@ -403,7 +411,7 @@ get_units_from_text(string& text)
     if (boost::regex_search(text, b_pattern) )
         return BILL;
 
-    LOG_ERROR << "Could not extract units from text: \n " << text;
+    LOG_INFO << "Could not extract units from text: \n " << text;
     return "";
 }
 
@@ -433,11 +441,11 @@ Parser::getUnitsAndCurrency(XmlElement* tree, string& units, string& currency)
     size_t split = titleText.find("except");
     if (split != string::npos)
     {
-        LOG_INFO << "Title text contains more than one specification of units"
-                 << "Extacting default units only (for now)";
-        titleText = titleText.substr(0, split);
-    }
-    units = get_units_from_text( titleText );
+        LOG_INFO << "Title text May contain multiple units. Spliting it";
+        string preText = titleText.substr(0, split);
+        units = get_units_from_text( preText );
+    } else
+        units = get_units_from_text( titleText );
 
     LOG_INFO << "(general) Units are being set to " << units 
              << " Currency is being set to " << currency ;
@@ -454,8 +462,8 @@ Parser::parseQuarterlyIncomeStatment(XmlElement* tree,
     getUnitsAndCurrency( tree, units, currency );
 
     // get rev, inc, eps        
-    revenue = removeNonDigit( getRevenues(tree).front() ) + units;
-    income = removeNonDigit( getIncs(tree).front() ) + units;
+    revenue = removeNonDigit( getRevenues(tree,true).front() ) + units;
+    income = removeNonDigit( getIncs(tree,true).front() ) + units;
     eps = getQarterEps(tree);
     numshares = getNumShares(tree, units)[0];
     cout << "\n Got income data: rev = " << revenue
@@ -480,16 +488,16 @@ XmlElement::getNodes(string tagName,
 
 
 vector<string>
-Parser::getRevenues(XmlElement* tree)
+Parser::getRevenues(XmlElement* tree, bool singleYear)
 {
     string trTitle("Total revenue");
-    return getTrByName(tree, trTitle);
+    return getTrByName(tree, trTitle, singleYear);
 }
 
 vector<string> 
-Parser::getIncs(XmlElement* tree){
+Parser::getIncs(XmlElement* tree, bool singleYear){
     string trTitle("Net income");
-    return getTrByName(tree, trTitle);
+    return getTrByName(tree, trTitle, singleYear);
 }
 
 vector<string>
@@ -605,7 +613,7 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
     }
     if ( shares.empty() )
     {
-        LOG_ERROR << " Could not read number of shares outstanding";
+        LOG_INFO << " Could not read number of shares outstanding from table";
         // Where to get data from????
 
     }
@@ -633,12 +641,14 @@ Parser::getNumSharesFromCoverReport(string& report)
         LOG_INFO << "Got num shares from cover report. They are: "<< numshares;
     } else
         LOG_ERROR << "Could not get numshares from cover report";
+    
+    numshares = removeNonDigit( numshares );
     return numshares;
 }
 
 
 vector<float> 
-Parser::getAnualEps(XmlElement* tree){
+Parser::getAnualEps(XmlElement* tree, bool singleYear){
     string trTitle("(diluted|dilution)");
     string tagName("tr");
 
@@ -662,6 +672,8 @@ Parser::getAnualEps(XmlElement* tree){
         string val = (*mit)[0].str();
         //      cout << "\n Adding extracted val : " << val << endl;
         retVals.push_back( stof(val) );
+        if (singleYear)
+            break;
     }
     return retVals;
 }
@@ -745,7 +757,7 @@ Parser::getQarterEps(XmlElement* tree)
 }
 
 vector<string> 
-Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
+Parser::getTrByName(XmlElement* tree, string& trTitlePattern, bool singleYear){
 
     string tagName("tr");
     XmlElement* dataLine = tree->tagWithText(tagName,trTitlePattern);
@@ -768,7 +780,8 @@ Parser::getTrByName(XmlElement* tree, string& trTitlePattern){
         string cleanMatch = removeNonDigit( matchString );
         LOG_INFO << "\n Adding extracted val : " << cleanMatch;
         retVals.push_back( cleanMatch );
-
+        if (singleYear)
+            break;
     }
     return retVals;
 }
@@ -789,28 +802,6 @@ Parser::edgarResultsTableToTree(string& page)
     return tree;
 }
 
-
-string 
-Parser::extractLatest10kAcn(string& page)
-{
-    XmlElement* tree = edgarResultsTableToTree( page );
-
-    string tagName("td");
-    string ar("Annual report");
-    XmlElement* tr = tree->tagWithText(tagName,ar);
-
-    tr->printXmlTree(0);
-
-    boost::regex pattern("(\\d+-\\d\\d-\\d+)");
-    boost::smatch match;
-    boost::regex_search(tr->text(), match, pattern);
-//    cout << "\n Found text : " << tr->text() << endl;
-
-    string acn = match[0]; 
-//    cout << "\n Found in it acn  : " << acn << endl;
-    return acn;
-}
-
 // return NULL on failure
 Acn*
 Parser::trToAcn( XmlElement* tr )
@@ -824,7 +815,7 @@ Parser::trToAcn( XmlElement* tr )
     boost::smatch match1;
     if (! boost::regex_search(text, match1, acn_pattern) )
     {
-        cout << "\n Could not extract acn from tr with text: " << text << endl;
+        LOG_INFO << "\n Could not extract acn from tr with text: "<< text;
         return NULL;
     }
 
@@ -839,18 +830,21 @@ Parser::trToAcn( XmlElement* tr )
     Acn* acn_rec = new Acn( acn, report_date, 1);
     acn_rec->set_quarter_from_date();
 
+    LOG_INFO << "Extracted ACN: "<< acn << " filed on date" << report_date;
     return acn_rec;
 }
 
 vector<Acn*> 
-Parser::getQuarterAcns(string& page)
+Parser::getAcnsFromSearchResults(string& page, 
+                                 bool limit, 
+                                 StatementType st)
 {
     vector<Acn*> acns;
+
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
     XmlElement* table = edgarResultsTableToTree( page );
-
     string tagName("table");
     table = table->firstNodebyName( tagName );
 
@@ -858,10 +852,16 @@ Parser::getQuarterAcns(string& page)
         if ( (*it)->_tagName == "tr" )
         {
             Acn* acn = trToAcn( *it );
+
             if (acn == NULL)
                 continue;
-            if ( acn->_report_date.year() < last_year )
+
+            if ( limit && (acn->_report_date.year() < last_year) )
                 break;
+
+            if (st == StatementType::K10)
+                acn->_quarter = 0;
+
             acns.push_back( acn );
         }
     return acns;

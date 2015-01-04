@@ -112,6 +112,12 @@ mainMain(int argc, char* argv[])
         O_Stock stock = findStockByTicker( argv[2] );
         eData.updateFinancials( stock );
     }
+    if (command == string("get_single_year")){
+        EdgarData eData = EdgarData();
+        O_Stock stock = findStockByTicker( argv[2] );
+        
+        eData.getSingleYear( stock,2013 );
+    }
 // should be passed a ticker?
     if (command == string("get_quarters")){
         EdgarData eData = EdgarData();

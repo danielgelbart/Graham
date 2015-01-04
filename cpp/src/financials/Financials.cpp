@@ -42,19 +42,49 @@ EdgarData::downloadAndSave(Url& url, Info& info, const path& writeDest)
 }
 
 string
-EdgarData::getLastYear10KAcn( O_Stock& stock)
+EdgarData::getEdgarSearchResultsPage(O_Stock& stock, StatementType st)
 {
     string cik( to_string(stock._cik()) );
-    string uri = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=10-k&dateb=&owner=exclude&count=40";
+    string statType = "10-k";
+    if ( st == StatementType::Q10 )
+        statType = "10-q";
+
+    string uri = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=" + statType + "&dateb=&owner=exclude&count=40";
+
     Url url = Url(uri);
-//    Info info( stock._ticker(), last_year, StatementType::K10) ;
     string page;
     downloadToString( url, page);
-    Parser parser;
-    string acn = parser.extractLatest10kAcn(page);
+    return page;
+}
 
-    cout << " \n Got acn : " << acn << endl;
-    return acn;
+string
+EdgarData::getEdgarFiling( O_Stock& stock, Acn& acn)
+{
+    string cik( to_string(stock._cik()) );
+    string uri("http://www.sec.gov/Archives/edgar/data/");
+    uri += cik + "/" + acn._acn + ".txt";
+    Url url = Url(uri);
+    string page;
+    
+    // check for 404
+    if (! downloadToString( url, page ) )
+    {
+        LOG_ERROR << "\n failed to retrieve webpage." <<
+            " NOT getting info for quarter " << to_string(acn._quarter) << "\n";
+        return "";
+    }
+    return page;
+}
+
+
+Acn*
+EdgarData::getLastYear10KAcn( O_Stock& stock)
+{
+    string page = getEdgarSearchResultsPage( stock , StatementType::K10);
+    Parser parser;
+    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, true,/*limit*/ 
+                                                         StatementType::K10 );
+    return Acns.front();
 }
 
 bool
@@ -72,14 +102,9 @@ bool
 EdgarData::getQuarters(O_Stock& stock)
 {
     // get back to Q1 LAST year
+    string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
     Parser parser;
-    string cik( to_string(stock._cik()) );
-    string page;
-    string uri = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=10-q&dateb=&owner=exclude&count=40";
-    Url url = Url(uri);
-    
-    downloadToString( url, page);
-    vector<Acn*> qAcns = parser.getQuarterAcns( page );
+    vector<Acn*> qAcns = parser.getAcnsFromSearchResults( page );
 
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
@@ -100,20 +125,8 @@ EdgarData::getQuarters(O_Stock& stock)
 void
 EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
 {
-    string cik( to_string(stock._cik()) );
-    string uri("http://www.sec.gov/Archives/edgar/data/");
-    uri += cik + "/" + acn._acn + ".txt";
-    Url url = Url(uri);
-    string page;
+    string page = getEdgarFiling( stock, acn);
     
-    // check for 404
-    if (! downloadToString( url, page ) )
-    {
-        LOG_INFO << "\n failed to retrieve webpage." <<
-            " NOT getting info for quarter " << to_string(acn._quarter) << "\n";
-        return;
-    }
-
     Parser parser = Parser();
     string incomeStr = parser.extract_quarterly_income(page);
 
@@ -305,6 +318,48 @@ EdgarData::createTtmEps(O_Stock& stock)
                   << stock._ticker();
 }
 
+bool 
+EdgarData::getSingleYear(O_Stock& stock, size_t year)
+{
+    bool retVal(true);
+ 
+   // get search page for 10k
+    string page = getEdgarSearchResultsPage( stock, StatementType::K10);
+    Parser parser;
+ 
+// get All Acns
+    // 1) Change name
+    // 2) compare annual and quarter url strings to use same method
+    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, false,/*limit*/ 
+                                                         StatementType::K10 );
+
+    greg_year gyear(year);
+    Acn* acn;
+    for(auto it = Acns.begin() ; it != Acns.end(); ++it)
+    {
+        LOG_INFO << "\n Got Acn: " << (*it)->_acn << " date: " << 
+            (*it)->_report_date << " quartr: " << (*it)->_quarter;
+        
+        if ( ! stock_contains_acn( stock, *(*it) ) )
+        {
+            if( ((*it)->_report_date.year() - 1) == gyear )
+            {
+                acn = *it;
+                LOG_INFO << "Got ACN for specific year " << to_string(year);
+                break;
+            }
+        }
+    }  
+
+// get Specific one for year to a string
+    string filing = getEdgarFiling(stock,*acn);
+// extract to DB
+    Info info( stock._ticker(), gyear, StatementType::K10);
+    extract10kToDisk( filing, stock, info);
+
+    return retVal;
+}
+
 /*
 Download the latest available 10-k for a specific ticker
 save only the extracted financial statments to disk
@@ -328,12 +383,9 @@ EdgarData::updateFinancials(O_Stock& stock)
                     t._quarter() == 0 ).empty() )
     {
         cout << "\n Going to get last year 10k" << endl;
-        string acn10k = getLastYear10KAcn( stock );
-        string uri = "http://www.sec.gov/Archives/edgar/data/" +
-            cik + "/" + acn10k + ".txt";
-        Url url = Url(uri);
-        string k10text;
-        downloadToString( url, k10text );
+        Acn* acn  = getLastYear10KAcn( stock );
+        string k10text = getEdgarFiling( stock, *acn);
+
         Info info( stock._ticker(), last_year, StatementType::K10) ;
         extract10kToDisk( k10text, stock, info);
 
@@ -380,7 +432,8 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
 
 void 
 EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr, 
-                                      O_Stock& stock)
+                                      O_Stock& stock,
+                                      bool singleYear)
 {
     Parser parser;    
     string incomeTableStr = parser.extractFirstTableStr(incomeFileStr); 
@@ -388,24 +441,24 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
     // extract table into xml tree
     XmlElement* tree = parser.buildXmlTree(incomeTableStr);
     
-    bool onlyLatestYear(false);
     string units;
     string currency;
-    vector<size_t> years = parser.titleInfo( tree, units, currency);
-    vector<string> revenues = parser.getRevenues(tree);
-    vector<string> incs = parser.getIncs(tree);
-    vector<float> eps = parser.getAnualEps(tree);
+    vector<size_t> years = parser.titleInfo( tree, units, currency, singleYear);
+
+    vector<string> revenues = parser.getRevenues(tree, singleYear);
+    vector<string> incs = parser.getIncs(tree, singleYear);
+
+    vector<float> eps = parser.getAnualEps(tree, singleYear);
     vector<string> shares = parser.getNumShares(tree,units);
-
-    size_t numToAdd(1);
-
+    
     if ( shares.empty() )
     {
-//        LOG_INFO << "\n cover report is: \n" << _reports[ReportType::COVER];
-        onlyLatestYear = true;
+        LOG_INFO << "\n NO nushare data. proceding to get numshares from cover"
+                 << " report. Which will have numshares for single year only";
+        
         string sharesNum =      
             parser.getNumSharesFromCoverReport(_reports[ReportType::COVER]);
-        sharesNum = removeNonDigit( sharesNum );
+        
         if ( sharesNum != "")
         {
             shares.push_back(sharesNum);
@@ -413,31 +466,29 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
         }else{
             LOG_ERROR << "Failed to retrieve num shares from cover report"
                       << "Not going to add any info.";
-            numToAdd = 0;
         }
     }
 
-    if (!onlyLatestYear)
-        numToAdd = years.size();
-
-    cout << "Adding data for " << to_string(numToAdd) << " years.\n";
-    cout << "Size of years vector is " << to_string( years.size());
+    size_t numToAdd(1);
+    if (!singleYear)
+        numToAdd = std::min({ years.size(), revenues.size(), incs.size(), eps.size(), shares.size()});
+    
+    LOG_INFO << "Adding data for " << to_string(numToAdd) << " years.\n";
+    
     for (size_t i = 0; i < numToAdd; ++i)
     {
-        cout << " I'm still going1\n";
         O_Ep incomeS( stock._id() );
         incomeS._year() = years[i];
-        cout << " I'm still going2\n";
         incomeS._quarter() = 0;    
-        cout << " I'm still going3\n";
         incomeS._revenue() = revenues[i] + units;
         incomeS._net_income() = incs[i] + units;
-        cout << " I'm still going4\n";
         incomeS._eps() = eps[i];
         incomeS._shares() = shares[i];
         incomeS._source() = "edgar.com";
-        LOG_INFO << " \n Going to try to inser to DB, annual eps data for year "
+        
+        LOG_INFO << "\nGoing to try to insert to DB, annual eps data for year "
                  << to_string(years[i]);
+        
         if ( ! insertEp( incomeS ) )
             LOG_ERROR << "\n Failed to insert to DB earnings for year" 
                       << to_string(years[i]) << ". ";
