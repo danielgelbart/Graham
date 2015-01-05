@@ -5,23 +5,9 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
-User.seed(:id, :name) do |s|
-      s.name = "Dani"
-      s.id = 1
-end
-
-Portfolio.seed(:id) do |s|
-  s.id = 1
-  s.user_id = 1
-  s.name = "A"
-end
 
 # Add a couple stocks, then get data for them
-Stock.seed_many(:ticker,
-                [{:name => "Berkshire Hathaway", :ticker => "BRK.A"},
-                 {:name => "IBM", :ticker => "IBM"},
-                 {:name => "CVX", :ticker => "CVX"},
-                 {:name => "Teva Pharmasutical industries.", :ticker => "TEVA"}])
+
 
 # Create NYSE stocks from a list maintained in 'nyse_stocks_list.txt'
 =begin

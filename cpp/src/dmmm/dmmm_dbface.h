@@ -49,6 +49,7 @@ public:
                  const std::string& where);
 
     std::string now(); 
+    std::string getDBName();
 
     void startTransaction();
     void commitTransaction();

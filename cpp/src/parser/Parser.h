@@ -71,7 +71,7 @@ public:
     void parseQuarterlyIncomeStatment(XmlElement* tree, 
                                       string& units, string& currency,
                                       string& revenue, string& income, 
-                                      double& eps, string& numshares);
+                                      float& eps, string& numshares);
     string getUnitsAndCurrency(XmlElement* tree, 
                              string& units, string& currency);
     

@@ -324,6 +324,25 @@ DBFace::now()
     return UTILS::toString(mysqlRes[0]["now()"]);
 }
 
+string 
+DBFace::getDBName()
+{
+    boost::mutex::scoped_lock lock(_mutex);
+    Query q = _connection.query();
+    q << "SELECT DATABASE()";
+    log(q.str());
+    StoreQueryResult mysqlRes;
+    try{
+	mysqlRes = q.store();
+    }
+    catch (const mysqlpp::Exception& er) {
+        cerr << "Query failed: " << q << endl << er.what();
+        return string();
+    }
+    return UTILS::toString(mysqlRes[0]["database()"]);
+}
+
+
 string
 sanitize(const string& s)
 {

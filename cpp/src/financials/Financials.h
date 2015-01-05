@@ -45,6 +45,10 @@ private:
     bool downloadToString(Url& url, string& rContent);
     void downloadAndSave(Url& url, Info& info, const path& writeDest);
 
+    bool
+    addEearningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
+                            string revenue, string income, float eps,
+                            string shares, const string& source);
     bool insertEp( O_Ep& ep );
 
 private:

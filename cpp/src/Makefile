@@ -1,7 +1,7 @@
 
 maintarget = graham
 
-sources = Main.cpp Config.cpp Logger.cpp CurrentTime.cpp Utils.cpp Thread.cpp dmmm_dbface.cpp dmmm_utils.cpp MemUsage.cpp RunInfo.cpp ServerUtils.cpp Financials.cpp HttpClient.cpp Url.cpp Tokenizer.cpp Parser.cpp
+sources = Main.cpp Config.cpp Logger.cpp CurrentTime.cpp Utils.cpp Thread.cpp dmmm_dbface.cpp dmmm_utils.cpp MemUsage.cpp RunInfo.cpp ServerUtils.cpp Financials.cpp HttpClient.cpp Url.cpp Tokenizer.cpp Parser.cpp Test.cpp
 
 VPATH = utils main dmmm financials html parser 
 

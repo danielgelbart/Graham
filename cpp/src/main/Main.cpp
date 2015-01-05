@@ -14,6 +14,7 @@
 #include "T_Stock.hpp"
 
 #include "Financials.h"
+#include "Test.h"
 
 using namespace DMMM;
 using namespace boost::filesystem;
@@ -35,15 +36,6 @@ showHelpMessage(const string& exPath)
          << endl;
 }
 
-
-void
-test(Logger* logger)
-{
-    cout << "Number of errors: " << logger->numErrors() << endl;
-    cout << "Number of warnings: " << logger->numWarning() << endl;
-    if (logger->numErrors() == 0 && logger->numWarning() == 0)
-        cout << "OK" << endl;
-}
 
 void
 dirFor(const path& logDir)
@@ -80,6 +72,41 @@ mainMain(int argc, char* argv[])
     }
     
     path basePath = binPath.remove_leaf() / "../";
+
+    if (command == string("test")){
+        cout << "\n ---  Running TEST mode ---"<< endl;
+        path confFile = basePath / "test_conf.conf";
+        cout << "Loading configuration file " << confFile.string() << endl;
+        Config* config = new Config(confFile.string().c_str(), argc, argv);
+
+        // set up test logger
+        path logFile;
+        path logDir;
+        logDir = basePath / path(confParam<string>("log_file_name"));
+        dirFor(logDir);
+        logFile = logDir / string("test_log.txt");       
+        cout << "Using test logger" << endl;
+        Logger* logger = new Logger(logFile.string().c_str());
+
+        // use TEST DB!!!
+        string host = confParam<string>("db.host");
+        string user = confParam<string>("db.user");
+        string database = confParam<string>("db.database");
+        string password = confParam<string>("db.password");
+        DMMM::DBFace dbFace(database, host, user, password, logger->logFile());
+
+
+        path testMockPath = basePath / "financials/IBM";
+        cout << "Mock files for tests are in " << basePath.string() << endl;
+        
+        Test test(testMockPath);
+        test.run();
+
+        delete(config);
+        delete(logger);
+        exit(0);
+    }
+
     path confFile = basePath / "conf.conf";
         
     cout << "Loading configuration file " << confFile.string() << endl;
@@ -93,8 +120,6 @@ mainMain(int argc, char* argv[])
 
     dirFor(logDir);
     logFile = logDir / string("log.txt");       
-    cout << "Going to create logger" << endl;
-     
     Logger* logger = new Logger(logFile.string().c_str());
          
     LOG_INFO << "Analysing data " << confParam<string>("version");

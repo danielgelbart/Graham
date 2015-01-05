@@ -457,7 +457,7 @@ void
 Parser::parseQuarterlyIncomeStatment(XmlElement* tree, 
                                      string& units, string& currency,
                                      string& revenue, string& income, 
-                                     double& eps, string& numshares)
+                                     float& eps, string& numshares)
 {
     getUnitsAndCurrency( tree, units, currency );
 
