@@ -89,24 +89,17 @@ string
 loadFileToString(const string& fileName)
 {
     std::ifstream f(fileName.c_str(), ios::binary);
-    
-  
     f.seekg(0, ios::end);
-    cout << "\n Here2"<<endl;
-  
     std::ifstream::pos_type filesize = f.tellg();
-    
-    cout << "\n Here3 filesize is: " <<to_string(filesize) <<endl;
-    
+    if ( filesize <= 0 )
+    {
+        cout << " Could not load file at " << fileName;
+        return "";
+    }
     f.seekg(0, ios::beg);
-    
-    cout << "\n Here4"<<endl;
-
     string ret(filesize, 0);
 
-    cout << "\n Here5"<<endl;
     f.read(&ret[0], filesize);
-    cout << "\n Here6"<<endl;
     return ret;
 }
 

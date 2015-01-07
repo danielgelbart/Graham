@@ -40,8 +40,6 @@ private:
 
     bool setParam(const std::string& line);
 
-
-
 private:
     Params2ValuesMap mParams;
     bool           mSandbox;

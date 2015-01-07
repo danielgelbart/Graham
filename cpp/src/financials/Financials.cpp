@@ -170,7 +170,7 @@ EdgarData::addEearningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
     if ( (inserted = insertEp(incomeS)) )
     {
         stringstream message;
-        message << "Entered NEW Earnings record to DB for " << stock._ticker()
+        message << "\nEntered NEW Earnings record to DB for " << stock._ticker()
                 <<". YEAR: "<< incomeS._year() << " Q: "<< incomeS._quarter()
                 <<" REV: "<<incomeS._revenue()<<" INC: "<<incomeS._net_income()
                 <<" SHARES: "<<incomeS._shares()<<" EPS: "<<incomeS._eps();

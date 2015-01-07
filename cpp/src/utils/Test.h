@@ -13,15 +13,40 @@ using namespace std;
 using namespace DMMM;
 using namespace boost::filesystem;
 
+class TestResults{
+public:
+    TestResults():_numFails(0){}
+    void addFailure(string failMessage){
+        _failMessages.push_back(failMessage);
+        _numFails++;
+    }
+    string getResultsSummary(){
+        string ret("\n");
+        if (_numFails == 0)
+            return (ret+"Great!!! Everything is working");
+        ret+="Testing shows " + to_string(_numFails) +" failures as follows:\n";
+        for( size_t i=0; i<_failMessages.size();i++)
+        {
+            ret+=to_string(i)+". "+_failMessages[i] +"\n";
+        }
+        return ret;
+    }
+    
+public:
+    size_t _numFails;
+    vector<string> _failMessages;
+
+}; // class TestResults
+
 class Test {
 public:
-    Test(path p):_mockPath(p){}
+    Test(){}
     
-    void run();
-    string runSingelYearTest();
+    void run_all();
+    string runSingelYearTest(TestResults& tr);
 
 private: //members
-    path _mockPath;
+//    path _mockPath;
 
 }; //end class test
 #endif

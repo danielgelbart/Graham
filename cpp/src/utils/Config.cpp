@@ -31,7 +31,7 @@ Config::instance()
 void
 Config::setParamsFromCommandLine(int argc, char* argv[])
 {
-    for (size_t i = 1; i < (size_t)argc; ++i){
+    for (size_t i = 0; i < (size_t)argc; ++i){
         string argvi("argv");
         argvi += toString(i);
         mParams[argvi] = argv[i];

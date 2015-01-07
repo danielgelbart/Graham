@@ -94,13 +94,9 @@ mainMain(int argc, char* argv[])
         string database = confParam<string>("db.database");
         string password = confParam<string>("db.password");
         DMMM::DBFace dbFace(database, host, user, password, logger->logFile());
-
-
-        path testMockPath = basePath / "financials/IBM";
-        cout << "Mock files for tests are in " << basePath.string() << endl;
         
-        Test test(testMockPath);
-        test.run();
+        Test test;
+        test.run_all();
 
         delete(config);
         delete(logger);
