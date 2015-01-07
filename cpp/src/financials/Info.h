@@ -22,7 +22,7 @@ struct Info{
 struct Acn {
 
     Acn() {}
-    Acn( string& acn, date& repDate, size_t quarter ) :
+    Acn( string acn, date repDate, size_t quarter ) :
         _acn(acn), _report_date(repDate), _quarter(quarter) {}
 
     void set_quarter_from_date()

@@ -23,7 +23,7 @@ public:
         {}
 
     bool getQuarters(O_Stock& stock);
-    void addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock);
+    void addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock, string& q10f);
     void createFourthQuarter(O_Stock& stock, size_t year);
     void createTtmEps(O_Stock& stock);
 

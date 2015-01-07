@@ -115,7 +115,8 @@ EdgarData::getQuarters(O_Stock& stock)
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
             cout << "\n Stock does not have this data yet" << endl;
-            addQuarterIncomeStatmentToDB( *(*it), stock );
+            string page = getEdgarFiling( stock, *(*it));
+            addQuarterIncomeStatmentToDB( *(*it), stock, page );
             updated = true;
         }
     }  
@@ -123,12 +124,12 @@ EdgarData::getQuarters(O_Stock& stock)
 }    
 
 void
-EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
+EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock, 
+                                        string& q10filingStr)
 {
-    string page = getEdgarFiling( stock, acn);
-    
+    //string page = getEdgarFiling( stock, acn);
     Parser parser = Parser();
-    string incomeStr = parser.extract_quarterly_income(page);
+    string incomeStr = parser.extract_quarterly_income(q10filingStr);
 
     incomeStr = parser.extractFirstTableStr( incomeStr );
     XmlElement* tree = parser.buildXmlTree(incomeStr);
@@ -142,7 +143,6 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock)
     parser.parseQuarterlyIncomeStatment(tree, units, currency,
                                         revenue, income, eps, numshares);
     
-
     addEearningsRecordToDB( stock, acn._report_date.year(), acn._quarter,
                             revenue, income, eps,
                             numshares, "edgar.com"/*source*/);
