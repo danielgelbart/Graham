@@ -156,7 +156,6 @@ Test::runSingleQarterTest(TestResults& tResults)
     return tResults.getResultsSummary();
 }
 
-
 string 
 Test::runFourthQarterTest(TestResults& tResults)
 {
@@ -250,8 +249,8 @@ Test::runCompanyTest(string& ticker)
     
     T_Stock rts;
     T_Ep rte;
-    O_Stock rstock = rts.select( rts._ticker() == ticker).front();
-    O_Ep real2013 = rte.select( rte._stock_id() == rstock._id() 
+    const O_Stock rstock = rts.select( rts._ticker() == ticker).front();
+    const O_Ep real2013 = rte.select( rte._stock_id() == rstock._id() 
                                && rte._quarter() == 0
                                && rte._year() == 2013).front();
 
@@ -273,21 +272,31 @@ Test::runCompanyTest(string& ticker)
         cout << "An error uccored. exiting";
         exit(-1);
     }
-
   
     TestResults testRes;
     T_Stock ts;
     T_Ep te;
-
+    O_Stock stock;
     // CREATE Dummy stock in test DB!
+    if ( ts.select( ts._ticker() == ticker).empty() )
+    {
+        stock._ticker() = ticker;
+        stock._cik() = rstock._cik();
+        stock.insert();
 
-    O_Stock stock = ts.select( ts._ticker() == ticker).front();
+    } else
+        stock = ts.select( ts._ticker() == ticker).front();
+    
     string testName("Test-Company " + stock._ticker() + ": ");
-
+    testRes.setTestName(testName);
     Info info( stock._ticker(), 2013, StatementType::K10);
     EdgarData edgar;
-
-
+    if ( edgar.getSingleYear( stock, 2013) )
+    {
+        compareTest( rstock , real2013, testRes);
+    }else{
+        testRes.addFailure("Could Not get annual data for " + stock._ticker());
+    }
     // test single year
 
 //    runSingleYearTest(stock, real2013, testRes);
@@ -295,4 +304,68 @@ Test::runCompanyTest(string& ticker)
 
     string resultSummary = testRes.getResultsSummary();
     cout << "\n ---  TEST Results  ---" <<resultSummary << endl;
+}
+
+long
+convertNumSharesToLong( string& numShares )
+{
+    if ( numShares == removeNonDigit( numShares ) )
+        return stol( numShares);
+
+    string str = toLower(numShares);
+    size_t pos = str.find("il");     
+    string sufix = str.substr( pos,3 );
+    string prefix = str.substr( 0, str.length()-3); 
+    if ( sufix == "bil") 
+        return (long)(stof(prefix) * 1000000000);
+    if ( sufix == "mil" )
+        return (long)(stof(prefix) * 1000000);
+    return 1;
+}
+
+string 
+Test::compareTest(const O_Stock& rStock, const O_Ep rEarnings,
+                  TestResults& tResults)
+{
+    LOG_INFO << "\n --- Running compareTest() ---\n";
+
+    T_Stock ts;
+    T_Ep te;
+    O_Stock stock = ts.select( ts._ticker() == rStock._ticker()).front();
+
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(string("No record was added to DB"));       
+        return tResults.getResultsSummary();
+    }
+
+    O_Ep earnings = te.select( te._stock_id() == stock._id() &&
+                               te._year() == rEarnings._year()
+                               && te._quarter() == 0 ).front();
+
+    if (! withinPercent( stol(earnings._revenue()), 0.02,
+                         stol(rEarnings._revenue()) ) )
+        tResults.addFailure("Revenue should be: "+rEarnings._revenue()
+                            +", but is: " + earnings._revenue() );
+    
+    if (! withinPercent( stol(earnings._net_income()), 0.02,
+                         stol(rEarnings._net_income()) ) )
+        tResults.addFailure("Net Income should be: "+rEarnings._net_income() 
+                            +", but is: " + earnings._net_income() );
+    
+    if (! withinPercent( earnings._eps(), 0.02, rEarnings._eps() ) )
+        tResults.addFailure("(diluted) Eps should be: "+ 
+                            to_string(rEarnings._eps() )+", but is: " + 
+                            to_string(earnings._eps() ) );
+    
+    if (! withinPercent( stol(earnings._shares()), 0.02, 
+                         convertNumSharesToLong( string(rEarnings._shares()) )))
+        tResults.addFailure("Number of (diluted) shares should be: "
+                            + rEarnings._shares() 
+                            + ", but is: " + earnings._shares() );
+    // test clean up
+    te.erase( te._id() == earnings._id());
+    return tResults.getResultsSummary();
 }

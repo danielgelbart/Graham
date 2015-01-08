@@ -15,11 +15,13 @@ using namespace boost::filesystem;
 
 class TestResults{
 public:
-    TestResults():_numFails(0){}
+    TestResults():_numFails(0), _curTestName(""){}
+
     void addFailure(string failMessage){
-        _failMessages.push_back(failMessage);
+        _failMessages.push_back(_curTestName + failMessage);
         _numFails = _numFails + 1;
     }
+
     string getResultsSummary(){
         string ret("\n");
 
@@ -33,11 +35,13 @@ public:
         }
         return ret;
     }
+
+    void setTestName(string str){ _curTestName = str; }
     
 public:
     size_t _numFails;
     vector<string> _failMessages;
-
+    string _curTestName;
 }; // class TestResults
 
 class Test {
@@ -49,6 +53,8 @@ public:
     string runSingleQarterTest(TestResults& tr);
     string runFourthQarterTest(TestResults& tr);
     void runCompanyTest(string& ticker);
+    string compareTest(const O_Stock& rStock, const O_Ep rEarnings,
+                       TestResults& tResults);
 
 private: //members
 //    path _mockPath;

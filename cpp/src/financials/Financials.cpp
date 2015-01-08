@@ -336,7 +336,6 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     // 2) compare annual and quarter url strings to use same method
     vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 10,/*limit*/ 
                                                          StatementType::K10 );
-
     greg_year gyear(year);
     Acn* acn;
     for(auto it = Acns.begin() ; it != Acns.end(); ++it)
