@@ -331,8 +331,8 @@ string
 Parser::extract_quarterly_income(string& page)
 {
     Tokenizer tokenizer(page);
-    cout << "\n Called extract_quarterly_income() with downladed doc " 
-         << page.substr(0,300) << endl;
+    //cout << "\n Called extract_quarterly_income() with downladed doc " 
+    //     << page.substr(0,300) << endl;
     string filingSummary = tokenizer.findFilingSummary();
 
     Tokenizer filingSummaryTok(filingSummary);
@@ -598,8 +598,11 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
                     LOG_INFO<<"\n using Units "<<units<<
                         " , wich differ from table units. Applying to "
                             <<cleanMatch;
-                } else
-                    units = bunits;
+                } else{
+                    // If no units found
+                    units = "1";
+                    LOG_INFO << "No Units found for numshares. using units=1";
+                }
 
                 long ns = stol(cleanMatch) * unitsToInt( units);
                 if( decimals > 0)
@@ -836,7 +839,7 @@ Parser::trToAcn( XmlElement* tr )
 
 vector<Acn*> 
 Parser::getAcnsFromSearchResults(string& page, 
-                                 bool limit, 
+                                 size_t limit,/*limit==0 limits to last year*/ 
                                  StatementType st)
 {
     vector<Acn*> acns;
@@ -848,6 +851,7 @@ Parser::getAcnsFromSearchResults(string& page,
     string tagName("table");
     table = table->firstNodebyName( tagName );
 
+    size_t counter = 0;
     for(auto it = table->_children.begin() ; it != table->_children.end(); ++it)
         if ( (*it)->_tagName == "tr" )
         {
@@ -856,13 +860,17 @@ Parser::getAcnsFromSearchResults(string& page,
             if (acn == NULL)
                 continue;
 
-            if ( limit && (acn->_report_date.year() < last_year) )
+            if ( (limit!=0) && (counter >= limit) )
+                break;
+
+            if ( (limit==0) && (acn->_report_date.year() < last_year) ) 
                 break;
 
             if (st == StatementType::K10)
                 acn->_quarter = 0;
 
             acns.push_back( acn );
+            counter++;
         }
     return acns;
 }

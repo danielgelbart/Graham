@@ -120,8 +120,6 @@ removeNonDigit(string& str)
     return ret;
 }
 
-
-
 string
 trimSpaces(const string& s)
 {

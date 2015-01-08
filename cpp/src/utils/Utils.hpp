@@ -74,7 +74,6 @@ toString(const T& t)
 {
     std::ostringstream oss;
     oss << t;
-    
     return oss.str();
 }
 
@@ -293,6 +292,14 @@ std::string firstWord(const std::string& s);
 
 std::string substitute(const std::string& orig, const std::string& cut, 
                        const std::string& paste);
+
+template<class T>
+bool withinPercent(T testV, float p, T val)
+{
+    return ( (testV <= val * 1+p ) && (testV >= val * 1-p ) );
+}
+
+//template bool withinPercent<double>(double,float,double);
 
 std::string removeNonDigit(string& str);
 std::string trimSpaces(const std::string& s);

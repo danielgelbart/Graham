@@ -76,13 +76,12 @@ EdgarData::getEdgarFiling( O_Stock& stock, Acn& acn)
     return page;
 }
 
-
 Acn*
 EdgarData::getLastYear10KAcn( O_Stock& stock)
 {
     string page = getEdgarSearchResultsPage( stock , StatementType::K10);
     Parser parser;
-    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, true,/*limit*/ 
+    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 1,/*limit*/ 
                                                          StatementType::K10 );
     return Acns.front();
 }
@@ -104,8 +103,8 @@ EdgarData::getQuarters(O_Stock& stock)
     // get back to Q1 LAST year
     string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
     Parser parser;
-    vector<Acn*> qAcns = parser.getAcnsFromSearchResults( page );
-
+    vector<Acn*> qAcns = parser.getAcnsFromSearchResults( page, 7,/*limit*/ 
+                                                          StatementType::Q10 );
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
     {
@@ -341,7 +340,7 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
 // get All Acns
     // 1) Change name
     // 2) compare annual and quarter url strings to use same method
-    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, false,/*limit*/ 
+    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 10,/*limit*/ 
                                                          StatementType::K10 );
 
     greg_year gyear(year);

@@ -8,6 +8,7 @@
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
 #include "Test.h"
+
 bool
 db_setup()
 {
@@ -51,10 +52,6 @@ Test::runSingleYearTest(TestResults& tResults)
 
     T_Stock ts;
     T_Ep te;
-//    O_Stock stock;
-//    string ticker("IBM");
-//    stock._ticker() = ticker;
-//    stock.insert();
     O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
 
     // extract to DB
@@ -69,13 +66,14 @@ Test::runSingleYearTest(TestResults& tResults)
     edgar.extract10kToDisk( filing, stock, info);
 
     //Test results writen to DB
-    if (te.select( te._year() == 2013).empty())
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
     {
         tResults.addFailure(testName + "No record was added to DB");       
         return tResults.getResultsSummary();
     }
-
-    O_Ep ibm2013 = te.select( te._stock_id() == stock._id() ).front();
+    O_Ep ibm2013 = te.select( te._stock_id() == stock._id() 
+                              && te._quarter() == 0 ).front();
 
     if (ibm2013._year() != 2013)
         tResults.addFailure(testName + "Year should be: 2013, but is: "
@@ -111,9 +109,6 @@ Test::runSingleQarterTest(TestResults& tResults)
     T_Stock ts;
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == string("CVX")).front();
-//    string ticker("CVX");
-//    stock._ticker() = ticker;
-//    stock.insert();
 
     string filing = getMock10qFromDisk();
     if ( filing == "")
@@ -126,14 +121,15 @@ Test::runSingleQarterTest(TestResults& tResults)
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() &&
-                   te._year() == 2013 && te._quarter() == 1).empty())
+                   te._year() == 2014 && te._quarter() == 1).empty())
     {
         tResults.addFailure(testName + "No record was added to DB");       
         return tResults.getResultsSummary();
     }
 
-    O_Ep cvx2013Q1 = te.select( te._year() == 2014
-                                && te._quarter() == 1).front() ;
+    O_Ep cvx2013Q1 = te.select( te._stock_id() == stock._id() &&
+                                te._year() == 2014 &&
+                                te._quarter() == 1).front() ;
  
     if (cvx2013Q1._year() != 2014)
         tResults.addFailure(testName + "Year should be: 2014, but is: "
@@ -160,6 +156,60 @@ Test::runSingleQarterTest(TestResults& tResults)
     return tResults.getResultsSummary();
 }
 
+
+string 
+Test::runFourthQarterTest(TestResults& tResults)
+{
+    LOG_INFO << "\n --- Running runFourthQarterTest() ---\n";
+    string testName("Test-Create fourth quarter: ");
+
+    T_Stock ts;
+    T_Ep te;
+    O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
+    string filing = getMock10kFromDisk();
+    Info info( stock._ticker(), 2013, StatementType::K10);
+    EdgarData edgar;
+    edgar.extract10kToDisk( filing, stock, info);
+    edgar.createFourthQuarter(stock, 2013);
+
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 4 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep ibm2013 = te.select( te._stock_id() == stock._id() 
+                              && te._quarter() == 4 ).front();
+
+    if (ibm2013._year() != 2013)
+        tResults.addFailure(testName + "Year should be: 2013, but is: "
+                            + to_string(ibm2013._year()) );
+    if (ibm2013._quarter() != 4)
+        tResults.addFailure(testName + "Quarter should be: 4, but is: " + to_string(ibm2013._quarter()) );
+
+    if (ibm2013._revenue() != "27699000000")
+        tResults.addFailure(testName + "Revenue should be: 27699000000, but is: " + ibm2013._revenue() );
+
+    if (ibm2013._net_income() != "6184000000")   
+        tResults.addFailure(testName + "Net Income should be: 6184000000, but is: " + ibm2013._net_income() );
+
+    if ( withinPercent<double>( round(ibm2013._eps()), 0.05, 5.6) )  
+        tResults.addFailure(testName + "(diluted) Eps should be: 5.6, but is: " + to_string(ibm2013._eps()) );
+
+    if (ibm2013._shares() != "1103042156")   
+        tResults.addFailure(testName + "Number of (diluted) shares should be: 1103042156, but is: " + ibm2013._shares() );
+  
+    // test clean up
+    te.erase( te._id() == ibm2013._id());
+    O_Ep ibm2013mockyear = te.select( te._stock_id() == stock._id() 
+                              && te._quarter() == 0 ).front();
+    te.erase( te._id() == ibm2013mockyear._id());
+    
+    return tResults.getResultsSummary();
+
+}
+
 void 
 Test::run_all()
 {
@@ -178,8 +228,17 @@ Test::run_all()
     // test single year
     runSingleYearTest(testRes);
     runSingleQarterTest(testRes);
-    // test quarters
-//    runRecentQartersTest(testRes);
+
+    /*      
+    T_Stock ts;
+    O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
+    stock._cik() = 51143;
+    stock.update();
+    stock = ts.select( ts._ticker() == string("IBM")).front();
+    EdgarData edgar;
+    edgar.getQuarters(stock);
+    */
+    runFourthQarterTest(testRes);
 
     // test fourth quarter
 

@@ -64,7 +64,7 @@ public:
     string extract_quarterly_income(string& page);
     string extractFirstTableStr(string& incomeStr);
     vector<Acn*> getAcnsFromSearchResults(string& page,
-                                    bool limit = true,
+                                    size_t limit,
                                     StatementType st = StatementType::Q10);
     Acn* trToAcn( XmlElement* tr );
 
