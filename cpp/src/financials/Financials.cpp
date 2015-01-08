@@ -296,12 +296,6 @@ EdgarData::createTtmEps(O_Stock& stock)
     }
     sort( qrts.begin(), qrts.end(), ep_comp );
 
-    // print for sort inspection
-    /* cout << "\n Sorted quarters for " << stock._ticker() << " are: " << endl;
-    for( auto it = qrts.begin(); it != qrts.end(); ++it)
-        cout << to_string(it->_year()) << " qrt- " << to_string(it->_quarter()) << endl;
-    */
-
     // sum latest 4 quarters
     long revp(0);
     long incp(0);

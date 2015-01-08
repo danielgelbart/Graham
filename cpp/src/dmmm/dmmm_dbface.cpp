@@ -27,6 +27,12 @@ DBFace::DBFace(const string& database, const string& host,
     connect();
 }
 
+bool 
+DBFace::switchDB(std::string& dbName)
+{
+    return _connection.select_db(dbName);
+}
+
 void
 DBFace::connect()
 {

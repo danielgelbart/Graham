@@ -48,6 +48,8 @@ public:
     string runSingleYearTest(TestResults& tr);
     string runSingleQarterTest(TestResults& tr);
     string runFourthQarterTest(TestResults& tr);
+    void runCompanyTest(string& ticker);
+
 private: //members
 //    path _mockPath;
 

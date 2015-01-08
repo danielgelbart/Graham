@@ -234,7 +234,6 @@ O_Ep(const I_Ep& id)
             return false;
                                    
     }
-
 private:
     Field<I_Ep> _f_id;
     F_Fixnum _f_year;

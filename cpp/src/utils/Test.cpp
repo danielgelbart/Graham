@@ -228,22 +228,71 @@ Test::run_all()
     // test single year
     runSingleYearTest(testRes);
     runSingleQarterTest(testRes);
-
-    /*      
-    T_Stock ts;
-    O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
-    stock._cik() = 51143;
-    stock.update();
-    stock = ts.select( ts._ticker() == string("IBM")).front();
-    EdgarData edgar;
-    edgar.getQuarters(stock);
-    */
     runFourthQarterTest(testRes);
 
-    // test fourth quarter
-
-    // test ttm eps
-
     resultSummary = testRes.getResultsSummary();
+    cout << "\n ---  TEST Results  ---" <<resultSummary << endl;
+}
+
+void 
+Test::runCompanyTest(string& ticker)
+{
+    // get record from REAL DB for 2013
+    LOG_INFO << "\n --- Running Test for retreval of " << ticker 
+             << "  ---\n";
+
+    cout << "\n Switching to REAL DB--------------------" << endl;
+
+    string realDB("graham_dev");
+    string testDB("graham_test");
+    if ( DBFace::instance()->switchDB( realDB ) )
+        cout << "Switch to real db succeccful" << endl;
+    
+    T_Stock rts;
+    T_Ep rte;
+    O_Stock rstock = rts.select( rts._ticker() == ticker).front();
+    O_Ep real2013 = rte.select( rte._stock_id() == rstock._id() 
+                               && rte._quarter() == 0
+                               && rte._year() == 2013).front();
+
+    
+    cout << "\n Switching back to TEST DB--------------------" << endl;
+
+    if (DBFace::instance()->switchDB( testDB ) )
+        cout << "Switch to TEST db succeccful" << endl;
+  
+    // Switch back to TEST DB
+
+    // Ensure we switched to test DB
+    bool rok(false);
+    rok = db_setup();
+    if(!rok)
+    {
+        LOG_ERROR << "Something wrong with TEST(probably with TEST DB setup)."
+                  << "EXITING";
+        cout << "An error uccored. exiting";
+        exit(-1);
+    }
+
+  
+    TestResults testRes;
+    T_Stock ts;
+    T_Ep te;
+
+    // CREATE Dummy stock in test DB!
+
+    O_Stock stock = ts.select( ts._ticker() == ticker).front();
+    string testName("Test-Company " + stock._ticker() + ": ");
+
+    Info info( stock._ticker(), 2013, StatementType::K10);
+    EdgarData edgar;
+
+
+    // test single year
+
+//    runSingleYearTest(stock, real2013, testRes);
+
+
+    string resultSummary = testRes.getResultsSummary();
     cout << "\n ---  TEST Results  ---" <<resultSummary << endl;
 }

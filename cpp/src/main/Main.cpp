@@ -94,9 +94,16 @@ mainMain(int argc, char* argv[])
         string database = confParam<string>("db.database");
         string password = confParam<string>("db.password");
         DMMM::DBFace dbFace(database, host, user, password, logger->logFile());
-        
+
         Test test;
-        test.run_all();
+        if (argc > 2)
+        {       
+            cout << "\n Callling company test method" << endl;
+            string ticker(argv[2]);
+            test.runCompanyTest( ticker );
+        }
+        else
+            test.run_all();
 
         delete(config);
         delete(logger);
