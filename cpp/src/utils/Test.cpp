@@ -284,9 +284,9 @@ Test::runCompanyTest(string& ticker)
         stock._cik() = rstock._cik();
         stock.insert();
 
-    } else
+    }else{
         stock = ts.select( ts._ticker() == ticker).front();
-    
+    }
     string testName("Test-Company " + stock._ticker() + ": ");
     testRes.setTestName(testName);
     Info info( stock._ticker(), 2013, StatementType::K10);
@@ -301,13 +301,12 @@ Test::runCompanyTest(string& ticker)
 
 //    runSingleYearTest(stock, real2013, testRes);
 
-
     string resultSummary = testRes.getResultsSummary();
     cout << "\n ---  TEST Results  ---" <<resultSummary << endl;
 }
 
 long
-convertNumSharesToLong( string& numShares )
+convertNumSharesToLong( string numShares )
 {
     if ( numShares == removeNonDigit( numShares ) )
         return stol( numShares);
@@ -324,11 +323,23 @@ convertNumSharesToLong( string& numShares )
 }
 
 string 
+printEarnings(const O_Ep earnings)
+{
+    stringstream sstr;
+    sstr << " YEAR: "<<to_string( earnings._year());
+    sstr << " Q: "<<to_string( earnings._quarter());
+    sstr << " REVENUE: "<<earnings._revenue();
+    sstr << " INCOME: "<<earnings._net_income();
+    sstr << " EPS: "<<to_string( earnings._eps());
+    sstr << " SHARES: "<<earnings._shares();
+    return sstr.str();
+}
+
+string 
 Test::compareTest(const O_Stock& rStock, const O_Ep rEarnings,
                   TestResults& tResults)
 {
     LOG_INFO << "\n --- Running compareTest() ---\n";
-
     T_Stock ts;
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == rStock._ticker()).front();
@@ -345,6 +356,9 @@ Test::compareTest(const O_Stock& rStock, const O_Ep rEarnings,
                                te._year() == rEarnings._year()
                                && te._quarter() == 0 ).front();
 
+    cout << "\n Comparing DB record: "<<printEarnings(rEarnings)
+         << "\n With SEC retrival: "<<printEarnings(earnings)<<endl;
+
     if (! withinPercent( stol(earnings._revenue()), 0.02,
                          stol(rEarnings._revenue()) ) )
         tResults.addFailure("Revenue should be: "+rEarnings._revenue()
@@ -359,9 +373,12 @@ Test::compareTest(const O_Stock& rStock, const O_Ep rEarnings,
         tResults.addFailure("(diluted) Eps should be: "+ 
                             to_string(rEarnings._eps() )+", but is: " + 
                             to_string(earnings._eps() ) );
-    
-    if (! withinPercent( stol(earnings._shares()), 0.02, 
-                         convertNumSharesToLong( string(rEarnings._shares()) )))
+
+    long lnshares = convertNumSharesToLong( string(rEarnings._shares()) );
+    LOG_INFO<<"\n Converted "<<rEarnings._shares()<<" to "
+            <<to_string(lnshares)<< "\n";
+
+    if (! withinPercent( stol(earnings._shares()), 0.02, lnshares) ) 
         tResults.addFailure("Number of (diluted) shares should be: "
                             + rEarnings._shares() 
                             + ", but is: " + earnings._shares() );
