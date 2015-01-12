@@ -26,6 +26,16 @@ unitsToInt(string& units)
     return 1;
 }
 
+bool
+containsNoData(string& dataText )
+{
+    boost::regex pattern("&#xA0;");
+
+    if ( boost::regex_search(dataText, pattern) )
+        return true;
+    return false;
+}
+
 size_t
 countDecimals(string& num)
 {
@@ -137,14 +147,24 @@ XmlElement::firstNodebyName(string& tagName ){
 }
 
 XmlElement* 
-XmlElement::tagWithText(string& tagName, string& phrase)
+XmlElement::tagWithText(string& tagName, string& phrase, 
+                        const size_t num, size_t* counter)
 {
     boost::regex pattern( phrase, boost::regex::icase );
+    if (num==2)
+        LOG_INFO << "comparing to tag with text: "<< text()<<"\n";
 
     if (_tagName == tagName)
     {
         if ( boost::regex_search( text(), pattern ) )
-            return this;
+        {
+            LOG_INFO<<"counter is "<< to_string(*counter)<<"\n";
+            *counter =  *counter+1;
+            if (*counter == num)
+                return this;
+            else
+                return NULL;
+        }
     }
     if ( _children.empty() )
         return NULL;
@@ -152,7 +172,7 @@ XmlElement::tagWithText(string& tagName, string& phrase)
     XmlElement* node = NULL;
     for( auto it = _children.begin(); it != _children.end(); ++it )
     {
-        node = (*it)->tagWithText( tagName,phrase );
+        node = (*it)->tagWithText( tagName, phrase, num, counter );
         if ( node != NULL )
             break;
     }
@@ -490,13 +510,25 @@ XmlElement::getNodes(string tagName,
 vector<string>
 Parser::getRevenues(XmlElement* tree, bool singleYear)
 {
+    vector<string> retVals;
     string trTitle("Total revenue");
-    return getTrByName(tree, trTitle, singleYear);
+    retVals = getTrByName(tree, trTitle, singleYear);
+    if (retVals.empty())
+    {
+        trTitle = "Net revenue";
+        retVals = getTrByName(tree, trTitle, singleYear);
+    }
+    if (retVals.empty())
+    {
+        trTitle = "Operating revenues?";
+        retVals = getTrByName(tree, trTitle, singleYear);
+    }
+    return retVals;
 }
 
 vector<string> 
 Parser::getIncs(XmlElement* tree, bool singleYear){
-    string trTitle("Net income");
+    string trTitle("^((\\s|:)*Net income)");
     return getTrByName(tree, trTitle, singleYear);
 }
 
@@ -607,6 +639,15 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
                 long ns = stol(cleanMatch) * unitsToInt( units);
                 if( decimals > 0)
                     ns = ns / pow(10,decimals);
+                if( ( ns < 1000000 ) && (1==unitsToInt(units)) )
+                {
+                    LOG_INFO<<"\n**NOTE: Retrieved numshares value of: "
+                            << to_string(ns)<<" wich seems low, as well as not"
+                            << " being able to extract units for numshares. "
+                            << "Therefore, using units found for general porpus"
+                            << "e " << bunits<<" \n";
+                    ns = ns*unitsToInt( bunits );
+                }
                 cleanMatch = to_string( ns );
             
                 LOG_INFO << "\n Adding extracted val : " << cleanMatch;
@@ -627,12 +668,20 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
 string 
 Parser::getNumSharesFromCoverReport(string& report)
 {
+    
+    // Get units for num shares from title!!!
+
     string tableStr = extractFirstTableStr(report); 
     XmlElement* tree = buildXmlTree(tableStr);
     string trTitle("Entity Common Stock, Shares Outstanding");
     string tagName("tr");
-    XmlElement* dataLine = tree->tagWithText(tagName,trTitle);
+
+    size_t* counter = new size_t;
+    *counter=0;
+    XmlElement* dataLine = tree->tagWithText(tagName,trTitle,1,counter);
+   
     string dataText = dataLine->text();
+   
     LOG_INFO << " Text containing number of shares is " << dataText;
     
     boost::regex pattern("\\d+[,\\d]+\\d+");
@@ -654,26 +703,44 @@ vector<float>
 Parser::getAnualEps(XmlElement* tree, bool singleYear){
     string trTitle("(diluted|dilution)");
     string tagName("tr");
+    vector<float> retVals;
+    LOG_INFO<<"getAnualEps() called";
 
-    XmlElement* dataLine = tree->tagWithText(tagName,trTitle);
+    size_t* counter = new size_t;
+    *counter=0;
+    XmlElement* dataLine = tree->tagWithText(tagName,trTitle,1,counter);
 
     if ( dataLine == NULL )
+    {
         LOG_ERROR << "Could not extract " << tagName 
                   << " with text matching pattern " << trTitle;
-
+        return retVals;
+    }
     string dataText = dataLine->text();
 
-//    cout << " \n Data line text is : " << dataText << endl;
+    LOG_INFO << " \n Data line text is : " << dataText;
+    if ( containsNoData( dataText ))
+    {
+        *counter=0;
+        XmlElement* dataLine = tree->tagWithText(tagName,trTitle,2,counter);
+        if ( dataLine != NULL)
+        {
+            dataText = dataLine->text();
+            LOG_INFO << " \n Data line text is now: " << dataText;
+        }else{
+            LOG_ERROR << " \n Could not retrieve eps data";
+            return retVals;
+        }
+    }
 
     boost::regex pattern("\\(?(\\d+)(.\\d+)?\\)?");
     boost::sregex_iterator mit(dataText.begin(), dataText.end(), pattern);
     boost::sregex_iterator mEnd;
 
-    vector<float> retVals;
     for(; mit != mEnd; ++mit)
     {
         string val = (*mit)[0].str();
-        //      cout << "\n Adding extracted val : " << val << endl;
+        LOG_INFO << "\n Adding extracted val : " << val;
         retVals.push_back( stof(val) );
         if (singleYear)
             break;
@@ -763,12 +830,17 @@ vector<string>
 Parser::getTrByName(XmlElement* tree, string& trTitlePattern, bool singleYear){
 
     string tagName("tr");
-    XmlElement* dataLine = tree->tagWithText(tagName,trTitlePattern);
+    size_t* counter = new size_t;;
+    *counter=0;
+    XmlElement* dataLine = tree->tagWithText(tagName,trTitlePattern,1,counter);
+    vector<string> retVals;
 
     if ( dataLine == NULL )
+    {
         LOG_ERROR << "Could not extract " << tagName 
                   << " with text matching pattern " << trTitlePattern;
-
+        return retVals;
+    }
     string dataText = dataLine->text();
     LOG_INFO << " \n Data line text is : " << dataText;
 
@@ -776,7 +848,7 @@ Parser::getTrByName(XmlElement* tree, string& trTitlePattern, bool singleYear){
     boost::sregex_iterator mit(dataText.begin(), dataText.end(), pattern);
     boost::sregex_iterator mEnd;
 
-    vector<string> retVals;
+
     for(; mit != mEnd; ++mit)
     {
         string matchString = (*mit)[0].str();

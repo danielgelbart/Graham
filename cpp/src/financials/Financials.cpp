@@ -454,7 +454,7 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
 
     vector<float> eps = parser.getAnualEps(tree, singleYear);
     vector<string> shares = parser.getNumShares(tree,units);
-    
+
     if ( shares.empty() )
     {
         LOG_INFO << "\n NO nushare data. proceding to get numshares from cover"
@@ -462,7 +462,6 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
         
         string sharesNum =      
             parser.getNumSharesFromCoverReport(_reports[ReportType::COVER]);
-        
         if ( sharesNum != "")
         {
             shares.push_back(sharesNum);
@@ -478,7 +477,7 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
     if (!singleYear)
         numToAdd = std::min({ years.size(), revenues.size(), incs.size(), 
                     eps.size(), shares.size()});
-    
+
     for (size_t i = 0; i < numToAdd; ++i)
         addEearningsRecordToDB( stock, years[i], 0/*quarter*/,
                                 (revenues[i] + units),

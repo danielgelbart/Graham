@@ -158,7 +158,8 @@ Tokenizer::extractTagContent(string& tagName, string& content)
  
     boost::regex_search(content, match, pattern);
 
-    return match[1];
+    string retStr = match[1];
+    return trimSpaces( retStr );
 }
 
 string
@@ -189,15 +190,15 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     string reportName = "";
 
     boost::regex cover_pattern(
-        "(\\s)*Document and Entity Information(\\s)*",
+        "Document and Entity Information",
         boost::regex_constants::icase);
   
     boost::regex income_pattern(
-        "(\\s)*consolidated statement of (earnings|income)(\\s)*",
+        "consolidated (statements? of (earnings|income)|and sector income statement)",
         boost::regex_constants::icase);
   
   boost::regex balance_pattern(
-        "(\\s)*consolidated (statement of financial position|balance sheet)(\\s)*",
+        "consolidated (statement of financial position|balance sheet)",
         boost::regex_constants::icase);
 
     while( (report = getNextDelString(delimiter)) != "")
@@ -238,5 +239,9 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
         if (foundBalanceRep && foundIncomeRep)
             break;
     }
+    if(!foundIncomeRep)
+        LOG_ERROR<<"Could NOT find Income statement\n";
+    if(!foundBalanceRep)
+        LOG_ERROR<<"Could NOT find Balance statement\n";
 }
 

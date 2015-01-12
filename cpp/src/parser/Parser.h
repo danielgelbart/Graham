@@ -28,7 +28,8 @@ public:
     void printXmlTree(size_t depth);
 
     XmlElement* firstNodebyName(string& tagName);
-    XmlElement* tagWithText(string& tagName, string& phrase);
+    XmlElement* tagWithText(string& tagName, string& phrase, 
+                            const size_t, size_t* counter);
     void getNodes(string tagName, //with no leading or trailng whitespace 
                   size_t number, // the number of such xml elements to collect
                   vector<XmlElement*>* collected);
