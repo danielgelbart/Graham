@@ -190,7 +190,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     string reportName = "";
 
     boost::regex cover_pattern(
-        "Document and Entity Information",
+        "Document (and )?Entity Information",
         boost::regex_constants::icase);
   
     boost::regex income_pattern(
@@ -243,5 +243,8 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
         LOG_ERROR<<"Could NOT find Income statement\n";
     if(!foundBalanceRep)
         LOG_ERROR<<"Could NOT find Balance statement\n";
+    if(!foundCoverRep)
+        LOG_ERROR<<"Could NOT find Cover statement\n";
+
 }
 

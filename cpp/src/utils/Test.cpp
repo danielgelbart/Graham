@@ -141,8 +141,8 @@ Test::runSingleQarterTest(TestResults& tResults)
     if (cvx2013Q1._revenue() != "53265000000")
         tResults.addFailure(testName + "Revenue should be: 53265000000, but is: " + cvx2013Q1._revenue() );
 
-    if (cvx2013Q1._net_income() != "4521000000")   
-        tResults.addFailure(testName + "Net Income should be: 4521000000, but is: " + cvx2013Q1._net_income() );
+    if (cvx2013Q1._net_income() != "4512000000")   
+        tResults.addFailure(testName + "Net Income should be: 4512000000, but is: " + cvx2013Q1._net_income() );
 
     if (cvx2013Q1._eps() != 2.36)   
         tResults.addFailure(testName + "(diluted) Eps should be: 2.36, but is: " + to_string(cvx2013Q1._eps()) );

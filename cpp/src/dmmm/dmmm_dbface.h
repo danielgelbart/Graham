@@ -52,6 +52,7 @@ public:
     std::string getDBName();
     bool switchDB(std::string& dbName);
 
+
     void startTransaction();
     void commitTransaction();
 

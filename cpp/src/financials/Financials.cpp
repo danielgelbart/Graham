@@ -459,7 +459,16 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
     {
         LOG_INFO << "\n NO nushare data. proceding to get numshares from cover"
                  << " report. Which will have numshares for single year only";
-        
+        string coverReport = _reports[ReportType::COVER];
+        if (coverReport =="")
+        {
+            LOG_ERROR << "No cover report found for " << stock._ticker()
+                      << "So exusted attempt to read num shares";
+            cout << "\n Cannot get num shares for " << stock._ticker() 
+                 << ". exiting." << endl;
+            return;
+
+        }
         string sharesNum =      
             parser.getNumSharesFromCoverReport(_reports[ReportType::COVER]);
         if ( sharesNum != "")

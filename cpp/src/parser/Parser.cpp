@@ -528,8 +528,17 @@ Parser::getRevenues(XmlElement* tree, bool singleYear)
 
 vector<string> 
 Parser::getIncs(XmlElement* tree, bool singleYear){
-    string trTitle("^((\\s|:)*Net income)");
-    return getTrByName(tree, trTitle, singleYear);
+    // T, F report income this way:
+    string trTitle("^((\\s|:)*Net income attributable to)");
+    vector<string> retVals;
+    retVals = getTrByName(tree, trTitle, singleYear);
+    if (retVals.empty())
+    {
+        // Normal companies use this title:
+        trTitle = "^((\\s|:)*Net income)";
+        retVals = getTrByName(tree, trTitle, singleYear);
+    }
+    return retVals;
 }
 
 vector<string>
@@ -668,18 +677,30 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
 string 
 Parser::getNumSharesFromCoverReport(string& report)
 {
-    
-    // Get units for num shares from title!!!
 
     string tableStr = extractFirstTableStr(report); 
     XmlElement* tree = buildXmlTree(tableStr);
+    string units="";
+
+    //check if units for shares appear in title
+    string titleText = get_title_text(tree);
+    size_t split = titleText.find("except");
+    if (split != string::npos)
+    {
+        string additional = titleText.substr(split, titleText.size()-split);
+        LOG_INFO << "Found possible additional units in title text: "
+                 << titleText;
+
+        boost::regex a_pattern ("share data", boost::regex::icase);
+        if (boost::regex_search(additional, a_pattern) )
+            units = get_units_from_text( additional );
+    }
     string trTitle("Entity Common Stock, Shares Outstanding");
     string tagName("tr");
 
     size_t* counter = new size_t;
     *counter=0;
     XmlElement* dataLine = tree->tagWithText(tagName,trTitle,1,counter);
-   
     string dataText = dataLine->text();
    
     LOG_INFO << " Text containing number of shares is " << dataText;
@@ -695,6 +716,12 @@ Parser::getNumSharesFromCoverReport(string& report)
         LOG_ERROR << "Could not get numshares from cover report";
     
     numshares = removeNonDigit( numshares );
+    if ((units != "") && (units != "1"))
+    { 
+        LOG_INFO << " Share data units found in title text of table."
+               << " units have been set to " << units; 
+        numshares = (numshares+units);
+    }
     return numshares;
 }
 
