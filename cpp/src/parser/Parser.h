@@ -84,6 +84,7 @@ public:
     double getQarterEps(XmlElement* tree);
     vector<string> getNumShares(XmlElement* tree, string& bunits);
     string getNumSharesFromCoverReport(string& report);
+    string extractFiscalDateFromReport(string& report);
 
 private:
 

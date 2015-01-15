@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141203123707) do
+ActiveRecord::Schema.define(:version => 20150114134502) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(:version => 20141203123707) do
     t.datetime "updated_at"
     t.decimal  "ttm_eps",              :precision => 12, :scale => 6
     t.decimal  "book_value_per_share", :precision => 12, :scale => 6
-    t.date     "fiscal_year_end"
     t.integer  "dividends_per_year",                                  :default => 4
     t.decimal  "latest_price",         :precision => 12, :scale => 6
     t.string   "market_cap"
@@ -92,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20141203123707) do
     t.boolean  "has_currant_ratio",                                   :default => true
     t.string   "mark"
     t.integer  "cik"
+    t.string   "fiscal_year_end",                                     :default => ""
   end
 
   create_table "users", :force => true do |t|

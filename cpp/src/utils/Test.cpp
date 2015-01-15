@@ -253,8 +253,7 @@ Test::runCompanyTest(string& ticker)
     const O_Ep real2013 = rte.select( rte._stock_id() == rstock._id() 
                                && rte._quarter() == 0
                                && rte._year() == 2013).front();
-
-    
+      
     cout << "\n Switching back to TEST DB--------------------" << endl;
 
     if (DBFace::instance()->switchDB( testDB ) )
@@ -344,7 +343,7 @@ Test::compareTest(const O_Stock& rStock, const O_Ep rEarnings,
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == rStock._ticker()).front();
 
-    //Test results writen to DB
+   //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() 
                    && te._quarter() == 0 ).empty())
     {
@@ -352,12 +351,14 @@ Test::compareTest(const O_Stock& rStock, const O_Ep rEarnings,
         return tResults.getResultsSummary();
     }
 
+    // BDX fiscal year ends in Sep, so latest annual report is for 2014
+// so this quesry returns empty set.
     O_Ep earnings = te.select( te._stock_id() == stock._id() &&
                                te._year() == rEarnings._year()
                                && te._quarter() == 0 ).front();
 
     cout << "\n Comparing DB record: "<<printEarnings(rEarnings)
-         << "\n With SEC retrival: "<<printEarnings(earnings)<<endl;
+      << "\n With SEC retrival: "<<printEarnings(earnings)<<endl;
 
     if (! withinPercent( stol(earnings._revenue()), 0.02,
                          stol(rEarnings._revenue()) ) )

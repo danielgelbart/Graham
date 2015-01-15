@@ -151,8 +151,7 @@ XmlElement::tagWithText(string& tagName, string& phrase,
                         const size_t num, size_t* counter)
 {
     boost::regex pattern( phrase, boost::regex::icase );
-    if (num==2)
-        LOG_INFO << "comparing to tag with text: "<< text()<<"\n";
+    LOG_INFO << "comparing to tag with text: "<< text()<<"\n";
 
     if (_tagName == tagName)
     {
@@ -299,13 +298,11 @@ Parser::extract_reports(string& k10,
                         map<ReportType,string>* extracted_reports)
 {
     Tokenizer tokenizer(k10);
-
     string filingSummary = tokenizer.findFilingSummary();
 
     Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
     filingSummaryTok.getReportDocNames(reports);
-
 
     //extract INCOME statement from dump file
     string reportKey;
@@ -523,6 +520,12 @@ Parser::getRevenues(XmlElement* tree, bool singleYear)
         trTitle = "Operating revenues?";
         retVals = getTrByName(tree, trTitle, singleYear);
     }
+    if (retVals.empty())
+    {
+        // Added for BDX
+        trTitle = "^((\\s|:)*Revenues)";
+        retVals = getTrByName(tree, trTitle, singleYear);
+    }
     return retVals;
 }
 
@@ -677,7 +680,6 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
 string 
 Parser::getNumSharesFromCoverReport(string& report)
 {
-
     string tableStr = extractFirstTableStr(report); 
     XmlElement* tree = buildXmlTree(tableStr);
     string units="";
@@ -723,6 +725,38 @@ Parser::getNumSharesFromCoverReport(string& report)
         numshares = (numshares+units);
     }
     return numshares;
+}
+
+string 
+Parser::extractFiscalDateFromReport(string& report)
+{
+    string tableStr = extractFirstTableStr(report); 
+    XmlElement* tree = buildXmlTree(tableStr);
+    string date="";
+
+    string trTitle("Fiscal Year End Date");
+    string tagName("tr");
+    size_t* counter = new size_t;
+    *counter=0;
+    XmlElement* dataLine = tree->tagWithText(tagName,trTitle,1,counter);
+    if (dataLine==NULL)
+    {
+        LOG_ERROR << "Could not get FYED for stock\n";
+        return "";
+    }
+    string dataText = dataLine->text();
+    LOG_INFO << " Got fiscal year end date of " << dataText<< "\n";
+    
+    boost::regex pattern("\\d\\d-\\d\\d");
+    boost::smatch match;
+    if (boost::regex_search(dataText, match, pattern) )
+    {
+        date = match[0];
+        LOG_INFO << "Saving end date string of "<< date<<"\n";
+    } else
+        LOG_ERROR << "Failed to get end date string from cover report";
+
+    return date;
 }
 
 
@@ -892,14 +926,23 @@ XmlElement*
 Parser::edgarResultsTableToTree(string& page)
 {
     string startSearchS("<div id=\"seriesDiv");
-
     string openTag("<table");
     string closeTag("</table");
     size_t startPos = page.find(startSearchS,0);
+    if (startPos == string::npos)
+    {   
+        LOG_INFO << "edgarResultsTableToTree() could not find start postition "
+                 << startSearchS << "in content page "<<page;
+        return NULL;
+    }
     startPos = page.find(openTag, startPos);
+    if (startPos == string::npos)
+    {   
+        LOG_INFO << "edgarResultsTableToTree() could not find table start";
+        return NULL;
+    }
     size_t endPos = page.find(closeTag, startPos);
     string table = page.substr( startPos, (endPos-startPos) );
-
     XmlElement* tree = buildXmlTree(table);
     return tree;
 }
@@ -912,6 +955,14 @@ Parser::trToAcn( XmlElement* tr )
         return NULL;    
 
     string text = tr->text();
+    boost::regex amend_pattern("Amend");
+    boost::smatch match0;
+    if ( boost::regex_search(text, match0, amend_pattern) )
+    {
+        LOG_INFO << "\n This is an AMEND to a previous statement: "<< text;
+        // This is a BAD sign for the company...
+        return NULL;
+    }
 
     boost::regex acn_pattern("(\\d+-\\d\\d-\\d+)");
     boost::smatch match1;
@@ -945,8 +996,12 @@ Parser::getAcnsFromSearchResults(string& page,
 
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
-
     XmlElement* table = edgarResultsTableToTree( page );
+    if (table==NULL)
+    {
+        LOG_ERROR << "Failed to build table from search results page";
+        return acns;
+    }
     string tagName("table");
     table = table->firstNodebyName( tagName );
 

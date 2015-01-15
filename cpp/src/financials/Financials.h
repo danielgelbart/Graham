@@ -34,6 +34,8 @@ public:
     void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock);
 
     void updateFinancials(O_Stock& stock);
+    bool getFiscalYearEndDate(O_Stock& stock);
+
 
 private:
     string getEdgarSearchResultsPage(O_Stock& stock, StatementType st);

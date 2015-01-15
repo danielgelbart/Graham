@@ -124,13 +124,6 @@ O_Stock(const I_Stock& id)
         _f_book_value_per_share._dirty = true; 
         return _f_book_value_per_share._base; 
     }
-    const F_Date::Base& _fiscal_year_end() const { 
-        return _f_fiscal_year_end._base; 
-    }
-    F_Date::Base& _fiscal_year_end() { 
-        _f_fiscal_year_end._dirty = true; 
-        return _f_fiscal_year_end._base; 
-    }
     const F_Fixnum::Base& _dividends_per_year() const { 
         return _f_dividends_per_year._base; 
     }
@@ -194,6 +187,13 @@ O_Stock(const I_Stock& id)
         _f_cik._dirty = true; 
         return _f_cik._base; 
     }
+    const F_String::Base& _fiscal_year_end() const { 
+        return _f_fiscal_year_end._base; 
+    }
+    F_String::Base& _fiscal_year_end() { 
+        _f_fiscal_year_end._dirty = true; 
+        return _f_fiscal_year_end._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -218,9 +218,6 @@ O_Stock(const I_Stock& id)
         if (_f_book_value_per_share._dirty)
             field2Val["book_value_per_share"] = 
                 toSQLString(_f_book_value_per_share._base);
-        if (_f_fiscal_year_end._dirty)
-            field2Val["fiscal_year_end"] = 
-                toSQLString(_f_fiscal_year_end._base);
         if (_f_dividends_per_year._dirty)
             field2Val["dividends_per_year"] = 
                 toSQLString(_f_dividends_per_year._base);
@@ -248,6 +245,9 @@ O_Stock(const I_Stock& id)
         if (_f_cik._dirty)
             field2Val["cik"] = 
                 toSQLString(_f_cik._base);
+        if (_f_fiscal_year_end._dirty)
+            field2Val["fiscal_year_end"] = 
+                toSQLString(_f_fiscal_year_end._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("stocks", 
@@ -260,7 +260,6 @@ O_Stock(const I_Stock& id)
             _f_updated_at._dirty = false;
             _f_ttm_eps._dirty = false;
             _f_book_value_per_share._dirty = false;
-            _f_fiscal_year_end._dirty = false;
             _f_dividends_per_year._dirty = false;
             _f_latest_price._dirty = false;
             _f_market_cap._dirty = false;
@@ -270,6 +269,7 @@ O_Stock(const I_Stock& id)
             _f_has_currant_ratio._dirty = false;
             _f_mark._dirty = false;
             _f_cik._dirty = false;
+            _f_fiscal_year_end._dirty = false;
             return true;
         }
         else
@@ -299,9 +299,6 @@ O_Stock(const I_Stock& id)
         if (_f_book_value_per_share._dirty)
             field2Val["book_value_per_share"] = 
                 toSQLString(_f_book_value_per_share._base);
-        if (_f_fiscal_year_end._dirty)
-            field2Val["fiscal_year_end"] = 
-                toSQLString(_f_fiscal_year_end._base);
         if (_f_dividends_per_year._dirty)
             field2Val["dividends_per_year"] = 
                 toSQLString(_f_dividends_per_year._base);
@@ -329,6 +326,9 @@ O_Stock(const I_Stock& id)
         if (_f_cik._dirty)
             field2Val["cik"] = 
                 toSQLString(_f_cik._base);
+        if (_f_fiscal_year_end._dirty)
+            field2Val["fiscal_year_end"] = 
+                toSQLString(_f_fiscal_year_end._base);
 
         
         if (DBFace::instance()->
@@ -342,7 +342,6 @@ O_Stock(const I_Stock& id)
             _f_updated_at._dirty = false;
             _f_ttm_eps._dirty = false;
             _f_book_value_per_share._dirty = false;
-            _f_fiscal_year_end._dirty = false;
             _f_dividends_per_year._dirty = false;
             _f_latest_price._dirty = false;
             _f_market_cap._dirty = false;
@@ -352,6 +351,7 @@ O_Stock(const I_Stock& id)
             _f_has_currant_ratio._dirty = false;
             _f_mark._dirty = false;
             _f_cik._dirty = false;
+            _f_fiscal_year_end._dirty = false;
             return true;
         }
         else
@@ -366,7 +366,6 @@ private:
     F_Time _f_updated_at;
     F_BigDecimal _f_ttm_eps;
     F_BigDecimal _f_book_value_per_share;
-    F_Date _f_fiscal_year_end;
     F_Fixnum _f_dividends_per_year;
     F_BigDecimal _f_latest_price;
     F_String _f_market_cap;
@@ -376,6 +375,7 @@ private:
     F_Object _f_has_currant_ratio;
     F_String _f_mark;
     F_Fixnum _f_cik;
+    F_String _f_fiscal_year_end;
 
     friend class T_Stock;
 };

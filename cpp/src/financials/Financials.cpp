@@ -60,12 +60,13 @@ EdgarData::getEdgarSearchResultsPage(O_Stock& stock, StatementType st)
 string
 EdgarData::getEdgarFiling( O_Stock& stock, Acn& acn)
 {
+    LOG_INFO << "Called getEdgarFiling()\n";
     string cik( to_string(stock._cik()) );
     string uri("http://www.sec.gov/Archives/edgar/data/");
     uri += cik + "/" + acn._acn + ".txt";
     Url url = Url(uri);
-    string page;
-    
+    string page("");
+    LOG_INFO << "Created url string\n";
     // check for 404
     if (! downloadToString( url, page ) )
     {
@@ -73,6 +74,10 @@ EdgarData::getEdgarFiling( O_Stock& stock, Acn& acn)
             " NOT getting info for quarter " << to_string(acn._quarter) << "\n";
         return "";
     }
+    LOG_INFO << "downloaded page\n";
+    if (page == "")
+        LOG_ERROR << "Something went wrong, could not get edgar filing "<<
+            acn._acn <<" for cik " << stock._cik() << "\n";
     return page;
 }
 
@@ -80,9 +85,16 @@ Acn*
 EdgarData::getLastYear10KAcn( O_Stock& stock)
 {
     string page = getEdgarSearchResultsPage( stock , StatementType::K10);
+    LOG_INFO << "Got search results for "<<stock._ticker()<<"\n";
     Parser parser;
     vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 1,/*limit*/ 
-                                                         StatementType::K10 );
+                                                         StatementType::Q10 );
+    if (Acns.empty())
+    {
+        LOG_ERROR << "NO ACNS FOR "<<stock._ticker()<<"\n";
+        return NULL;
+    }
+    LOG_INFO << "Got acn "<<Acns.front()->_acn;
     return Acns.front();
 }
 
@@ -337,7 +349,7 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 10,/*limit*/ 
                                                          StatementType::K10 );
     greg_year gyear(year);
-    Acn* acn;
+    Acn* acn = NULL;
     for(auto it = Acns.begin() ; it != Acns.end(); ++it)
     {
         LOG_INFO << "\n Got Acn: " << (*it)->_acn << " date: " << 
@@ -354,6 +366,12 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
         }
     }  
 
+    if (acn == NULL)
+    {
+        LOG_INFO << "Did not get acn for "<<stock._ticker() 
+                 <<" "<<to_string(gyear)<<" As it already exists\n";
+        return false;
+    }
 // get Specific one for year to a string
     string filing = getEdgarFiling(stock,*acn);
 // extract to DB
@@ -494,6 +512,47 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
                                 eps[i], shares[i],
                                 "edgar.com"/*source*/);
 }
+
+bool 
+EdgarData::getFiscalYearEndDate(O_Stock& stock)
+{
+    LOG_INFO << "fyed() called";
+    Acn* acn = getLastYear10KAcn(stock);
+    LOG_INFO << "Got acn\n";
+    if (acn == NULL)
+    {
+        LOG_INFO << "Did not get acn for "<<stock._ticker() ;
+        return false;
+    }
+    string filing = getEdgarFiling(stock,*acn);
+    if (filing == "")
+    {
+        LOG_ERROR << "Failed to retrive filing for acn "<<acn->_acn<<"\n";
+        return false;
+    }
+    LOG_INFO << "Got filing\n";
+    Parser parser;
+    parser.extract_reports(filing, &_reports);
+    LOG_INFO << "Got "<<_reports.size()<<" reports\n";
+    ReportType reportType = ReportType::COVER;
+    auto coverReportIt = _reports.find(reportType);
+    if( coverReportIt == _reports.end())
+        return false;
+    LOG_INFO << "Got cover report\n";
+    //iterate over extracted_reports and write each one to disk
+
+    string date = parser.extractFiscalDateFromReport(coverReportIt->second);
+    if (date == "")
+    {
+        LOG_INFO << "Failed to get fiscal year end date from cover report";
+        return false;
+    }
+    cout << "Adding fyed: "<< date<<" to "<<stock._ticker()<<endl;
+    stock._fiscal_year_end() = date;
+    stock.update();
+    return true;
+}
+
 
 void
 EdgarData::addBalanceStatmentToDB(string& incomeFileStr, 

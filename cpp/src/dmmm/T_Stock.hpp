@@ -115,19 +115,6 @@ public:
     static E_book_value_per_share _book_value_per_share(){ 
         return E_book_value_per_share();
     }
-    struct E_fiscal_year_end{
-        E_fiscal_year_end() 
-        {  
-            _field = "stocks.fiscal_year_end";
-        }
-        std::string _field;
-        typedef T_Stock::Condition ConditionType;
-        typedef F_Date::Base ComparerType;
-    };
-
-    static E_fiscal_year_end _fiscal_year_end(){ 
-        return E_fiscal_year_end();
-    }
     struct E_dividends_per_year{
         E_dividends_per_year() 
         {  
@@ -245,6 +232,19 @@ public:
     static E_cik _cik(){ 
         return E_cik();
     }
+    struct E_fiscal_year_end{
+        E_fiscal_year_end() 
+        {  
+            _field = "stocks.fiscal_year_end";
+        }
+        std::string _field;
+        typedef T_Stock::Condition ConditionType;
+        typedef F_String::Base ComparerType;
+    };
+
+    static E_fiscal_year_end _fiscal_year_end(){ 
+        return E_fiscal_year_end();
+    }
     
 
     std::vector<std::string> getFields()
@@ -258,7 +258,6 @@ public:
         ret.push_back("updated_at");
         ret.push_back("ttm_eps");
         ret.push_back("book_value_per_share");
-        ret.push_back("fiscal_year_end");
         ret.push_back("dividends_per_year");
         ret.push_back("latest_price");
         ret.push_back("market_cap");
@@ -268,6 +267,7 @@ public:
         ret.push_back("has_currant_ratio");
         ret.push_back("mark");
         ret.push_back("cik");
+        ret.push_back("fiscal_year_end");
         return ret;
     }
 
@@ -296,8 +296,6 @@ public:
                 UTILS::fromString<F_BigDecimal::Base>(res[i]["ttm_eps"]);
             ret[i]._f_book_value_per_share._base =
                 UTILS::fromString<F_BigDecimal::Base>(res[i]["book_value_per_share"]);
-            ret[i]._f_fiscal_year_end._base =
-                UTILS::fromString<F_Date::Base>(res[i]["fiscal_year_end"]);
             ret[i]._f_dividends_per_year._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["dividends_per_year"]);
             ret[i]._f_latest_price._base =
@@ -316,6 +314,8 @@ public:
                 UTILS::fromString<F_String::Base>(res[i]["mark"]);
             ret[i]._f_cik._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["cik"]);
+            ret[i]._f_fiscal_year_end._base =
+                UTILS::fromString<F_String::Base>(res[i]["fiscal_year_end"]);
         }
         return ret;
     }
@@ -397,9 +397,6 @@ public:
         fields.push_back(std::string("book_value_per_share"));
         
 
-        fields.push_back(std::string("fiscal_year_end"));
-        
-
         fields.push_back(std::string("dividends_per_year"));
         
 
@@ -425,6 +422,9 @@ public:
         
 
         fields.push_back(std::string("cik"));
+        
+
+        fields.push_back(std::string("fiscal_year_end"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Stock& r = *begin;
@@ -441,8 +441,6 @@ public:
             row.push_back(toSQLString(r._ttm_eps()));
             
             row.push_back(toSQLString(r._book_value_per_share()));
-            
-            row.push_back(toSQLString(r._fiscal_year_end()));
             
             row.push_back(toSQLString(r._dividends_per_year()));
             
@@ -461,6 +459,8 @@ public:
             row.push_back(toSQLString(r._mark()));
             
             row.push_back(toSQLString(r._cik()));
+            
+            row.push_back(toSQLString(r._fiscal_year_end()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("stocks",
@@ -516,12 +516,6 @@ public:
             }
             
 
-            if (it->_f_fiscal_year_end._dirty){
-                fields.push_back(std::string("fiscal_year_end"));
-                row.push_back(toSQLString(it->_fiscal_year_end()));
-            }
-            
-
             if (it->_f_dividends_per_year._dirty){
                 fields.push_back(std::string("dividends_per_year"));
                 row.push_back(toSQLString(it->_dividends_per_year()));
@@ -573,6 +567,12 @@ public:
             if (it->_f_cik._dirty){
                 fields.push_back(std::string("cik"));
                 row.push_back(toSQLString(it->_cik()));
+            }
+            
+
+            if (it->_f_fiscal_year_end._dirty){
+                fields.push_back(std::string("fiscal_year_end"));
+                row.push_back(toSQLString(it->_fiscal_year_end()));
             }
             fields2Rows[fields].push_back(row);
 	}

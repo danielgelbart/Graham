@@ -153,11 +153,46 @@ mainMain(int argc, char* argv[])
         O_Stock stock = findStockByTicker( argv[2] );
         eData.getQuarters( stock );
     }
+    if (command == string("getfyed")){
+        EdgarData eData = EdgarData();
+        if (argc > 2)
+        {
+            O_Stock stock = findStockByTicker( argv[2] );
+            eData.getFiscalYearEndDate(stock);
+            goto exit;
+        }
+
+        T_Stock ts;
+        auto stocks = ts.select();
+        
+        path pp = basePath / string("no_yefd.txt");       
+        boost::filesystem::ofstream outFile(pp);
+        for( auto it = stocks.begin(); it != stocks.end();++it)
+        {
+            LOG_INFO << "Going to try for"<<it->_ticker()<<"\n";
+            
+            if( it->_fiscal_year_end().length() == string("12-31").length())
+            {
+                LOG_INFO << "Skipping for "<<it->_ticker()<<"\n";
+                //    continue;
+            }
+            if (!eData.getFiscalYearEndDate( *it ))
+            {
+                outFile << "\"" << it->_ticker() <<"\",";
+                outFile.flush();
+            }else
+                cout << "Succeeded to get fyed for"<< it->_ticker()<<"!\n";
+        }
+        outFile.close();
+    }
+
 
     if (command == string("")){
         showHelpMessage(argv[0]);
         LOG_ERROR << "unknown command: " << command;
     }
+
+  exit:
 
     LOG_INFO << "deleting Config";
     delete config;
