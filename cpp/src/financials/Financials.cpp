@@ -532,14 +532,18 @@ EdgarData::getFiscalYearEndDate(O_Stock& stock)
     }
     LOG_INFO << "Got filing\n";
     Parser parser;
+
+    // clear reports
+    _reports.clear();
+    // load new rports
     parser.extract_reports(filing, &_reports);
+
     LOG_INFO << "Got "<<_reports.size()<<" reports\n";
     ReportType reportType = ReportType::COVER;
     auto coverReportIt = _reports.find(reportType);
     if( coverReportIt == _reports.end())
         return false;
     LOG_INFO << "Got cover report\n";
-    //iterate over extracted_reports and write each one to disk
 
     string date = parser.extractFiscalDateFromReport(coverReportIt->second);
     if (date == "")

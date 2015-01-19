@@ -2,6 +2,7 @@
 #define TEST_H
 
 #include <boost/filesystem.hpp>   
+#include <boost/filesystem/fstream.hpp>
 #include <map>
 
 #include "types.h"
@@ -55,6 +56,9 @@ public:
     void runCompanyTest(string& ticker);
     string compareTest(const O_Stock& rStock, const O_Ep rEarnings,
                        TestResults& tResults);
+    void seedStocks(vector<O_Stock>& stocks);
+    bool getReportsTest(O_Stock& stock,boost::filesystem::ofstream& outFile);
+
 
 private: //members
 //    path _mockPath;

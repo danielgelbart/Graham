@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "Utils.hpp"
 #include "info.h"
+#include "Parser.h"
 #include "Financials.h"
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
@@ -302,6 +303,115 @@ Test::runCompanyTest(string& ticker)
 
     string resultSummary = testRes.getResultsSummary();
     cout << "\n ---  TEST Results  ---" <<resultSummary << endl;
+}
+void
+Test::seedStocks(vector<O_Stock>& stocks)
+{
+    string testDB("graham_test");
+    cout << "\n Switching to TEST DB--------------------" << endl;
+
+    if (DBFace::instance()->switchDB( testDB ) )
+        cout << "Switch to TEST db succeccful" << endl;
+    // Ensure we switched to test DB
+    bool rok(false);
+    rok = db_setup();
+    if(!rok)
+    {
+        LOG_ERROR << "Something wrong with TEST(probably with TEST DB setup)."
+                  << "EXITING";
+        cout << "An error uccored. exiting";
+        exit(-1);
+    }
+
+    T_Stock ts;
+    for(auto it = stocks.begin(); it != stocks.end();++it)
+    {
+        if ( ts.select( ts._ticker() == it->_ticker()).empty() )
+        {
+            O_Stock stock;            
+            stock._ticker() = it->_ticker();
+            stock._cik() = it->_cik();
+            stock._fiscal_year_end() = it->_fiscal_year_end();
+            stock.insert();
+            LOG_INFO << "Seeded " <<stock._ticker() << " to TEST DB\n";
+            cout << "Seeded " <<stock._ticker() << " to TEST DB\n";
+        }else{
+            LOG_INFO <<it->_ticker() << "Already in TEST DB\n";
+            cout <<it->_ticker() << "Already in TEST DB"<<endl;
+        }
+    }
+}
+
+bool 
+Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
+{
+    LOG_INFO << "\n --- Testing retreval of reports for" << stock._ticker()
+             << "  ---\n";
+    
+    // Ensure we switched to test DB
+    bool rok(false);
+    rok = db_setup();
+    if(!rok)
+    {
+        LOG_ERROR << "Something wrong with TEST(probably with TEST DB setup)."
+                  << "EXITING";
+        cout << "An error uccored. exiting";
+        exit(-1);
+    }
+    bool repFail(true);
+    TestResults testRes;
+    string testName(stock._ticker() + ": ");
+    testRes.setTestName(testName);
+
+    EdgarData edgar;
+    Acn* acn = edgar.getLastYear10KAcn(stock);
+    if (acn == NULL)
+    {
+        LOG_INFO << "Did not get acn for "<<stock._ticker() ;
+        return false;
+    }
+    string filing = edgar.getEdgarFiling(stock,*acn);
+    if (filing == "")
+    {
+        LOG_ERROR << "Failed to retrive filing for acn "<<acn->_acn<<"\n";
+        return false;
+    }
+    LOG_INFO << "Got filing\n";
+    Parser parser;
+    auto reports = new map<ReportType,string>;
+    parser.extract_reports(filing, reports);
+
+    LOG_INFO << "Got "<<reports->size()<<" reports\n";
+    ReportType reportType = ReportType::COVER;
+    auto coverReportIt = reports->find(reportType);
+    if( coverReportIt == reports->end())
+    {
+        testRes.addFailure("NO COVER REPORT");
+        repFail =false;
+    }
+    reportType = ReportType::INCOME;
+    auto incomeReportIt = reports->find(reportType);
+    if( incomeReportIt == reports->end())
+    {
+        testRes.addFailure("NO INCOME REPORT");
+        repFail =false;
+    }
+    reportType = ReportType::BALANCE;
+    auto balanceReportIt = reports->find(reportType);
+    if( balanceReportIt == reports->end())
+    {
+        testRes.addFailure("NO BALANCE REPORT");
+        repFail =false;
+    }
+    string resultSummary = testRes.getResultsSummary();
+    if (testRes._numFails > 0)
+    {
+        outFile << resultSummary;
+        outFile.flush();
+    }
+    LOG_INFO << resultSummary;
+    cout << "\n ---  TEST Results for "<<stock._ticker()<<" ---" <<resultSummary << endl;
+    return repFail;
 }
 
 long

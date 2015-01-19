@@ -189,16 +189,24 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     string report = "";
     string reportName = "";
 
+    //NOTE - ARG call their cover report "DEI Document"
+    // Not sure if to adjust regex for this single weirdo
+
+    // BKH - call it "Document Information Document"
+    // BUT - Edgar finds it OK. SO - maybe there is some additional markup used to find the cover document!!!
     boost::regex cover_pattern(
-        "Document (and )?Entity Information",
+        "(Document (and )?Entity Information|DEI Document)",
         boost::regex_constants::icase);
-  
+    
+
+    // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!
+    // CAT are unique - they use - "Consolidated Results of Operations"
     boost::regex income_pattern(
-        "consolidated (statements? of (earnings|income)|and sector income statement)",
+        "(consolidated )?(statements? of (consolidated )?(comprehensive )?(earnings|income|operations)|(and sector )?income statements?|results of operations)",
         boost::regex_constants::icase);
   
-  boost::regex balance_pattern(
-        "consolidated (statement of financial position|balance sheet)",
+    boost::regex balance_pattern(
+        "(consolidated )?(and sector )?((statements? of)? financial (position|condition)|balance sheets?)",
         boost::regex_constants::icase);
 
     while( (report = getNextDelString(delimiter)) != "")

@@ -94,8 +94,28 @@ mainMain(int argc, char* argv[])
         string database = confParam<string>("db.database");
         string password = confParam<string>("db.password");
         DMMM::DBFace dbFace(database, host, user, password, logger->logFile());
-
         Test test;
+
+        if ((argc >2) && (string(argv[2])=="-reps")) 
+        {
+            path pp = basePath / string("get_reports_issues.txt");       
+            boost::filesystem::ofstream outFile(pp);
+
+            T_Stock ts;
+            vector<O_Stock> stocks;
+            if (argc > 3)
+                stocks = ts.select(ts._ticker() == string(argv[3]));
+            else
+                stocks = ts.select(ts._id() >
+                  ts.select(ts._ticker() == string("AYI")).front()._id());
+            
+            for( auto it = stocks.begin(); it != stocks.end();++it)
+                test.getReportsTest( *it, outFile );
+
+            outFile.close();
+            goto exitest;
+        } // end of handling -reps flag for test
+
         if (argc > 2)
         {       
             cout << "\n Callling company test method" << endl;
@@ -105,6 +125,7 @@ mainMain(int argc, char* argv[])
         else
             test.run_all();
 
+      exitest:
         delete(config);
         delete(logger);
         exit(0);
@@ -169,12 +190,10 @@ mainMain(int argc, char* argv[])
         boost::filesystem::ofstream outFile(pp);
         for( auto it = stocks.begin(); it != stocks.end();++it)
         {
-            LOG_INFO << "Going to try for"<<it->_ticker()<<"\n";
-            
             if( it->_fiscal_year_end().length() == string("12-31").length())
             {
                 LOG_INFO << "Skipping for "<<it->_ticker()<<"\n";
-                //    continue;
+                continue;
             }
             if (!eData.getFiscalYearEndDate( *it ))
             {
@@ -186,6 +205,14 @@ mainMain(int argc, char* argv[])
         outFile.close();
     }
 
+    if (command == string("copydevtotest")){
+        EdgarData eData = EdgarData();
+        T_Stock ts;
+        auto stocks = ts.select();
+
+        Test test;
+        test.seedStocks(stocks);
+    }
 
     if (command == string("")){
         showHelpMessage(argv[0]);

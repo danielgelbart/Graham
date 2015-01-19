@@ -17,6 +17,7 @@ using namespace DMMM;
 
 
 class EdgarData {
+    friend class Test;
 public:
     EdgarData() : 
         mHttpClient(std::string("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"))
@@ -40,7 +41,6 @@ public:
 private:
     string getEdgarSearchResultsPage(O_Stock& stock, StatementType st);
     string getEdgarFiling( O_Stock& stock, Acn& acn);
-
     Acn* getLastYear10KAcn(O_Stock& stock);
 
     void downloadAndSave10k(Url& url, Info& info);
