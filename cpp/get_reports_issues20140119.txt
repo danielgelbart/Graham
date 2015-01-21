@@ -1,0 +1,58 @@
+
+Testing shows 1 failures as follows:
+1. ARG: NO COVER REPORT
+
+Testing shows 3 failures as follows:
+1. BNS: NO COVER REPORT
+2. BNS: NO INCOME REPORT
+3. BNS: NO BALANCE REPORT
+
+Testing shows 1 failures as follows:
+1. BKH: NO COVER REPORT
+
+Testing shows 3 failures as follows:
+1. BPT: NO COVER REPORT
+2. BPT: NO INCOME REPORT
+3. BPT: NO BALANCE REPORT
+
+Testing shows 3 failures as follows:
+1. BRE: NO COVER REPORT
+2. BRE: NO INCOME REPORT
+3. BRE: NO BALANCE REPORT
+
+Testing shows 1 failures as follows:
+1. CALX: NO INCOME REPORT
+
+Testing shows 2 failures as follows:
+1. CAT: NO INCOME REPORT
+2. CAT: NO BALANCE REPORT
+
+Testing shows 1 failures as follows:
+1. CLF: NO INCOME REPORT
+
+Testing shows 1 failures as follows:
+1. PSS: NO INCOME REPORT
+
+Testing shows 1 failures as follows:
+1. CLB: NO COVER REPORT
+
+Testing shows 3 failures as follows:
+1. CRT: NO COVER REPORT
+2. CRT: NO INCOME REPORT
+3. CRT: NO BALANCE REPORT
+
+Testing shows 3 failures as follows:
+1. DOM: NO COVER REPORT
+2. DOM: NO INCOME REPORT
+3. DOM: NO BALANCE REPORT
+
+Testing shows 1 failures as follows:
+1. DEI: NO COVER REPORT
+
+Testing shows 1 failures as follows:
+1. DTE: NO COVER REPORT
+
+Testing shows 3 failures as follows:
+1. ECT: NO COVER REPORT
+2. ECT: NO INCOME REPORT
+3. ECT: NO BALANCE REPORT

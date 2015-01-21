@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(:version => 20150121123136) do
 
   create_table "notes", :force => true do |t|
     t.integer  "stock_id"
-    t.integer  "year",       :limit => 2, :default => 0
-    t.integer  "class",      :limit => 1, :default => 0
+    t.integer  "year",        :limit => 2, :default => 0
+    t.integer  "pertains_to", :limit => 1, :default => 0
     t.string   "note"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
   end
 
   create_table "numshares", :force => true do |t|

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Stock:</b>
+  <%= @note.stock_id %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @note.year %>
+</p>
+
+<p>
+  <b>Pertains to:</b>
+  <%= @note.pertains_to %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @note.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_note_path(@note) %> |
+<%= link_to 'Back', notes_path %>

@@ -1,8 +1,9 @@
 <h1>New search</h1>
 
 <%= form_for(@search) do |f| %>
-  <%= f.error_messages %>
-
+  <% @search.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
 
   <p>
     (G1) Check that sales > 500 mil, and Book > 2.5B

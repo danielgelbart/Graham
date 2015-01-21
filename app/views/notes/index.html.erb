@@ -1,0 +1,29 @@
+<h1>Listing notes</h1>
+
+<table>
+  <tr>
+    <th>Stock</th>
+    <th>Year</th>
+    <th>Pertains to</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @notes.each do |note| %>
+  <tr>
+    <td><%= note.stock_id %></td>
+    <td><%= note.year %></td>
+    <td><%= note.pertains_to %></td>
+    <td><%= note.note %></td>
+    <td><%= link_to 'Show', note %></td>
+    <td><%= link_to 'Edit', edit_note_path(note) %></td>
+    <td><%= link_to 'Destroy', note, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Note', new_note_path %>
