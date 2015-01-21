@@ -24,6 +24,7 @@
 class Stock < ActiveRecord::Base
 
   has_many :dividends
+  has_many :notes
   has_many :eps, :dependent => :destroy
   has_many :numshares, :dependent => :destroy
   has_many :balance_sheets, :dependent => :destroy

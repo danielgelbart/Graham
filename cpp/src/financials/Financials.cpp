@@ -471,35 +471,13 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
     vector<string> incs = parser.getIncs(tree, singleYear);
 
     vector<float> eps = parser.getAnualEps(tree, singleYear);
+
+    // try to get shares from income reports
     vector<string> shares = parser.getNumShares(tree,units);
-
+    // if fails, get from cover report
     if ( shares.empty() )
-    {
-        LOG_INFO << "\n NO nushare data. proceding to get numshares from cover"
-                 << " report. Which will have numshares for single year only";
-        string coverReport = _reports[ReportType::COVER];
-        if (coverReport =="")
-        {
-            LOG_ERROR << "No cover report found for " << stock._ticker()
-                      << "So exusted attempt to read num shares";
-            cout << "\n Cannot get num shares for " << stock._ticker() 
-                 << ". exiting." << endl;
-            return;
-
-        }
-        string sharesNum =      
-            parser.getNumSharesFromCoverReport(_reports[ReportType::COVER]);
-        if ( sharesNum != "")
-        {
-            shares.push_back(sharesNum);
-            LOG_INFO << "Succeeded to get num shares from cover report. "
-                     << "Only adding most recent year information to DB; "
-                     << "numshares: "<< shares[0];
-        }else{
-            LOG_ERROR << "Failed to retrieve num shares from cover report"
-                      << "Not going to add any info.";
-        }
-    }
+        shares.push_back( parser.getNumSharesFromCoverReport(
+                              _reports[ReportType::COVER]));
     size_t numToAdd(1);
     if (!singleYear)
         numToAdd = std::min({ years.size(), revenues.size(), incs.size(), 

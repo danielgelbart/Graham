@@ -29,8 +29,9 @@ Test.o Test.d : utils/Test.cpp utils/Logger.h utils/Utils.hpp utils/Identifier.h
  /usr/include/mysql++/transaction.h /usr/include/mysql++/insertpolicy.h \
  /usr/include/mysql++/scopedconnection.h /usr/include/mysql++/sql_types.h \
  dmmm/dmmm_identifiers.hpp dmmm/dmmm_fields.hpp dmmm/dmmm_comparators.hpp \
- dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp \
- dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp \
- dmmm/O_BalanceSheet.hpp include/types.h include/../parser/types.h \
- dmmm/T_Stock.hpp dmmm/O_Stock.hpp dmmm/T_Ep.hpp utils/Test.h \
- include/Tokenizer.h include/../parser/Tokenizer.h
+ dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp dmmm/T_Note.hpp dmmm/O_Note.hpp \
+ dmmm/T_Ep.hpp dmmm/O_Ep.hpp dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp \
+ dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp include/types.h \
+ include/../parser/types.h dmmm/T_Stock.hpp dmmm/O_Stock.hpp \
+ dmmm/T_Ep.hpp utils/Test.h include/Tokenizer.h \
+ include/../parser/Tokenizer.h

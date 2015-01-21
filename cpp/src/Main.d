@@ -26,8 +26,9 @@ Main.o Main.d : main/Main.cpp utils/Identifier.h utils/Config.h utils/Utils.hpp 
  dmmm/dmmm_id.hpp dmmm/T_Stock.hpp dmmm/O_Stock.hpp dmmm/dmmm_utils.hpp \
  dmmm/dmmm_dbface.h dmmm/dmmm_identifiers.hpp dmmm/dmmm_fields.hpp \
  dmmm/dmmm_comparators.hpp dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp \
- dmmm/T_Ep.hpp dmmm/O_Ep.hpp dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp \
- dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp include/Financials.h \
+ dmmm/T_Note.hpp dmmm/O_Note.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp \
+ dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp \
+ dmmm/O_BalanceSheet.hpp include/Financials.h \
  include/../financials/Financials.h include/HttpClient.h \
  include/../utils/HttpClient.h include/Url.h include/../html/Url.h \
  dmmm/O_Stock.hpp include/info.h include/../financials/Info.h \

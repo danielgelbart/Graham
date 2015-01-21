@@ -680,6 +680,13 @@ Parser::getNumShares(XmlElement* tree, string& bunits)
 string 
 Parser::getNumSharesFromCoverReport(string& report)
 {
+    if (report =="")
+    {
+            LOG_ERROR << "No cover report available. So exusted attempt to "
+                      << "read num shares";
+            return "";
+
+    }
     string tableStr = extractFirstTableStr(report); 
     XmlElement* tree = buildXmlTree(tableStr);
     string units="";

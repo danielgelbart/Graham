@@ -9,6 +9,7 @@
 #include "dmmm_fields.hpp"
 #include "dmmm_comparators.hpp"
 #include "T_Dividend.hpp"
+#include "T_Note.hpp"
 #include "T_Ep.hpp"
 #include "T_Numshare.hpp"
 #include "T_BalanceSheet.hpp"
@@ -36,6 +37,18 @@ O_Stock(const I_Stock& id)
         _dividends(const T_Dividend::Condition& c) const
     {
         T_Dividend table(c);
+        return table.select(table._stock_id() == _id());   
+    }
+
+    std::vector<O_Note> _notes() const
+    {
+        T_Note table;
+        return table.select(table._stock_id() == _id());   
+    }
+    std::vector<O_Note> 
+        _notes(const T_Note::Condition& c) const
+    {
+        T_Note table(c);
         return table.select(table._stock_id() == _id());   
     }
 

@@ -10,6 +10,8 @@ class DummyO_Dividend;
 typedef ID::Id<DummyO_Dividend> I_Dividend;
 class DummyO_Ep;
 typedef ID::Id<DummyO_Ep> I_Ep;
+class DummyO_Note;
+typedef ID::Id<DummyO_Note> I_Note;
 class DummyO_Numshare;
 typedef ID::Id<DummyO_Numshare> I_Numshare;
 class DummyO_Search;
