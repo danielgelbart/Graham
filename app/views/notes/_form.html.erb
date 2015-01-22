@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :pertains_to %><br />
-    <%= f.number_field :pertains_to %>
+    <%= f.select(:pertains_to, Note.columns_hash['pertains_to'].limit) %>
   </div>
   <div class="field">
     <%= f.label :note %><br />

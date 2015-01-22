@@ -70,18 +70,18 @@ public:
     static E_year _year(){ 
         return E_year();
     }
-    struct E_class{
-        E_class() 
+    struct E_pertains_to{
+        E_pertains_to() 
         {  
-            _field = "notes.class";
+            _field = "notes.pertains_to";
         }
         std::string _field;
         typedef T_Note::Condition ConditionType;
-        typedef Field<EnumNoteCLASS>::Base ComparerType;
+        typedef Field<EnumNotePERTAINS_TO>::Base ComparerType;
     };
 
-    static E_class _class(){ 
-        return E_class();
+    static E_pertains_to _pertains_to(){ 
+        return E_pertains_to();
     }
     struct E_note{
         E_note() 
@@ -131,7 +131,7 @@ public:
         ret.push_back("id");
         ret.push_back("stock_id");
         ret.push_back("year");
-        ret.push_back("class");
+        ret.push_back("pertains_to");
         ret.push_back("note");
         ret.push_back("created_at");
         ret.push_back("updated_at");
@@ -155,8 +155,8 @@ public:
                 UTILS::fromString<F_Fixnum::Base>(res[i]["stock_id"]);
             ret[i]._f_year._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["year"]);
-            ret[i]._f_class._base =
-                (Field<EnumNoteCLASS>::Base)UTILS::fromString<size_t>(res[i]["class"]);
+            ret[i]._f_pertains_to._base =
+                (Field<EnumNotePERTAINS_TO>::Base)UTILS::fromString<size_t>(res[i]["pertains_to"]);
             ret[i]._f_note._base =
                 UTILS::fromString<F_String::Base>(res[i]["note"]);
             ret[i]._f_created_at._base =
@@ -232,7 +232,7 @@ public:
         fields.push_back(std::string("year"));
         
 
-        fields.push_back(std::string("class"));
+        fields.push_back(std::string("pertains_to"));
         
 
         fields.push_back(std::string("note"));
@@ -251,7 +251,7 @@ public:
             
             row.push_back(toSQLString(r._year()));
             
-            row.push_back(toSQLString(r._class()));
+            row.push_back(toSQLString(r._pertains_to()));
             
             row.push_back(toSQLString(r._note()));
             
@@ -289,9 +289,9 @@ public:
             }
             
 
-            if (it->_f_class._dirty){
-                fields.push_back(std::string("class"));
-                row.push_back(toSQLString(it->_class()));
+            if (it->_f_pertains_to._dirty){
+                fields.push_back(std::string("pertains_to"));
+                row.push_back(toSQLString(it->_pertains_to()));
             }
             
 

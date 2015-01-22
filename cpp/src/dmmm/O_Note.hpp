@@ -9,7 +9,7 @@
 #include "dmmm_fields.hpp"
 #include "dmmm_comparators.hpp"
 
-enum EnumNoteCLASS { K10 = 1, Q10 = 2, REPORTS = 3, INCOME_REPORT = 4, BALANCE_REPORT = 5, COVER_REPORT = 6 };
+enum EnumNotePERTAINS_TO { K10 = 1, Q10 = 2, REPORTS = 3, INCOME_REP = 4, BALANCE_REP = 5, COVER_REP = 6 };
 
 
 namespace DMMM {
@@ -48,12 +48,12 @@ O_Note(const I_Note& id)
         _f_year._dirty = true; 
         return _f_year._base; 
     }
-    const Field<EnumNoteCLASS>::Base& _class() const { 
-        return _f_class._base; 
+    const Field<EnumNotePERTAINS_TO>::Base& _pertains_to() const { 
+        return _f_pertains_to._base; 
     }
-    Field<EnumNoteCLASS>::Base& _class() { 
-        _f_class._dirty = true; 
-        return _f_class._base; 
+    Field<EnumNotePERTAINS_TO>::Base& _pertains_to() { 
+        _f_pertains_to._dirty = true; 
+        return _f_pertains_to._base; 
     }
     const F_String::Base& _note() const { 
         return _f_note._base; 
@@ -88,9 +88,9 @@ O_Note(const I_Note& id)
         if (_f_year._dirty)
             field2Val["year"] = 
                 toSQLString(_f_year._base);
-        if (_f_class._dirty)
-            field2Val["class"] = 
-                toSQLString(_f_class._base);
+        if (_f_pertains_to._dirty)
+            field2Val["pertains_to"] = 
+                toSQLString(_f_pertains_to._base);
         if (_f_note._dirty)
             field2Val["note"] = 
                 toSQLString(_f_note._base);
@@ -108,7 +108,7 @@ O_Note(const I_Note& id)
             _f_id._dirty = false;
             _f_stock_id._dirty = false;
             _f_year._dirty = false;
-            _f_class._dirty = false;
+            _f_pertains_to._dirty = false;
             _f_note._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
@@ -129,9 +129,9 @@ O_Note(const I_Note& id)
         if (_f_year._dirty)
             field2Val["year"] = 
                 toSQLString(_f_year._base);
-        if (_f_class._dirty)
-            field2Val["class"] = 
-                toSQLString(_f_class._base);
+        if (_f_pertains_to._dirty)
+            field2Val["pertains_to"] = 
+                toSQLString(_f_pertains_to._base);
         if (_f_note._dirty)
             field2Val["note"] = 
                 toSQLString(_f_note._base);
@@ -150,7 +150,7 @@ O_Note(const I_Note& id)
             _f_id._dirty = false;
             _f_stock_id._dirty = false;
             _f_year._dirty = false;
-            _f_class._dirty = false;
+            _f_pertains_to._dirty = false;
             _f_note._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
@@ -164,7 +164,7 @@ private:
     Field<I_Note> _f_id;
     F_Fixnum _f_stock_id;
     F_Fixnum _f_year;
-    Field<EnumNoteCLASS> _f_class;
+    Field<EnumNotePERTAINS_TO> _f_pertains_to;
     F_String _f_note;
     F_Time _f_created_at;
     F_Time _f_updated_at;
