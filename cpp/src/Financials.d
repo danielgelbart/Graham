@@ -1,9 +1,6 @@
-Financials.o Financials.d : financials/Financials.cpp include/Parser.h \
- include/../parser/Parser.h include/../parser/types.h \
- include/../parser/Tokenizer.h include/info.h \
- include/../financials/Info.h include/Url.h include/../html/Url.h \
- utils/Logger.h utils/Utils.hpp utils/Identifier.h include/types.h \
- include/../parser/types.h dmmm/dmmm_dbface.h \
+Financials.o Financials.d : financials/Financials.cpp include/Url.h \
+ include/../html/Url.h utils/Logger.h utils/Utils.hpp utils/Identifier.h \
+ include/types.h include/../parser/types.h dmmm/dmmm_dbface.h \
  /usr/include/mysql++/mysql++.h /usr/include/mysql++/connection.h \
  /usr/include/mysql++/common.h /usr/include/mysql/mysql_version.h \
  /usr/include/mysql/mysql.h /usr/include/mysql/mysql_version.h \
@@ -33,4 +30,7 @@ Financials.o Financials.d : financials/Financials.cpp include/Parser.h \
  dmmm/T_Note.hpp dmmm/O_Note.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp \
  dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp \
  dmmm/O_BalanceSheet.hpp dmmm/T_Ep.hpp financials/Financials.h \
- include/HttpClient.h include/../utils/HttpClient.h dmmm/O_Stock.hpp
+ include/HttpClient.h include/../utils/HttpClient.h dmmm/O_Stock.hpp \
+ include/info.h include/../financials/Info.h include/Parser.h \
+ include/../parser/Parser.h dmmm/O_Ep.hpp include/../parser/types.h \
+ include/../parser/Tokenizer.h

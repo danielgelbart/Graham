@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150122085249) do
+ActiveRecord::Schema.define(:version => 20150122124451) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(:version => 20150122085249) do
 
   create_table "notes", :force => true do |t|
     t.integer  "stock_id"
-    t.integer  "year",        :limit => 2,                                                             :default => 2014
-    t.enum     "pertains_to", :limit => [:K10, :Q10, :REPORTS, :INCOME_REP, :BALANCE_REP, :COVER_REP], :default => :REPORTS
+    t.integer  "year",        :limit => 2,                                                                             :default => 2014
+    t.enum     "pertains_to", :limit => [:K10, :Q10, :REPORTS, :INCOME_REP, :BALANCE_REP, :COVER_REP, :ROYALTY_TRUST], :default => :REPORTS
     t.string   "note"
-    t.datetime "created_at",                                                                                                 :null => false
-    t.datetime "updated_at",                                                                                                 :null => false
+    t.datetime "created_at",                                                                                                                 :null => false
+    t.datetime "updated_at",                                                                                                                 :null => false
   end
 
   create_table "numshares", :force => true do |t|

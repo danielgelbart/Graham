@@ -1,6 +1,5 @@
 class Note < ActiveRecord::Base
   belongs_to :stock
-#  validates_columns :pertains_to
 
   # for handling enums
   def self.enum_columns
@@ -13,9 +12,14 @@ class Note < ActiveRecord::Base
   end
 
   def self.enum_options(col_name)
-    ar = Note.columns_hash[col_name.to_s].limit
+    enum_col = Note.columns_hash[col_name.to_s]
+    ar = enum_col.limit
+    ar = enum_string_to_values_array(enum_col.sql_type) if ar.class == Fixnum
     i = 0
     Hash[ar.map {|v| [v, i=i+1]}]
   end
 
+  def self.enum_string_to_values_array(str)
+    str_arr = str[6..-3].split(/','/)
+  end
 end

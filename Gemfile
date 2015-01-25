@@ -17,6 +17,9 @@ gem 'annotate', "2.4.0"
 gem 'rake', "0.9.1"
 gem 'rdoc' #needed for rake
 
+# enums for rails 3:
+gem 'enum_column3'
+
 gem 'pry'
 #gem 'pry_debug'
 gem 'dm-metamapper', path: "../dm-metamapper", require: false

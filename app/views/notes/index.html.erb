@@ -13,7 +13,7 @@
 
 <% @notes.each do |note| %>
   <tr>
-    <td><%= note.stock_id %></td>
+    <td><%= note.stock.ticker %></td>
     <td><%= note.year %></td>
     <td><%= note.pertains_to %></td>
     <td><%= note.note %></td>

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include "Parser.h"
+
 #include "Url.h"
 #include "Logger.h"
 #include "types.h"
@@ -13,6 +13,7 @@
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
 #include "Financials.h"
+#include "Parser.h"
 
 using namespace std;
 using namespace DMMM;
@@ -442,7 +443,8 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
     {
         if (it->first == ReportType::INCOME)
         {
-            addAnualIncomeStatmentToDB(it->second, stock);
+//            addAnualIncomeStatmentToDB(it->second, stock);
+            addSingleAnualIncomeStatmentToDB(it->second, stock);
         }
         if (it->first == ReportType::BALANCE)
         {
@@ -450,7 +452,18 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
         }
     }
 }
-
+void 
+EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr, 
+                                            O_Stock& stock)
+{
+    Parser parser;
+    string incomeTableStr = parser.extractFirstTableStr(incomeFileStr); 
+    XmlElement* tree = parser.buildXmlTree(incomeTableStr);
+    O_Ep ep;
+    parser.parseIncomeTree(tree, ep);
+    
+    // test that values where written to ep
+}
 
 void 
 EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr, 

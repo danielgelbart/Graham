@@ -32,6 +32,8 @@ public:
     void extract10kToDisk(string& k10, O_Stock& stock, Info& info);
     void addAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
                                     bool singleYear = true);
+    void addSingleAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock);
+
     void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock);
 
     void updateFinancials(O_Stock& stock);

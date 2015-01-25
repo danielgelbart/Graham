@@ -3,7 +3,7 @@
 
 #include <boost/filesystem.hpp>   
 #include <map>
-
+#include "O_Ep.hpp"
 #include "types.h"
 #include "Tokenizer.h"
 #include "info.h"
@@ -41,9 +41,27 @@ public: //members
     string              _text;
 }; // end class XmlElement
 
-class Iterator {
+class trIterator {
 public:
-    Iterator(XmlElement* node): _node(node), _i(0){}
+    trIterator(XmlElement* node): _i(0)
+        {
+            if(node == NULL)
+                _node = node;
+            else{
+                string table("table");
+                if( node->_tagName == table )
+                    _node = node;
+                else{
+                    for( auto it = node->_children.begin() ; 
+                         it!= node->_children.end(); ++it )
+                        if( (*it)->_tagName == table)
+                        {
+                            _node = *it;
+                            break;
+                        }
+                } // else2
+            }   // else1
+        } // C-tor      
     
     XmlElement* nextTr();
 
@@ -75,7 +93,8 @@ public:
                                       float& eps, string& numshares);
     string getUnitsAndCurrency(XmlElement* tree, 
                              string& units, string& currency);
-    
+    void parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnigs_data);
+
     vector<size_t> titleInfo(XmlElement* tree, string& units, 
                              string& currency, bool singleYear);
     vector<string> getRevenues(XmlElement* tree, bool singleYear);

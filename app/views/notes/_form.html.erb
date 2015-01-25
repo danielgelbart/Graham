@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :stock_id %><br />
-    <%= f.collection_select(:stock_id, Stock.all, :id, :ticker) %>
+    <%= f.collection_select(:stock_id, Stock.order(:ticker), :id, :ticker) %>
   </div>
   <div class="field">
     <%= f.label :year %><br />
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :pertains_to %><br />
-    <%= f.select(:pertains_to, Note.columns_hash['pertains_to'].limit) %>
+    <%= f.select(:pertains_to, Note.enum_options('pertains_to')) %>
   </div>
   <div class="field">
     <%= f.label :note %><br />

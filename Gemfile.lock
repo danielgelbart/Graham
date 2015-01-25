@@ -45,6 +45,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     daemon_controller (1.2.0)
+    enum_column3 (0.1.4)
     erubis (2.7.0)
     execjs (2.2.1)
     haml (4.0.6)
@@ -226,6 +227,7 @@ DEPENDENCIES
   coderay (= 1.0.5)
   coffee-rails (~> 3.2.1)
   dm-metamapper!
+  enum_column3
   haml-rails
   jquery-rails
   mysql2

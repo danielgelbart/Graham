@@ -195,9 +195,8 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     // BKH - call it "Document Information Document"
     // BUT - Edgar finds it OK. SO - maybe there is some additional markup used to find the cover document!!!
     boost::regex cover_pattern(
-        "(Document (and )?Entity Information|DEI Document)",
+        "(Document (and )?Entity Information|DEI (Information )?(Document )?)",
         boost::regex_constants::icase);
-    
 
     // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!
     // CAT are unique - they use - "Consolidated Results of Operations"
