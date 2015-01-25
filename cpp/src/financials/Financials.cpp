@@ -155,30 +155,15 @@ EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock,
     parser.parseQuarterlyIncomeStatment(tree, units, currency,
                                         revenue, income, eps, numshares);
     
-    addEearningsRecordToDB( stock, acn._report_date.year(), acn._quarter,
-                            revenue, income, eps,
-                            numshares, "edgar.com"/*source*/);
+    addEarningsRecordToDB( stock, acn._report_date.year(), acn._quarter,
+                           revenue, income, eps, numshares, 
+                           "edgar.com"/*source*/);
 }
 
 bool
-EdgarData::addEearningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
-                                   string revenue, string income, float eps,
-                                   string shares, const string& source)
+EdgarData::addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS)
 {
-    LOG_INFO << "\nGoing to try to insert earnings record to DB for "
-             << stock._ticker() << " for year " << to_string(year) 
-             << " quarter " << to_string(quarter);
-
     bool inserted(false);
-    O_Ep incomeS( stock._id() );
-    incomeS._year() = year;
-    incomeS._quarter() = quarter;    
-    incomeS._revenue() = revenue;
-    incomeS._net_income() = income;
-    incomeS._eps() = eps;
-    incomeS._shares() = shares;
-    incomeS._source() = source;
-        
     if ( (inserted = insertEp(incomeS)) )
     {
         stringstream message;
@@ -190,9 +175,29 @@ EdgarData::addEearningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
         cout << message.str() << endl;
     } else {
         LOG_ERROR << "\n FAILED to insert to DB earnings for year" 
-                  << to_string(year) << ". ";
+                  << to_string(incomeS._year()) << ". ";
     }
     return inserted;
+}
+
+bool
+EdgarData::addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
+                                   string revenue, string income, float eps,
+                                   string shares, const string& source)
+{
+    LOG_INFO << "\nGoing to try to insert earnings record to DB for "
+             << stock._ticker() << " for year " << to_string(year) 
+             << " quarter " << to_string(quarter);
+    O_Ep incomeS( stock._id() );
+    incomeS._year() = year;
+    incomeS._quarter() = quarter;    
+    incomeS._revenue() = revenue;
+    incomeS._net_income() = income;
+    incomeS._eps() = eps;
+    incomeS._shares() = shares;
+    incomeS._source() = source;
+        
+    return addEarningsRecordToDB(stock, incomeS);
 }
 
 bool
@@ -270,7 +275,7 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
         revp -= stol( it->_revenue() );
         incp -= stol( it->_net_income() );
     }
-    addEearningsRecordToDB( stock, year, 4,/*quarter*/
+    addEarningsRecordToDB( stock, year, 4,/*quarter*/
                             to_string( revp ),/*revenue*/
                             to_string( incp ),/*income*/
                             ((double)incp) / numshares, /* EPS */
@@ -328,7 +333,7 @@ EdgarData::createTtmEps(O_Stock& stock)
     }
     long numshares = stol( qrts[0]._shares() );
     
-    addEearningsRecordToDB( stock, qrts[0]._year(), 5,/*quarter*/
+    addEarningsRecordToDB( stock, qrts[0]._year(), 5,/*quarter*/
                             to_string(revp), to_string(incp),
                             ((double)incp) / numshares, /*EPS*/
                             to_string(numshares),
@@ -461,8 +466,8 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
     XmlElement* tree = parser.buildXmlTree(incomeTableStr);
     O_Ep ep;
     parser.parseIncomeTree(tree, ep);
-    
-    // test that values where written to ep
+    ep._source() = string("edgar.com");
+    addEarningsRecordToDB( stock, ep);
 }
 
 void 
@@ -497,7 +502,7 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
                     eps.size(), shares.size()});
 
     for (size_t i = 0; i < numToAdd; ++i)
-        addEearningsRecordToDB( stock, years[i], 0/*quarter*/,
+        addEarningsRecordToDB( stock, years[i], 0/*quarter*/,
                                 (revenues[i] + units),
                                 (incs[i] + units),
                                 eps[i], shares[i],

@@ -50,9 +50,12 @@ private:
     void downloadAndSave(Url& url, Info& info, const path& writeDest);
 
     bool
-    addEearningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
+    addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
                             string revenue, string income, float eps,
                             string shares, const string& source);
+    bool
+    addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS);
+
     bool insertEp( O_Ep& ep );
 
 private:

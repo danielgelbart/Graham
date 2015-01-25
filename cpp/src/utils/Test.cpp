@@ -395,7 +395,28 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
     {
         testRes.addFailure("NO INCOME REPORT");
         repFail =false;
+    } else {
+        T_Ep te;
+        // Test for parsed out values from income report
+        O_Ep earnings_data = te.select( te._stock_id() == stock._id() &&
+                                        te._year() == 2013).front();
+
+        if (earnings_data._year() != 2013)
+        {
+            testRes.addFailure("No Earnings Record writen to DB");
+            goto balancereporttest;
+        }
+        if (earnings_data._revenue() == "")
+            testRes.addFailure("No Revenue exracted from Income Statement");
+        if (earnings_data._net_income() == "")
+            testRes.addFailure("No Income exracted from Income Statement");
+        if (earnings_data._eps() == 0.0)
+            testRes.addFailure("No Eps exracted from Income Statement");
+        if (earnings_data._shares() == "")
+            testRes.addFailure("No Share data  exracted from Income Statement");
     }
+    
+  balancereporttest:
     reportType = ReportType::BALANCE;
     auto balanceReportIt = reports->find(reportType);
     if( balanceReportIt == reports->end())
@@ -403,6 +424,10 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
         testRes.addFailure("NO BALANCE REPORT");
         repFail =false;
     }
+
+  
+    
+
     string resultSummary = testRes.getResultsSummary();
     if (testRes._numFails > 0)
     {

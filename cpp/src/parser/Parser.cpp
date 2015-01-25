@@ -853,10 +853,14 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnigs_data)
     regex num_pattern("\\d+[,\\d]+\\d+");
     regex eps_pattern("(diluted|dilution)", regex::icase);
     regex nsunits_pattern("(millions|thousands|billions)",regex::icase);
+    regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 
     // get units from title
     string titleText = getUnitsAndCurrency( tree, units, currency);
-
+    smatch match;
+    regex_search(titleText, match, date_pattern);
+    earnigs_data._year() = stoi(match[0].str());
+    earnigs_data._quarter() = 0;
     // check for share units in title
     nsrUnits = checkForShareUnitsInTitle(titleText);
 

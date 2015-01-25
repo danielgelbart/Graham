@@ -1,5 +1,0 @@
-
-Testing shows 3 failures as follows:
-1. GPK: NO COVER REPORT
-2. GPK: NO INCOME REPORT
-3. GPK: NO BALANCE REPORT

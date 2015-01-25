@@ -1,74 +1,64 @@
-2015-Jan-22 15:24:43Logger up
+2015-Jan-25 21:47:21Logger up
+21:47:21 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'CVX'
 
-2015-Jan-22 15:24:43 INFO 6MB PID 336 Test.cpp:runCompanyTest() --- 
- --- Running Test for retreval of GPK  ---
-15:24:43 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'GPK'
-15:24:43 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE ((eps.stock_id = '708') AND (eps.quarter = '0')) AND (eps.year = '2013')
-15:24:43 DMMM SELECT DATABASE()
-15:24:43 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'GPK'
-15:24:43 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'GPK'
+2015-Jan-25 21:47:21 INFO 6MB PID 904 Test.cpp:getReportsTest() --- 
+ --- Testing retreval of reports forCVX  ---
+21:47:21 DMMM SELECT DATABASE()
 
-2015-Jan-22 15:24:43 INFO 6MB PID 336 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2015-Jan-22 15:24:43 INFO 6MB PID 336 HttpClient.cpp:HttpClient() --- Got curl handle 0x856dc0
-2015-Jan-22 15:24:43 INFO 6MB PID 336 HttpClient.cpp:HttpClient() --- Using default interface
-2015-Jan-22 15:24:43 INFO 7MB PID 336 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=886239&type=10-k&dateb=&owner=exclude&count=40
-2015-Jan-22 15:24:43 INFO 7MB PID 336 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=886239&type=10-k&dateb=&owner=exclude&count=40
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:buildXmlTree() --- 
+2015-Jan-25 21:47:21 INFO 6MB PID 904 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Jan-25 21:47:21 INFO 6MB PID 904 HttpClient.cpp:HttpClient() --- Got curl handle 0x1fc6d40
+2015-Jan-25 21:47:21 INFO 6MB PID 904 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Jan-25 21:47:21 INFO 7MB PID 904 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=93410&type=10-k&dateb=&owner=exclude&count=40
+2015-Jan-25 21:47:21 INFO 7MB PID 904 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=93410&type=10-k&dateb=&owner=exclude&count=40
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Financials.cpp:getLastYear10KAcn() --- Got search results for CVX
+
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- 
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Parser.cpp:trToAcn() --- 
  Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- 
- This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0000950144-08-003404&nbsp;(34 Act)&nbsp; Size: 263 KB             : [Amend] : 2008-04-30 : 08789855          : 001-13182
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-08-001514 filed on date2008-Feb-29
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-07-001833 filed on date2007-Mar-02
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-06-001773 filed on date2006-Mar-03
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- 
- This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0001047469-05-021121&nbsp;(34 Act)&nbsp; Size: 881 KB             : [Amend] : 2005-08-09 : 051010230          : 001-13182
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- 
- This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0001047469-05-012773&nbsp;(34 Act)&nbsp; Size: 45 KB             : [Amend] : 2005-05-02 : 05790897          : 001-13182
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0001047469-05-008145 filed on date2005-Mar-29
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000912057-04-000322 filed on date2004-Mar-16
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- 
- This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0001047469-03-024997 Size: 1 MB             : [Amend] : 2003-07-24 : 03800300          : 001-13182
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0001047469-03-013472 filed on date2003-Apr-15
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- 
- This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0000950144-03-004867 Size: 1 MB             : [Amend] : 2003-04-14 : 03647836          : 001-11113
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-02-002189 filed on date2002-Mar-11
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-01-003372 filed on date2001-Mar-08
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-00-003310 filed on date2000-Mar-17
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-99-002407 filed on date1999-Mar-05
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Parser.cpp:trToAcn() --- Extracted ACN: 0000950144-98-002625 filed on date1998-Mar-12
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000950144-08-001514 date: 2008-Feb-29 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Parser.cpp:trToAcn() --- Extracted ACN: 0000093410-14-000011 filed on date2014-Feb-21
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Parser.cpp:trToAcn() --- Extracted ACN: 0000093410-13-000003 filed on date2013-Feb-22
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Financials.cpp:getLastYear10KAcn() --- Got acn 0000093410-14-000011
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000950144-07-001833 date: 2007-Mar-02 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:21 INFO 7MB PID 904 Financials.cpp:getEdgarFiling() --- Created url string
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000950144-06-001773 date: 2006-Mar-03 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:21 INFO 7MB PID 904 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/93410/0000093410-14-000011.txt
+2015-Jan-25 21:47:21 INFO 7MB PID 904 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/93410/0000093410-14-000011.txt
+2015-Jan-25 21:47:27 INFO 45MB PID 904 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Financials.cpp:getEdgarFiling() --- downloaded page
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0001047469-05-008145 date: 2005-Mar-29 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Test.cpp:getReportsTest() --- Got filing
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000912057-04-000322 date: 2004-Mar-16 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0001047469-03-013472 date: 2003-Apr-15 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: 
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000950144-02-002189 date: 2002-Mar-11 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Document and Entity Information
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000950144-01-003372 date: 2001-Mar-08 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+Document and Entity Information
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000950144-00-003310 date: 2000-Mar-17 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statement of Income
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- 
- Got Acn: 0000950144-99-002407 date: 1999-Mar-05 quartr: 015:24:44 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '662'
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+Consolidated Statement of Income
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 Financials.cpp:getSingleYear() --- Did not get acn for GPK 2013 As it already exists
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statement of Income (Parenthetical)
 
-2015-Jan-22 15:24:44 INFO 7MB PID 336 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statement of Comprehensive Income
+
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Balance Sheet
+
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+Consolidated Balance Sheet
+
+2015-Jan-25 21:47:27 INFO 45MB PID 904 Test.cpp:getReportsTest() --- Got 3 reports
+21:47:27 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '20') AND (eps.year = '2013')
