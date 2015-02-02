@@ -61,6 +61,8 @@ private:
 private:
     HttpClient mHttpClient;
     map<ReportType,string> _reports;
+    // for testing
+    O_Ep _ep;
 };
 
 

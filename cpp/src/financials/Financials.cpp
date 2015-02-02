@@ -14,6 +14,7 @@
 #include "T_Ep.hpp"
 #include "Financials.h"
 #include "Parser.h"
+#include <boost/regex.hpp>
 
 using namespace std;
 using namespace DMMM;
@@ -164,18 +165,19 @@ bool
 EdgarData::addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS)
 {
     bool inserted(false);
+    stringstream message;
+    message << "Record to DB for " << stock._ticker()
+            <<". YEAR: "<< incomeS._year() << " Q: "<< incomeS._quarter()
+            <<" REV: "<<incomeS._revenue()<<" INC: "<<incomeS._net_income()
+            <<" SHARES: "<<incomeS._shares()<<" EPS: "<<incomeS._eps() <<"\n";
+       
     if ( (inserted = insertEp(incomeS)) )
     {
-        stringstream message;
-        message << "\nEntered NEW Earnings record to DB for " << stock._ticker()
-                <<". YEAR: "<< incomeS._year() << " Q: "<< incomeS._quarter()
-                <<" REV: "<<incomeS._revenue()<<" INC: "<<incomeS._net_income()
-                <<" SHARES: "<<incomeS._shares()<<" EPS: "<<incomeS._eps();
-        LOG_INFO << "\n"<< message.str() <<"\n";
-        cout << message.str() << endl;
+        LOG_INFO << "\nEntered NEW Earnings "<< message.str();
+        cout << "\nEntered NEW Earnings "<<message.str() << endl;
     } else {
-        LOG_ERROR << "\n FAILED to insert to DB earnings for year" 
-                  << to_string(incomeS._year()) << ". ";
+        LOG_ERROR << "\n FAILED to insert to DB earnings "<<message.str(); 
+        cout << "\nFAILED to insert to DB earnings "<<message.str() << endl;
     }
     return inserted;
 }
@@ -216,8 +218,11 @@ EdgarData::insertEp( O_Ep& ep )
     I_Stock stock_id( ep._stock_id() );
     pair<O_Stock, bool> spair = ta.select( stock_id );
     if (!spair.second)
+    {
+        LOG_ERROR<<"Stock with id "<<to_string(ep._stock_id())<<" could not be"
+                  <<" found in DB. Therefore, cannot add earnings for it to DB";
         return false;
-   
+    } 
     O_Stock stock = spair.first;
    
     // check if it already exits in DB
@@ -225,11 +230,13 @@ EdgarData::insertEp( O_Ep& ep )
     date dd( ep._year(),Jan,1);
     Acn acn( dummy, dd, ep._quarter() );
     if ( stock_contains_acn( stock, acn ) )
+    {
+        LOG_INFO<<"NOT adding earnings to DB. Record for that quarter/year "
+                <<"already exists";
         return false;
-
+    }
     // insert
-    ep.insert();
-    return true;
+    return ep.insert();
 }
 
 long
@@ -340,7 +347,22 @@ EdgarData::createTtmEps(O_Stock& stock)
                             "calculated");
 }
 
-bool 
+bool
+reportWithin3Months(date rep_date, O_Stock& stock, size_t check_year)
+{
+    LOG_INFO << "\n Report date is "<<to_simple_string(rep_date);
+    string fyenStr = stock._fiscal_year_end();
+    date endDate = calculateEndDate(fyenStr,rep_date.year(),0);
+  
+    if(endDate >= rep_date)
+        endDate -= years(1);
+
+    LOG_INFO << "\n report is for year ended "<<to_simple_string(endDate);
+
+    return ( endDate.year() == check_year);
+}
+
+bool
 EdgarData::getSingleYear(O_Stock& stock, size_t year)
 {
     bool retVal(true);
@@ -363,7 +385,8 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
         
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
-            if( ((*it)->_report_date.year() - 1) == gyear )
+            //         if( ((*it)->_report_date.year() - 1) == gyear )
+            if(reportWithin3Months( (*it)->_report_date, stock, year) ) 
             {
                 acn = *it;
                 LOG_INFO << "Got ACN for specific year " << to_string(year);
@@ -462,12 +485,23 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
                                             O_Stock& stock)
 {
     Parser parser;
+    parser.set_stock(stock);
     string incomeTableStr = parser.extractFirstTableStr(incomeFileStr); 
     XmlElement* tree = parser.buildXmlTree(incomeTableStr);
+    if(tree == NULL)
+    {
+        LOG_INFO << "No income statement to parse to DB for "<<stock._ticker();
+        return;
+    }
     O_Ep ep;
-    parser.parseIncomeTree(tree, ep);
+    ep._stock_id() = stock._id();
+    ep._quarter() = 0; // Anual record
     ep._source() = string("edgar.com");
+    parser.parseIncomeTree(tree, ep);
     addEarningsRecordToDB( stock, ep);
+
+    // for testing
+    _ep = ep;
 }
 
 void 

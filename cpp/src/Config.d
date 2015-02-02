@@ -23,4 +23,4 @@ Config.o Config.d : utils/Config.cpp dmmm/dmmm_dbface.h \
  /usr/include/mysql++/transaction.h /usr/include/mysql++/insertpolicy.h \
  /usr/include/mysql++/scopedconnection.h /usr/include/mysql++/sql_types.h \
  dmmm/dmmm_id.hpp utils/Config.h utils/Utils.hpp utils/Identifier.h \
- utils/Logger.h
+ utils/Dates.hpp utils/Logger.h

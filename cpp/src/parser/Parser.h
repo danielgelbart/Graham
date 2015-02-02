@@ -4,6 +4,7 @@
 #include <boost/filesystem.hpp>   
 #include <map>
 #include "O_Ep.hpp"
+#include "O_Stock.hpp"
 #include "types.h"
 #include "Tokenizer.h"
 #include "info.h"
@@ -56,6 +57,7 @@ public:
                          it!= node->_children.end(); ++it )
                         if( (*it)->_tagName == table)
                         {
+                            _start = *it;
                             _node = *it;
                             break;
                         }
@@ -64,10 +66,12 @@ public:
         } // C-tor      
     
     XmlElement* nextTr();
+    void resetToStart(){ _node = _start; }
 
 private:
     //members   
     XmlElement* _node;
+    XmlElement* _start;
     size_t _i;
 }; // class iterator
 
@@ -104,6 +108,7 @@ public:
     vector<string> getNumShares(XmlElement* tree, string& bunits);
     string getNumSharesFromCoverReport(string& report);
     string extractFiscalDateFromReport(string& report);
+    void set_stock(DMMM::O_Stock& stock);
 
 private:
 
@@ -111,8 +116,10 @@ private:
     vector<string> getTrByName(XmlElement* tree, string& trTitlePattern,
         bool singleYear);
     XmlElement* edgarResultsTableToTree(string& page);
+    size_t findColumnToExtract(XmlElement* tree, DMMM::O_Ep& earnigs_data);
 
-// members
+// members - use to save relavent data for parsing
+    DMMM::O_Stock _stock;
 
 };
 

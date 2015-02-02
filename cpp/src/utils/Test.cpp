@@ -177,9 +177,15 @@ Test::runFourthQarterTest(TestResults& tResults)
                    && te._quarter() == 4 ).empty())
     {
         tResults.addFailure(testName + "No record was added to DB");       
+        O_Ep ibm2013mockyear = te.select( te._stock_id() == stock._id() 
+                                          && te._quarter() == 0 
+                                          && te._year() == 2013).front();
+        te.erase( te._id() == ibm2013mockyear._id());
         return tResults.getResultsSummary();
     }
+
     O_Ep ibm2013 = te.select( te._stock_id() == stock._id() 
+                              && te._year() == 2013
                               && te._quarter() == 4 ).front();
 
     if (ibm2013._year() != 2013)
@@ -200,10 +206,12 @@ Test::runFourthQarterTest(TestResults& tResults)
     if (ibm2013._shares() != "1103042156")   
         tResults.addFailure(testName + "Number of (diluted) shares should be: 1103042156, but is: " + ibm2013._shares() );
   
+
     // test clean up
     te.erase( te._id() == ibm2013._id());
     O_Ep ibm2013mockyear = te.select( te._stock_id() == stock._id() 
-                              && te._quarter() == 0 ).front();
+                                      && te._quarter() == 0 
+                                      && te._year() == 2013).front();
     te.erase( te._id() == ibm2013mockyear._id());
     
     return tResults.getResultsSummary();
@@ -228,7 +236,7 @@ Test::run_all()
     // test single year
     runSingleYearTest(testRes);
     runSingleQarterTest(testRes);
-    runFourthQarterTest(testRes);
+//    runFourthQarterTest(testRes);
 
     resultSummary = testRes.getResultsSummary();
     cout << "\n ---  TEST Results  ---" <<resultSummary << endl;
@@ -376,10 +384,9 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
         LOG_ERROR << "Failed to retrive filing for acn "<<acn->_acn<<"\n";
         return false;
     }
-    LOG_INFO << "Got filing\n";
-    Parser parser;
-    auto reports = new map<ReportType,string>;
-    parser.extract_reports(filing, reports);
+
+    edgar.getSingleYear(stock,2013);
+    auto reports = &edgar._reports;
 
     LOG_INFO << "Got "<<reports->size()<<" reports\n";
     ReportType reportType = ReportType::COVER;
@@ -397,26 +404,41 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
         repFail =false;
     } else {
         T_Ep te;
-        // Test for parsed out values from income report
-        O_Ep earnings_data = te.select( te._stock_id() == stock._id() &&
-                                        te._year() == 2013).front();
-
-        if (earnings_data._year() != 2013)
-        {
-            testRes.addFailure("No Earnings Record writen to DB");
-            goto balancereporttest;
+        O_Ep earnings_data;
+        bool inDB(true);
+        if (te.select( te._stock_id() == stock._id() &&
+                       te._year() == 2013).empty() )
+        {       
+            inDB = false;
+            testRes.addFailure("No earnings record for 2013 retrieved from DB");
+            earnings_data = edgar._ep;
         }
+        else
+            earnings_data = te.select( te._stock_id() == stock._id() &&
+                                            te._year() == 2013).front();
+
+        LOG_INFO << "\n Testing values extracted for eps record with id: "
+             << to_string(earnings_data._id())<<", stock_id is: "<<
+            to_string(earnings_data._stock_id())<<" year "<<
+            to_string(earnings_data._year()) <<", revenue: "
+             <<earnings_data._revenue() << ", income: "
+             <<earnings_data._net_income()<<", and eps: "<<
+            to_string(earnings_data._eps())<<"\n";
+
         if (earnings_data._revenue() == "")
             testRes.addFailure("No Revenue exracted from Income Statement");
         if (earnings_data._net_income() == "")
             testRes.addFailure("No Income exracted from Income Statement");
-        if (earnings_data._eps() == 0.0)
+        if (withinPercent(earnings_data._eps(),0.01,0.0))
             testRes.addFailure("No Eps exracted from Income Statement");
         if (earnings_data._shares() == "")
-            testRes.addFailure("No Share data  exracted from Income Statement");
+            testRes.addFailure("No Share data exracted from Income Statement");
+        
+        if (inDB)
+            te.erase( te._id() == earnings_data._id());
     }
     
-  balancereporttest:
+//  balancereporttest:
     reportType = ReportType::BALANCE;
     auto balanceReportIt = reports->find(reportType);
     if( balanceReportIt == reports->end())
@@ -424,10 +446,6 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
         testRes.addFailure("NO BALANCE REPORT");
         repFail =false;
     }
-
-  
-    
-
     string resultSummary = testRes.getResultsSummary();
     if (testRes._numFails > 0)
     {

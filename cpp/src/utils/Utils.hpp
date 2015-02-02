@@ -8,6 +8,7 @@
 #include <sstream>
 #include <boost/filesystem.hpp>
 #include "Identifier.h"
+#include "Dates.hpp"
 
 using namespace std;
 
