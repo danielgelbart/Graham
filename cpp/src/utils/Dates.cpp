@@ -1,10 +1,23 @@
 
 #include "Dates.hpp"
+#include <iostream>
+
 
 using namespace boost::filesystem;
 using namespace boost::gregorian;
-//using namespace DMMM;
 using namespace std;
+
+date
+convertFromDocString(string& docStr)
+{
+    std::stringstream ss(docStr);
+    date_input_facet *df = new date_input_facet("%b. %d, %Y");
+    ss.imbue(std::locale(ss.getloc(), df));
+    date d;
+    ss >> d;  //conversion fails to not-a-date-time
+//    std::cout << "'" << d << "'" << std::endl;  //'not-a-date-time' 
+    return d;
+}
 
 date
 convertFyedStringToDate(greg_year year,string fyenStr)

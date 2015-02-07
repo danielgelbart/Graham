@@ -1,3 +1,0 @@
-
-Testing shows 1 failures as follows:
-1. CVX: No Share data exracted from Income Statement

@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include <boost/filesystem.hpp>   
+#include <boost/regex.hpp>
 #include <map>
 #include "O_Ep.hpp"
 #include "O_Stock.hpp"
@@ -46,18 +47,17 @@ class trIterator {
 public:
     trIterator(XmlElement* node): _i(0)
         {
-            if(node == NULL)
+            if(node == NULL){
                 _node = node;
-            else{
+            }else{
                 string table("table");
-                if( node->_tagName == table )
+                if( node->_tagName == table ){
                     _node = node;
-                else{
+                }else{
                     for( auto it = node->_children.begin() ; 
                          it!= node->_children.end(); ++it )
                         if( (*it)->_tagName == table)
                         {
-                            _start = *it;
                             _node = *it;
                             break;
                         }
@@ -66,18 +66,44 @@ public:
         } // C-tor      
     
     XmlElement* nextTr();
-    void resetToStart(){ _node = _start; }
+    void resetToStart(){ _i = 0; }
 
 private:
     //members   
     XmlElement* _node;
-    XmlElement* _start;
     size_t _i;
 }; // class iterator
 
+class tdIterator {
+public:
+    tdIterator(XmlElement* node){
+        if(node == NULL){
+            _node = node;
+        }else{
+            string tr("tr");
+            if( node->_tagName == tr ){
+                _node = node;
+            }else{
+                for( auto it = node->_children.begin() ; 
+                     it!= node->_children.end(); ++it )
+                    if( (*it)->_tagName == tr)
+                    {
+                        _node = *it;
+                        break;
+                    }
+                } // else2
+            }   // else1
+        } // C-tor      
+    XmlElement* at(size_t i);
+    XmlElement* nextTd();
+private:
+    //members   
+    XmlElement* _node;
+}; // class td iterator
+
 class Parser {
 public:
-    Parser() {}
+    Parser():_col_num(0) {}
 
     XmlElement* buildXmlTree(string& xmlDocument);
     void parseXML(XmlElement* node, Tokenizer& tok);
@@ -117,10 +143,18 @@ private:
         bool singleYear);
     XmlElement* edgarResultsTableToTree(string& page);
     size_t findColumnToExtract(XmlElement* tree, DMMM::O_Ep& earnigs_data);
+    bool checkTrPattern( string& text, boost::regex& title_pattern, 
+                         string& units, XmlElement* node,
+                         boost::regex& extract_pattern, DMMM::O_Ep& earnings,
+                         void(*func)(DMMM::O_Ep&,string&,string&));
+    bool
+    extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
+                        string& units);
+
 
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;
-
+    size_t _col_num;
 };
 
 #endif //PARSER

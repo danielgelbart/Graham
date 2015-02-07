@@ -2,11 +2,9 @@
 #include <streambuf>
 #include <iostream>
 #include <map>
-#include <boost/regex.hpp>
 #include <math.h>  
 #include "Utils.hpp"
 #include "Logger.h"
-
 #include "Tokenizer.h"
 #include "Parser.h"
 
@@ -102,6 +100,21 @@ trIterator::nextTr()
     _i = _i + 1;
     return _node->_children[_i-1];
 }
+XmlElement*
+tdIterator::at(size_t i)
+{
+    LOG_INFO << "called at() with value"<< to_string(i);
+
+    if (_node == NULL)
+        LOG_ERROR << "node is NULL when calling at()";
+
+    size_t num_children = _node->_children.size();
+    LOG_INFO << "Node has "<<to_string(num_children) << " children";
+    if ( i >= num_children )
+        return NULL;
+    LOG_INFO << "Going to return "<< _node->text() << "   child number"<<to_string(i);
+    return _node->_children[i];
+}
 
 void
 XmlElement::addChild( XmlElement* child )
@@ -193,6 +206,16 @@ XmlElement::text()
         rText += (*it)->text();
 
     return rText;
+}
+
+string
+get_title_text(XmlElement* tree)
+{
+    vector<XmlElement*>* elements = new vector<XmlElement*>;
+    string tagName("tr");
+    tree->getNodes(tagName, 2, elements);
+    string titleText  = (*elements)[0]->text() + (*elements)[1]->text() ;
+    return titleText;
 }
 
 XmlTokenType
@@ -433,16 +456,6 @@ get_units_from_text(string& text)
 
     LOG_INFO << "Could not extract units from text: \n " << text;
     return "";
-}
-
-string
-get_title_text(XmlElement* tree)
-{
-    vector<XmlElement*>* elements = new vector<XmlElement*>;
-    string tagName("tr");
-    tree->getNodes(tagName, 2, elements);
-    string titleText  = (*elements)[0]->text() + (*elements)[1]->text() ;
-    return titleText;
 }
 
 string
@@ -789,15 +802,26 @@ testBlock(string& text, regex& block_pattern)
 }
 
 bool
-checkTrPattern( string& text, boost::regex& title_pattern, string& units,
-                boost::regex& extract_pattern, O_Ep& earnings,
-                void(*func)(O_Ep&,string&,string&))
+Parser::checkTrPattern( string& text, boost::regex& title_pattern, 
+                        string& units, XmlElement* node,
+                        boost::regex& extract_pattern, O_Ep& earnings,
+                        void(*func)(O_Ep&,string&,string&))
 {
     boost::smatch match;
     if ( boost::regex_search( text, title_pattern ) )
     {
-        LOG_INFO << "\n regex match in text: "<<text;
-        if (boost::regex_search(text, match, extract_pattern) )
+        LOG_INFO << "\n regex match in text: "<<text<<"\n col to get is: "
+                 <<to_string(_col_num);
+        
+        // get i'th td from tr
+        tdIterator tdIt(node);
+        XmlElement* node = tdIt.at(_col_num);
+        if (node == NULL)
+            cout << "td is NULL";
+        string tdtext = node->text();
+
+        LOG_INFO << "Matching val from text: "<<tdtext;
+        if (boost::regex_search(tdtext, match, extract_pattern) )
         {       
             string val = match[0];
             LOG_INFO << "\n extracted val is"<< val;
@@ -838,27 +862,56 @@ checkForShareUnitsInTitle(const string& titleText)
 size_t 
 Parser::findColumnToExtract(XmlElement* tree, DMMM::O_Ep& earnigs_data)
 {
-// find title tr,
+    string titleText = get_title_text(tree);
+    regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 
 // calculate relavent end date from - stock.fye, ep.year, ep.quarter
     date end_date = calculateEndDate(_stock._fiscal_year_end(),
                                      earnigs_data._year(),
                                      earnigs_data._quarter());
-
-// find number of column, from left/top with date ending at quarter,year
-
-    return 1;
+// iterate over dates in text
+    // if found match
+    // save column num
+    // if next column date exactly 1 year before, exit 
+    // else continue
+    sregex_iterator mit(titleText.begin(), titleText.end(), date_pattern);
+    sregex_iterator mEnd;
+    size_t col_num = 1;
+    bool foundDate = false;
+    for(size_t i = 0; mit != mEnd; ++mit)
+    {
+        ++i;
+        string dateStr = (*mit)[0].str();
+        date rep_date = convertFromDocString(dateStr);
+        cout << "\n Examining date: "<< to_simple_string(rep_date)<<endl;
+        if (foundDate)
+        {
+            if ( ( rep_date == (end_date - years(1)) ) &&
+                 ( col_num == i-1 ) )
+            {
+                LOG_INFO<<"Setting column index to "<<to_string(col_num);
+                break;
+            }
+        }
+        if (rep_date == end_date)
+        {
+            cout << "^ This date matches the requested report date."<<endl;
+            col_num = i;
+            foundDate = true;
+        }
+    }
+    return col_num;
 }
 
 bool
-extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
-                    string& units, size_t ex_column)
+Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
+                    string& units)
 {
     trIterator trIt(tree);
     XmlElement* trp = tree;
 
     bool foundRev(false);
-//    bool foundRevBlock(false);
+    bool foundRevBlock(false);
 
     regex num_pattern("\\d+[,\\d]+\\d+");
     regex eps_pattern("(diluted|dilution)", regex::icase);
@@ -869,38 +922,52 @@ extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
-        
-        string trTitle("Total revenue");
-        boost::regex rev_pattern( trTitle, boost::regex::icase );
-        if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
+//        cout << "\n Handling line - \n" << trtext << endl;
+
+        boost::regex rev_pattern( "Total revenue", boost::regex::icase );
+        if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                           num_pattern, earnigs_data, writeRevenueToEarnings)))
             break;
             
         rev_pattern.assign("Net revenue",boost::regex::icase);
-        if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
+        if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                           num_pattern, earnigs_data, writeRevenueToEarnings)))
             break;
             
         rev_pattern.assign("Operating revenues?",boost::regex::icase);
-        if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
+        if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                           num_pattern, earnigs_data, writeRevenueToEarnings)))
             break;
       
         // Added for BDX
         rev_pattern.assign("^((\\s|:)*Revenues)",boost::regex::icase);
-        if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
+        if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                           num_pattern, earnigs_data, writeRevenueToEarnings)))
             break;
     } // while loop over table
 
     // if not found - iterate in block search mode
     trIt.resetToStart();
-    if(!foundRev)
+    if(!foundRev){
+        LOG_INFO << "Looking for revenue by block strocture";
         while( (trp = trIt.nextTr()) != NULL )
         {
-
-        }
-
+            string trtext = trp->text();
+            if(!foundRevBlock)
+            {
+                // DE Block
+                regex block_pattern("Sales and Revenues",regex::icase);
+                if((foundRevBlock = testBlock(trtext,block_pattern)))
+                    continue;
+            } else {
+                // DE Pattern
+                regex rev_pattern( "Total", boost::regex::icase );
+                if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                        num_pattern, earnigs_data, writeRevenueToEarnings)))
+                    break;
+            }
+        } // while for block find
+    } // if !foundRev
     return foundRev;
 }
 
@@ -943,53 +1010,33 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
     nsrUnits = checkForShareUnitsInTitle(titleText);
 //LOG_INFO<<"Share units are currently "<<nsrUnits<<" going to parse table...";
   
-    size_t col_num = findColumnToExtract(tree, earnings_data);
+    _col_num = findColumnToExtract(tree, earnings_data);
+
+    foundRev = extractTotalRevenue(tree, earnings_data, units);
+    if (foundRev)
+        LOG_INFO << "Succesfully found revenue";
 
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
 //        LOG_INFO << "\n Tr text is: "<< trtext;
-        if(!foundRev)
-        {
-            string trTitle("Total revenue");
-            boost::regex rev_pattern( trTitle, boost::regex::icase );
-            if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
-                      num_pattern, earnings_data, writeRevenueToEarnings)))
-                continue;
-            
-            rev_pattern.assign("Net revenue",boost::regex::icase);
-            if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
-                      num_pattern, earnings_data, writeRevenueToEarnings)))
-                continue;
-            
-            rev_pattern.assign("Operating revenues?",boost::regex::icase);
-            if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
-                      num_pattern, earnings_data, writeRevenueToEarnings)))
-                continue;
-      
-            // Added for BDX
-            rev_pattern.assign("^((\\s|:)*Revenues)",boost::regex::icase);
-            if ((foundRev = checkTrPattern( trtext, rev_pattern, units,
-                      num_pattern, earnings_data, writeRevenueToEarnings)))
-                continue;
-        } // end find total revenue
 
-        if(foundRev && !foundInc)
+        if(!foundInc)
         { 
             // T, F report income this way:
             regex inc_pattern("^((\\s|:)*Net income attributable to)",
                               regex::icase);
-            if ((foundInc = checkTrPattern( trtext, inc_pattern, units,
+            if ((foundInc = checkTrPattern( trtext, inc_pattern, units, trp,
                             num_pattern, earnings_data, writeIncomeToEarnings)))
                 continue;
             // Normal companies use this title:
             inc_pattern.assign("^((\\s|:)*Net income)",boost::regex::icase);
-            if ((foundInc = checkTrPattern( trtext, inc_pattern, units,
+            if ((foundInc = checkTrPattern( trtext, inc_pattern, units, trp,
                             num_pattern, earnings_data, writeIncomeToEarnings)))
                 continue;
         } // end find net income
 
-        if(foundRev && foundInc && !foundEpsBlock)
+        if(foundInc && !foundEpsBlock)
         {
             regex eblock_pattern("Earnings per share",regex::icase);
             if((foundEpsBlock = testBlock(trtext,eblock_pattern)))
@@ -998,15 +1045,15 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
             if((foundEpsBlock = testBlock(trtext,eblock_pattern)))
                 continue;
         }
-        if(foundRev && foundInc && foundEpsBlock && !foundEps)
+        if(foundInc && foundEpsBlock && !foundEps)
         {
             regex digit_pattern("\\(?(\\d+)(.\\d+)?\\)?");
-            if((foundEps = checkTrPattern(trtext, eps_pattern, units,
+            if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
                              digit_pattern, earnings_data, writeEpsToEarnings)))
                 continue;
         } // end find diluted eps
 
-        if(foundRev && foundInc && !foundNsrBlock)
+        if(foundInc && !foundNsrBlock)
         {
             regex sblock_pattern("shares outstanding",regex::icase);
             if((foundNsrBlock = testBlock(trtext,sblock_pattern)))
@@ -1016,9 +1063,9 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
                 continue;
             }
         } 
-        if(foundRev && foundInc && foundNsrBlock && !foundNsr)
+        if(foundNsrBlock && !foundNsr)
         {
-            regex ds_pattern("dilution",regex::icase);
+            regex ds_pattern("(dilution|diluted)",regex::icase);
             if ( regex_search( trtext, ds_pattern ) )
             {
                 // check for units in trtext
@@ -1026,7 +1073,7 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
                     nsrUnits = checkForShareUnits(trtext);
  
                 nsrUnits += "|"+units;
-                foundNsr = checkTrPattern(trtext, ds_pattern, nsrUnits,
+                foundNsr = checkTrPattern(trtext, ds_pattern, nsrUnits, trp,
                              num_pattern, earnings_data, writeNsToEarnings);
                 continue;
             }
