@@ -1,175 +1,169 @@
-2015-Feb-07 16:04:48Logger up
-16:04:48 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'DE'
+2015-Feb-07 16:48:25Logger up
+16:48:25 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'INTC'
 
-2015-Feb-07 16:04:48 INFO 6MB PID 936 Test.cpp:getReportsTest() --- 
- --- Testing retreval of reports forDE  ---
-16:04:48 DMMM SELECT DATABASE()
+2015-Feb-07 16:48:25 INFO 6MB PID 624 Test.cpp:getReportsTest() --- 
+ --- Testing retreval of reports forINTC  ---
+16:48:25 DMMM SELECT DATABASE()
 
-2015-Feb-07 16:04:48 INFO 6MB PID 936 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2015-Feb-07 16:04:48 INFO 6MB PID 936 HttpClient.cpp:HttpClient() --- Got curl handle 0x18aad80
-2015-Feb-07 16:04:48 INFO 6MB PID 936 HttpClient.cpp:HttpClient() --- Using default interface
-2015-Feb-07 16:04:48 INFO 7MB PID 936 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=315189&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-07 16:04:48 INFO 7MB PID 936 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=315189&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Financials.cpp:getLastYear10KAcn() --- Got search results for DE
+2015-Feb-07 16:48:25 INFO 6MB PID 624 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Feb-07 16:48:25 INFO 6MB PID 624 HttpClient.cpp:HttpClient() --- Got curl handle 0x1278d40
+2015-Feb-07 16:48:25 INFO 6MB PID 624 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Feb-07 16:48:25 INFO 7MB PID 624 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=50863&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-07 16:48:25 INFO 7MB PID 624 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=50863&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Financials.cpp:getLastYear10KAcn() --- Got search results for INTC
 
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Parser.cpp:buildXmlTree() --- 
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Parser.cpp:trToAcn() --- 
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Parser.cpp:trToAcn() --- 
  Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-14-087794 filed on date2014-Dec-19
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-13-090354 filed on date2013-Dec-16
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Financials.cpp:getLastYear10KAcn() --- Got acn 0001104659-14-087794
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000050863-14-000020 filed on date2014-Feb-14
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-13-065416 filed on date2013-Feb-19
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Financials.cpp:getLastYear10KAcn() --- Got acn 0000050863-14-000020
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
 
-2015-Feb-07 16:04:50 INFO 7MB PID 936 Financials.cpp:getEdgarFiling() --- Created url string
+2015-Feb-07 16:48:27 INFO 7MB PID 624 Financials.cpp:getEdgarFiling() --- Created url string
 
-2015-Feb-07 16:04:50 INFO 7MB PID 936 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/315189/0001104659-14-087794.txt
-2015-Feb-07 16:04:50 INFO 7MB PID 936 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/315189/0001104659-14-087794.txt
-2015-Feb-07 16:05:07 INFO 56MB PID 936 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:getEdgarFiling() --- downloaded page
+2015-Feb-07 16:48:27 INFO 7MB PID 624 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/50863/0000050863-14-000020.txt
+2015-Feb-07 16:48:27 INFO 7MB PID 624 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/50863/0000050863-14-000020.txt
+2015-Feb-07 16:48:49 INFO 38MB PID 624 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Financials.cpp:getEdgarFiling() --- downloaded page
 
-2015-Feb-07 16:05:07 INFO 56MB PID 936 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=315189&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-07 16:05:07 INFO 56MB PID 936 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=315189&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:buildXmlTree() --- 
+2015-Feb-07 16:48:49 INFO 38MB PID 624 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=50863&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-07 16:48:49 INFO 38MB PID 624 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=50863&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- 
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- 
  Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-14-087794 filed on date2014-Dec-19
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-13-090354 filed on date2013-Dec-16
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-12-084558 filed on date2012-Dec-17
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-11-070023 filed on date2011-Dec-19
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-10-063219 filed on date2010-Dec-17
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-09-070344 filed on date2009-Dec-17
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-08-077324 filed on date2008-Dec-18
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-07-090067 filed on date2007-Dec-20
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-06-082456 filed on date2006-Dec-19
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-05-061732 filed on date2005-Dec-20
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Parser.cpp:trToAcn() --- Extracted ACN: 0001104659-04-040625 filed on date2004-Dec-21
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:getSingleYear() --- 
- Got Acn: 0001104659-14-087794 date: 2014-Dec-19 quartr: 016:05:07 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '23'
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000050863-14-000020 filed on date2014-Feb-14
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-13-065416 filed on date2013-Feb-19
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-12-075534 filed on date2012-Feb-23
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000950123-11-015783 filed on date2011-Feb-18
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000950123-10-015237 filed on date2010-Feb-22
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000891618-09-000047 filed on date2009-Feb-23
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000891618-08-000106 filed on date2008-Feb-20
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000891618-07-000111 filed on date2007-Feb-26
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0000891618-06-000089 filed on date2006-Feb-27
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-05-033162 filed on date2005-Feb-22
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- 
+ This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0001193125-04-028053 Size: 938 KB             : [Amend] : 2004-02-24 : 04623058          : 000-06217
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-04-027430 filed on date2004-Feb-23
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0000050863-14-000020 date: 2014-Feb-14 quartr: 016:48:49 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '25'
 
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:reportWithin3Months() --- 
- Report date is 2014-Dec-19
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:reportWithin3Months() --- 
- report is for year ended 2014-Oct-31
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:getSingleYear() --- 
- Got Acn: 0001104659-13-090354 date: 2013-Dec-16 quartr: 016:05:07 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '23'
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Financials.cpp:reportWithin3Months() --- 
+ Report date is 2014-Feb-14
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Financials.cpp:reportWithin3Months() --- 
+ report is for year ended 2013-Dec-31
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Financials.cpp:getSingleYear() --- Got ACN for specific year 2013
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
 
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:reportWithin3Months() --- 
- Report date is 2013-Dec-16
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:reportWithin3Months() --- 
- report is for year ended 2013-Oct-31
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:getSingleYear() --- Got ACN for specific year 2013
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+2015-Feb-07 16:48:49 INFO 38MB PID 624 Financials.cpp:getEdgarFiling() --- Created url string
 
-2015-Feb-07 16:05:07 INFO 56MB PID 936 Financials.cpp:getEdgarFiling() --- Created url string
+2015-Feb-07 16:48:49 INFO 38MB PID 624 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/50863/0000050863-14-000020.txt
+2015-Feb-07 16:48:49 INFO 38MB PID 624 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/50863/0000050863-14-000020.txt
+2015-Feb-07 16:49:05 INFO 98MB PID 624 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Financials.cpp:getEdgarFiling() --- downloaded page
 
-2015-Feb-07 16:05:07 INFO 56MB PID 936 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/315189/0001104659-13-090354.txt
-2015-Feb-07 16:05:07 INFO 56MB PID 936 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/315189/0001104659-13-090354.txt
-2015-Feb-07 16:05:28 INFO 97MB PID 936 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Financials.cpp:getEdgarFiling() --- downloaded page
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
-
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: 
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Document and Entity Information
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
 Document and Entity Information
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- 
- Handling report named: STATEMENT OF CONSOLIDATED INCOME
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Income
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
-STATEMENT OF CONSOLIDATED INCOME
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+Consolidated Statements of Income
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- 
- Handling report named: STATEMENT OF CONSOLIDATED COMPREHENSIVE INCOME
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Comprehensive Income
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- 
- Handling report named: CONSOLIDATED BALANCE SHEET
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Balance Sheets
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
-CONSOLIDATED BALANCE SHEET
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+Consolidated Balance Sheets
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:buildXmlTree() --- 
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:getUnitsAndCurrency() --- 
- Title text is :  : STATEMENT OF CONSOLIDATED INCOME (USD $)In Millions, except Per Share data, unless otherwise specified : 3 Months Ended : 12 Months Ended : Oct. 31, 2013 : Jul. 31, 2013 : Apr. 30, 2013 : Jan. 31, 2013 : Oct. 31, 2012 : Jul. 31, 2012 : Apr. 30, 2012 : Jan. 31, 2012 : Oct. 31, 2013 : Oct. 31, 2012 : Oct. 31, 2011
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
- except Per Share data, unless otherwise specified : 3 Months Ended : 12 Months Ended : Oct. 31, 2013 : Jul. 31, 2013 : Apr. 30, 2013 : Jan. 31, 2013 : Oct. 31, 2012 : Jul. 31, 2012 : Apr. 30, 2012 : Jan. 31, 2012 : Oct. 31, 2013 : Oct. 31, 2012 : Oct. 31, 2011
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:findColumnToExtract() --- Setting column index to 9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Total : 9,451.0 : 10,010.0 : 10,913.0 : 7,421.0 : 9,792.0 : 9,590.0 : 10,009.0 : 6,766.0 : 37,795.4 : 36,157.1 : 32,012.5
- col to get is: 9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- called at() with value9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Node has 12 children
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Going to return  : Total : 9,451.0 : 10,010.0 : 10,913.0 : 7,421.0 : 9,792.0 : 9,590.0 : 10,009.0 : 6,766.0 : 37,795.4 : 36,157.1 : 32,012.5   child number9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- Matching val from text:  : 37,795.4
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- extracted val is37,795.4
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Net Income : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : 3,537.6 : 3,071.6 : 2,807.8
- col to get is: 9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- called at() with value9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Node has 12 children
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Going to return  : Net Income : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : 3,537.6 : 3,071.6 : 2,807.8   child number9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- Matching val from text:  : 3,537.6
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- extracted val is3,537.6
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Diluted (in dollars per share) : $ 2.11 : $ 2.56 : $ 2.76 : $ 1.65 : $ 1.75 : $ 1.98 : $ 2.61 : $ 1.30 : $ 9.09 : $ 7.63 : $ 6.63
- col to get is: 9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- called at() with value9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Node has 12 children
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Going to return  : Diluted (in dollars per share) : $ 2.11 : $ 2.56 : $ 2.76 : $ 1.65 : $ 1.75 : $ 1.98 : $ 2.61 : $ 1.30 : $ 9.09 : $ 7.63 : $ 6.63   child number9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 9.09
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- extracted val is9.09
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:writeEpsToEarnings() --- Writing eps of 9.09
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:getUnitsAndCurrency() --- 
+ Title text is :  : Consolidated Statements of Income (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 28, 2013 : Dec. 29, 2012 : Dec. 31, 2011
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 28, 2013 : Dec. 29, 2012 : Dec. 31, 2011
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net revenue : $ 52,708 : $ 53,341 : $ 53,999
+ col to get is: 1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- called at() with value1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Node has 4 children
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Going to return  : Net revenue : $ 52,708 : $ 53,341 : $ 53,999   child number1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 52,708
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ extracted val is52,708
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:extractEps() --- Looking for eps with no block strocture
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Diluted earnings per common share (in dollars per share) : $ 1.89 : $ 2.13 : $ 2.39
+ col to get is: 1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- called at() with value1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Node has 4 children
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Going to return  : Diluted earnings per common share (in dollars per share) : $ 1.89 : $ 2.13 : $ 2.39   child number1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 1.89
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ extracted val is1.89
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:writeEpsToEarnings() --- Writing eps of 1.89
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Diluted (in shares) : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : 389.2 : 401.5 : 422.4
- col to get is: 9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- called at() with value9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Node has 12 children
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:at() --- Going to return  : Diluted (in shares) : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : &#xA0; : 389.2 : 401.5 : 422.4   child number9
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- Matching val from text:  : 389.2
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:checkTrPattern() --- 
- extracted val is389.2
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:writeNsToEarnings() --- units for shares are:  general units are000000
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:writeNsToEarnings() --- 
- Clean match for value with dec point is 3892which has 1 decimals
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:writeNsToEarnings() --- 
-**NOTE: Retrieved numshares value of: 389 wich seems low, as well as not being able to extract units for numshares. Therefore, using units found for general porpuse 000000 
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income : 9,620 : 11,005 : 12,942
+ col to get is: 1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- called at() with value1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Node has 4 children
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Going to return  : Net income : 9,620 : 11,005 : 12,942   child number1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- Matching val from text:  : 9,620
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ extracted val is9,620
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Diluted (shares) : 5,097 : 5,160 : 5,411
+ col to get is: 1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- called at() with value1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Node has 4 children
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:at() --- Going to return  : Diluted (shares) : 5,097 : 5,160 : 5,411   child number1
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- Matching val from text:  : 5,097
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:checkTrPattern() --- 
+ extracted val is5,097
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:writeNsToEarnings() --- units for shares are:  general units are000000
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:writeNsToEarnings() --- 
+ Clean match for value with dec point is 5097which has 0 decimals
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:writeNsToEarnings() --- 
+**NOTE: Retrieved numshares value of: 5097 wich seems low, as well as not being able to extract units for numshares. Therefore, using units found for general porpuse 000000 
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 389200000
-16:05:28 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '23' limit 1
-16:05:28 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '23'
-16:05:28 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),9.0899999999999999,'35376000000',0,'377954000000','389200000','edgar.com',23,2013)
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 5097000000
+16:49:05 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '25' limit 1
+16:49:05 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '25'
+16:49:05 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),1.8899999999999999,'9620000000',0,'52708000000','5097000000','edgar.com',25,2013)
 
-2015-Feb-07 16:05:28 INFO 97MB PID 936 Financials.cpp:addEarningsRecordToDB() --- 
-Entered NEW Earnings Record to DB for DE. YEAR: 2013 Q: 0 REV: 377954000000 INC: 35376000000 SHARES: 389200000 EPS: 9.09
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Financials.cpp:addEarningsRecordToDB() --- 
+Entered NEW Earnings Record to DB for INTC. YEAR: 2013 Q: 0 REV: 52708000000 INC: 9620000000 SHARES: 5097000000 EPS: 1.89
 
-2015-Feb-07 16:05:28 INFO 56MB PID 936 Test.cpp:getReportsTest() --- Got 3 reports
-16:05:28 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '23') AND (eps.year = '2013')
-16:05:28 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '23') AND (eps.year = '2013')
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Test.cpp:getReportsTest() --- Got 3 reports
+16:49:05 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '25') AND (eps.year = '2013')
+16:49:05 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '25') AND (eps.year = '2013')
 
-2015-Feb-07 16:05:28 INFO 56MB PID 936 Test.cpp:getReportsTest() --- 
- Testing values extracted for eps record with id: 112, stock_id is: 23 year 2013, revenue: 377954000000, income: 35376000000, and eps: 9.090000
-16:05:28 DMMM DELETE FROM eps WHERE eps.id = '112'
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Test.cpp:getReportsTest() --- 
+ Testing values extracted for eps record with id: 116, stock_id is: 25 year 2013, revenue: 52708000000, income: 9620000000, and eps: 1.890000
+16:49:05 DMMM DELETE FROM eps WHERE eps.id = '116'
 
-2015-Feb-07 16:05:28 INFO 56MB PID 936 Test.cpp:getReportsTest() --- 
+2015-Feb-07 16:49:05 INFO 98MB PID 624 Test.cpp:getReportsTest() --- 
 Great!!! Everything is working
-2015-Feb-07 16:05:28 INFO 8MB PID 936 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Feb-07 16:49:05 INFO 68MB PID 624 HttpClient.cpp:~HttpClient() --- shutting down httpclient

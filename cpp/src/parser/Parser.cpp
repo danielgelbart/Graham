@@ -920,6 +920,64 @@ Parser::findColumnToExtract(XmlElement* tree, DMMM::O_Ep& earnigs_data)
     return col_num;
 }
 
+
+bool
+Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
+{
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+
+    bool foundEps(false);
+    bool foundEpsBlock(false);
+
+    regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
+    regex eps_pattern("(diluted|dilution)", regex::icase);
+    regex digit_pattern("\\(?(\\d+)(.\\d+)?\\)?");
+    regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
+
+    smatch match;
+
+    // First, search for block structure
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+
+        // find Eps block
+        if(!foundEps && !foundEpsBlock)
+        {
+            regex eblock_pattern("Earnings per share",regex::icase);
+            if((foundEpsBlock = testBlock(trtext,eblock_pattern)))
+                continue;
+            eblock_pattern.assign("per share",regex::icase);
+            if((foundEpsBlock = testBlock(trtext,eblock_pattern)))
+                continue;
+        }
+        // find eps IN block
+        if(foundEpsBlock && !foundEps)
+        {
+            if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
+                  digit_pattern, earnings_data, writeEpsToEarnings)))
+                continue;
+        } // end find diluted eps
+    } // while
+
+    // if not found - iterate again without block search mode
+    if(!foundEps){
+        trIt.resetToStart();
+        LOG_INFO << "Looking for eps with no block strocture";
+        while( (trp = trIt.nextTr()) != NULL )
+        {
+            string trtext = trp->text();
+
+            eps_pattern.assign("diluted earnings", regex::icase);
+            if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
+                        digit_pattern, earnings_data, writeEpsToEarnings)))
+                    continue;
+        } // while
+    } // if not found Eps in block structure
+    return foundEps;    
+}
+
 bool
 Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                     string& units)
@@ -997,7 +1055,7 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
 
     bool foundRev(false);
     bool foundInc(false);
-    bool foundEpsBlock(false);
+//    bool foundEpsBlock(false);
     bool foundEps(false);
     bool foundNsrBlock(false);
     bool foundNsr(false);
@@ -1007,7 +1065,7 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
     string currency = "";
     regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
 //    regex num_pattern("\\d+[,\\d]+\\d+");
-    regex eps_pattern("(diluted|dilution)", regex::icase);
+//    regex eps_pattern("(diluted|dilution)", regex::icase);
     regex nsunits_pattern("(millions|thousands|billions)",regex::icase);
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 
@@ -1034,6 +1092,10 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
     if (foundRev)
         LOG_INFO << "Succesfully found revenue";
 
+    foundEps = extractEps(tree, earnings_data, units);
+    if (foundEps)
+        LOG_INFO << "Succesfully found eps";
+
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
@@ -1053,23 +1115,6 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
                             num_pattern, earnings_data, writeIncomeToEarnings)))
                 continue;
         } // end find net income
-
-        if(foundInc && !foundEpsBlock)
-        {
-            regex eblock_pattern("Earnings per share",regex::icase);
-            if((foundEpsBlock = testBlock(trtext,eblock_pattern)))
-                continue;
-            eblock_pattern.assign("per share",regex::icase);
-            if((foundEpsBlock = testBlock(trtext,eblock_pattern)))
-                continue;
-        }
-        if(foundInc && foundEpsBlock && !foundEps)
-        {
-            regex digit_pattern("\\(?(\\d+)(.\\d+)?\\)?");
-            if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
-                             digit_pattern, earnings_data, writeEpsToEarnings)))
-                continue;
-        } // end find diluted eps
 
         if(foundInc && !foundNsrBlock)
         {

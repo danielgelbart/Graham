@@ -147,10 +147,9 @@ private:
                          string& units, XmlElement* node,
                          boost::regex& extract_pattern, DMMM::O_Ep& earnings,
                          void(*func)(DMMM::O_Ep&,string&,string&));
-    bool
-    extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
+    bool extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                         string& units);
-
+    bool extractEps(XmlElement* tree, DMMM::O_Ep& earnigs_data,string& units);
 
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;
