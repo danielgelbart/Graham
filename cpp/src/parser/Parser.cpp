@@ -763,19 +763,26 @@ writeNsToEarnings(O_Ep& ep, string& val, string& units)
     // pass both units+bunits as "units
     // so split
     size_t sPos = units.find("|",0);
+    sPos += 1; // to point past the '|'
     string bunits = units.substr(sPos, (units.length() - sPos));
-    units = units.substr(0,sPos);
-
+    units = units.substr(0,sPos-1);
+    LOG_INFO << "units for shares are: "<< units<<" general units are"<<bunits;
     string matchString = val;
     size_t decimals = countDecimals( matchString );
     string cleanMatch = removeNonDigit( matchString );
+
+    LOG_INFO << "\n Clean match for value with dec point is "<<cleanMatch
+             << "which has "<<to_string(decimals) << " decimals";
+
     if ( units == "")
         units = "1";
 
     long ns = stol(cleanMatch) * unitsToInt( units);
+
     if( decimals > 0)
         ns = ns / pow(10,decimals);
 
+    // Handel errouneous units case
     if( ( ns < 1000000 ) && (1==unitsToInt(units)) )
     {
         LOG_INFO<<"\n**NOTE: Retrieved numshares value of: "
@@ -783,7 +790,17 @@ writeNsToEarnings(O_Ep& ep, string& val, string& units)
                 << " being able to extract units for numshares. "
                 << "Therefore, using units found for general porpus"
                 << "e " << bunits<<" \n";
-        ns = ns*unitsToInt( bunits );
+        units = bunits;
+        ns = ns*unitsToInt( units );
+
+        // add decimal values if exist
+        if( decimals > 0)
+        {
+
+            string dec_mathces =
+                cleanMatch.substr( (cleanMatch.length()-decimals), decimals); 
+            ns +=  stol(dec_mathces) * ( unitsToInt( units) / pow(10,decimals));
+        }
     }
     cleanMatch = to_string( ns );
     LOG_INFO <<"Adding Num Shares value of: "<< cleanMatch<<"\n";
@@ -913,7 +930,7 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
     bool foundRev(false);
     bool foundRevBlock(false);
 
-    regex num_pattern("\\d+[,\\d]+\\d+");
+    regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
     regex eps_pattern("(diluted|dilution)", regex::icase);
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 
@@ -988,7 +1005,8 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
     string nsrUnits = "";
     string units = "";
     string currency = "";
-    regex num_pattern("\\d+[,\\d]+\\d+");
+    regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
+//    regex num_pattern("\\d+[,\\d]+\\d+");
     regex eps_pattern("(diluted|dilution)", regex::icase);
     regex nsunits_pattern("(millions|thousands|billions)",regex::icase);
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
