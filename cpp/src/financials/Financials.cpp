@@ -206,12 +206,17 @@ bool
 EdgarData::insertEp( O_Ep& ep )
 {
     // check that ep is valid
+// Add checks for existance of :
+// eps
+// num shares
     if ( (ep._stock_id() <= 0 )         || 
          (ep._year() < greg_year(1980)) ||
          (ep._year() > greg_year(2020)) ||
          (ep._quarter() > 5 )           ||
          (ep._quarter() < 0 )           ||
-         (ep._revenue() == "")          )
+         (ep._revenue() == "")          ||
+         (ep._net_income() == "")       
+        )
         return false;
 
     T_Stock ta;

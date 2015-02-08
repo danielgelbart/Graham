@@ -16,10 +16,10 @@ using namespace boost::filesystem;
 
 class TestResults{
 public:
-    TestResults():_numFails(0), _curTestName(""){}
+    TestResults():_numFails(0), _curTestName(""), _tickerName(""){}
 
     void addFailure(string failMessage){
-        _failMessages.push_back(_curTestName + failMessage);
+        _failMessages.push_back(_curTestName + _tickerName + failMessage);
         _numFails = _numFails + 1;
     }
 
@@ -38,11 +38,12 @@ public:
     }
 
     void setTestName(string str){ _curTestName = str; }
-    
+    void setStockTickerName(string str){ _tickerName = str; }
 public:
     size_t _numFails;
     vector<string> _failMessages;
     string _curTestName;
+    string _tickerName;
 }; // class TestResults
 
 class Test {

@@ -149,7 +149,11 @@ private:
                          void(*func)(DMMM::O_Ep&,string&,string&));
     bool extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                         string& units);
+    bool extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnigs_data,
+                          string& units);
     bool extractEps(XmlElement* tree, DMMM::O_Ep& earnigs_data,string& units);
+    bool extractNumShares(XmlElement* tree, DMMM::O_Ep& earnigs_data,
+                          string& units, string& nsrUnits);
 
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;

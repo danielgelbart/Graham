@@ -20,25 +20,12 @@ db_setup()
 }
 
 string
-getMock10kFromDisk()
+getMockFromDisk(string fileName)
 {       
-    string fileName("IBM_2013");
+//    string fileName
     path binPath = confParam<string>("argv0");
     path filePath = binPath.remove_filename() / 
-        "../../financials/IBM" / fileName;
-
-    cout << "going to load file at " << filePath.string();
-    string filing =  loadFileToString(filePath.string());
-    return filing;
-}
-
-string
-getMock10qFromDisk()
-{       
-    string fileName("CVX_2014_1stQ.txt");
-    path binPath = confParam<string>("argv0");
-    path filePath = binPath.remove_filename() / 
-        "../../financials/CVX" / fileName;
+        "../../financials/mocks" / fileName;
 
     cout << "going to load file at " << filePath.string();
     string filing =  loadFileToString(filePath.string());
@@ -55,8 +42,10 @@ Test::runSingleYearTest(TestResults& tResults)
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
 
+    tResults.setStockTickerName( stock._ticker() );
+
     // extract to DB
-    string filing = getMock10kFromDisk();
+    string filing = getMockFromDisk("IBM_2013_10k");
     if ( filing == "")
     {
         tResults.addFailure(testName + "Could not load mock 10k for testing");          return tResults.getResultsSummary();
@@ -96,6 +85,49 @@ Test::runSingleYearTest(TestResults& tResults)
   
     // test clean up
     te.erase( te._id() == ibm2013._id());
+
+    // CVX
+    stock = ts.select( ts._ticker() == string("CVX")).front();
+    tResults.setStockTickerName( stock._ticker() );
+    // extract to DB
+    filing = getMockFromDisk("CVX_2013_10k.txt");
+    if ( filing == ""){
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
+    }
+    Info info1( stock._ticker(), 2013, StatementType::K10);
+    edgar.extract10kToDisk( filing, stock, info1);
+
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep cvx2013 = te.select( te._stock_id() == stock._id() 
+                              && te._quarter() == 0 ).front();
+
+    if (cvx2013._year() != 2013)
+        tResults.addFailure(testName + "Year should be: 2013, but is: "
+                            + to_string(cvx2013._year()) );
+    if (cvx2013._quarter() != 0)
+        tResults.addFailure(testName + "Quarter (for 10k)  should be: 0, but is: " + to_string(cvx2013._quarter()) );
+
+    if (cvx2013._revenue() != "228848000000")
+        tResults.addFailure(testName + "Revenue should be: 228848000000, but is: " + cvx2013._revenue() );
+
+    if (cvx2013._net_income() != "21423000000")   
+        tResults.addFailure(testName + "Net Income should be: 21423000000, but is: " + cvx2013._net_income() );
+
+    if (cvx2013._eps() != 11.09)   
+        tResults.addFailure(testName + "(diluted) Eps should be: 11.09, but is: " + to_string(cvx2013._eps()) );
+
+//    if (cvx2013._shares() != "1103042156")   
+    //      tResults.addFailure(testName + "Number of shares should be: 1103042156, but is: " + cvx2013._shares() );
+  
+    // test clean up
+    te.erase( te._id() == cvx2013._id());
   
     return tResults.getResultsSummary();
 }
@@ -111,7 +143,7 @@ Test::runSingleQarterTest(TestResults& tResults)
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == string("CVX")).front();
 
-    string filing = getMock10qFromDisk();
+    string filing = getMockFromDisk("CVX_2014_1stQ.txt");
     if ( filing == "")
     {
         tResults.addFailure(testName + "Could not load mock 10q for testing");          return tResults.getResultsSummary();
@@ -166,7 +198,7 @@ Test::runFourthQarterTest(TestResults& tResults)
     T_Stock ts;
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
-    string filing = getMock10kFromDisk();
+    string filing = getMockFromDisk("IBM_2013_10k");
     Info info( stock._ticker(), 2013, StatementType::K10);
     EdgarData edgar;
     edgar.extract10kToDisk( filing, stock, info);
