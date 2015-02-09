@@ -225,6 +225,44 @@ Test::runSingleYearTest(TestResults& tResults)
       // test clean up
     te.erase( te._id() == bdx2013._id());
 
+    // BRK.A
+    stock = ts.select( ts._ticker() == string("BRK.A")).front();
+    tResults.setStockTickerName( stock._ticker() );
+    // extract to DB
+    filing = getMockFromDisk("BRK_2013_10k.txt");
+    if ( filing == ""){
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
+    }
+    Info info4( stock._ticker(), 2013, StatementType::K10);
+    edgar.extract10kToDisk( filing, stock, info4);
+
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep brk2013 = te.select( te._stock_id() == stock._id() 
+                              && te._quarter() == 0 ).front();
+    if (brk2013._year() != 2013)
+        tResults.addFailure(testName + "Year should be: 2013, but is: "
+                            + to_string(brk2013._year()) );
+    if (brk2013._quarter() != 0)
+        tResults.addFailure(testName + "Quarter (for 10k)  should be: 0, but is: " + to_string(brk2013._quarter()) );
+
+    if (brk2013._revenue() != "182150000000")
+        tResults.addFailure(testName + "Revenue should be: 182150000000, but is: " + brk2013._revenue() );
+
+    if (brk2013._net_income() != "19476000000")   
+        tResults.addFailure(testName + "Net Income should be: 19476000000, but is: " + brk2013._net_income() );
+
+    if (brk2013._eps() != 11850.0)   
+        tResults.addFailure(testName + "(diluted) Eps should be: 11850.0, but is: " + to_string(brk2013._eps()) );
+
+    // test clean up
+    te.erase( te._id() == brk2013._id());
   
     return tResults.getResultsSummary();
 }

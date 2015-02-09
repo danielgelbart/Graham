@@ -38,7 +38,7 @@ containsNoData(string& dataText )
 }
 
 size_t
-countDecimals(string& num)
+countDecimals(const string& num)
 {
     size_t pos = num.find('.',0);
     if ( pos == string::npos )
@@ -750,6 +750,9 @@ void
 writeEpsToEarnings(O_Ep& ep, string& val, string& units)
 {
     LOG_INFO << "Writing eps of "<<val<<"\n";
+    // For BRK with eps in the thuosands
+    if ( countDecimals(val) == 0 )
+        val = removeNonDigit(val);
     ep._eps() = stod( val );
 }
 void
@@ -1014,8 +1017,8 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     {
         string trtext = trp->text();
 
-        // T, F report income this way:
-        regex inc_pattern("^((\\s|:)*Net income attributable to)",
+        // T, F, BRK.A report income this way:
+        regex inc_pattern("^((\\s|:)*Net (income|earnings) attributable to)",
                           regex::icase);
         if ((foundInc = checkTrPattern( trtext, inc_pattern, units, trp,
                        num_pattern, earnings_data, writeIncomeToEarnings)))
@@ -1087,7 +1090,11 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
             if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
                           digit_pattern, earnings_data, writeEpsToEarnings)))
                 break;
-
+            // For BRK.A
+            eps_pattern.assign("net earnings per share attributable to([\\w\\s]+) shareholders", regex::icase);
+            if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
+                         digit_pattern, earnings_data, writeEpsToEarnings)))
+                break;
         } // while
     } // if not found Eps in block structure
     return foundEps;    
