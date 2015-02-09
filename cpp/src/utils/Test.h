@@ -19,7 +19,7 @@ public:
     TestResults():_numFails(0), _curTestName(""), _tickerName(""){}
 
     void addFailure(string failMessage){
-        _failMessages.push_back(_curTestName + _tickerName + failMessage);
+        _failMessages.push_back(_curTestName + _tickerName + "| "+failMessage);
         _numFails = _numFails + 1;
     }
 

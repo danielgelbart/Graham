@@ -103,15 +103,11 @@ trIterator::nextTr()
 XmlElement*
 tdIterator::at(size_t i)
 {
-//    LOG_INFO << "called at() with value"<< to_string(i);
     if (_node == NULL)
         LOG_ERROR << "node is NULL when calling at()";
-
     size_t num_children = _node->_children.size();
-    LOG_INFO << "Node has "<<to_string(num_children) << " children";
     if ( i >= num_children )
         return NULL;
-//    LOG_INFO << "Going to return "<< _node->text() << "   child number"<<to_string(i);
     return _node->_children[i];
 }
 
@@ -810,10 +806,13 @@ writeNsToEarnings(O_Ep& ep, string& val, string& units)
 bool 
 testBlock(string& text, regex& block_pattern)
 {
-//    regex eps_pattern("Earnings per share", regex::icase);
     if ( (regex_search(text, block_pattern)) &&
          (containsNoData( text )) )
+    {
+        LOG_INFO<<"Found block pattern: "<<block_pattern.str()
+                <<" | In line: "<<text;
         return true;
+    }
     return false;
 }
 
@@ -987,8 +986,12 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                 if((foundRevBlock = testBlock(trtext,block_pattern)))
                     continue;
             } else {
+                // GOOG 
+                regex rev_pattern("^((\\s|:)*Revenues?)", regex::icase );
+                if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,                       num_pattern, earnigs_data, writeRevenueToEarnings)))
+                    break;
                 // DE Pattern
-                regex rev_pattern( "Total", boost::regex::icase );
+                rev_pattern.assign("Total", boost::regex::icase );
                 if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                         num_pattern, earnigs_data, writeRevenueToEarnings)))
                     break;
@@ -1035,14 +1038,12 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
 
     bool foundEps(false);
     bool foundEpsBlock(false);
-
     regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
-
-    regex digit_pattern("\\(?(\\d+)(.\\d+)?\\)?");
+    regex digit_pattern("\\(?(\\d+)(.\\d+)\\)?");
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
-
     smatch match;
 
+    LOG_INFO << "extractEps() called";
     // First, search for block structure
     while( (trp = trIt.nextTr()) != NULL )
     {
@@ -1101,11 +1102,11 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
 
     bool foundNsrBlock(false);
     bool foundNsr(false);
-
     regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
     regex nsunits_pattern("(millions|thousands|billions)",regex::icase);
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 
+    LOG_INFO << "extractNumShares() called";
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();

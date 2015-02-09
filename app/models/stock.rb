@@ -9,7 +9,6 @@
 #  updated_at           :datetime
 #  ttm_eps              :decimal(12, 6)
 #  book_value_per_share :decimal(12, 6)
-#  fiscal_year_end      :date
 #  dividends_per_year   :integer(4)      default(4)
 #  latest_price         :decimal(12, 6)
 #  market_cap           :string(255)
@@ -19,6 +18,7 @@
 #  has_currant_ratio    :boolean(1)      default(TRUE)
 #  mark                 :string(255)
 #  cik                  :integer(4)
+#  fiscal_year_end      :string(255)     default("")
 #
 
 class Stock < ActiveRecord::Base

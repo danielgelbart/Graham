@@ -1,751 +1,1962 @@
-2015-Feb-08 17:06:10Logger up
-17:06:10 DMMM SELECT DATABASE()
+2015-Feb-09 14:24:57Logger up
+14:24:57 DMMM SELECT DATABASE()
 
-2015-Feb-08 17:06:10 INFO 6MB PID 800 Test.cpp:runSingleYearTest() --- 
+2015-Feb-09 14:24:57 INFO 6MB PID  48 Test.cpp:runSingleYearTest() --- 
  --- Running runSingelYearTest() ---
-17:06:10 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'IBM'
+14:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'IBM'
 
-2015-Feb-08 17:06:10 INFO 47MB PID 800 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2015-Feb-08 17:06:10 INFO 47MB PID 800 HttpClient.cpp:HttpClient() --- Got curl handle 0x1315940
-2015-Feb-08 17:06:10 INFO 47MB PID 800 HttpClient.cpp:HttpClient() --- Using default interface
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+2015-Feb-09 14:24:57 INFO 47MB PID  48 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Feb-09 14:24:57 INFO 47MB PID  48 HttpClient.cpp:HttpClient() --- Got curl handle 0x1d23940
+2015-Feb-09 14:24:57 INFO 47MB PID  48 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: 
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Document and Entity Information
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
 Document and Entity Information
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Earnings
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
 Consolidated Statement of Earnings
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Comprehensive Income
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Financial Position
 
-2015-Feb-08 17:06:10 INFO 88MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+2015-Feb-09 14:24:57 INFO 88MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
 Consolidated Statement of Financial Position
 
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:buildXmlTree() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:getUnitsAndCurrency() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:getUnitsAndCurrency() --- 
  Title text is :  : Consolidated Statement of Earnings (USD $)In Millions, except Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
  except Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:findColumnToExtract() --- Setting column index to 1
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:findColumnToExtract() --- Setting column index to 1
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
  : Consolidated Statement of Earnings (USD $)In Millions, except Share data, unless otherwise specified : 12 Months Ended
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
  : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
  : Revenue: : &#xA0; : &#xA0; : &#xA0;
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Revenue: : &#xA0; : &#xA0; : &#xA0;
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:at() --- Node has 4 children
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:testBlock() --- Found block pattern: ^((\s|:)*Revenues?) | In line:  : Revenue: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Total revenue : 99,751 : 104,507 : 106,916
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:at() --- Node has 4 children
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : 99,751
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : 99,751
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is99,751
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Net income : $ 16,483 : $ 16,604 : $ 15,855
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:at() --- Node has 4 children
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 16,483
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 16,483
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is16,483
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:testBlock() --- Found block pattern: Earnings per share | In line:  : Earnings per share of common stock: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Assuming dilution (in dollars per share) (Note P) : $ 14.94 : $ 14.37 : $ 13.06
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:at() --- Node has 4 children
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 14.94
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 14.94
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is14.94
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:writeEpsToEarnings() --- Writing eps of 14.94
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:writeEpsToEarnings() --- Writing eps of 14.94
 
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:parseIncomeTree() --- Succesfully found eps
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:testBlock() --- Found block pattern: shares outstanding | In line:  : Weighted-average number of common shares outstanding: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Assuming dilution (in shares) : 1,103,042,156 : 1,155,449,317 : 1,213,767,985
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:at() --- Node has 4 children
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : 1,103,042,156
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : 1,103,042,156
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is1,103,042,156
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:writeNsToEarnings() --- units for shares are:  general units are000000
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:writeNsToEarnings() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:writeNsToEarnings() --- units for shares are:  general units are000000
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:writeNsToEarnings() --- 
  Clean match for value with dec point is 1103042156which has 0 decimals
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 1103042156
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 1103042156
 
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Parser.cpp:parseIncomeTree() --- Succesfully shares outstanding17:06:10 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '19' limit 1
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '19'
-17:06:10 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),14.94,'16483000000',0,'99751000000','1103042156','edgar.com',19,2013)
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully shares outstanding14:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '19' limit 1
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '19'
+14:24:57 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),14.94,'16483000000',0,'99751000000','1103042156','edgar.com',19,2013)
 
-2015-Feb-08 17:06:10 INFO 48MB PID 800 Financials.cpp:addEarningsRecordToDB() --- 
+2015-Feb-09 14:24:57 INFO 48MB PID  48 Financials.cpp:addEarningsRecordToDB() --- 
 Entered NEW Earnings Record to DB for IBM. YEAR: 2013 Q: 0 REV: 99751000000 INC: 16483000000 SHARES: 1103042156 EPS: 14.94
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '19') AND (eps.quarter = '0')
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '19') AND (eps.quarter = '0')
-17:06:10 DMMM DELETE FROM eps WHERE eps.id = '147'
-17:06:10 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'CVX'
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '19') AND (eps.quarter = '0')
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '19') AND (eps.quarter = '0')
+14:24:57 DMMM DELETE FROM eps WHERE eps.id = '171'
+14:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'CVX'
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: 
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Document and Entity Information
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
 Document and Entity Information
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
 Consolidated Statement of Income
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income (Parenthetical)
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Comprehensive Income
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Balance Sheet
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
 Consolidated Balance Sheet
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:buildXmlTree() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:getUnitsAndCurrency() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:getUnitsAndCurrency() --- 
  Title text is :  : Consolidated Statement of Income (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
  except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:findColumnToExtract() --- Setting column index to 1
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:findColumnToExtract() --- Setting column index to 1
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
  : Consolidated Statement of Income (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
  : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
  : Revenues and Other Income : &#xA0; : &#xA0; : &#xA0;
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Revenues and Other Income : &#xA0; : &#xA0; : &#xA0;
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:at() --- Node has 7 children
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:testBlock() --- Found block pattern: ^((\s|:)*Revenues?) | In line:  : Revenues and Other Income : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Total Revenues and Other Income : 228,848 : 241,909 : 253,706
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:at() --- Node has 7 children
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : 228,848
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : 228,848
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is228,848
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Net Income : 21,597 : 26,336 : 27,008
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:at() --- Node has 7 children
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : 21,597
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : 21,597
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is21,597
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Net Income Attributable to Chevron Corporation : $ 21,423 : $ 26,179 : [4] : $ 26,895 : [4]
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:at() --- Node has 7 children
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 21,423
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 21,423
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is21,423
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:parseIncomeTree() --- Succesfully found Net Income
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found Net Income
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:testBlock() --- Found block pattern: per share | In line:  : Per Share of Common Stock : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  regex match in text:  : Net Income Attributable to Chevron Corporation - Diluted : $ 11.09 : $ 13.32 : $ 13.44
  col to get is: 1
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:at() --- Node has 7 children
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 11.09
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:checkTrPattern() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 11.09
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:checkTrPattern() --- 
  extracted val is11.09
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:writeEpsToEarnings() --- Writing eps of 11.09
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:writeEpsToEarnings() --- Writing eps of 11.09
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Parser.cpp:parseIncomeTree() --- Succesfully found eps17:06:10 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '20' limit 1
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '20'
-17:06:10 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),11.09,'21423000000',0,'228848000000','','edgar.com',20,2013)
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended : Dec. 31, 2013 : Feb. 10, 2014 : Jun. 28, 2013 : Document and Entity Information [Abstract] : &#xA0; : &#xA0; : &#xA0; : Entity Registrant Name : CHEVRON CORP : &#xA0; : &#xA0; : Entity Central Index Key : 0000093410 : &#xA0; : &#xA0; : Document Type : 10-K : &#xA0; : &#xA0; : Document Period End Date : Dec. 31,
+				 2013 : &#xA0; : &#xA0; : Amendment Flag : false : &#xA0; : &#xA0; : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0; : Document Fiscal Period Focus : FY : &#xA0; : &#xA0; : Current Fiscal Year End Date : --12-31 : &#xA0; : &#xA0; : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0; : Entity Voluntary Filers : No : &#xA0; : &#xA0; : Entity Current Reporting Status : Yes : &#xA0; : &#xA0; : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0; : Entity Public Float : &#xA0; : &#xA0; : $ 228,635,687,380 : Entity Common Stock, Shares Outstanding : &#xA0; : 1,909,130,328 : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 Financials.cpp:addEarningsRecordToDB() --- 
-Entered NEW Earnings Record to DB for CVX. YEAR: 2013 Q: 0 REV: 228848000000 INC: 21423000000 SHARES:  EPS: 11.09
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '20') AND (eps.quarter = '0')
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '20') AND (eps.quarter = '0')
-17:06:10 DMMM DELETE FROM eps WHERE eps.id = '148'
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended : Dec. 31, 2013 : Feb. 10, 2014 : Jun. 28, 2013 : Document and Entity Information [Abstract] : &#xA0; : &#xA0; : &#xA0; : Entity Registrant Name : CHEVRON CORP : &#xA0; : &#xA0; : Entity Central Index Key : 0000093410 : &#xA0; : &#xA0; : Document Type : 10-K : &#xA0; : &#xA0; : Document Period End Date : Dec. 31,
+				 2013 : &#xA0; : &#xA0; : Amendment Flag : false : &#xA0; : &#xA0; : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0; : Document Fiscal Period Focus : FY : &#xA0; : &#xA0; : Current Fiscal Year End Date : --12-31 : &#xA0; : &#xA0; : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0; : Entity Voluntary Filers : No : &#xA0; : &#xA0; : Entity Current Reporting Status : Yes : &#xA0; : &#xA0; : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0; : Entity Public Float : &#xA0; : &#xA0; : $ 228,635,687,380 : Entity Common Stock, Shares Outstanding : &#xA0; : 1,909,130,328 : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 45MB PID 800 HttpClient.cpp:~HttpClient() --- shutting down httpclient
-2015-Feb-08 17:06:10 INFO 8MB PID 800 Test.cpp:runSingleQarterTest() --- 
- --- Running runSingleQarterTest() ---
-17:06:10 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'CVX'
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2015-Feb-08 17:06:10 INFO 16MB PID 800 HttpClient.cpp:HttpClient() --- Got curl handle 0x1315940
-2015-Feb-08 17:06:10 INFO 16MB PID 800 HttpClient.cpp:HttpClient() --- Using default interface
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 12 Months Ended
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31, 2013 : Feb. 10, 2014 : Jun. 28, 2013
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Feb. 10, 2014
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Feb. 10, 2014
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jun. 28, 2013
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jun. 28, 2013
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information [Abstract] : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information [Abstract]
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information [Abstract]
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information [Abstract]
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name : CHEVRON CORP : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : CHEVRON CORP
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key : 0000093410 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 0000093410
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type : 10-K : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 10-K
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date : Dec. 31,
+				 2013 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31,
+				 2013
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag : false : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : false
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 2013
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus : FY : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : FY
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date : --12-31 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : --12-31
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Yes
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers : No : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : No
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status : Yes : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Yes
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Large Accelerated Filer
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Public Float : &#xA0; : &#xA0; : $ 228,635,687,380
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Public Float
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Public Float
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 228,635,687,380
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Common Stock, Shares Outstanding : &#xA0; : 1,909,130,328 : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:tagWithText() --- counter is 0
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:getNumSharesFromCoverReport() ---  Text containing number of shares is  : Entity Common Stock, Shares Outstanding : &#xA0; : 1,909,130,328 : &#xA0;
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Parser.cpp:getNumSharesFromCoverReport() --- Got num shares from cover report. They are: 1,909,130,32814:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '20' limit 1
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '20'
+14:24:57 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),11.09,'21423000000',0,'228848000000','1909130328','edgar.com',20,2013)
+
+2015-Feb-09 14:24:57 INFO 45MB PID  48 Financials.cpp:addEarningsRecordToDB() --- 
+Entered NEW Earnings Record to DB for CVX. YEAR: 2013 Q: 0 REV: 228848000000 INC: 21423000000 SHARES: 1909130328 EPS: 11.09
+14:24:57 DMMM INSERT INTO notes (created_at,note,pertains_to,stock_id,year)VALUES(NOW(),'using shares outstanding from cover report',8,20,2013)
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '20') AND (eps.quarter = '0')
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '20') AND (eps.quarter = '0')
+14:24:57 DMMM DELETE FROM eps WHERE eps.id = '172'
+14:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'GOOG'
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: 
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Document and Entity Information
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
 Document and Entity Information
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED BALANCE SHEETS
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+CONSOLIDATED BALANCE SHEETS
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED BALANCE SHEETS (Parenthetical)
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED STATEMENTS OF INCOME
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+CONSOLIDATED STATEMENTS OF INCOME
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:getUnitsAndCurrency() --- 
+ Title text is :  : CONSOLIDATED STATEMENTS OF INCOME (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:findColumnToExtract() --- Setting column index to 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : CONSOLIDATED STATEMENTS OF INCOME (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Revenues: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Revenues: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:testBlock() --- Found block pattern: ^((\s|:)*Revenues?) | In line:  : Revenues: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Revenues : $ 59,825 : $ 50,175 : $ 37,905
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 59,825
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is59,825
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income from continuing operations : 12,214 : 10,788 : 9,737
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : 12,214
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is12,214
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) from discontinued operations : 706 : (51) : 0
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : 706
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is706
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income : 12,920 : 10,737 : 9,737
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : 12,920
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is12,920
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - basic: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - basic (in dollars per share) : $ 38.82 : $ 32.81 : $ 30.17
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 38.82
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted (in dollars per share) : $ 38.13 : $ 32.31 : $ 29.76
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 38.13
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:testBlock() --- Found block pattern: per share | In line:  : Net income (loss) per share of Class A and Class B common stock - basic: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income (loss) per share of Class A and Class B common stock - diluted (in dollars per share) : $ 38.13 : $ 32.31 : $ 29.76
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 38.13
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is38.13
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:writeEpsToEarnings() --- Writing eps of 38.13
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended : Dec. 31, 2013 : Jun. 28, 2013 : Jan. 30, 2014
+
+ : Class A Common Stock : Jan. 30, 2014
+
+ : Class B Common Stock : Document Information [Line Items] : &#xA0; : &#xA0; : &#xA0; : &#xA0; : Document Type : 10-K : &#xA0; : &#xA0; : &#xA0; : Amendment Flag : false : &#xA0; : &#xA0; : &#xA0; : Document Period End Date : Dec. 31,
+				 2013 : &#xA0; : &#xA0; : &#xA0; : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0; : &#xA0; : Document Fiscal Period Focus : FY : &#xA0; : &#xA0; : &#xA0; : Trading Symbol : GOOG : &#xA0; : &#xA0; : &#xA0; : Entity Registrant Name : Google Inc. : &#xA0; : &#xA0; : &#xA0; : Entity Central Index Key : 0001288776 : &#xA0; : &#xA0; : &#xA0; : Current Fiscal Year End Date : --12-31 : &#xA0; : &#xA0; : &#xA0; : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0; : &#xA0; : Entity Current Reporting Status : Yes : &#xA0; : &#xA0; : &#xA0; : Entity Voluntary Filers : No : &#xA0; : &#xA0; : &#xA0; : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0; : &#xA0; : Entity Common Stock, Shares Outstanding : &#xA0; : &#xA0; : 279,883,488 : 56,167,343 : Entity Public Float : &#xA0; : $ 214,573,249,181 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended : Dec. 31, 2013 : Jun. 28, 2013 : Jan. 30, 2014
+
+ : Class A Common Stock : Jan. 30, 2014
+
+ : Class B Common Stock : Document Information [Line Items] : &#xA0; : &#xA0; : &#xA0; : &#xA0; : Document Type : 10-K : &#xA0; : &#xA0; : &#xA0; : Amendment Flag : false : &#xA0; : &#xA0; : &#xA0; : Document Period End Date : Dec. 31,
+				 2013 : &#xA0; : &#xA0; : &#xA0; : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0; : &#xA0; : Document Fiscal Period Focus : FY : &#xA0; : &#xA0; : &#xA0; : Trading Symbol : GOOG : &#xA0; : &#xA0; : &#xA0; : Entity Registrant Name : Google Inc. : &#xA0; : &#xA0; : &#xA0; : Entity Central Index Key : 0001288776 : &#xA0; : &#xA0; : &#xA0; : Current Fiscal Year End Date : --12-31 : &#xA0; : &#xA0; : &#xA0; : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0; : &#xA0; : Entity Current Reporting Status : Yes : &#xA0; : &#xA0; : &#xA0; : Entity Voluntary Filers : No : &#xA0; : &#xA0; : &#xA0; : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0; : &#xA0; : Entity Common Stock, Shares Outstanding : &#xA0; : &#xA0; : 279,883,488 : 56,167,343 : Entity Public Float : &#xA0; : $ 214,573,249,181 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 12 Months Ended
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31, 2013 : Jun. 28, 2013 : Jan. 30, 2014
+
+ : Class A Common Stock : Jan. 30, 2014
+
+ : Class B Common Stock
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jun. 28, 2013
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jun. 28, 2013
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jan. 30, 2014
+
+ : Class A Common Stock
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jan. 30, 2014
+
+
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Class A Common Stock
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jan. 30, 2014
+
+ : Class B Common Stock
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Jan. 30, 2014
+
+
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Class B Common Stock
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Information [Line Items] : &#xA0; : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Information [Line Items]
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Information [Line Items]
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Information [Line Items]
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type : 10-K : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 10-K
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag : false : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : false
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date : Dec. 31,
+				 2013 : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Dec. 31,
+				 2013
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 2013
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus : FY : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : FY
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Trading Symbol : GOOG : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Trading Symbol
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Trading Symbol
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : GOOG
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name : Google Inc. : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Google Inc.
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key : 0001288776 : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 0001288776
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date : --12-31 : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : --12-31
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Yes
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status : Yes : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Yes
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers : No : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : No
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Large Accelerated Filer
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Common Stock, Shares Outstanding : &#xA0; : &#xA0; : 279,883,488 : 56,167,343
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:tagWithText() --- counter is 0
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:getNumSharesFromCoverReport() ---  Text containing number of shares is  : Entity Common Stock, Shares Outstanding : &#xA0; : &#xA0; : 279,883,488 : 56,167,343
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Parser.cpp:getNumSharesFromCoverReport() --- Got num shares from cover report. They are: 279,883,48814:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '1634' limit 1
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '1634'
+14:24:57 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),38.130000000000003,'12920000000',0,'59825000000','279883488','edgar.com',1634,2013)
+
+2015-Feb-09 14:24:57 INFO 28MB PID  48 Financials.cpp:addEarningsRecordToDB() --- 
+Entered NEW Earnings Record to DB for GOOG. YEAR: 2013 Q: 0 REV: 59825000000 INC: 12920000000 SHARES: 279883488 EPS: 38.13
+14:24:57 DMMM INSERT INTO notes (created_at,note,pertains_to,stock_id,year)VALUES(NOW(),'using shares outstanding from cover report',8,1634,2013)
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '1634') AND (eps.quarter = '0')
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '1634') AND (eps.quarter = '0')
+14:24:57 DMMM DELETE FROM eps WHERE eps.id = '173'
+14:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'BDX'
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Document and Entity Information
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+Document and Entity Information
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Income
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+Consolidated Statements of Income
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Income (Parenthetical)
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Comprehensive Income
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Balance Sheets
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+Consolidated Balance Sheets
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:getUnitsAndCurrency() --- 
+ Title text is :  : Consolidated Statements of Income (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended : Sep. 30, 2013 : Sep. 30, 2012 : Sep. 30, 2011
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Per Share data, unless otherwise specified : 12 Months Ended : Sep. 30, 2013 : Sep. 30, 2012 : Sep. 30, 2011
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Consolidated Statements of Income (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Sep. 30, 2013 : Sep. 30, 2012 : Sep. 30, 2011
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Operations : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Revenues : $ 8,054 : $ 7,708 : $ 7,584
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Revenues : $ 8,054 : $ 7,708 : $ 7,584
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 8,054
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is8,054
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net Income : $ 1,293 : $ 1,170 : $ 1,271
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 1,293
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is1,293
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:testBlock() --- Found block pattern: Earnings per share | In line:  : Basic Earnings per Share : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Diluted Earnings per Share : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Diluted Earnings per Share : $ 6.49 : $ 5.59 : $ 5.62
+ col to get is: 1
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 6.49
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:checkTrPattern() --- 
+ extracted val is6.49
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:writeEpsToEarnings() --- Writing eps of 6.49
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended : Sep. 30, 2013 : Oct. 31, 2013 : Mar. 31, 2013 : Document And Entity Information [Abstract] : &#xA0; : &#xA0; : &#xA0; : Document Type : 10-K : &#xA0; : &#xA0; : Amendment Flag : false : &#xA0; : &#xA0; : Document Period End Date : Sep. 30,
+				 2013 : &#xA0; : &#xA0; : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0; : Document Fiscal Period Focus : FY : &#xA0; : &#xA0; : Trading Symbol : BDX : &#xA0; : &#xA0; : Entity Registrant Name : BECTON DICKINSON & CO : &#xA0; : &#xA0; : Entity Central Index Key : 0000010795 : &#xA0; : &#xA0; : Current Fiscal Year End Date : --09-30 : &#xA0; : &#xA0; : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0; : Entity Current Reporting Status : Yes : &#xA0; : &#xA0; : Entity Voluntary Filers : No : &#xA0; : &#xA0; : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0; : Entity Common Stock, Shares Outstanding : &#xA0; : 194,094,466 : &#xA0; : Entity Public Float : &#xA0; : &#xA0; : $ 18,537,729,489
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended : Sep. 30, 2013 : Oct. 31, 2013 : Mar. 31, 2013 : Document And Entity Information [Abstract] : &#xA0; : &#xA0; : &#xA0; : Document Type : 10-K : &#xA0; : &#xA0; : Amendment Flag : false : &#xA0; : &#xA0; : Document Period End Date : Sep. 30,
+				 2013 : &#xA0; : &#xA0; : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0; : Document Fiscal Period Focus : FY : &#xA0; : &#xA0; : Trading Symbol : BDX : &#xA0; : &#xA0; : Entity Registrant Name : BECTON DICKINSON & CO : &#xA0; : &#xA0; : Entity Central Index Key : 0000010795 : &#xA0; : &#xA0; : Current Fiscal Year End Date : --09-30 : &#xA0; : &#xA0; : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0; : Entity Current Reporting Status : Yes : &#xA0; : &#xA0; : Entity Voluntary Filers : No : &#xA0; : &#xA0; : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0; : Entity Common Stock, Shares Outstanding : &#xA0; : 194,094,466 : &#xA0; : Entity Public Float : &#xA0; : &#xA0; : $ 18,537,729,489
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $) : 12 Months Ended
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document and Entity Information (USD $)
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 12 Months Ended
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sep. 30, 2013 : Oct. 31, 2013 : Mar. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sep. 30, 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sep. 30, 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Oct. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Oct. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document And Entity Information [Abstract] : &#xA0; : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document And Entity Information [Abstract]
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document And Entity Information [Abstract]
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document And Entity Information [Abstract]
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type : 10-K : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Type
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 10-K
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag : false : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Amendment Flag
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : false
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date : Sep. 30,
+				 2013 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Period End Date
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sep. 30,
+				 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus : 2013 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Year Focus
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 2013
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus : FY : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Document Fiscal Period Focus
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : FY
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Trading Symbol : BDX : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Trading Symbol
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Trading Symbol
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : BDX
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name : BECTON DICKINSON & CO : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Registrant Name
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : BECTON DICKINSON & CO
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key : 0000010795 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Central Index Key
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 0000010795
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date : --09-30 : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Current Fiscal Year End Date
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : --09-30
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer : Yes : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Well-known Seasoned Issuer
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Yes
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status : Yes : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Current Reporting Status
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Yes
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers : No : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Voluntary Filers
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : No
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category : Large Accelerated Filer : &#xA0; : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Filer Category
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Large Accelerated Filer
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Entity Common Stock, Shares Outstanding : &#xA0; : 194,094,466 : &#xA0;
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:tagWithText() --- counter is 0
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:getNumSharesFromCoverReport() ---  Text containing number of shares is  : Entity Common Stock, Shares Outstanding : &#xA0; : 194,094,466 : &#xA0;
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Parser.cpp:getNumSharesFromCoverReport() --- Got num shares from cover report. They are: 194,094,46614:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '26' limit 1
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '26'
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 Financials.cpp:insertEp() --- NOT adding earnings to DB. Record for that quarter/year already exists
+2015-Feb-09 14:24:57 ERROR 23MB PID  48 Financials.cpp:addEarningsRecordToDB() --- 
+ FAILED to insert to DB earnings Record to DB for BDX. YEAR: 2013 Q: 0 REV: 8054000000 INC: 1293000000 SHARES: 194094466 EPS: 6.49
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '26') AND (eps.quarter = '0')
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '26') AND (eps.quarter = '0')
+14:24:57 DMMM DELETE FROM eps WHERE eps.id = '169'
+
+2015-Feb-09 14:24:57 INFO 23MB PID  48 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Feb-09 14:24:57 INFO 9MB PID  48 Test.cpp:runSingleQarterTest() --- 
+ --- Running runSingleQarterTest() ---
+14:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'CVX'
+
+2015-Feb-09 14:24:57 INFO 17MB PID  48 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Feb-09 14:24:57 INFO 17MB PID  48 HttpClient.cpp:HttpClient() --- Got curl handle 0x1d23940
+2015-Feb-09 14:24:57 INFO 17MB PID  48 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: 
+
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Document and Entity Information
+
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+Document and Entity Information
+
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income (Unaudited)
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
 Consolidated Statement of Income (Unaudited)
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income (Unaudited) (Parenthetical)
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Comprehensive Income (Unaudited)
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Balance Sheet (Unaudited)
 
-2015-Feb-08 17:06:10 INFO 24MB PID 800 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
 Consolidated Balance Sheet (Unaudited)
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:buildXmlTree() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getUnitsAndCurrency() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getUnitsAndCurrency() --- 
  Title text is :  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3 Months Ended
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3 Months Ended
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014 : Mar. 31, 2013
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014 : Mar. 31, 2013
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income : &#xA0; : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 50,978
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 50,978
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 54,296
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 54,296
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates : 1,922 : 2,284
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates : 1,922 : 2,284
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 1,922
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 1,922
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 2,284
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 2,284
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income : 365 : 238
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income : 365 : 238
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 365
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 365
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 238
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 238
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income : 53,265 : 56,818
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income : 53,265 : 56,818
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- counter is 0
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- counter is 0
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getTrByName() ---  
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getTrByName() ---  
  Data line text is :  : Total Revenues and Other Income : 53,265 : 56,818
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getTrByName() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getTrByName() --- 
  Adding extracted val : 53265
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013 : Revenues and Other Income : &#xA0; : &#xA0; : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2] : Income from equity affiliates : 1,922 : 2,284 : Other income : 365 : 238 : Total Revenues and Other Income : 53,265 : 56,818 : Costs and Other Deductions : &#xA0; : &#xA0; : Purchased crude oil and products : 30,823 : 32,910 : Operating expenses : 6,023 : 5,762 : Selling, general and administrative expenses : 927 : 998 : Exploration expenses : 415 : 247 : Depreciation, depletion and amortization : 4,130 : 3,481 : Taxes other than on income : 3,019 : [2] : 3,137 : [2] : Total Costs and Other Deductions : 45,337 : 46,535 : Income Before Income Tax Expense : 7,928 : 10,283 : Income Tax Expense : 3,407 : 4,044 : Net Income : 4,521 : 6,239 : Less: Net income attributable to noncontrolling interests : 9 : 61 : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1] : Per Share of Common Stock: : &#xA0; : &#xA0; : Net Income Attributable to Chevron Corporation - Basic (in dollars per share) : $ 2.38 : $ 3.20 : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18 : Dividends (in dollars per share) : $ 1 : $ 0.9 : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0; : Basic (in shares) : 1,895,032 : 1,929,014 : Diluted (in shares) : 1,909,424 : 1,943,931 : [1] : Effective January 1, 2014, International Upstream prospectively includes selected amounts previously recognized in International Downstream, which are not material to the company&#x2019;s results of operations and financial position. : [2] : * Includes excise, value-added and similar taxes:$1,946&#xA0;$2,033
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3 Months Ended
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3 Months Ended
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014 : Mar. 31, 2013
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014 : Mar. 31, 2013
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2014
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Mar. 31, 2013
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income : &#xA0; : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues : $ 50,978 : [1],[2] : $ 54,296 : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Sales and other operating revenues
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 50,978
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 50,978
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 54,296
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : $ 54,296
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [1],[2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates : 1,922 : 2,284
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates : 1,922 : 2,284
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income from equity affiliates
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 1,922
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 1,922
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 2,284
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 2,284
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income : 365 : 238
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income : 365 : 238
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Other income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 365
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 365
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 238
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 238
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income : 53,265 : 56,818
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income : 53,265 : 56,818
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Revenues and Other Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 53,265
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 53,265
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 56,818
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 56,818
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions : &#xA0; : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions : &#xA0; : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Costs and Other Deductions
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : &#xA0;
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Purchased crude oil and products : 30,823 : 32,910
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Purchased crude oil and products : 30,823 : 32,910
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Purchased crude oil and products
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Purchased crude oil and products
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Purchased crude oil and products
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Purchased crude oil and products
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 30,823
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 30,823
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 32,910
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 32,910
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Operating expenses : 6,023 : 5,762
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Operating expenses : 6,023 : 5,762
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Operating expenses
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Operating expenses
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Operating expenses
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Operating expenses
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 6,023
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 6,023
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 5,762
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 5,762
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Selling, general and administrative expenses : 927 : 998
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Selling, general and administrative expenses : 927 : 998
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Selling, general and administrative expenses
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Selling, general and administrative expenses
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Selling, general and administrative expenses
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Selling, general and administrative expenses
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 927
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 927
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 998
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 998
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Exploration expenses : 415 : 247
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Exploration expenses : 415 : 247
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Exploration expenses
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Exploration expenses
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Exploration expenses
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Exploration expenses
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 415
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 415
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 247
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 247
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Depreciation, depletion and amortization : 4,130 : 3,481
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Depreciation, depletion and amortization : 4,130 : 3,481
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Depreciation, depletion and amortization
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Depreciation, depletion and amortization
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Depreciation, depletion and amortization
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Depreciation, depletion and amortization
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 4,130
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 4,130
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,481
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,481
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Taxes other than on income : 3,019 : [2] : 3,137 : [2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Taxes other than on income : 3,019 : [2] : 3,137 : [2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Taxes other than on income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Taxes other than on income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Taxes other than on income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Taxes other than on income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,019
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,019
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,137
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,137
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : [2]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Costs and Other Deductions : 45,337 : 46,535
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Costs and Other Deductions : 45,337 : 46,535
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Costs and Other Deductions
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Costs and Other Deductions
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Costs and Other Deductions
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Total Costs and Other Deductions
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 45,337
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 45,337
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 46,535
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 46,535
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Before Income Tax Expense : 7,928 : 10,283
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Before Income Tax Expense : 7,928 : 10,283
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Before Income Tax Expense
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Before Income Tax Expense
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Before Income Tax Expense
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Before Income Tax Expense
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 7,928
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 7,928
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 10,283
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 10,283
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Tax Expense : 3,407 : 4,044
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Tax Expense : 3,407 : 4,044
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Tax Expense
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Tax Expense
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Tax Expense
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Income Tax Expense
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,407
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 3,407
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 4,044
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 4,044
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income : 4,521 : 6,239
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income : 4,521 : 6,239
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 4,521
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 4,521
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 6,239
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 6,239
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Less: Net income attributable to noncontrolling interests : 9 : 61
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Less: Net income attributable to noncontrolling interests : 9 : 61
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Less: Net income attributable to noncontrolling interests
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Less: Net income attributable to noncontrolling interests
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Less: Net income attributable to noncontrolling interests
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Less: Net income attributable to noncontrolling interests
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 9
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 9
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : 61
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : 61
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text: 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text: 
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1]
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- comparing to tag with text:  : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1]
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:tagWithText() --- counter is 0
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:tagWithText() --- counter is 0
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getTrByName() ---  
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getTrByName() ---  
  Data line text is :  : Net Income Attributable to Chevron Corporation : $ 4,512 : [1] : $ 6,178 : [1]
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getTrByName() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getTrByName() --- 
  Adding extracted val : 4512
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getQarterEps() --- Failed to find eps so far. Going to use heuristic #2
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getQarterEps() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getQarterEps() --- Failed to find eps so far. Going to use heuristic #2
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getQarterEps() --- 
  (H2) Found eps block : 
  : Per Share of Common Stock: : &#xA0; : &#xA0;
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getQarterEps() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getQarterEps() --- 
  Found eps in tr : 
  : Net Income Attributable to Chevron Corporation - Diluted (in dollars per share) : $ 2.36 : $ 3.18
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getQarterEps() --- Returning eps value2.360000
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- title text for table is  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013. Which may contain additional info about units in the text: except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() ---  Share data units found in title text of table. units have been set to 000
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getQarterEps() --- Returning eps value2.360000
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- title text for table is  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013. Which may contain additional info about units in the text: except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() ---  Share data units found in title text of table. units have been set to 000
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  Found Num shares block : 
  : Weighted Average Number of Shares Outstanding (000s) : &#xA0; : &#xA0;
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  Found num shares diluted  in : 
  : Diluted (in shares) : 1,909,424 : 1,943,931
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  Numshares extracted are: 1,909,424 wich has 0 decimals
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  using Units 000 , wich differ from table units. Applying to 1909424
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  Adding extracted val : 1909424000
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  Numshares extracted are: 1,943,931 wich has 0 decimals
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  using Units 000 , wich differ from table units. Applying to 1943931
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Parser.cpp:getNumShares() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Parser.cpp:getNumShares() --- 
  Adding extracted val : 1943931000
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Financials.cpp:addEarningsRecordToDB() --- 
-Going to try to insert earnings record to DB for CVX for year 2014 quarter 117:06:10 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '20' limit 1
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '20'
-17:06:10 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),2.3599998950958252,'4512000000',1,'53265000000','1909424000','edgar.com',20,2014)
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Financials.cpp:addEarningsRecordToDB() --- 
+Going to try to insert earnings record to DB for CVX for year 2014 quarter 114:24:57 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '20' limit 1
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '20'
+14:24:57 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),2.3599998950958252,'4512000000',1,'53265000000','1909424000','edgar.com',20,2014)
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 Financials.cpp:addEarningsRecordToDB() --- 
+2015-Feb-09 14:24:57 INFO 25MB PID  48 Financials.cpp:addEarningsRecordToDB() --- 
 Entered NEW Earnings Record to DB for CVX. YEAR: 2014 Q: 1 REV: 53265000000 INC: 4512000000 SHARES: 1909424000 EPS: 2.36
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE ((eps.stock_id = '20') AND (eps.year = '2014')) AND (eps.quarter = '1')
-17:06:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE ((eps.stock_id = '20') AND (eps.year = '2014')) AND (eps.quarter = '1')
-17:06:10 DMMM DELETE FROM eps WHERE eps.id = '149'
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE ((eps.stock_id = '20') AND (eps.year = '2014')) AND (eps.quarter = '1')
+14:24:57 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE ((eps.stock_id = '20') AND (eps.year = '2014')) AND (eps.quarter = '1')
+14:24:57 DMMM DELETE FROM eps WHERE eps.id = '174'
 
-2015-Feb-08 17:06:10 INFO 16MB PID 800 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Feb-09 14:24:57 INFO 25MB PID  48 HttpClient.cpp:~HttpClient() --- shutting down httpclient

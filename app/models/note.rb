@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: notes
+#
+#  id          :integer(4)      not null, primary key
+#  stock_id    :integer(4)
+#  year        :integer(2)      default(2014)
+#  pertains_to :enum([:K10, :Q1 default(:REPORTS)
+#  note        :string(255)
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#
+
+# enum options:
+# enum EnumNotePERTAINS_TO { K10 = 1, Q10 = 2, REPORTS = 3, INCOME_REP = 4, BALANCE_REP = 5, COVER_REP = 6, ROYALTY_TRUST = 7, SHARES_OUTSTANDING = 8 };
+
 class Note < ActiveRecord::Base
   belongs_to :stock
 

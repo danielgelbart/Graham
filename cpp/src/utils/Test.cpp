@@ -8,6 +8,7 @@
 #include "Financials.h"
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
+#include "T_Note.hpp"
 #include "Test.h"
 
 bool
@@ -128,6 +129,102 @@ Test::runSingleYearTest(TestResults& tResults)
   
     // test clean up
     te.erase( te._id() == cvx2013._id());
+
+    // GOOG
+    stock = ts.select( ts._ticker() == string("GOOG")).front();
+    tResults.setStockTickerName( stock._ticker() );
+    // extract to DB
+    filing = getMockFromDisk("GOOG_2013_10k.txt");
+    if ( filing == ""){
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
+    }
+    Info info2( stock._ticker(), 2013, StatementType::K10);
+    edgar.extract10kToDisk( filing, stock, info2);
+
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep goog2013 = te.select( te._stock_id() == stock._id() 
+                              && te._quarter() == 0 ).front();
+    if (goog2013._year() != 2013)
+        tResults.addFailure(testName + "Year should be: 2013, but is: "
+                            + to_string(goog2013._year()) );
+    if (goog2013._quarter() != 0)
+        tResults.addFailure(testName + "Quarter (for 10k)  should be: 0, but is: " + to_string(goog2013._quarter()) );
+
+    if (goog2013._revenue() != "59825000000")
+        tResults.addFailure(testName + "Revenue should be: 59825000000, but is: " + goog2013._revenue() );
+
+    if (goog2013._net_income() != "12920000000")   
+        tResults.addFailure(testName + "Net Income should be: 12920000000, but is: " + goog2013._net_income() );
+
+    if (goog2013._eps() != 38.13)   
+        tResults.addFailure(testName + "(diluted) Eps should be: 38.13, but is: " + to_string(goog2013._eps()) );
+
+//    if (goog2013._shares() != "1103042156")   
+    //      tResults.addFailure(testName + "Number of shares should be: 1103042156, but is: " + goog2013._shares() );
+  
+    // test clean up
+    te.erase( te._id() == goog2013._id());
+
+    // BDX
+    stock = ts.select( ts._ticker() == string("BDX")).front();
+    tResults.setStockTickerName( stock._ticker() );
+    // extract to DB
+    filing = getMockFromDisk("BDX_2013_10k.txt");
+    if ( filing == ""){
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
+    }
+    Info info3( stock._ticker(), 2013, StatementType::K10);
+    edgar.extract10kToDisk( filing, stock, info3);
+
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep bdx2013 = te.select( te._stock_id() == stock._id() 
+                               && te._quarter() == 0 ).front();
+    if (bdx2013._year() != 2013)
+        tResults.addFailure(testName + "Year should be: 2013, but is: "
+                            + to_string(bdx2013._year()) );
+    if (bdx2013._quarter() != 0)
+        tResults.addFailure(testName + "Quarter (for 10k)  should be: 0, but is: " + to_string(bdx2013._quarter()) );
+
+    if (bdx2013._revenue() != "8054000000")
+        tResults.addFailure(testName + "Revenue should be: 8054000000, but is: " + bdx2013._revenue() );
+
+    if (bdx2013._net_income() != "1293000000")   
+        tResults.addFailure(testName + "Net Income should be: 1293000000, but is: " + bdx2013._net_income() );
+
+    if (bdx2013._eps() != 6.49)   
+        tResults.addFailure(testName + "(diluted) Eps should be: 6.49, but is: " + to_string(bdx2013._eps()) );
+
+    if (bdx2013._shares() != "194094466")   
+      tResults.addFailure(testName + "Number of shares should be: 194094466, but is: " + bdx2013._shares() );
+
+/*
+    T_Note tn;
+    if (tn.select( tn._stock_id() == stock._id() 
+                   && tn._pertains_to() == EnumNotePERTAINS_TO::SHARES_OUTSTANDING).empty())
+    {
+        tResults.addFailure(testName + "No note added to indicate shares are from cover report");       
+        return tResults.getResultsSummary();
+    }
+    tn.erase();
+*/
+
+      // test clean up
+    te.erase( te._id() == bdx2013._id());
+
   
     return tResults.getResultsSummary();
 }

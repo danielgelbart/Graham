@@ -12,6 +12,7 @@
 #include "dmmm_dbface.h"
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
+#include "T_Note.hpp"
 #include "Financials.h"
 #include "Parser.h"
 #include <boost/regex.hpp>
@@ -471,19 +472,8 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
     // Save extracted reports
     _reports = *extracted_reports;
 
-    //iterate over extracted_reports and write each one to disk
-    for(auto it=extracted_reports->begin();it!= extracted_reports->end();++it)
-    {
-        if (it->first == ReportType::INCOME)
-        {
-//            addAnualIncomeStatmentToDB(it->second, stock);
-            addSingleAnualIncomeStatmentToDB(it->second, stock);
-        }
-        if (it->first == ReportType::BALANCE)
-        {
-            addBalanceStatmentToDB(it->second, stock);
-        }
-    }
+    addSingleAnualIncomeStatmentToDB(_reports[ReportType::INCOME], stock);
+    addBalanceStatmentToDB(_reports[ReportType::BALANCE], stock);
 }
 void 
 EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr, 
@@ -499,11 +489,27 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
         return;
     }
     O_Ep ep;
+    bool shares_outstanding(false);
     ep._stock_id() = stock._id();
     ep._quarter() = 0; // Anual record
     ep._source() = string("edgar.com");
     parser.parseIncomeTree(tree, ep);
-    addEarningsRecordToDB( stock, ep);
+    if (ep._shares() == "")
+    {
+        ep._shares() = parser.getNumSharesFromCoverReport(
+            _reports[ReportType::COVER]);
+        shares_outstanding = true;
+    }
+    if ( addEarningsRecordToDB( stock, ep) &&
+         shares_outstanding )
+    {
+        O_Note note;
+        note._stock_id() = stock._id();
+        note._year() = ep._year();
+        note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING;
+        note._note() = "using shares outstanding from cover report";
+        note.insert();
+    }
 
     // for testing
     _ep = ep;

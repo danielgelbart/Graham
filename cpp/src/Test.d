@@ -33,5 +33,5 @@ Test.o Test.d : utils/Test.cpp utils/Logger.h utils/Utils.hpp utils/Identifier.h
  include/Financials.h include/../financials/Financials.h \
  include/HttpClient.h include/../utils/HttpClient.h include/Url.h \
  include/../html/Url.h include/types.h include/../parser/types.h \
- dmmm/T_Stock.hpp dmmm/O_Stock.hpp dmmm/T_Ep.hpp utils/Test.h \
- include/Tokenizer.h include/../parser/Tokenizer.h
+ dmmm/T_Stock.hpp dmmm/O_Stock.hpp dmmm/T_Ep.hpp dmmm/T_Note.hpp \
+ utils/Test.h include/Tokenizer.h include/../parser/Tokenizer.h
