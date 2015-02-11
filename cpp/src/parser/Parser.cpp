@@ -1065,7 +1065,7 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
         string trtext = trp->text();
 
         // Should exlode term "per share' to avoid matching eps data
-        regex exclusion_pattern("per share", regex::icase);
+        regex exclusion_pattern("per (common )?share", regex::icase);
         if (regex_search(trtext,exclusion_pattern))
             continue;
 
@@ -1153,8 +1153,8 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
             if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
                              digit_pattern, earnings_data, writeEpsToEarnings)))
                 continue;
-            // For GOOG, AAN
-            eps_pattern.assign("per share ([\\w\\s-]+) (diluted|dilution)",
+            // For GOOG, AAN, ABT
+            eps_pattern.assign("per (common )?share([\\w\\s-]+)(diluted|dilution)",
                                   regex::icase);
             if((foundEps = checkTrPattern(trtext, eps_pattern, units, trp,
                           digit_pattern, earnings_data, writeEpsToEarnings)))

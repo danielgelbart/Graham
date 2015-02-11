@@ -1,187 +1,705 @@
-2015-Feb-11 17:25:27Logger up
-17:25:27 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'AOS'
+2015-Feb-11 17:35:07Logger up
+17:35:07 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.ticker = 'ABT'
+17:35:07 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id > '34'
 
-2015-Feb-11 17:25:27 INFO 6MB PID 552 Test.cpp:getReportsTest() --- 
- --- Testing retreval of reports forAOS  ---
-17:25:27 DMMM SELECT DATABASE()
+2015-Feb-11 17:35:07 INFO 11MB PID 448 Test.cpp:getReportsTest() --- 
+ --- Testing retreval of reports forANF  ---
+17:35:07 DMMM SELECT DATABASE()
 
-2015-Feb-11 17:25:27 INFO 6MB PID 552 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2015-Feb-11 17:25:27 INFO 6MB PID 552 HttpClient.cpp:HttpClient() --- Got curl handle 0x12f5d80
-2015-Feb-11 17:25:27 INFO 6MB PID 552 HttpClient.cpp:HttpClient() --- Using default interface
-2015-Feb-11 17:25:27 INFO 7MB PID 552 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=91142&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-11 17:25:27 INFO 7MB PID 552 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=91142&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Financials.cpp:getLastYear10KAcn() --- Got search results for AOS
+2015-Feb-11 17:35:07 INFO 11MB PID 448 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Feb-11 17:35:07 INFO 11MB PID 448 HttpClient.cpp:HttpClient() --- Got curl handle 0xfed9d0
+2015-Feb-11 17:35:07 INFO 11MB PID 448 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Feb-11 17:35:07 INFO 11MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1018840&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:07 INFO 11MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1018840&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got search results for ANF
 
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Parser.cpp:buildXmlTree() --- 
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Parser.cpp:trToAcn() --- 
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Parser.cpp:trToAcn() --- 
  Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-14-060153 filed on date2014-Feb-20
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-13-080129 filed on date2013-Feb-27
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Financials.cpp:getLastYear10KAcn() --- Got acn 0001193125-14-060153
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001018840-14-000033 filed on date2014-Mar-31
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001018840-13-000012 filed on date2013-Apr-02
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got acn 0001018840-14-000033
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
 
-2015-Feb-11 17:25:28 INFO 7MB PID 552 Financials.cpp:getEdgarFiling() --- Created url string
+2015-Feb-11 17:35:08 INFO 12MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
 
-2015-Feb-11 17:25:28 INFO 7MB PID 552 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/91142/0001193125-14-060153.txt
-2015-Feb-11 17:25:28 INFO 7MB PID 552 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/91142/0001193125-14-060153.txt
-2015-Feb-11 17:25:29 INFO 20MB PID 552 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Financials.cpp:getEdgarFiling() --- downloaded page
+2015-Feb-11 17:35:08 INFO 12MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/1018840/0001018840-14-000033.txt
+2015-Feb-11 17:35:08 INFO 12MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/1018840/0001018840-14-000033.txt
+2015-Feb-11 17:35:09 INFO 26MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
 
-2015-Feb-11 17:25:29 INFO 20MB PID 552 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=91142&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-11 17:25:29 INFO 20MB PID 552 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=91142&type=10-k&dateb=&owner=exclude&count=40
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:buildXmlTree() --- 
+2015-Feb-11 17:35:09 INFO 26MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1018840&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:09 INFO 26MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1018840&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- 
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- 
  Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-14-060153 filed on date2014-Feb-20
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-13-080129 filed on date2013-Feb-27
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-12-081738 filed on date2012-Feb-27
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-11-045134 filed on date2011-Feb-24
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-10-042097 filed on date2010-Feb-26
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-09-037280 filed on date2009-Feb-25
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-08-034592 filed on date2008-Feb-20
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-07-033962 filed on date2007-Feb-16
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-06-038388 filed on date2006-Feb-24
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-05-032911 filed on date2005-Feb-18
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Parser.cpp:trToAcn() --- Extracted ACN: 0000897069-04-000452 filed on date2004-Feb-23
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Financials.cpp:getSingleYear() --- 
- Got Acn: 0001193125-14-060153 date: 2014-Feb-20 quartr: 017:25:29 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '30'
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001018840-14-000033 filed on date2014-Mar-31
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001018840-13-000012 filed on date2013-Apr-02
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-12-134456 filed on date2012-Mar-27
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950123-11-030172 filed on date2011-Mar-29
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950123-10-029409 filed on date2010-Mar-29
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950152-09-003195 filed on date2009-Mar-27
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950152-08-002415 filed on date2008-Mar-28
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950152-07-002885 filed on date2007-Mar-30
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950152-06-003026 filed on date2006-Apr-07
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950152-05-003151 filed on date2005-Apr-14
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- 
+ This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0000950152-05-003092&nbsp;(34 Act)&nbsp; Size: 272 KB             : [Amend] : 2005-04-12 : 05746865          : 001-12107
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950152-04-002881 filed on date2004-Apr-14
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0001018840-14-000033 date: 2014-Mar-31 quartr: 017:35:09 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '35'
 
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Financials.cpp:reportWithin3Months() --- 
- Looking for report end date of 2013-Dec-31
- Report handled is from 2014-Feb-20
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Financials.cpp:getSingleYear() --- Got ACN for specific year 2013
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:reportWithin3Months() --- 
+ Looking for report end date of 2013-Feb-01
+ Report handled is from 2014-Mar-31
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0001018840-13-000012 date: 2013-Apr-02 quartr: 017:35:09 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '35'
 
-2015-Feb-11 17:25:29 INFO 20MB PID 552 Financials.cpp:getEdgarFiling() --- Created url string
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:reportWithin3Months() --- 
+ Looking for report end date of 2013-Feb-01
+ Report handled is from 2013-Apr-02
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:getSingleYear() --- Got ACN for specific year 2013
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
 
-2015-Feb-11 17:25:29 INFO 20MB PID 552 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/91142/0001193125-14-060153.txt
-2015-Feb-11 17:25:29 INFO 20MB PID 552 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/91142/0001193125-14-060153.txt
-2015-Feb-11 17:25:31 INFO 45MB PID 552 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Financials.cpp:getEdgarFiling() --- downloaded page
+2015-Feb-11 17:35:09 INFO 26MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+2015-Feb-11 17:35:09 INFO 26MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/1018840/0001018840-13-000012.txt
+2015-Feb-11 17:35:09 INFO 26MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/1018840/0001018840-13-000012.txt
+2015-Feb-11 17:35:10 INFO 56MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: 
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Document and Entity Information
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
 Document and Entity Information
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Operations and Comprehensive Income
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+Consolidated Statements of Operations and Comprehensive Income
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Operations and Comprehensive Income (Parenthetical)
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Balance Sheets
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
 Consolidated Balance Sheets
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- 
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:getUnitsAndCurrency() --- 
+ Title text is :  : Consolidated Statements of Operations and Comprehensive Income (USD $)In Thousands, except Per Share data, unless otherwise specified : 12 Months Ended : Feb. 02, 2013 : Jan. 28, 2012 : Jan. 29, 2011
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000 Currency is being set to USD
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Per Share data, unless otherwise specified : 12 Months Ended : Feb. 02, 2013 : Jan. 28, 2012 : Jan. 29, 2011
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Consolidated Statements of Operations and Comprehensive Income (USD $)In Thousands, except Per Share data, unless otherwise specified : 12 Months Ended
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Feb. 02, 2013 : Jan. 28, 2012 : Jan. 29, 2011
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Income Statement [Abstract] : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : NET SALES : $ 4,510,805 : $ 4,158,058 : $ 3,468,777
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : NET SALES : $ 4,510,805 : $ 4,158,058 : $ 3,468,777
+ col to get is: 1
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 4,510,805
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is4,510,805
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:extractNetIncome() --- extractNetIncome() called
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : NET INCOME FROM CONTINUING OPERATIONS : 237,011 : 143,138 : 155,709
+ col to get is: 1
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : 237,011
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is237,011
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : NET INCOME : 237,011 : 143,934 : 155,709
+ col to get is: 1
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : 237,011
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is237,011
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:testBlock() --- Found block pattern: per share | In line:  : NET INCOME PER SHARE FROM CONTINUING OPERATIONS: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : DILUTED (in dollars per share) : $ 2.85 : $ 1.60 : $ 1.73
+ col to get is: 1
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 2.85
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is2.85
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:writeEpsToEarnings() --- Writing eps of 2.85
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:testBlock() --- Found block pattern: shares outstanding | In line:  : WEIGHTED-AVERAGE SHARES OUTSTANDING: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : DILUTED (in shares) : 83,175 : 89,537 : 89,851
+ col to get is: 1
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : 83,175
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is83,175
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:writeNsToEarnings() --- units for shares are:  general units are000
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:writeNsToEarnings() --- 
+ Clean match for value with dec point is 83175which has 0 decimals
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:writeNsToEarnings() --- 
+**NOTE: Retrieved numshares value of: 83175 wich seems low, as well as not being able to extract units for numshares. Therefore, using units found for general porpuse 000 
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 83175000
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully shares outstanding17:35:10 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '35' limit 1
+17:35:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '35'
+17:35:10 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),2.8500000000000001,'237011000',0,'4510805000','83175000','edgar.com',35,2013)
+
+2015-Feb-11 17:35:10 INFO 56MB PID 448 Financials.cpp:addEarningsRecordToDB() --- 
+Entered NEW Earnings Record to DB for ANF. YEAR: 2013 Q: 0 REV: 4510805000 INC: 237011000 SHARES: 83175000 EPS: 2.85
+
+2015-Feb-11 17:35:10 INFO 42MB PID 448 Test.cpp:getReportsTest() --- Got 3 reports
+17:35:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '35') AND (eps.year = '2013')
+17:35:10 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '35') AND (eps.year = '2013')
+
+2015-Feb-11 17:35:10 INFO 42MB PID 448 Test.cpp:getReportsTest() --- 
+ Testing values extracted for eps record with id: 451, stock_id is: 35 year 2013, revenue: 4510805000, income: 237011000, and eps: 2.850000
+17:35:10 DMMM DELETE FROM eps WHERE eps.id = '451'
+
+2015-Feb-11 17:35:10 INFO 42MB PID 448 Test.cpp:getReportsTest() --- 
+Great!!! Everything is working
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Test.cpp:getReportsTest() --- 
+ --- Testing retreval of reports forABM  ---
+17:35:10 DMMM SELECT DATABASE()
+
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:HttpClient() --- Got curl handle 0xf5c010
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=771497&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=771497&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got search results for ABM
+
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Parser.cpp:trToAcn() --- 
+ Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001445305-14-005592 filed on date2014-Dec-17
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-13-477634 filed on date2013-Dec-18
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got acn 0001445305-14-005592
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+
+2015-Feb-11 17:35:10 INFO 28MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
+
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/771497/0001445305-14-005592.txt
+2015-Feb-11 17:35:10 INFO 28MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/771497/0001445305-14-005592.txt
+2015-Feb-11 17:35:12 INFO 50MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
+
+2015-Feb-11 17:35:12 INFO 50MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=771497&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:12 INFO 50MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=771497&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- 
+ Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001445305-14-005592 filed on date2014-Dec-17
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-13-477634 filed on date2013-Dec-18
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-12-509900 filed on date2012-Dec-20
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-11-351704 filed on date2011-Dec-23
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950123-10-116105 filed on date2010-Dec-23
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950123-09-072792 filed on date2009-Dec-22
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- 
+ This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0000950123-09-000855&nbsp;(34 Act)&nbsp; Size: 1 MB             : [Amend] : 2009-01-20 : 09534400          : 001-08929
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950123-08-018152 filed on date2008-Dec-22
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950134-07-026080 filed on date2007-Dec-21
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950134-06-023656 filed on date2006-Dec-22
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950134-06-006158 filed on date2006-Mar-29
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950134-05-000777 filed on date2005-Jan-14
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0001445305-14-005592 date: 2014-Dec-17 quartr: 017:35:12 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '36'
+
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:reportWithin3Months() --- 
+ Looking for report end date of 2013-Oct-31
+ Report handled is from 2014-Dec-17
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0001193125-13-477634 date: 2013-Dec-18 quartr: 017:35:12 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '36'
+
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:reportWithin3Months() --- 
+ Looking for report end date of 2013-Oct-31
+ Report handled is from 2013-Dec-18
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:getSingleYear() --- Got ACN for specific year 2013
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+
+2015-Feb-11 17:35:12 INFO 50MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
+
+2015-Feb-11 17:35:12 INFO 50MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/771497/0001193125-13-477634.txt
+2015-Feb-11 17:35:12 INFO 50MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/771497/0001193125-13-477634.txt
+2015-Feb-11 17:35:14 INFO 59MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: 
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Document and Entity Information
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+Document and Entity Information
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Balance Sheets
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+Consolidated Balance Sheets
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Balance Sheets (Parenthetical)
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- 
- Handling report named: Consolidated Statement of Earnings
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Consolidated Statements of Income
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
-Consolidated Statement of Earnings
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+Consolidated Statements of Income
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:buildXmlTree() --- 
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:getUnitsAndCurrency() --- 
- Title text is :  : Consolidated Statement of Earnings (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
- except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:findColumnToExtract() --- Setting column index to 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:getUnitsAndCurrency() --- 
+ Title text is :  : Consolidated Statements of Income (USD $)In Thousands, except Per Share data, unless otherwise specified : 12 Months Ended : Oct. 31, 2013 : Oct. 31, 2012 : Oct. 31, 2011
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000 Currency is being set to USD
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Per Share data, unless otherwise specified : 12 Months Ended : Oct. 31, 2013 : Oct. 31, 2012 : Oct. 31, 2011
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:findColumnToExtract() --- Setting column index to 1
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
- : Consolidated Statement of Earnings (USD $)In Millions, except Per Share data, unless otherwise specified : 12 Months Ended
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:extractTotalRevenue() --- 
+ : Consolidated Statements of Income (USD $)In Thousands, except Per Share data, unless otherwise specified : 12 Months Ended
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Oct. 31, 2013 : Oct. 31, 2012 : Oct. 31, 2011
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Revenues : $ 4,809,281 : $ 4,300,265 : $ 4,246,842
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Revenues : $ 4,809,281 : $ 4,300,265 : $ 4,246,842
+ col to get is: 1
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 4,809,281
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is4,809,281
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:extractNetIncome() --- extractNetIncome() called
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income : $ 72,900 : $ 62,582 : $ 68,504
+ col to get is: 1
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 72,900
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is72,900
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:extractEps() --- Looking for eps with no block strocture
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income per common share-Diluted : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income per common share-Diluted : $ 1.30 : $ 1.14 : $ 1.27
+ col to get is: 1
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 1.30
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is1.30
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:writeEpsToEarnings() --- Writing eps of 1.30
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:testBlock() --- Found block pattern: shares outstanding | In line:  : Weighted-average common and common equivalent shares outstanding : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Diluted : 56,067 : 54,914 : 54,103
+ col to get is: 1
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : 56,067
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is56,067
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:writeNsToEarnings() --- units for shares are:  general units are000
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:writeNsToEarnings() --- 
+ Clean match for value with dec point is 56067which has 0 decimals
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:writeNsToEarnings() --- 
+**NOTE: Retrieved numshares value of: 56067 wich seems low, as well as not being able to extract units for numshares. Therefore, using units found for general porpuse 000 
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 56067000
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully shares outstanding17:35:14 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '36' limit 1
+17:35:14 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '36'
+17:35:14 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),1.3,'72900000',0,'4809281000','56067000','edgar.com',36,2013)
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Financials.cpp:addEarningsRecordToDB() --- 
+Entered NEW Earnings Record to DB for ABM. YEAR: 2013 Q: 0 REV: 4809281000 INC: 72900000 SHARES: 56067000 EPS: 1.3
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Test.cpp:getReportsTest() --- Got 3 reports
+17:35:14 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '36') AND (eps.year = '2013')
+17:35:14 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '36') AND (eps.year = '2013')
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Test.cpp:getReportsTest() --- 
+ Testing values extracted for eps record with id: 452, stock_id is: 36 year 2013, revenue: 4809281000, income: 72900000, and eps: 1.300000
+17:35:14 DMMM DELETE FROM eps WHERE eps.id = '452'
+
+2015-Feb-11 17:35:14 INFO 59MB PID 448 Test.cpp:getReportsTest() --- 
+Great!!! Everything is working
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Test.cpp:getReportsTest() --- 
+ --- Testing retreval of reports forAKR  ---
+17:35:14 DMMM SELECT DATABASE()
+
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:HttpClient() --- Got curl handle 0xf5c010
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=899629&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=899629&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got search results for AKR
+
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Parser.cpp:trToAcn() --- 
+ Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000899629-14-000008 filed on date2014-Feb-26
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000899629-13-000007 filed on date2013-Feb-27
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got acn 0000899629-14-000008
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+
+2015-Feb-11 17:35:14 INFO 41MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
+
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/899629/0000899629-14-000008.txt
+2015-Feb-11 17:35:14 INFO 41MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/899629/0000899629-14-000008.txt
+2015-Feb-11 17:35:16 INFO 67MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
+
+2015-Feb-11 17:35:16 INFO 67MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=899629&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:16 INFO 67MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=899629&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- 
+ Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000899629-14-000008 filed on date2014-Feb-26
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000899629-13-000007 filed on date2013-Feb-27
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- 
+ This is an AMEND to a previous statement:  : 10-K/A : &nbsp;  : &nbsp;Documents : &nbsp;Interactive Data : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0001445305-12-000787&nbsp;(34 Act)&nbsp; Size: 22 MB             : [Amend] : 2012-03-26 : 12714681          : 001-12002
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001445305-12-000495 filed on date2012-Feb-28
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000930413-11-001472 filed on date2011-Feb-28
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000930413-10-001152 filed on date2010-Mar-01
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000930413-09-001102 filed on date2009-Feb-27
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000893220-08-000567 filed on date2008-Feb-29
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000893220-07-000543 filed on date2007-Mar-01
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- 
+ This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0001116679-06-001388&nbsp;(34 Act)&nbsp; Size: 128 KB             : [Amend] : 2006-05-12 : 06836043          : 001-12002
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950116-06-000805 filed on date2006-Mar-16
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950116-05-001036 filed on date2005-Mar-16
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0000950116-04-000843 filed on date2004-Mar-15
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0000899629-14-000008 date: 2014-Feb-26 quartr: 017:35:16 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '37'
+
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Financials.cpp:reportWithin3Months() --- 
+ Looking for report end date of 2013-Dec-31
+ Report handled is from 2014-Feb-26
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Financials.cpp:getSingleYear() --- Got ACN for specific year 2013
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+
+2015-Feb-11 17:35:16 INFO 67MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
+
+2015-Feb-11 17:35:16 INFO 67MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/899629/0000899629-14-000008.txt
+2015-Feb-11 17:35:16 INFO 67MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/899629/0000899629-14-000008.txt
+2015-Feb-11 17:35:18 INFO 93MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: 
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Document And Entity Information
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+Document And Entity Information
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED BALANCE SHEETS
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+CONSOLIDATED BALANCE SHEETS
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED BALANCE SHEETS (Parentheticals)
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED STATEMENTS OF INCOME
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+CONSOLIDATED STATEMENTS OF INCOME
+
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:getUnitsAndCurrency() --- 
+ Title text is :  : CONSOLIDATED STATEMENTS OF INCOME (USD $)In Thousands, except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000 Currency is being set to USD
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Per Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:findColumnToExtract() --- Setting column index to 1
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : CONSOLIDATED STATEMENTS OF INCOME (USD $)In Thousands, except Per Share data, unless otherwise specified : 12 Months Ended
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
  : Dec. 31, 2013 : Dec. 31, 2012 : Dec. 31, 2011
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:extractTotalRevenue() --- 
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:extractTotalRevenue() --- 
  Handling line - 
- : Continuing Operations : &#xA0; : &#xA0; : &#xA0;
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:extractTotalRevenue() --- 
- Handling line - 
- : Net sales : $ 2,153.8 : $ 1,939.3 : $ 1,710.5
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Net sales : $ 2,153.8 : $ 1,939.3 : $ 1,710.5
+ : Revenues : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Revenues : &#xA0; : &#xA0; : &#xA0;
  col to get is: 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 2,153.8
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- extracted val is2,153.8
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:adjustForDecimals() --- units are 000000 and I counted 1 for value 21538 so shortend units to 00000
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:extractNetIncome() --- extractNetIncome() called
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Net Earnings : $ 169.7 : $ 158.7 : $ 305.7
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:testBlock() --- Found block pattern: ^((\s|:)*Revenues?) | In line:  : Revenues : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Total revenues : 168,286 : 114,987 : 97,857
  col to get is: 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 169.7
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- extracted val is169.7
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:adjustForDecimals() --- units are 000000 and I counted 1 for value 1697 so shortend units to 00000
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Net Earnings : $ 1.84 : $ 1.72 : $ 3.31
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : 168,286
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is168,286
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:extractNetIncome() --- extractNetIncome() called
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income : 44,640 : 89,936 : 53,715
  col to get is: 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 1.84
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Net Earnings : $ 1.83 : $ 1.71 : $ 3.28
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : 44,640
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is44,640
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income attributable to noncontrolling interests : (4,525) : (50,230) : (2,160)
  col to get is: 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 1.83
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:extractEps() --- extractEps() called
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:testBlock() --- Found block pattern: per share | In line:  : Net Earnings (Loss) Per Share of Common Stock : &#xA0; : &#xA0; : &#xA0;
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Net Earnings : $ 1.84 : $ 1.72 : $ 3.31
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : (4,525)
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is(4,525)
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income attributable to noncontrolling interests : (4,525) : (50,230) : (2,160)
  col to get is: 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 1.84
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- extracted val is1.84
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:writeEpsToEarnings() --- Writing eps of 1.84
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : (4,525)
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is(4,525)
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found Net Income
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:testBlock() --- Found block pattern: Earnings per share | In line:  : Basic earnings per share : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Diluted earnings per share : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Diluted earnings per share (in dollars per share) : $ 0.72 : $ 0.85 : $ 1.25
+ col to get is: 1
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 0.72
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is0.72
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:writeEpsToEarnings() --- Writing eps of 0.72
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Diluted Net Earnings (Loss) Per Share of Common Stock : &#xA0; : &#xA0; : &#xA0;
- col to get is: 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- regex match in text:  : Net Earnings : $ 1.83 : $ 1.71 : $ 3.28
- col to get is: 1
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 1.83
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:checkTrPattern() --- 
- extracted val is1.83
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:writeEpsToEarnings() --- Writing eps of 1.83
-
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:parseIncomeTree() --- Succesfully found eps
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:extractNumShares() --- extractNumShares() called
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:buildXmlTree() --- 
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:tagWithText() --- counter is 0
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:getNumSharesFromCoverReport() --- Found possible additional units in title text:  : Document And Entity Information (USD $)In Millions, except Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Feb. 26, 2014 : Jun. 30, 2013
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Share data, unless otherwise specified : 12 Months Ended : Dec. 31, 2013 : Feb. 26, 2014 : Jun. 30, 2013
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:tagWithText() --- counter is 0
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:getNumSharesFromCoverReport() ---  Text containing number of shares is  : Entity Common Stock, Shares Outstanding : &#xA0; : 13,221,468 : &#xA0; : 78,027,765 : &#xA0;
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Parser.cpp:getNumSharesFromCoverReport() --- Got num shares from cover report. They are: 13,221,46817:25:31 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '30' limit 1
-17:25:31 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '30'
-17:25:31 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),1.8300000000000001,'169700000',0,'2153800000','13221468','edgar.com',30,2013)
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:getNumSharesFromCoverReport() ---  Text containing number of shares is  : Entity Common Stock, Shares Outstanding : &#xA0; : 55,903,470 : &#xA0;
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Parser.cpp:getNumSharesFromCoverReport() --- Got num shares from cover report. They are: 55,903,47017:35:18 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.ttm_eps,stocks.book_value_per_share,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end FROM stocks WHERE stocks.id = '37' limit 1
+17:35:18 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '37'
+17:35:18 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),0.71999999999999997,'-4525000',0,'168286000','55903470','edgar.com',37,2013)
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Financials.cpp:addEarningsRecordToDB() --- 
-Entered NEW Earnings Record to DB for AOS. YEAR: 2013 Q: 0 REV: 2153800000 INC: 169700000 SHARES: 13221468 EPS: 1.83
-17:25:31 DMMM INSERT INTO notes (created_at,note,pertains_to,stock_id,year)VALUES(NOW(),'using shares outstanding from cover report',8,30,2013)
+2015-Feb-11 17:35:18 INFO 93MB PID 448 Financials.cpp:addEarningsRecordToDB() --- 
+Entered NEW Earnings Record to DB for AKR. YEAR: 2013 Q: 0 REV: 168286000 INC: -4525000 SHARES: 55903470 EPS: 0.72
+17:35:18 DMMM INSERT INTO notes (created_at,note,pertains_to,stock_id,year)VALUES(NOW(),'using shares outstanding from cover report',8,37,2013)
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Test.cpp:getReportsTest() --- Got 3 reports
-17:25:31 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '30') AND (eps.year = '2013')
-17:25:31 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '30') AND (eps.year = '2013')
+2015-Feb-11 17:35:18 INFO 67MB PID 448 Test.cpp:getReportsTest() --- Got 3 reports
+17:35:18 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '37') AND (eps.year = '2013')
+17:35:18 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE (eps.stock_id = '37') AND (eps.year = '2013')
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Test.cpp:getReportsTest() --- 
- Testing values extracted for eps record with id: 436, stock_id is: 30 year 2013, revenue: 2153800000, income: 169700000, and eps: 1.830000
-17:25:31 DMMM DELETE FROM eps WHERE eps.id = '436'
+2015-Feb-11 17:35:18 INFO 67MB PID 448 Test.cpp:getReportsTest() --- 
+ Testing values extracted for eps record with id: 453, stock_id is: 37 year 2013, revenue: 168286000, income: -4525000, and eps: 0.720000
+17:35:18 DMMM DELETE FROM eps WHERE eps.id = '453'
 
-2015-Feb-11 17:25:31 INFO 45MB PID 552 Test.cpp:getReportsTest() --- 
+2015-Feb-11 17:35:18 INFO 67MB PID 448 Test.cpp:getReportsTest() --- 
 Great!!! Everything is working
-2015-Feb-11 17:25:31 INFO 33MB PID 552 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Test.cpp:getReportsTest() --- 
+ --- Testing retreval of reports forACN  ---
+17:35:18 DMMM SELECT DATABASE()
+
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:HttpClient() --- Got curl handle 0xf5c010
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1467373&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1467373&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got search results for ACN
+
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Parser.cpp:trToAcn() --- 
+ Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001467373-14-000467 filed on date2014-Oct-24
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001467373-13-000482 filed on date2013-Oct-29
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Financials.cpp:getLastYear10KAcn() --- Got acn 0001467373-14-000467
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+
+2015-Feb-11 17:35:18 INFO 41MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
+
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/1467373/0001467373-14-000467.txt
+2015-Feb-11 17:35:18 INFO 41MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/1467373/0001467373-14-000467.txt
+2015-Feb-11 17:35:20 INFO 50MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
+
+2015-Feb-11 17:35:20 INFO 50MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1467373&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:20 INFO 50MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1467373&type=10-k&dateb=&owner=exclude&count=40
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- 
+ Could not extract acn from tr with text:  : Filings : Format : Description : Filing Date : File/Film Number
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001467373-14-000467 filed on date2014-Oct-24
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001467373-13-000482 filed on date2013-Oct-29
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- 
+ This is an AMEND to a previous statement:  : 10-K/A : &nbsp;Documents : Annual report [Section 13 and 15(d), not S-K Item 405]Acc-no: 0001467373-12-000189&nbsp;(34 Act)&nbsp; Size: 49 KB             : [Amend] : 2012-11-08 : 121188512          : 001-34448
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001467373-12-000170 filed on date2012-Oct-30
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-11-277309 filed on date2011-Oct-21
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-10-235847 filed on date2010-Oct-26
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Parser.cpp:trToAcn() --- Extracted ACN: 0001193125-09-209671 filed on date2009-Oct-19
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0001467373-14-000467 date: 2014-Oct-24 quartr: 017:35:20 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '38'
+
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:reportWithin3Months() --- 
+ Looking for report end date of 2013-Aug-31
+ Report handled is from 2014-Oct-24
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:getSingleYear() --- 
+ Got Acn: 0001467373-13-000482 date: 2013-Oct-29 quartr: 017:35:20 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares FROM eps WHERE eps.stock_id = '38'
+
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:reportWithin3Months() --- 
+ Looking for report end date of 2013-Aug-31
+ Report handled is from 2013-Oct-29
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:getSingleYear() --- Got ACN for specific year 2013
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:getEdgarFiling() --- Called getEdgarFiling()
+
+2015-Feb-11 17:35:20 INFO 50MB PID 448 Financials.cpp:getEdgarFiling() --- Created url string
+
+2015-Feb-11 17:35:20 INFO 50MB PID 448 HttpClient.cpp:httpGet() --- GETing http://www.sec.gov/Archives/edgar/data/1467373/0001467373-13-000482.txt
+2015-Feb-11 17:35:20 INFO 50MB PID 448 HttpClient.cpp:escapeUrl() --- actual get string: http://www.sec.gov/Archives/edgar/data/1467373/0001467373-13-000482.txt
+2015-Feb-11 17:35:21 INFO 88MB PID 448 HttpClient.cpp:httpGet() --- Content type differs: Content-Type: text/plain rather than text/html
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Financials.cpp:getEdgarFiling() --- downloaded page
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: 
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: Document and Entity Information
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+Document and Entity Information
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED BALANCE SHEETS
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+CONSOLIDATED BALANCE SHEETS
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED BALANCE SHEETS (Parenthetical)
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- 
+ Handling report named: CONSOLIDATED INCOME STATEMENTS
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+CONSOLIDATED INCOME STATEMENTS
+
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:buildXmlTree() --- 
+ going to build xml tree
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:getUnitsAndCurrency() --- 
+ Title text is :  : CONSOLIDATED INCOME STATEMENTS (USD $)In Thousands, except Share data, unless otherwise specified : 12 Months Ended : Aug. 31, 2013 : Aug. 31, 2012 : Aug. 31, 2011
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000 Currency is being set to USD
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:get_units_from_text() --- Could not extract units from text: 
+ except Share data, unless otherwise specified : 12 Months Ended : Aug. 31, 2013 : Aug. 31, 2012 : Aug. 31, 2011
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:findColumnToExtract() --- Setting column index to 1
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : CONSOLIDATED INCOME STATEMENTS (USD $)In Thousands, except Share data, unless otherwise specified : 12 Months Ended
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : Aug. 31, 2013 : Aug. 31, 2012 : Aug. 31, 2011
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:extractTotalRevenue() --- 
+ Handling line - 
+ : REVENUES: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : REVENUES: : &#xA0; : &#xA0; : &#xA0;
+ col to get is: 1
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:extractTotalRevenue() --- Looking for revenue by block strocture
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:testBlock() --- Found block pattern: ^((\s|:)*Revenues?) | In line:  : REVENUES: : &#xA0; : &#xA0; : &#xA0;
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Revenues before reimbursements (Net revenues) : $ 28,562,810 : $ 27,862,330 : $ 25,507,036
+ col to get is: 1
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 28,562,810
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is28,562,810
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:extractNetIncome() --- extractNetIncome() called
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : NET INCOME : 3,554,519 : 2,824,933 : 2,553,240
+ col to get is: 1
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : 3,554,519
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is3,554,519
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income attributable to noncontrolling interests in Accenture SCA and Accenture Canada Holdings Inc. : (234,398) : [1] : (237,520) : [1] : (243,575) : [1]
+ col to get is: 1
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : (234,398)
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is(234,398)
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : Net income attributable to noncontrolling interests in Accenture SCA and Accenture Canada Holdings Inc. : (234,398) : [1] : (237,520) : [1] : (243,575) : [1]
+ col to get is: 1
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- Matching val from text:  : (234,398)
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ extracted val is(234,398)
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:parseIncomeTree() --- Succesfully found Net Income
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:extractEps() --- extractEps() called
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:testBlock() --- Found block pattern: Earnings per share | In line:  : [1] : Diluted earnings per share assumes the redemption of all Accenture SCA Class I common shares owned by holders of noncontrolling interests and the exchange of all Accenture Canada Holdings Inc. exchangeable shares for Accenture plc Class&#xA0;A ordinary shares, on a one-for-one basis. The income effect does not take into account &#x201C;Net income attributable to noncontrolling interests&#x2014;other,&#x201D; since those shares are not redeemable or exchangeable for Accenture plc Class&#xA0;A ordinary shares. : [2] : 2013 diluted weighted average Accenture plc Class&#xA0;A ordinary shares and earnings per share amounts have been restated to reflect the impact of the issuance of additional restricted share units to holders of restricted share units in connection with the fiscal 2013 payment of cash dividends. This did not result in a change to previously reported Diluted earnings per share. : [3] : Fiscal 2012 and 2011 diluted weighted average Accenture plc Class&#xA0;A ordinary shares and earnings per share amounts have been restated to reflect the impact of the issuance of additional restricted share units to holders of restricted share units in connection with the fiscal 2013 payment of cash dividends. This did not result in a change to previously reported Diluted earnings per share. : [4] : Fiscal 2012 diluted weighted average Accenture plc Class&#xA0;A ordinary shares and earnings per share amounts have been restated to reflect the impact of the issuance of additional restricted share units to holders of restricted share units in connection with the fiscal 2013 payment of cash dividends. This did not result in a change to previously reported Diluted earnings per share.
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:extractEps() --- Looking for eps with no block strocture
+2015-Feb-11 17:35:21 INFO 88MB PID 448 Parser.cpp:checkTrPattern() --- 
+ regex match in text:  : [1] : Diluted earnings per share assumes the redemption of all Accenture SCA Class I common shares owned by holders of noncontrolling interests and the exchange of all Accenture Canada Holdings Inc. exchangeable shares for Accenture plc Class&#xA0;A ordinary shares, on a one-for-one basis. The income effect does not take into account &#x201C;Net income attributable to noncontrolling interests&#x2014;other,&#x201D; since those shares are not redeemable or exchangeable for Accenture plc Class&#xA0;A ordinary shares. : [2] : 2013 diluted weighted average Accenture plc Class&#xA0;A ordinary shares and earnings per share amounts have been restated to reflect the impact of the issuance of additional restricted share units to holders of restricted share units in connection with the fiscal 2013 payment of cash dividends. This did not result in a change to previously reported Diluted earnings per share. : [3] : Fiscal 2012 and 2011 diluted weighted average Accenture plc Class&#xA0;A ordinary shares and earnings per share amounts have been restated to reflect the impact of the issuance of additional restricted share units to holders of restricted share units in connection with the fiscal 2013 payment of cash dividends. This did not result in a change to previously reported Diluted earnings per share. : [4] : Fiscal 2012 diluted weighted average Accenture plc Class&#xA0;A ordinary shares and earnings per share amounts have been restated to reflect the impact of the issuance of additional restricted share units to holders of restricted share units in connection with the fiscal 2013 payment of cash dividends. This did not result in a change to previously reported Diluted earnings per share.
+ col to get is: 1
