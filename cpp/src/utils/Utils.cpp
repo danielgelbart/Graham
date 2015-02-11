@@ -111,9 +111,22 @@ removeNonDigit(string& str)
 
     for ( auto it = str.begin() ; it != str.end() ; ++it)
     {
-//       allow decimal point;
         if ( ((*it - '0') > 9)   ||
-             ((*it - '0') < 0) ) //boost::regex_match( singleChar, digitPat) ) 
+             ((*it - '0') < 0) )
+            continue;
+        ret += *it;
+    }
+    return ret;
+}
+
+string
+removeParenthasis(string& str)
+{
+    string ret("");
+    for ( auto it = str.begin() ; it != str.end() ; ++it)
+    {
+        if ( (*it == '(' )   ||
+             (*it == ')' )    )
             continue;
         ret += *it;
     }

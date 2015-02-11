@@ -103,7 +103,7 @@ private:
 
 class Parser {
 public:
-    Parser():_col_num(0) {}
+    Parser():_col_num(0){}
 
     XmlElement* buildXmlTree(string& xmlDocument);
     void parseXML(XmlElement* node, Tokenizer& tok);
@@ -135,7 +135,6 @@ public:
     string getNumSharesFromCoverReport(string& report);
     string extractFiscalDateFromReport(string& report);
     void set_stock(DMMM::O_Stock& stock);
-
 private:
 
     XmlTokenType tokenType( string& xml);

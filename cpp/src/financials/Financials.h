@@ -19,7 +19,7 @@ using namespace DMMM;
 class EdgarData {
     friend class Test;
 public:
-    EdgarData() : 
+    EdgarData() :
         mHttpClient(std::string("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"))
         {}
 
@@ -29,12 +29,13 @@ public:
     void createTtmEps(O_Stock& stock);
 
     bool getSingleYear(O_Stock& stock, size_t year);    
-    void extract10kToDisk(string& k10, O_Stock& stock, Info& info);
+    void extract10kToDisk(string& k10, O_Stock& stock, size_t year);
     void addAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
                                     bool singleYear = true);
-    void addSingleAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock);
+    void addSingleAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
+                                          size_t year);
 
-    void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock);
+    void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock, size_t year);
 
     void updateFinancials(O_Stock& stock);
     bool getFiscalYearEndDate(O_Stock& stock);

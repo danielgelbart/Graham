@@ -7,6 +7,7 @@ using namespace boost::filesystem;
 using namespace boost::gregorian;
 using namespace std;
 
+// expects format of: Dec. 23, 2013
 date
 convertFromDocString(string& docStr)
 {
@@ -36,7 +37,24 @@ date
 calculateEndDate(string fyenStr, greg_year year, size_t quarter)
 {
     date annualendDate = convertFyedStringToDate(year,fyenStr);
-    date endDate = annualendDate - (months(3) * quarter);
-//    LOG_INFO << "\n Calculated end date for ";
+
+    // endDate.year == year + 1 
+    if (annualendDate.month() < Jun )
+        annualendDate.year() = year + 1;
+
+    if( quarter == 0)
+        return annualendDate;
+
+    // if quarter > 0
+    date endDate = annualendDate - ( months(3) * (4 - quarter) );
     return endDate;
+}
+
+greg_year 
+calculateYearFor(string fyenStr, greg_year yyear)
+{
+    date extracted_date = convertFyedStringToDate( yyear, fyenStr ); 
+    if ( extracted_date.month() < Jun )
+        extracted_date.year() = yyear - 1;
+    return extracted_date.year();
 }

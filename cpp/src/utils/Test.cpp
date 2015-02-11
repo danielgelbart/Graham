@@ -33,6 +33,16 @@ getMockFromDisk(string fileName)
     return filing;
 }
 
+bool
+Test::setTestDB()
+{
+    cout << "\n Switching back to TEST DB--------------------" << endl;
+    string testDB("graham_test");
+    if (DBFace::instance()->switchDB( testDB ) )
+        cout << "Switch to TEST db succeccful" << endl;
+    return db_setup();
+}
+
 string
 Test::runSingleYearTest(TestResults& tResults)
 {
@@ -52,9 +62,11 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "Could not load mock 10k for testing");          return tResults.getResultsSummary();
     }
 
-    Info info( stock._ticker(), 2013, StatementType::K10);
+    // Hard code 2013 to be used in all stocks in test
+    int year = 2013;
+
     EdgarData edgar;
-    edgar.extract10kToDisk( filing, stock, info);
+    edgar.extract10kToDisk( filing, stock, year);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() 
@@ -96,8 +108,8 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "Could not load mock 10k for testing");
         return tResults.getResultsSummary();
     }
-    Info info1( stock._ticker(), 2013, StatementType::K10);
-    edgar.extract10kToDisk( filing, stock, info1);
+
+    edgar.extract10kToDisk( filing, stock, year);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() 
@@ -109,7 +121,7 @@ Test::runSingleYearTest(TestResults& tResults)
     O_Ep cvx2013 = te.select( te._stock_id() == stock._id() 
                               && te._quarter() == 0 ).front();
 
-    if (cvx2013._year() != 2013)
+    if (cvx2013._year() != year)
         tResults.addFailure(testName + "Year should be: 2013, but is: "
                             + to_string(cvx2013._year()) );
     if (cvx2013._quarter() != 0)
@@ -139,8 +151,8 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "Could not load mock 10k for testing");
         return tResults.getResultsSummary();
     }
-    Info info2( stock._ticker(), 2013, StatementType::K10);
-    edgar.extract10kToDisk( filing, stock, info2);
+
+    edgar.extract10kToDisk( filing, stock, year);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() 
@@ -151,7 +163,7 @@ Test::runSingleYearTest(TestResults& tResults)
     }
     O_Ep goog2013 = te.select( te._stock_id() == stock._id() 
                               && te._quarter() == 0 ).front();
-    if (goog2013._year() != 2013)
+    if (goog2013._year() != year)
         tResults.addFailure(testName + "Year should be: 2013, but is: "
                             + to_string(goog2013._year()) );
     if (goog2013._quarter() != 0)
@@ -181,8 +193,7 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "Could not load mock 10k for testing");
         return tResults.getResultsSummary();
     }
-    Info info3( stock._ticker(), 2013, StatementType::K10);
-    edgar.extract10kToDisk( filing, stock, info3);
+    edgar.extract10kToDisk( filing, stock, year);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() 
@@ -193,7 +204,7 @@ Test::runSingleYearTest(TestResults& tResults)
     }
     O_Ep bdx2013 = te.select( te._stock_id() == stock._id() 
                                && te._quarter() == 0 ).front();
-    if (bdx2013._year() != 2013)
+    if (bdx2013._year() != year)
         tResults.addFailure(testName + "Year should be: 2013, but is: "
                             + to_string(bdx2013._year()) );
     if (bdx2013._quarter() != 0)
@@ -234,8 +245,7 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "Could not load mock 10k for testing");
         return tResults.getResultsSummary();
     }
-    Info info4( stock._ticker(), 2013, StatementType::K10);
-    edgar.extract10kToDisk( filing, stock, info4);
+    edgar.extract10kToDisk( filing, stock, year);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() 
@@ -263,10 +273,96 @@ Test::runSingleYearTest(TestResults& tResults)
 
     // test clean up
     te.erase( te._id() == brk2013._id());
+
+    // DE
+    stock = ts.select( ts._ticker() == string("DE")).front();
+    tResults.setStockTickerName( stock._ticker() );
+    // extract to DB
+    filing = getMockFromDisk("DE_2013_10k.txt");
+    if ( filing == ""){
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
+    }
+    edgar.extract10kToDisk( filing, stock, year);
+
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep de2013 = te.select( te._stock_id() == stock._id() 
+                              && te._quarter() == 0 ).front();
+    if (de2013._revenue() != "37795400000")
+        tResults.addFailure(testName + "Revenue should be: 37795400000, but is: " + de2013._revenue() );
+    if (de2013._net_income() != "3537300000")   
+        tResults.addFailure(testName + "Net Income should be: 3537300000, but is: " + de2013._net_income() );
+    if (de2013._eps() != 9.09)   
+        tResults.addFailure(testName + "(diluted) Eps should be: 9.09, but is: " + to_string(de2013._eps()) );
+    if (de2013._shares() != "389200000")   
+        tResults.addFailure(testName + "Number of shares should be: 389200000, but is: " + de2013._shares() );
+    // test clean up
+    te.erase( te._id() == de2013._id());
+
+    // INTC
+    stock = ts.select( ts._ticker() == string("INTC")).front();
+    tResults.setStockTickerName( stock._ticker() );
+    // extract to DB
+    filing = getMockFromDisk("INTC_2013_10k.txt");
+    if ( filing == ""){
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
+    }
+    edgar.extract10kToDisk( filing, stock, year);
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep intc2013 = te.select( te._stock_id() == stock._id() 
+                             && te._quarter() == 0 ).front();
+    if (intc2013._revenue() != "52708000000")
+        tResults.addFailure(testName + "Revenue should be: 52708000000, but is: " + intc2013._revenue() );
+    if (intc2013._net_income() != "9620000000")   
+        tResults.addFailure(testName + "Net Income should be: 9620000000, but is: " + intc2013._net_income() );
+    if (intc2013._eps() != 1.89)   
+        tResults.addFailure(testName + "(diluted) Eps should be: 1.89, but is: " + to_string(intc2013._eps()) );
+    // test clean up
+    te.erase( te._id() == intc2013._id());
+
+    // F
+    stock = ts.select( ts._ticker() == string("F")).front();
+    tResults.setStockTickerName( stock._ticker() );
+    // extract to DB
+    filing = getMockFromDisk("F_2013_10k.txt");
+    if ( filing == ""){
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
+    }
+    edgar.extract10kToDisk( filing, stock, year);
+    //Test results writen to DB
+    if (te.select( te._stock_id() == stock._id() 
+                   && te._quarter() == 0 ).empty())
+    {
+        tResults.addFailure(testName + "No record was added to DB");       
+        return tResults.getResultsSummary();
+    }
+    O_Ep f2013 = te.select( te._stock_id() == stock._id() 
+                               && te._quarter() == 0 ).front();
+    if (f2013._revenue() != "146917000000")
+        tResults.addFailure(testName + "Revenue should be: 146917000000, but is: " + f2013._revenue() );
+    if (f2013._net_income() != "7155000000")   
+        tResults.addFailure(testName + "Net Income should be: 7155000000, but is: " + f2013._net_income() );
+    if (f2013._eps() != 1.76)   
+        tResults.addFailure(testName + "(diluted) Eps should be: 1.76, but is: " + to_string(f2013._eps()) );
+    // test clean up
+    te.erase( te._id() == f2013._id());
   
     return tResults.getResultsSummary();
 }
-
 
 string
 Test::runSingleQarterTest(TestResults& tResults)
@@ -334,10 +430,10 @@ Test::runFourthQarterTest(TestResults& tResults)
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
     string filing = getMockFromDisk("IBM_2013_10k");
-    Info info( stock._ticker(), 2013, StatementType::K10);
+    size_t year = 2013;
     EdgarData edgar;
-    edgar.extract10kToDisk( filing, stock, info);
-    edgar.createFourthQuarter(stock, 2013);
+    edgar.extract10kToDisk( filing, stock, year);
+    edgar.createFourthQuarter(stock, year);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() 
@@ -372,8 +468,6 @@ Test::runFourthQarterTest(TestResults& tResults)
 
     if (ibm2013._shares() != "1103042156")   
         tResults.addFailure(testName + "Number of (diluted) shares should be: 1103042156, but is: " + ibm2013._shares() );
-  
-
     // test clean up
     te.erase( te._id() == ibm2013._id());
     O_Ep ibm2013mockyear = te.select( te._stock_id() == stock._id() 
@@ -382,7 +476,6 @@ Test::runFourthQarterTest(TestResults& tResults)
     te.erase( te._id() == ibm2013mockyear._id());
     
     return tResults.getResultsSummary();
-
 }
 
 void 
@@ -422,13 +515,14 @@ Test::runCompanyTest(string& ticker)
     string testDB("graham_test");
     if ( DBFace::instance()->switchDB( realDB ) )
         cout << "Switch to real db succeccful" << endl;
-    
+
+    size_t year = 2013;
     T_Stock rts;
     T_Ep rte;
     const O_Stock rstock = rts.select( rts._ticker() == ticker).front();
     const O_Ep real2013 = rte.select( rte._stock_id() == rstock._id() 
                                && rte._quarter() == 0
-                               && rte._year() == 2013).front();
+                               && rte._year() == year).front();
       
     cout << "\n Switching back to TEST DB--------------------" << endl;
 
@@ -464,18 +558,14 @@ Test::runCompanyTest(string& ticker)
     }
     string testName("Test-Company " + stock._ticker() + ": ");
     testRes.setTestName(testName);
-    Info info( stock._ticker(), 2013, StatementType::K10);
+
     EdgarData edgar;
-    if ( edgar.getSingleYear( stock, 2013) )
+    if ( edgar.getSingleYear( stock, year) )
     {
         compareTest( rstock , real2013, testRes);
     }else{
         testRes.addFailure("Could Not get annual data for " + stock._ticker());
     }
-    // test single year
-
-//    runSingleYearTest(stock, real2013, testRes);
-
     string resultSummary = testRes.getResultsSummary();
     cout << "\n ---  TEST Results  ---" <<resultSummary << endl;
 }

@@ -345,7 +345,7 @@ EdgarData::createTtmEps(O_Stock& stock)
         return;
     }
     long numshares = stol( qrts[0]._shares() );
-    
+
     addEarningsRecordToDB( stock, qrts[0]._year(), 5,/*quarter*/
                             to_string(revp), to_string(incp),
                             ((double)incp) / numshares, /*EPS*/
@@ -353,30 +353,26 @@ EdgarData::createTtmEps(O_Stock& stock)
                             "calculated");
 }
 
+// move to Dates.hpp?
 bool
-reportWithin3Months(date rep_date, O_Stock& stock, size_t check_year)
+reportWithin3Months(date rep_date, date endDate)
 {
-    LOG_INFO << "\n Report date is "<<to_simple_string(rep_date);
-    string fyenStr = stock._fiscal_year_end();
-    date endDate = calculateEndDate(fyenStr,rep_date.year(),0);
-  
-    if(endDate >= rep_date)
-        endDate -= years(1);
-
-    LOG_INFO << "\n report is for year ended "<<to_simple_string(endDate);
-
-    return ( endDate.year() == check_year);
+    LOG_INFO << "\n Looking for report end date of "<<to_simple_string(endDate)
+             << "\n Report handled is from "<<to_simple_string(rep_date);
+ 
+    date_period dp( endDate, (endDate + months(3)) );
+    return ( dp.contains( rep_date ) );
 }
 
 bool
 EdgarData::getSingleYear(O_Stock& stock, size_t year)
 {
     bool retVal(true);
- 
+
    // get search page for 10k
     string page = getEdgarSearchResultsPage( stock, StatementType::K10);
     Parser parser;
- 
+
 // get All Acns
     // 1) Change name
     // 2) compare annual and quarter url strings to use same method
@@ -391,8 +387,8 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
         
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
-            //         if( ((*it)->_report_date.year() - 1) == gyear )
-            if(reportWithin3Months( (*it)->_report_date, stock, year) ) 
+            date end_date = calculateEndDate(stock._fiscal_year_end(),year,0);
+            if(reportWithin3Months( (*it)->_report_date, end_date) ) 
             {
                 acn = *it;
                 LOG_INFO << "Got ACN for specific year " << to_string(year);
@@ -400,7 +396,6 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
             }
         }
     }  
-
     if (acn == NULL)
     {
         LOG_INFO << "Did not get acn for "<<stock._ticker() 
@@ -410,8 +405,8 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
 // get Specific one for year to a string
     string filing = getEdgarFiling(stock,*acn);
 // extract to DB
-    Info info( stock._ticker(), gyear, StatementType::K10);
-    extract10kToDisk( filing, stock, info);
+    //Info info( stock._ticker(), gyear, StatementType::K10);
+    extract10kToDisk(filing, stock, year);
 
     return retVal;
 }
@@ -442,8 +437,8 @@ EdgarData::updateFinancials(O_Stock& stock)
         Acn* acn  = getLastYear10KAcn( stock );
         string k10text = getEdgarFiling( stock, *acn);
 
-        Info info( stock._ticker(), last_year, StatementType::K10) ;
-        extract10kToDisk( k10text, stock, info);
+        //Info info( stock._ticker(), last_year, StatementType::K10) ;
+        extract10kToDisk( k10text, stock, last_year);
 
         createFourthQuarter( stock, last_year );
         updated = true;
@@ -463,7 +458,7 @@ EdgarData::updateFinancials(O_Stock& stock)
 }
 
 void
-EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
+EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
 
     Parser parser = Parser();
     auto extracted_reports = new map<ReportType,string>;
@@ -472,15 +467,16 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, Info& info){
     // Save extracted reports
     _reports = *extracted_reports;
 
-    addSingleAnualIncomeStatmentToDB(_reports[ReportType::INCOME], stock);
-    addBalanceStatmentToDB(_reports[ReportType::BALANCE], stock);
+    addSingleAnualIncomeStatmentToDB(_reports[ReportType::INCOME], stock, year);
+    addBalanceStatmentToDB(_reports[ReportType::BALANCE], stock, year);
 }
 void 
 EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr, 
-                                            O_Stock& stock)
+                                            O_Stock& stock, size_t year)
 {
     Parser parser;
     parser.set_stock(stock);
+
     string incomeTableStr = parser.extractFirstTableStr(incomeFileStr); 
     XmlElement* tree = parser.buildXmlTree(incomeTableStr);
     if(tree == NULL)
@@ -491,6 +487,7 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
     O_Ep ep;
     bool shares_outstanding(false);
     ep._stock_id() = stock._id();
+    ep._year() = year;
     ep._quarter() = 0; // Anual record
     ep._source() = string("edgar.com");
     parser.parseIncomeTree(tree, ep);
@@ -515,6 +512,7 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
     _ep = ep;
 }
 
+// This method deprecated:
 void 
 EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr, 
                                       O_Stock& stock,
@@ -601,7 +599,7 @@ EdgarData::getFiscalYearEndDate(O_Stock& stock)
 
 void
 EdgarData::addBalanceStatmentToDB(string& incomeFileStr, 
-                                  O_Stock& stock)
+                                  O_Stock& stock, size_t year)
 {
 // #  current_assets      :string(255)
 //#  total_assets        :string(255)

@@ -303,6 +303,8 @@ bool withinPercent(T testV, float p, T val)
 //template bool withinPercent<double>(double,float,double);
 
 std::string removeNonDigit(string& str);
+std::string removeParenthasis(string& str);
+
 std::string trimSpaces(const std::string& s);
 
 std::string toLower(const std::string& s);

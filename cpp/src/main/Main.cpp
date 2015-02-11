@@ -107,7 +107,7 @@ mainMain(int argc, char* argv[])
                 stocks = ts.select(ts._ticker() == string(argv[3]));
             else
                 stocks = ts.select(ts._id() >
-                  ts.select(ts._ticker() == string("GVA")).front()._id());
+                  ts.select(ts._ticker() == string("ABT")).front()._id());
             
             for( auto it = stocks.begin(); it != stocks.end();++it)
                 test.getReportsTest( *it, outFile );
@@ -115,6 +115,8 @@ mainMain(int argc, char* argv[])
             outFile.close();
             goto exitest;
         } // end of handling -reps flag for test
+
+
 
         if (argc > 2)
         {       
@@ -129,7 +131,8 @@ mainMain(int argc, char* argv[])
         delete(config);
         delete(logger);
         exit(0);
-    }
+    } // end of TEST ------------------------------------------
+
 
     path confFile = basePath / "conf.conf";
         
@@ -174,6 +177,9 @@ mainMain(int argc, char* argv[])
         eData.getQuarters( stock );
     }
     if (command == string("getfyed")){
+        Test test;
+        test.setTestDB();
+
         EdgarData eData = EdgarData();
         if (argc > 2)
         {

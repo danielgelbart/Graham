@@ -1,5 +1,0 @@
-
-Testing shows 3 failures as follows:
-1. BRK.A: | No earnings record for 2013 retrieved from DB
-2. BRK.A: | No Income exracted from Income Statement
-3. BRK.A: | No Eps exracted from Income Statement

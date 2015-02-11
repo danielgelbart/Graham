@@ -50,6 +50,7 @@ class Test {
 public:
     Test(){}
     
+    bool setTestDB();
     void run_all();
     string runSingleYearTest(TestResults& tr);
     string runSingleQarterTest(TestResults& tr);
@@ -59,7 +60,6 @@ public:
                        TestResults& tResults);
     void seedStocks(vector<O_Stock>& stocks);
     bool getReportsTest(O_Stock& stock,boost::filesystem::ofstream& outFile);
-
 
 private: //members
 //    path _mockPath;
