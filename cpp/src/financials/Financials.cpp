@@ -493,8 +493,7 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
     parser.parseIncomeTree(tree, ep);
     if (ep._shares() == "")
     {
-        ep._shares() = parser.getNumSharesFromCoverReport(
-            _reports[ReportType::COVER]);
+        parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], ep );
         shares_outstanding = true;
     }
     if ( addEarningsRecordToDB( stock, ep) &&
@@ -536,9 +535,9 @@ EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr,
     // try to get shares from income reports
     vector<string> shares = parser.getNumShares(tree,units);
     // if fails, get from cover report
-    if ( shares.empty() )
-        shares.push_back( parser.getNumSharesFromCoverReport(
-                              _reports[ReportType::COVER]));
+    //if ( shares.empty() )
+      //  shares.push_back( parser.getNumSharesFromCoverReport(
+        //                      _reports[ReportType::COVER]));
     size_t numToAdd(1);
     if (!singleYear)
         numToAdd = std::min({ years.size(), revenues.size(), incs.size(), 

@@ -232,8 +232,7 @@ Test::runSingleYearTest(TestResults& tResults)
     }
     tn.erase();
 */
-
-      // test clean up
+    // test clean up
     te.erase( te._id() == bdx2013._id());
 
     // BRK.A
@@ -360,7 +359,7 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "(diluted) Eps should be: 1.76, but is: " + to_string(f2013._eps()) );
     // test clean up
     te.erase( te._id() == f2013._id());
-  
+
     return tResults.getResultsSummary();
 }
 
@@ -610,7 +609,7 @@ Test::seedStocks(vector<O_Stock>& stocks)
 bool 
 Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
 {
-    LOG_INFO << "\n --- Testing retreval of reports for" << stock._ticker()
+    LOG_INFO << "\n --- Testing retreval of reports for " << stock._ticker()
              << "  ---\n";
     
     // Ensure we switched to test DB

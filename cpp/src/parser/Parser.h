@@ -27,6 +27,7 @@ public:
     void addText(string& text);
     
     string text();
+    string attrText();
     void printXmlTree(size_t depth);
 
     XmlElement* firstNodebyName(string& tagName);
@@ -132,7 +133,7 @@ public:
     vector<float> getAnualEps(XmlElement* tree, bool singleYear);
     double getQarterEps(XmlElement* tree);
     vector<string> getNumShares(XmlElement* tree, string& bunits);
-    string getNumSharesFromCoverReport(string& report);
+    void getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
     string extractFiscalDateFromReport(string& report);
     void set_stock(DMMM::O_Stock& stock);
 private:
