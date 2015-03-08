@@ -245,6 +245,19 @@ public:
     static E_fiscal_year_end _fiscal_year_end(){ 
         return E_fiscal_year_end();
     }
+    struct E_company_type{
+        E_company_type() 
+        {  
+            _field = "stocks.company_type";
+        }
+        std::string _field;
+        typedef T_Stock::Condition ConditionType;
+        typedef Field<EnumStockCOMPANY_TYPE>::Base ComparerType;
+    };
+
+    static E_company_type _company_type(){ 
+        return E_company_type();
+    }
     
 
     std::vector<std::string> getFields()
@@ -268,6 +281,7 @@ public:
         ret.push_back("mark");
         ret.push_back("cik");
         ret.push_back("fiscal_year_end");
+        ret.push_back("company_type");
         return ret;
     }
 
@@ -316,6 +330,8 @@ public:
                 UTILS::fromString<F_Fixnum::Base>(res[i]["cik"]);
             ret[i]._f_fiscal_year_end._base =
                 UTILS::fromString<F_String::Base>(res[i]["fiscal_year_end"]);
+            ret[i]._f_company_type._base =
+                (Field<EnumStockCOMPANY_TYPE>::Base)UTILS::fromString<size_t>(res[i]["company_type"]);
         }
         return ret;
     }
@@ -425,6 +441,9 @@ public:
         
 
         fields.push_back(std::string("fiscal_year_end"));
+        
+
+        fields.push_back(std::string("company_type"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Stock& r = *begin;
@@ -461,6 +480,8 @@ public:
             row.push_back(toSQLString(r._cik()));
             
             row.push_back(toSQLString(r._fiscal_year_end()));
+            
+            row.push_back(toSQLString(r._company_type()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("stocks",
@@ -573,6 +594,12 @@ public:
             if (it->_f_fiscal_year_end._dirty){
                 fields.push_back(std::string("fiscal_year_end"));
                 row.push_back(toSQLString(it->_fiscal_year_end()));
+            }
+            
+
+            if (it->_f_company_type._dirty){
+                fields.push_back(std::string("company_type"));
+                row.push_back(toSQLString(it->_company_type()));
             }
             fields2Rows[fields].push_back(row);
 	}

@@ -14,6 +14,7 @@
 #include "T_Numshare.hpp"
 #include "T_BalanceSheet.hpp"
 
+enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3, ASSET_MNGMT = 4, HOLDING = 5, INDUSTRY = 6, TECH = 7, PHARMA = 8, RETAIL = 9 };
 
 
 namespace DMMM {
@@ -207,6 +208,13 @@ O_Stock(const I_Stock& id)
         _f_fiscal_year_end._dirty = true; 
         return _f_fiscal_year_end._base; 
     }
+    const Field<EnumStockCOMPANY_TYPE>::Base& _company_type() const { 
+        return _f_company_type._base; 
+    }
+    Field<EnumStockCOMPANY_TYPE>::Base& _company_type() { 
+        _f_company_type._dirty = true; 
+        return _f_company_type._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -261,6 +269,9 @@ O_Stock(const I_Stock& id)
         if (_f_fiscal_year_end._dirty)
             field2Val["fiscal_year_end"] = 
                 toSQLString(_f_fiscal_year_end._base);
+        if (_f_company_type._dirty)
+            field2Val["company_type"] = 
+                toSQLString(_f_company_type._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("stocks", 
@@ -283,6 +294,7 @@ O_Stock(const I_Stock& id)
             _f_mark._dirty = false;
             _f_cik._dirty = false;
             _f_fiscal_year_end._dirty = false;
+            _f_company_type._dirty = false;
             return true;
         }
         else
@@ -342,6 +354,9 @@ O_Stock(const I_Stock& id)
         if (_f_fiscal_year_end._dirty)
             field2Val["fiscal_year_end"] = 
                 toSQLString(_f_fiscal_year_end._base);
+        if (_f_company_type._dirty)
+            field2Val["company_type"] = 
+                toSQLString(_f_company_type._base);
 
         
         if (DBFace::instance()->
@@ -365,6 +380,7 @@ O_Stock(const I_Stock& id)
             _f_mark._dirty = false;
             _f_cik._dirty = false;
             _f_fiscal_year_end._dirty = false;
+            _f_company_type._dirty = false;
             return true;
         }
         else
@@ -389,6 +405,7 @@ private:
     F_String _f_mark;
     F_Fixnum _f_cik;
     F_String _f_fiscal_year_end;
+    Field<EnumStockCOMPANY_TYPE> _f_company_type;
 
     friend class T_Stock;
 };

@@ -19,7 +19,11 @@
 #  mark                 :string(255)
 #  cik                  :integer(4)
 #  fiscal_year_end      :string(255)     default("")
+#  company_type         :enum([:COMPANY, default(:COMPANY)
 #
+
+#enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3,
+# ASSET_MNGMT = 4, HOLDING = 5, INDUSTRY = 6, TECH = 7, PHARMA = 8, RETAIL = 9}
 
 class Stock < ActiveRecord::Base
 
@@ -36,6 +40,31 @@ class Stock < ActiveRecord::Base
   validates_uniqueness_of :ticker
 
   include DataScraper
+
+  # for handling enums ------------------------------------------
+  def self.enum_columns
+    # can be made dynamic wite columns_hash.each{ |c| c.sql_type}
+    [:company_type]
+  end
+
+  def self.enum_field?(col_name)
+    return enum_columns.include?(col_name)
+  end
+
+  def self.enum_options(col_name)
+    enum_col = Stock.columns_hash[col_name.to_s]
+    ar = enum_col.limit
+    ar = enum_string_to_values_array(enum_col.sql_type) if ar.class == Fixnum
+    i = 0
+    Hash[ar.map {|v| [v, i=i+1]}]
+  end
+
+  def self.enum_string_to_values_array(str)
+    str_arr = str[6..-3].split(/','/)
+  end
+# end of enum methods code
+#--------------------------------------------
+
 
   #include MinMAx # adds min and max methods
 
