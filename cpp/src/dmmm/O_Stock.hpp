@@ -16,7 +16,6 @@
 
 enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3, ASSET_MNGMT = 4, HOLDING = 5, INDUSTRY = 6, TECH = 7, PHARMA = 8, RETAIL = 9 };
 
-
 namespace DMMM {
 
 class O_Stock{
@@ -88,6 +87,7 @@ O_Stock(const I_Stock& id)
         T_BalanceSheet table(c);
         return table.select(table._stock_id() == _id());   
     }
+
 
     const Field<I_Stock>::Base& _id() const { 
         return _f_id._base; 

@@ -281,7 +281,7 @@ public:
         ret.push_back("mark");
         ret.push_back("cik");
         ret.push_back("fiscal_year_end");
-        ret.push_back("company_type");
+        ret.push_back("company_type+0");
         return ret;
     }
 
@@ -331,7 +331,7 @@ public:
             ret[i]._f_fiscal_year_end._base =
                 UTILS::fromString<F_String::Base>(res[i]["fiscal_year_end"]);
             ret[i]._f_company_type._base =
-                (Field<EnumStockCOMPANY_TYPE>::Base)UTILS::fromString<size_t>(res[i]["company_type"]);
+                (Field<EnumStockCOMPANY_TYPE>::Base)UTILS::fromString<size_t>(res[i]["company_type+0"]);
         }
         return ret;
     }

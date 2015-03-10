@@ -131,7 +131,7 @@ public:
         ret.push_back("id");
         ret.push_back("stock_id");
         ret.push_back("year");
-        ret.push_back("pertains_to");
+        ret.push_back("pertains_to+0");
         ret.push_back("note");
         ret.push_back("created_at");
         ret.push_back("updated_at");
@@ -156,7 +156,7 @@ public:
             ret[i]._f_year._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["year"]);
             ret[i]._f_pertains_to._base =
-                (Field<EnumNotePERTAINS_TO>::Base)UTILS::fromString<size_t>(res[i]["pertains_to"]);
+                (Field<EnumNotePERTAINS_TO>::Base)UTILS::fromString<size_t>(res[i]["pertains_to+0"]);
             ret[i]._f_note._base =
                 UTILS::fromString<F_String::Base>(res[i]["note"]);
             ret[i]._f_created_at._base =

@@ -9,8 +9,7 @@
 #include "dmmm_fields.hpp"
 #include "dmmm_comparators.hpp"
 
-enum EnumNotePERTAINS_TO { K10 = 1, Q10 = 2, REPORTS = 3, INCOME_REP = 4, BALANCE_REP = 5, COVER_REP = 6, ROYALTY_TRUST = 7, SHARES_OUTSTANDING = 8 };
-
+enum EnumNotePERTAINS_TO { K10 = 1, Q10 = 2, REPORTS = 3, INCOME_REP = 4, BALANCE_REP = 5, COVER_REP = 6, SHARES_OUTSTANDING = 7 };
 
 namespace DMMM {
 
@@ -25,6 +24,7 @@ public:
 O_Note(const I_Note& id) 
         : _f_id(id)
         {}
+
 
 
     const Field<I_Note>::Base& _id() const { 

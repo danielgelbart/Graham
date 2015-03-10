@@ -10,7 +10,6 @@
 #include "dmmm_comparators.hpp"
 
 
-
 namespace DMMM {
 
 class O_User{
@@ -21,6 +20,7 @@ public:
 O_User(const I_User& id) 
         : _f_id(id)
         {}
+
 
 
     const Field<I_User>::Base& _id() const { 

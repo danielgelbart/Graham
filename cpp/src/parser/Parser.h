@@ -147,6 +147,9 @@ private:
                          string& units, XmlElement* node,
                          boost::regex& extract_pattern, DMMM::O_Ep& earnings,
                          void(*func)(DMMM::O_Ep&,string&,string&));
+    bool findDefref(trIterator& trIt, boost::regex& defref, boost::regex& num_pattern, string& units,
+               DMMM::O_Ep& earnings_data, void(*func)(DMMM::O_Ep&,string&,string&));
+
     bool extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                         string& units);
     bool extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnigs_data,

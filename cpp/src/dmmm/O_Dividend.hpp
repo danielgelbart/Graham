@@ -10,7 +10,6 @@
 #include "dmmm_comparators.hpp"
 
 
-
 namespace DMMM {
 
 class O_Dividend{
@@ -24,6 +23,7 @@ public:
 O_Dividend(const I_Dividend& id) 
         : _f_id(id)
         {}
+
 
 
     const Field<I_Dividend>::Base& _id() const { 

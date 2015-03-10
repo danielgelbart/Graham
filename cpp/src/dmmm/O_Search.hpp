@@ -10,7 +10,6 @@
 #include "dmmm_comparators.hpp"
 
 
-
 namespace DMMM {
 
 class O_Search{
@@ -21,6 +20,7 @@ public:
 O_Search(const I_Search& id) 
         : _f_id(id)
         {}
+
 
 
     const Field<I_Search>::Base& _id() const { 

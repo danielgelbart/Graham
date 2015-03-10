@@ -119,10 +119,17 @@ DBFace::select(const vector<string>& tables,
     }
     
     for (size_t i = 0; i < mysqlRes.num_rows(); ++i){
-	rRes.resize(rRes.size() + 1);
-	for (size_t j = 0; j < columns.size(); ++j)
-	    if (!mysqlRes[i][columns[j].c_str()].is_null())
- 	        rRes.back()[columns[j]] = UTILS::toString(mysqlRes[i][columns[j].c_str()]);
+        rRes.resize(rRes.size() + 1);
+
+        for (size_t j = 0; j < columns.size(); ++j){
+            // needed for handling enum values:
+            string rescolname = columns[j];
+            if (rescolname.substr(rescolname.length()-2,2) == "+0")
+                rescolname = tables[0]+"."+rescolname;
+
+            if (!mysqlRes[i][rescolname.c_str()].is_null())
+                rRes.back()[columns[j]] = UTILS::toString(mysqlRes[i][rescolname.c_str()]);
+        }
     }
     return true;
 }

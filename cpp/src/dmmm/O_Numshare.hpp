@@ -10,7 +10,6 @@
 #include "dmmm_comparators.hpp"
 
 
-
 namespace DMMM {
 
 class O_Numshare{
@@ -24,6 +23,7 @@ public:
 O_Numshare(const I_Numshare& id) 
         : _f_id(id)
         {}
+
 
 
     const Field<I_Numshare>::Base& _id() const { 

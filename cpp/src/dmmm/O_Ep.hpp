@@ -10,7 +10,6 @@
 #include "dmmm_comparators.hpp"
 
 
-
 namespace DMMM {
 
 class O_Ep{
@@ -24,6 +23,7 @@ public:
 O_Ep(const I_Ep& id) 
         : _f_id(id)
         {}
+
 
 
     const Field<I_Ep>::Base& _id() const { 

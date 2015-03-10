@@ -826,7 +826,7 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
         tdIterator tdIt(node);
         XmlElement* node = tdIt.at(_col_num);
         if (node == NULL)
-            cout << "td is NULL";
+            LOG_ERROR << "td is NULL";
         string tdtext = node->text();
 
         LOG_INFO << "Matching val from text: "<<tdtext;
@@ -913,6 +913,26 @@ Parser::findColumnToExtract(XmlElement* tree, DMMM::O_Ep& earnings_data)
 }
 
 bool
+Parser::findDefref(trIterator& trIt, regex& defref, regex& num_pattern, string& units,
+           DMMM::O_Ep& earnings_data, void(*func)(O_Ep&,string&,string&))
+{
+    trIt.resetToStart();
+    XmlElement* trp;
+    bool founddefref = false;
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string attr_text = trp->attrText();
+        //LOG_INFO<<"attr_text is: "<<attr_text;
+        if(( founddefref = checkTrPattern(attr_text, defref, units, trp,
+                          num_pattern, earnings_data, func)))
+        {
+            return founddefref;
+        }
+    }
+    return founddefref;
+}
+
+bool
 Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                     string& units)
 {
@@ -923,54 +943,55 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
     bool foundRevBlock(false);
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
 
+    // **** Search for REVENUE using 'defref' html attribute
+
     regex defref("defref_us-gaap_Revenues");
-    while( (trp = trIt.nextTr()) != NULL )
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
     {
-        string attr_text = trp->attrText();
+        LOG_INFO<<" Successfully found REVENUE using defref_us-gaap_Revenues (1st)";
+        return foundRev;
+    }
 
-        if(( foundRev = checkTrPattern(attr_text, defref, units, trp,
-                          num_pattern, earnings_data, writeRevenueToEarnings)))
-        {
-            LOG_INFO<<" Successfully found REVENUE using defref_us-gaap_Revenues (1st)";
-            return true;
-        }
-    } // while defref 1
-
-    // foundRev == false
-    trIt.resetToStart();
     // This is a less inclusive item, includes "normal course of buisness" revenues,
     // So may not include interest, premiums, etc
     // BDX, ACO use this only, (without total revenue line).
     defref.assign("'defref_us-gaap_SalesRevenueNet'");
-    while( (trp = trIt.nextTr()) != NULL )
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
     {
-        string attr_text = trp->attrText();
+        LOG_INFO<<" Successfully found REVENUE using defref_us-gaap_SalesRevenueNet (2nd)";
+        return foundRev;
+    }
 
-        if(( foundRev = checkTrPattern(attr_text, defref, units, trp,
-                            num_pattern, earnings_data, writeRevenueToEarnings)))
-        {
-            LOG_INFO << "Attr text is: "<<attr_text;
-            LOG_INFO<<" Successfully found REVENUE using defref_us-gaap_SalesRevenueNet (2nd) ";
-            return true;
-        }
-    } // while defref 2
-
-    trIt.resetToStart();
     // For AA: us-gaap_SalesRevenueGoodsNet
     // They list revenue as "Salses (Q)"
     defref.assign("us-gaap_SalesRevenueGoodsNet");
-    while( (trp = trIt.nextTr()) != NULL )
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
     {
-        string attr_text = trp->attrText();
+        LOG_INFO<<" Successfully found REVENUE using us-gaap_SalesRevenueGoodsNet (3rd)";
+        return foundRev;
+    }
 
-        if(( foundRev = checkTrPattern(attr_text, defref, units, trp,
-                            num_pattern, earnings_data, writeRevenueToEarnings)))
+    //**** Special handling for non-company type stocks
+
+    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+    // If compnay is a REIT - they report interest income
+    // e.g. NLY, ANH
+    if (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT)
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT";
+        defref.assign("us-gaap_Interest\\w*IncomeOperating");
+        if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                    earnings_data, writeRevenueToEarnings )))
         {
-            LOG_INFO << "Attr text is: "<<attr_text;
-            LOG_INFO<<" Successfully found REVENUE using us-gaap_SalesRevenueGoodsNet (3rd) ";
-            return true;
+            LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (REIT specific)";
+            return foundRev;
         }
-    } // while defref 3
+    } // REIT
+
+    LOG_INFO << "Could not find REVENUE using defref. Going to use heuristics" ;
 
     trIt.resetToStart();
     // first, try to get single line in one shot
