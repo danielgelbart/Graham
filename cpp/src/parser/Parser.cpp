@@ -1194,7 +1194,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
 
     bool foundEps(false);
     bool foundEpsBlock(false);
-    regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
+    //regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
     regex digit_pattern("\\(?(\\d+)(.\\d+)\\)?");
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 //    smatch match;
@@ -1203,18 +1203,41 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
     LOG_INFO << "extractEps() called";
 
     regex defref("EarningsPerShareDiluted");
-    while( (trp = trIt.nextTr()) != NULL )
+    if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
+                                earnings_data, writeEpsToEarnings )))
     {
-        string attr_text = trp->attrText();
-        LOG_INFO << "Attr text is: "<<attr_text;
-        if(( foundEps = checkTrPattern(attr_text, defref, units, trp,
-                          digit_pattern, earnings_data, writeEpsToEarnings)))
-                {
-            LOG_INFO<<" Successfully found DILUTED EPS using defref";
-            return true;
-        }
-    } // while defref
+        LOG_INFO<<" Successfully found EPS using defref_us_EarningsPerShareDiluted (1st)";
+        return foundEps;
+    }
 
+    // ALR
+    defref.assign("us-gaap_EarningsPerShareBasicAndDiluted");
+    if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
+                                earnings_data, writeEpsToEarnings )))
+    {
+        LOG_INFO<<" Successfully found EPS using us-gaap_EarningsPerShareBasicAndDiluted (2nd)";
+        return foundEps;
+    }
+
+    // ***** handle asset managment that call shares "units"
+
+    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+    // If compnay is a REIT - they report interest income
+    // e.g. NLY, ANH
+    if (_stock._company_type() == EnumStockCOMPANY_TYPE::ASSET_MNGMT)
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as an asset managment partnership/firm";
+        defref.assign("NetIncomeLossPerOutstandingLimitedPartnershipUnitDiluted");
+        if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
+                                    earnings_data, writeEpsToEarnings )))
+        {
+            LOG_INFO<<" Successfully found EPS using " <<
+                      "NetIncomeLossPerOutstandingLimitedPartnershipUnitDiluted (ASSET_MNGMT specific)";
+            return foundEps;
+        }
+    } // ASSET_MNGMT
+
+    LOG_INFO << "defref for EPS failed, using heuristics";
     trIt.resetToStart();
 
     // First, search for block structure
