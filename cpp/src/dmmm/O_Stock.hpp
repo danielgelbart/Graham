@@ -14,7 +14,7 @@
 #include "T_Numshare.hpp"
 #include "T_BalanceSheet.hpp"
 
-enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3, ASSET_MNGMT = 4, HOLDING = 5, INDUSTRY = 6, TECH = 7, PHARMA = 8, RETAIL = 9 };
+enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3, ASSET_MNGMT = 4, FINANCE = 5, HOLDING = 6, INDUSTRY = 7, TECH = 8, PHARMA = 9, RETAIL = 10 };
 
 namespace DMMM {
 

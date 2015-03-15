@@ -30,8 +30,6 @@ public:
 
     bool getSingleYear(O_Stock& stock, size_t year);    
     void extract10kToDisk(string& k10, O_Stock& stock, size_t year);
-    void addAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
-                                    bool singleYear = true);
     void addSingleAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
                                           size_t year);
 

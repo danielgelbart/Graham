@@ -404,6 +404,8 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     }
 // get Specific one for year to a string
     string filing = getEdgarFiling(stock,*acn);
+    if (filing == "")
+        return false;
 // extract to DB
     //Info info( stock._ticker(), gyear, StatementType::K10);
     extract10kToDisk(filing, stock, year);
@@ -467,9 +469,13 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     // Save extracted reports
     _reports = *extracted_reports;
 
+    if (_reports.size() == 0)
+        return;
+
     addSingleAnualIncomeStatmentToDB(_reports[ReportType::INCOME], stock, year);
     addBalanceStatmentToDB(_reports[ReportType::BALANCE], stock, year);
 }
+
 void 
 EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr, 
                                             O_Stock& stock, size_t year)
@@ -509,46 +515,6 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
 
     // for testing
     _ep = ep;
-}
-
-// This method deprecated:
-void 
-EdgarData::addAnualIncomeStatmentToDB(string& incomeFileStr, 
-                                      O_Stock& stock,
-                                      bool singleYear)
-{
-    Parser parser;    
-    string incomeTableStr = parser.extractFirstTableStr(incomeFileStr); 
-    
-    // extract table into xml tree
-    XmlElement* tree = parser.buildXmlTree(incomeTableStr);
-    
-    string units;
-    string currency;
-    vector<size_t> years = parser.titleInfo( tree, units, currency, singleYear);
-
-    vector<string> revenues = parser.getRevenues(tree, singleYear);
-    vector<string> incs = parser.getIncs(tree, singleYear);
-
-    vector<float> eps = parser.getAnualEps(tree, singleYear);
-
-    // try to get shares from income reports
-    vector<string> shares = parser.getNumShares(tree,units);
-    // if fails, get from cover report
-    //if ( shares.empty() )
-      //  shares.push_back( parser.getNumSharesFromCoverReport(
-        //                      _reports[ReportType::COVER]));
-    size_t numToAdd(1);
-    if (!singleYear)
-        numToAdd = std::min({ years.size(), revenues.size(), incs.size(), 
-                    eps.size(), shares.size()});
-
-    for (size_t i = 0; i < numToAdd; ++i)
-        addEarningsRecordToDB( stock, years[i], 0/*quarter*/,
-                                (revenues[i] + units),
-                                (incs[i] + units),
-                                eps[i], shares[i],
-                                "edgar.com"/*source*/);
 }
 
 bool 

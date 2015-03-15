@@ -40,8 +40,10 @@ calculateEndDate(string fyenStr, greg_year year, size_t quarter)
 
     // endDate.year == year + 1 
     if (annualendDate.month() < Jun )
-        annualendDate.year() = year + 1;
-
+    {
+        date adj_annualendDate = convertFyedStringToDate( (year + 1), fyenStr);
+        return adj_annualendDate;
+    }
     if( quarter == 0)
         return annualendDate;
 

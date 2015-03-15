@@ -106,8 +106,8 @@ mainMain(int argc, char* argv[])
             if (argc > 3)
                 stocks = ts.select(ts._ticker() == string(argv[3]));
             else
-                stocks = ts.select(ts._id() >
-                  ts.select(ts._ticker() == string("ALK")).front()._id());
+                stocks = ts.select(ts._listed() == true && ts._id() >
+                  ts.select(ts._ticker() == string("APO")).front()._id());
             
             for( auto it = stocks.begin(); it != stocks.end();++it)
                 test.getReportsTest( *it, outFile );

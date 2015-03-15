@@ -110,6 +110,19 @@ tdIterator::at(size_t i)
     size_t num_children = _node->_children.size();
     if ( i >= num_children )
         return NULL;
+    // iterate over children
+    // advance counter only if text!=""
+    size_t counter = 0;
+    for( auto it = _node->_children.begin(); it != _node->_children.end(); ++it )
+    {
+        //LOG_INFO << "TEXT is "<< (*it)->text() << " COUNTER is" << to_string(counter);
+        if ( (counter == i) &&
+             ((*it)->text() != "") )
+            return *it;
+
+        if ((*it)->text() != "")
+            counter++;
+     }
     return _node->_children[i];
 }
 
@@ -334,6 +347,12 @@ Parser::extract_reports(string& k10,
     Tokenizer tokenizer(k10);
     string filingSummary = tokenizer.findFilingSummary();
 
+    if (filingSummary == "")
+    {
+        LOG_ERROR << "Cannot procede to handle without filing summary";
+        return;
+    }
+
     Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
     filingSummaryTok.getReportDocNames(reports);
@@ -503,10 +522,10 @@ Parser::parseQuarterlyIncomeStatment(XmlElement* tree,
     getUnitsAndCurrency( tree, units, currency );
 
     // get rev, inc, eps        
-    revenue = removeNonDigit( getRevenues(tree,true).front() ) + units;
-    income = removeNonDigit( getIncs(tree,true).front() ) + units;
-    eps = getQarterEps(tree);
-    numshares = getNumShares(tree, units)[0];
+    //revenue = removeNonDigit( getRevenues(tree,true).front() ) + units;
+    //income = removeNonDigit( getIncs(tree,true).front() ) + units;
+    //eps = getQarterEps(tree);
+    //numshares = getNumShares(tree, units)[0];
     cout << "\n Got income data: rev = " << revenue
          << "; inc = " << income << "; eps = " << to_string(eps) 
          << " numshares " << numshares << endl;
@@ -526,172 +545,6 @@ XmlElement::getNodes(string tagName,
     for(auto it = _children.begin() ; it != _children.end() ; ++it)
         (*it)->getNodes(tagName, number, collected);
 }
-
-
-vector<string>
-Parser::getRevenues(XmlElement* tree, bool singleYear)
-{
-    vector<string> retVals;
-    string trTitle("Total revenue");
-    retVals = getTrByName(tree, trTitle, singleYear);
-    if (retVals.empty())
-    {
-        trTitle = "Net revenue";
-        retVals = getTrByName(tree, trTitle, singleYear);
-    }
-    if (retVals.empty())
-    {
-        trTitle = "Operating revenues?";
-        retVals = getTrByName(tree, trTitle, singleYear);
-    }
-    if (retVals.empty())
-    {
-        // Added for BDX
-        trTitle = "^((\\s|:)*Revenues)";
-        retVals = getTrByName(tree, trTitle, singleYear);
-    }
-    return retVals;
-}
-
-vector<string> 
-Parser::getIncs(XmlElement* tree, bool singleYear){
-    // T, F report income this way:
-    string trTitle("^((\\s|:)*Net income attributable to)");
-    vector<string> retVals;
-    retVals = getTrByName(tree, trTitle, singleYear);
-    if (retVals.empty())
-    {
-        // Normal companies use this title:
-        trTitle = "^((\\s|:)*Net income)";
-        retVals = getTrByName(tree, trTitle, singleYear);
-    }
-    return retVals;
-}
-
-vector<string>
-Parser::getNumShares(XmlElement* tree, string& bunits)
-{
-    vector<string> shares;
-    string units("");
-
-    //check if units for share number are specifide in table titles
-    string titleText = get_title_text(tree);
-    size_t split = titleText.find("except");
-    if (split != string::npos)
-    {
-        string additional = titleText.substr(split, titleText.size()-split);
-        LOG_INFO << "title text for table is " << titleText << 
-            ". Which may contain additional info about units in the text: " 
-                 <<  additional;
-
-        boost::regex a_pattern ("share data", boost::regex::icase);
-        if (boost::regex_search(additional, a_pattern) )
-        {
-            units = get_units_from_text( additional );
-            if ( units != "")
-            {   
-                LOG_INFO << " Share data units found in title text of table."
-                         << " units have been set to " << units; 
-            }else{
-                LOG_INFO << " Did not find addional units information in title text";
-            }
-            
-        }
-    }
-    trIterator iter(tree);
-    XmlElement* tr;
-    boost::regex u_pattern("(millions|thousands|billions)",
-                           boost::regex::icase);
-      
-    // advance up to relavent block
-    while ( (tr = iter.nextTr()) != NULL)
-    {
-        boost::regex block_pattern("(shares outstanding)", boost::regex::icase);
-        boost::smatch match1;
-        if ( boost::regex_search(tr->text(), match1, block_pattern) )
-        {
-            LOG_INFO << "\n Found Num shares block : \n" << tr->text();
-            // check for units
-            if ( boost::regex_search(tr->text(), match1, u_pattern) )
-            {
-                if (units != "")
-                {
-                    LOG_ERROR << "Found units both in title text, and in block"
-                              << " title, using block info";
-                }
-                units =  match1[0].str();
-                LOG_INFO <<"Units for numshares from block title are "<<units;
-            }
-            break;
-        }
-    }
-    // find diluted - n
-    while ( (tr = iter.nextTr()) != NULL)
-    {
-        boost::regex dil_pattern("(dilution|diluted)",boost::regex::icase);
-        boost::smatch match2;
-        string text = tr->text();
-        if ( boost::regex_search(text, match2, dil_pattern) )
-        {
-            LOG_INFO << "\n Found num shares diluted  in : \n" << text;
-            
-            if ( boost::regex_search(text, match2, u_pattern) )
-            {
-                if (units != "")
-                {
-                    LOG_ERROR << "Found units both in data line, as well as"
-                              << " previously. using data line units";
-                }
-
-                units =  match2[0].str();
-                LOG_INFO << "numshare Units (from line) are " << units;
-            }
-
-            boost::regex dig_pat("[\\d,]+.?\\d+?");
-            boost::sregex_iterator mit(text.begin(), text.end(), dig_pat);
-            boost::sregex_iterator mEnd;
-            for(; mit != mEnd; ++mit)
-            {
-                string matchString = (*mit)[0].str();
-                size_t decimals = countDecimals( matchString );
-                LOG_INFO << "\n Numshares extracted are: " << matchString << 
-                    " wich has " << to_string(decimals) << " decimals";
-                string cleanMatch = removeNonDigit( matchString );
-                if ( units != "")
-                {
-                    LOG_INFO<<"\n using Units "<<units<<
-                        " , wich differ from table units. Applying to "
-                            <<cleanMatch;
-                } else{
-                    // If no units found
-                    units = "1";
-                    LOG_INFO << "No Units found for numshares. using units=1";
-                }
-
-                long ns = stol(cleanMatch) * unitsToInt( units);
-                if( decimals > 0)
-                    ns = ns / pow(10,decimals);
-                if( ( ns < 1000000 ) && (1==unitsToInt(units)) )
-                {
-                    LOG_INFO<<"\n**NOTE: Retrieved numshares value of: "
-                            << to_string(ns)<<" wich seems low, as well as not"
-                            << " being able to extract units for numshares. "
-                            << "Therefore, using units found for general porpus"
-                            << "e " << bunits<<" \n";
-                    ns = ns*unitsToInt( bunits );
-                }
-                cleanMatch = to_string( ns );
-            
-                LOG_INFO << "\n Adding extracted val : " << cleanMatch;
-                shares.push_back( cleanMatch );
-            }
-        }
-    }
-    if ( shares.empty() )
-        LOG_INFO << " Could not read number of shares outstanding from table";
-    return shares;
-}
-
 
 string
 adjustForDecimals(string& val, const string& units)
@@ -824,10 +677,10 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
         
         // get i'th td from tr
         tdIterator tdIt(node);
-        XmlElement* node = tdIt.at(_col_num);
+        XmlElement* tdnode = tdIt.at(_col_num);
         if (node == NULL)
             LOG_ERROR << "td is NULL";
-        string tdtext = node->text();
+        string tdtext = tdnode->text();
 
         LOG_INFO << "Matching val from text: "<<tdtext;
         if (boost::regex_search(tdtext, match, extract_pattern) )
@@ -922,7 +775,7 @@ Parser::findDefref(trIterator& trIt, regex& defref, regex& num_pattern, string& 
     while( (trp = trIt.nextTr()) != NULL )
     {
         string attr_text = trp->attrText();
-        //LOG_INFO<<"attr_text is: "<<attr_text;
+        LOG_INFO<<"attr_text is: "<<attr_text;
         if(( founddefref = checkTrPattern(attr_text, defref, units, trp,
                           num_pattern, earnings_data, func)))
         {
@@ -979,10 +832,11 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
     LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
     // If compnay is a REIT - they report interest income
     // e.g. NLY, ANH
-    if (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT)
+    if ( (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT) ||
+         (_stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
     {
         LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT";
-        defref.assign("us-gaap_Interest\\w*IncomeOperating");
+        defref.assign("us-gaap_Interest\\w*IncomeOperating|us-gaap_InterestIncomeExpenseNet");
         if (( foundRev = findDefref(trIt, defref, num_pattern, units,
                                     earnings_data, writeRevenueToEarnings )))
         {
@@ -1006,7 +860,7 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                          num_pattern, earnings_data, writeRevenueToEarnings);
             break;
         }
-        // INTC
+        // INTC, CAR
         rev_pattern.assign("Net revenue",boost::regex::icase);
         if (regex_search( trtext, rev_pattern)){
             foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
@@ -1058,15 +912,22 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                     if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                                 num_pattern, earnings_data, writeRevenueToEarnings)))
                         break;
+
                 // DE Pattern
                 rev_pattern.assign("Total", boost::regex::icase );
                 if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                         num_pattern, earnings_data, writeRevenueToEarnings)))
                     break;
+
+                // ATO Pattern
+                rev_pattern.assign("operating revenues", boost::regex::icase );
+                if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                        num_pattern, earnings_data, writeRevenueToEarnings)))
+                    break;
+
                 // ALG Pattern - Avoid taking "net sales" line, if it is followd
                 // By a "total" line - e.g. DE
                 // Also, demand EXACT match
-
                 rev_pattern.assign(" : net sales:?", boost::regex::icase );
                 if (regex_match(row_title,rev_pattern))
                 {
@@ -1227,7 +1088,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
     if (_stock._company_type() == EnumStockCOMPANY_TYPE::ASSET_MNGMT)
     {
         LOG_INFO << "Handling "<<_stock._ticker()<< " as an asset managment partnership/firm";
-        defref.assign("NetIncomeLossPerOutstandingLimitedPartnershipUnitDiluted");
+        defref.assign("NetIncomeLoss\\w*PerOutstandingLimitedPartnershipUnitDiluted");
         if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
                                     earnings_data, writeEpsToEarnings )))
         {
@@ -1476,24 +1337,30 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
             LOG_INFO << "Found units in title, they are "<< units;
         }
     }
-    string trTitle("Entity Common Stock, Shares Outstanding");
-    string tagName("tr");
 
-    size_t* counter = new size_t;
-    *counter=0;
-    XmlElement* dataLine = tree->tagWithText(tagName,trTitle,1,counter);
-    string dataText = dataLine->text();
-
-    boost::regex pattern("\\d+[,\\d]+(.\\d)?");
-    boost::smatch match;
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
     string numshares("");
-    if (boost::regex_search(dataText, match, pattern) )
-    {
-        numshares = match[0];
-        LOG_INFO << "Got num shares from cover report. They are: "<< numshares;
-    } else
-        LOG_ERROR << "Could not get numshares from cover report";
+    regex shares_pattern("Entity Common Stock,? Shares Outstanding", regex::icase);
 
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+        if (regex_search(trtext,shares_pattern))
+        {
+            boost::regex pattern("\\d+[,\\d]+(.\\d)?");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, pattern) )
+            {
+                LOG_INFO << "got numshares";
+                numshares = match[0];
+                LOG_INFO << "Got num shares from cover report. They are: "<< numshares;
+
+            } else
+                LOG_ERROR << "Could not get numshares from cover report";
+            break;
+        }
+    }
     // Need to add the "|" for units|bunits structure
     units = "|"+units;
     writeNsToEarnings( ep, numshares, units);
@@ -1571,56 +1438,6 @@ Parser::extractFiscalDateFromReport(string& report)
         LOG_ERROR << "Failed to get end date string from cover report";
 
     return date;
-}
-
-
-vector<float> 
-Parser::getAnualEps(XmlElement* tree, bool singleYear){
-    string trTitle("(diluted|dilution)");
-    string tagName("tr");
-    vector<float> retVals;
-    LOG_INFO<<"getAnualEps() called";
-
-    size_t* counter = new size_t;
-    *counter=0;
-    XmlElement* dataLine = tree->tagWithText(tagName,trTitle,1,counter);
-
-    if ( dataLine == NULL )
-    {
-        LOG_ERROR << "Could not extract " << tagName 
-                  << " with text matching pattern " << trTitle;
-        return retVals;
-    }
-    string dataText = dataLine->text();
-
-    LOG_INFO << " \n Data line text is : " << dataText;
-    if ( containsNoData( dataText ))
-    {
-        *counter=0;
-        XmlElement* dataLine = tree->tagWithText(tagName,trTitle,2,counter);
-        if ( dataLine != NULL)
-        {
-            dataText = dataLine->text();
-            LOG_INFO << " \n Data line text is now: " << dataText;
-        }else{
-            LOG_ERROR << " \n Could not retrieve eps data";
-            return retVals;
-        }
-    }
-
-    boost::regex pattern("\\(?(\\d+)(.\\d+)?\\)?");
-    boost::sregex_iterator mit(dataText.begin(), dataText.end(), pattern);
-    boost::sregex_iterator mEnd;
-
-    for(; mit != mEnd; ++mit)
-    {
-        string val = (*mit)[0].str();
-        LOG_INFO << "\n Adding extracted val : " << val;
-        retVals.push_back( stof(val) );
-        if (singleYear)
-            break;
-    }
-    return retVals;
 }
 
 double

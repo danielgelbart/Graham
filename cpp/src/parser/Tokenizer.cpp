@@ -201,7 +201,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!
     // CAT are unique - they use - "Consolidated Results of Operations"
     boost::regex income_pattern(
-        "(consolidated )?(statements? of (consolidated )?(comprehensive )?(\\(loss\\) )?(earnings|income|operations|loss)|(and sector )?income statements?|results of operations)",
+        "(consolidated )?(statements? of (consolidated )?(comprehensive )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|(and sector )?income statements?|results of operations)",
         boost::regex_constants::icase);
   
     boost::regex balance_pattern(

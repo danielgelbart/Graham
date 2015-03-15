@@ -20,6 +20,45 @@ db_setup()
     return true;
 }
 
+bool
+copy_stocks()
+{
+
+    LOG_INFO << "\n --- Coping stocks table from dev environmnet ---\n";
+
+    cout << "\n Switching to REAL DB--------------------" << endl;
+
+    string realDB("graham_dev");
+    string testDB("graham_test");
+    if ( DBFace::instance()->switchDB( realDB ) )
+        cout << "Switch to real db succeccful" << endl;
+
+    T_Stock rts;
+    auto stocks = rts.select();
+
+    cout << "\n Switching back to TEST DB--------------------" << endl;
+
+    if (DBFace::instance()->switchDB( testDB ) )
+        cout << "Switch to TEST db succeccful" << endl;
+
+    // Ensure we switched to test DB
+    bool rok(false);
+    rok = db_setup();
+    if(!rok)
+    {
+        LOG_ERROR << "Something wrong with TEST(probably with TEST DB setup)."
+                  << "EXITING";
+        cout << "An error uccored. exiting";
+        exit(-1);
+    }
+     // drop stocks table
+
+    //copy in as is stocks - in block transaction?
+
+    return true;
+
+}
+
 string
 getMockFromDisk(string fileName)
 {       
@@ -369,6 +408,9 @@ Test::runSingleQarterTest(TestResults& tResults)
     LOG_INFO << "\n --- Running runSingleQarterTest() ---\n";
     string testName("Test-Single Quarter 10Q retrieval: ");
 
+    LOG_INFO << "single quarter test under restructuring\n";
+    return "";
+
     T_Stock ts;
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == string("CVX")).front();
@@ -376,7 +418,8 @@ Test::runSingleQarterTest(TestResults& tResults)
     string filing = getMockFromDisk("CVX_2014_1stQ.txt");
     if ( filing == "")
     {
-        tResults.addFailure(testName + "Could not load mock 10q for testing");          return tResults.getResultsSummary();
+        tResults.addFailure(testName + "Could not load mock 10q for testing");
+        return tResults.getResultsSummary();
     }
     EdgarData edgar;
     Acn acn( string("0000093410-14-000024"), date(2014,May,2), 1 );
@@ -628,6 +671,7 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
     testRes.setTestName(testName);
 
     EdgarData edgar;
+    /*
     Acn* acn = edgar.getLastYear10KAcn(stock);
     if (acn == NULL)
     {
@@ -640,7 +684,7 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
         LOG_ERROR << "Failed to retrive filing for acn "<<acn->_acn<<"\n";
         return false;
     }
-
+*/
     edgar.getSingleYear(stock,2013);
     auto reports = &edgar._reports;
 

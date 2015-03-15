@@ -128,11 +128,8 @@ public:
 
     vector<size_t> titleInfo(XmlElement* tree, string& units, 
                              string& currency, bool singleYear);
-    vector<string> getRevenues(XmlElement* tree, bool singleYear);
-    vector<string> getIncs(XmlElement* tree, bool singleYear);
-    vector<float> getAnualEps(XmlElement* tree, bool singleYear);
     double getQarterEps(XmlElement* tree);
-    vector<string> getNumShares(XmlElement* tree, string& bunits);
+
     void getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
     string extractFiscalDateFromReport(string& report);
     void set_stock(DMMM::O_Stock& stock);
