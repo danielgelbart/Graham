@@ -20,6 +20,7 @@
 #  cik                  :integer(4)
 #  fiscal_year_end      :string(255)     default("")
 #  company_type         :enum([:COMPANY, default(:COMPANY)
+#  country              :string(255)
 #
 
 #enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3,

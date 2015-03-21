@@ -200,8 +200,9 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
 
     // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!
     // CAT are unique - they use - "Consolidated Results of Operations"
+    // CLF - "condensed statement of operations" - NOT going to get that
     boost::regex income_pattern(
-        "(consolidated )?(statements? of (consolidated )?(comprehensive )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|(and sector )?income statements?|results of operations)",
+        "(consolidated )?(statements? of (consolidated )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|(and sector )?income statements?|results of operations)",
         boost::regex_constants::icase);
   
     boost::regex balance_pattern(
@@ -246,8 +247,33 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
         if (foundBalanceRep && foundIncomeRep)
             break;
     }
-    if(!foundIncomeRep)
-        LOG_ERROR<<"Could NOT find Income statement\n";
+    if(!foundIncomeRep){
+        LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN ------------------\n";
+
+        income_pattern.assign("consolidated statements? of comprehensive (income|operations|loss)",
+            boost::regex_constants::icase);
+
+        // reset pos
+        _pos = 0;
+
+        while( (report = getNextDelString(delimiter)) != "")
+        {
+            reportName = extractTagContent(tagName,report);
+            LOG_INFO << "\n Handling report named: " << reportName << "\n";
+
+            if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
+            {
+                // continue of treating "Parenthetical"
+
+                foundIncomeRep = true;
+                LOG_INFO << "FOUND INCOME REPORT MATCH!\n"<< reportName << "\n";
+                reports_map->insert( pair<ReportType,string>(
+                                         ReportType::INCOME,
+                                         readReportHtmlNameFromFS(report)) );
+                break;
+            }
+        }
+    }
     if(!foundBalanceRep)
         LOG_ERROR<<"Could NOT find Balance statement\n";
     if(!foundCoverRep)

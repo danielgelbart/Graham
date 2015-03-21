@@ -14,7 +14,7 @@
 #include "T_Numshare.hpp"
 #include "T_BalanceSheet.hpp"
 
-enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3, ASSET_MNGMT = 4, FINANCE = 5, HOLDING = 6, INDUSTRY = 7, TECH = 8, PHARMA = 9, RETAIL = 10 };
+enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3, ASSET_MNGMT = 4, FINANCE = 5, PARTNERSHIP = 6, PIPELINE = 7, FOREIGN = 8, HOLDING = 9, INDUSTRY = 10, TECH = 11, PHARMA = 12, RETAIL = 13 };
 
 namespace DMMM {
 
@@ -215,6 +215,13 @@ O_Stock(const I_Stock& id)
         _f_company_type._dirty = true; 
         return _f_company_type._base; 
     }
+    const F_String::Base& _country() const { 
+        return _f_country._base; 
+    }
+    F_String::Base& _country() { 
+        _f_country._dirty = true; 
+        return _f_country._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -272,6 +279,9 @@ O_Stock(const I_Stock& id)
         if (_f_company_type._dirty)
             field2Val["company_type"] = 
                 toSQLString(_f_company_type._base);
+        if (_f_country._dirty)
+            field2Val["country"] = 
+                toSQLString(_f_country._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("stocks", 
@@ -295,6 +305,7 @@ O_Stock(const I_Stock& id)
             _f_cik._dirty = false;
             _f_fiscal_year_end._dirty = false;
             _f_company_type._dirty = false;
+            _f_country._dirty = false;
             return true;
         }
         else
@@ -357,6 +368,9 @@ O_Stock(const I_Stock& id)
         if (_f_company_type._dirty)
             field2Val["company_type"] = 
                 toSQLString(_f_company_type._base);
+        if (_f_country._dirty)
+            field2Val["country"] = 
+                toSQLString(_f_country._base);
 
         
         if (DBFace::instance()->
@@ -381,6 +395,7 @@ O_Stock(const I_Stock& id)
             _f_cik._dirty = false;
             _f_fiscal_year_end._dirty = false;
             _f_company_type._dirty = false;
+            _f_country._dirty = false;
             return true;
         }
         else
@@ -406,6 +421,7 @@ private:
     F_Fixnum _f_cik;
     F_String _f_fiscal_year_end;
     Field<EnumStockCOMPANY_TYPE> _f_company_type;
+    F_String _f_country;
 
     friend class T_Stock;
 };

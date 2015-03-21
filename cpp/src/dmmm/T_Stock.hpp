@@ -258,6 +258,19 @@ public:
     static E_company_type _company_type(){ 
         return E_company_type();
     }
+    struct E_country{
+        E_country() 
+        {  
+            _field = "stocks.country";
+        }
+        std::string _field;
+        typedef T_Stock::Condition ConditionType;
+        typedef F_String::Base ComparerType;
+    };
+
+    static E_country _country(){ 
+        return E_country();
+    }
     
 
     std::vector<std::string> getFields()
@@ -282,6 +295,7 @@ public:
         ret.push_back("cik");
         ret.push_back("fiscal_year_end");
         ret.push_back("company_type+0");
+        ret.push_back("country");
         return ret;
     }
 
@@ -332,6 +346,8 @@ public:
                 UTILS::fromString<F_String::Base>(res[i]["fiscal_year_end"]);
             ret[i]._f_company_type._base =
                 (Field<EnumStockCOMPANY_TYPE>::Base)UTILS::fromString<size_t>(res[i]["company_type+0"]);
+            ret[i]._f_country._base =
+                UTILS::fromString<F_String::Base>(res[i]["country"]);
         }
         return ret;
     }
@@ -444,6 +460,9 @@ public:
         
 
         fields.push_back(std::string("company_type"));
+        
+
+        fields.push_back(std::string("country"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Stock& r = *begin;
@@ -482,6 +501,8 @@ public:
             row.push_back(toSQLString(r._fiscal_year_end()));
             
             row.push_back(toSQLString(r._company_type()));
+            
+            row.push_back(toSQLString(r._country()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("stocks",
@@ -600,6 +621,12 @@ public:
             if (it->_f_company_type._dirty){
                 fields.push_back(std::string("company_type"));
                 row.push_back(toSQLString(it->_company_type()));
+            }
+            
+
+            if (it->_f_country._dirty){
+                fields.push_back(std::string("country"));
+                row.push_back(toSQLString(it->_country()));
             }
             fields2Rows[fields].push_back(row);
 	}

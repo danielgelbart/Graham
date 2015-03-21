@@ -639,12 +639,21 @@ Test::seedStocks(vector<O_Stock>& stocks)
             stock._ticker() = it->_ticker();
             stock._cik() = it->_cik();
             stock._fiscal_year_end() = it->_fiscal_year_end();
+            stock._country() = it->_country();
+            stock._listed() = it->_listed();
+            stock._company_type() = it->_company_type();
+            stock._name() = it->_name();
             stock.insert();
             LOG_INFO << "Seeded " <<stock._ticker() << " to TEST DB\n";
             cout << "Seeded " <<stock._ticker() << " to TEST DB\n";
         }else{
             LOG_INFO <<it->_ticker() << "Already in TEST DB\n";
-            cout <<it->_ticker() << "Already in TEST DB"<<endl;
+            O_Stock stock = ts.select( ts._ticker() == it->_ticker()).front();
+            stock._country() = it->_country();
+            stock._listed() = it->_listed();
+            stock._company_type() = it->_company_type();
+            stock.update();
+            cout <<it->_ticker() << "Already in TEST DB - UPDATED"<<endl;
         }
     }
 }
@@ -687,7 +696,7 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
 */
     edgar.getSingleYear(stock,2013);
     auto reports = &edgar._reports;
-
+    bool foreign = false;
     LOG_INFO << "Got "<<reports->size()<<" reports\n";
     ReportType reportType = ReportType::COVER;
     auto coverReportIt = reports->find(reportType);
@@ -701,6 +710,9 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
     if( incomeReportIt == reports->end())
     {
         testRes.addFailure("NO INCOME REPORT");
+        if ( (stock._country() != "") &&
+             (stock._country() != "USA") )
+            foreign = true;
         repFail =false;
     } else {
         T_Ep te;
@@ -749,6 +761,8 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
     string resultSummary = testRes.getResultsSummary();
     if (testRes._numFails > 0)
     {
+        if (foreign)
+            outFile << stock._ticker() << " is foreign - " << stock._country();
         outFile << resultSummary;
         outFile.flush();
     }

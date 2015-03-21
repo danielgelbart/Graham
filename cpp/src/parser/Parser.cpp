@@ -112,15 +112,17 @@ tdIterator::at(size_t i)
         return NULL;
     // iterate over children
     // advance counter only if text!=""
+    regex blank_pattern("\\s:\\s\\[\\d\\]|\\s*");
     size_t counter = 0;
     for( auto it = _node->_children.begin(); it != _node->_children.end(); ++it )
     {
+        string text = (*it)->text();
         //LOG_INFO << "TEXT is "<< (*it)->text() << " COUNTER is" << to_string(counter);
         if ( (counter == i) &&
-             ((*it)->text() != "") )
+             ( ! regex_match(text,blank_pattern) ) )
             return *it;
 
-        if ((*it)->text() != "")
+        if (! regex_match(text,blank_pattern) )
             counter++;
      }
     return _node->_children[i];
@@ -365,9 +367,13 @@ Parser::extract_reports(string& k10,
         reportKey = reports->find(reportType)->second;
         string docString = "<FILENAME>"+reportKey;
         string docFileString = tokenizer.findDoc(docString);
-        extracted_reports->insert( pair<ReportType,string>( 
-                                       reportType, 
-                                       docFileString) );
+        if (docFileString == ""){
+            LOG_ERROR << "Failed to retrive document named "<< reportKey
+                      << " from filing";
+        }else
+            extracted_reports->insert( pair<ReportType,string>(
+                                           reportType,
+                                           docFileString) );
     }
 
     //extract BALANCE statement from dump file
@@ -678,8 +684,10 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
         // get i'th td from tr
         tdIterator tdIt(node);
         XmlElement* tdnode = tdIt.at(_col_num);
-        if (node == NULL)
-            LOG_ERROR << "td is NULL";
+        if (tdnode == NULL){
+            LOG_ERROR << "td child at "<< _col_num << " is NULL";
+            return false;
+        }
         string tdtext = tdnode->text();
 
         LOG_INFO << "Matching val from text: "<<tdtext;
@@ -689,6 +697,20 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
             LOG_INFO << "\n extracted val is"<< val;
             func(earnings,val,units);
             return true;
+        } else {
+            regex tiny_digit = extract_pattern;
+            tdtext = removeleadingComma(tdtext);
+            if (func == writeIncomeToEarnings)
+                tiny_digit.assign("\\(?\\d\\.?\\d?\\)?");
+            if (func == writeNsToEarnings )
+                tiny_digit.assign("\\d+(\\.\\d+)?");
+            if (regex_match(tdtext,tiny_digit)){
+                regex_search(tdtext, match, tiny_digit);
+                string val = match[0];
+                LOG_INFO << "\n extracted val is"<< val << " using 'tiny' pattern";
+                func(earnings,val,units);
+                return true;
+            }
         }
     }
     return false;
@@ -725,12 +747,14 @@ size_t
 Parser::findColumnToExtract(XmlElement* tree, DMMM::O_Ep& earnings_data)
 {
     string titleText = get_title_text(tree);
-    regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
+    regex date_pattern("(\\w\\w\\w).? (\\d+)?, (\\d+)?");
 
 // calculate relavent end date from - stock.fye, ep.year, ep.quarter
     date end_date = calculateEndDate(_stock._fiscal_year_end(),
                                      earnings_data._year(),
                                      earnings_data._quarter());
+
+
 // iterate over dates in text
     // if found match
     // save column num
@@ -840,7 +864,15 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
         if (( foundRev = findDefref(trIt, defref, num_pattern, units,
                                     earnings_data, writeRevenueToEarnings )))
         {
-            LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (REIT specific)";
+            LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (REIT/BANK specific)";
+            return foundRev;
+        }
+        // CPT
+        defref.assign("gaap_RealEstateRevenueNet");
+        if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                    earnings_data, writeRevenueToEarnings )))
+        {
+            LOG_INFO<<" Successfully found REVENUE using gaap_RealEstateRevenueNet (REIT specific)";
             return foundRev;
         }
     } // REIT
@@ -959,7 +991,7 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
             if (foundRev)
                 break;
 
-            rev_pattern.assign("Operating revenues?",boost::regex::icase);
+            rev_pattern.assign("Operating (revenues?|income)",boost::regex::icase);
             if (regex_search( trtext, rev_pattern)){
                 foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                                            num_pattern, earnings_data, writeRevenueToEarnings);
@@ -998,18 +1030,30 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     // Note - that there is a ' terminating the string.
     // However, there may be multiple such lines in the document
     regex defref("defref_us-gaap_NetIncomeLoss'");
-    while( (trp = trIt.nextTr()) != NULL )
+    if (( foundInc = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeIncomeToEarnings )))
     {
-        string attr_text = trp->attrText();
-        LOG_INFO << "Attr text is: "<<attr_text;
-        if(( foundInc = checkTrPattern(attr_text, defref, units, trp,
-                          num_pattern, earnings_data, writeIncomeToEarnings)))
-        {
-            LOG_INFO<<" Successfully found NET INCOME using defref";
-            return true;
-        }
+        LOG_INFO<<" Successfully found NET INCOME using defref defref_us-gaap_NetIncomeLoss' (1st)";
+        return foundInc;
+    }
 
-    } // while defref
+    // CAT
+    defref.assign("us-gaap_NetIncomeLossAvailableToCommonStockholders");
+    if (( foundInc = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeIncomeToEarnings )))
+    {
+        LOG_INFO<<" Successfully found NET INCOME using defref defref_NetIncomeLossAvailableToCommonStockholders (2nd)";
+        return foundInc;
+    }
+
+    // BSX
+    defref.assign("us-gaap_ProfitLoss");
+    if (( foundInc = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeIncomeToEarnings )))
+    {
+        LOG_INFO<<" Successfully found NET INCOME using defref defref us-gaap_ProfitLoss (3rd)";
+        return foundInc;
+    }
 
     trIt.resetToStart();
 
@@ -1207,7 +1251,7 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
 
     bool foundNsrBlock(false);
     bool foundNsr(false);
-    regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
+    regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?"); // at least 3 non decimal digits
     regex nsunits_pattern("(millions|thousands|billions)",regex::icase);
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 
@@ -1305,10 +1349,11 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
 void
 Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
 {
-    if (report =="")
-            LOG_ERROR << "No cover report available. So exusted attempt to "
-                      << "read num shares";
-
+    if (report ==""){
+        LOG_ERROR << "No cover report available. So exusted attempt to "
+                  << "read num shares";
+        return;
+    }
     string tableStr = extractFirstTableStr(report);
     XmlElement* tree = buildXmlTree(tableStr);
     string units="";
@@ -1356,14 +1401,23 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                 numshares = match[0];
                 LOG_INFO << "Got num shares from cover report. They are: "<< numshares;
 
-            } else
+            } else{
                 LOG_ERROR << "Could not get numshares from cover report";
+                return;
+            }
             break;
         }
     }
+    if (numshares == "")
+    {
+        LOG_ERROR << "Failed to retrieve num shares from cover report";
+        return;
+    }
     // Need to add the "|" for units|bunits structure
     units = "|"+units;
+    ep._shares_diluted() = false;
     writeNsToEarnings( ep, numshares, units);
+
 }
 
 void 
@@ -1390,6 +1444,7 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
 //LOG_INFO<<"Share units are currently "<<nsrUnits<<" going to parse table...";
   
     _col_num = findColumnToExtract(tree, earnings_data);
+    LOG_INFO << "Extractino col num is " << _col_num;
 
     foundRev = extractTotalRevenue(tree, earnings_data, units);
     if (foundRev)

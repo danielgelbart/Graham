@@ -1,11 +1,12 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <boost/filesystem/fstream.hpp>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-
+#include "Config.h"
 #include "Url.h"
 #include "Logger.h"
 #include "types.h"
@@ -398,8 +399,8 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     }  
     if (acn == NULL)
     {
-        LOG_INFO << "Did not get acn for "<<stock._ticker() 
-                 <<" "<<to_string(gyear)<<" As it already exists\n";
+        LOG_INFO << "Could not get acn for "<<stock._ticker() << " for "
+                 <<" "<<to_string(gyear) << "\n";
         return false;
     }
 // get Specific one for year to a string
@@ -472,7 +473,11 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     if (_reports.size() == 0)
         return;
 
-    addSingleAnualIncomeStatmentToDB(_reports[ReportType::INCOME], stock, year);
+    string income_report = _reports[ReportType::INCOME];
+    if (income_report == "")
+        LOG_ERROR << "MISING INCOME REPORT";
+    else
+        addSingleAnualIncomeStatmentToDB(income_report, stock, year);
     addBalanceStatmentToDB(_reports[ReportType::BALANCE], stock, year);
 }
 
@@ -502,6 +507,28 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
         parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], ep );
         shares_outstanding = true;
     }
+
+    // Deactivated only for testing
+    /*
+    if ( (withinPercent(ep._eps(),0.01,0.0)) &&
+         (ep._shares() != "" ) &&
+         (ep._net_income() != "") )
+    {
+        long income = stol(ep._net_income());
+        long shares = stol(ep._shares());
+
+        double eps = (double)income/shares;
+        ep._eps() = eps;
+
+        O_Note note;
+        note._stock_id() = stock._id();
+        note._year() = ep._year();
+        note._pertains_to() = EnumNotePERTAINS_TO::INCOME_REP;
+        note._note() = "EPS calculated using shares and income";
+        note.insert();
+        LOG_INFO << "Calculated eps to be "<< to_string(ep._eps());
+    }
+*/
     if ( addEarningsRecordToDB( stock, ep) &&
          shares_outstanding )
     {
@@ -512,6 +539,7 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
         note._note() = "using shares outstanding from cover report";
         note.insert();
     }
+
 
     // for testing
     _ep = ep;
@@ -558,6 +586,93 @@ EdgarData::getFiscalYearEndDate(O_Stock& stock)
     cout << "Adding fyed: "<< date<<" to "<<stock._ticker()<<endl;
     stock._fiscal_year_end() = date;
     stock.update();
+    return true;
+}
+
+void
+EdgarData::loadCountryMaps()
+{
+    path binPath = confParam<string>("argv0");
+    path filePath = binPath.remove_filename() /
+            "../../text_files/country_codes.txt";
+
+    cout << "going to load file at " << filePath.string();
+    string filing =  loadFileToString(filePath.string());
+
+    std::ifstream infile(filePath.string());
+
+    std::string line;
+    while (std::getline(infile, line))
+    {
+        std::istringstream iss(line);
+        string a, b;
+        if (!(iss >> a >> b))
+        { break; } // error
+        if (a == "Canadian")
+            break;
+        usmap[a] = b;
+        // process pair (a,b)
+    }
+
+    while (std::getline(infile, line))
+    {
+        std::istringstream iss(line);
+        string a, b;
+        if (!(iss >> a >> b))
+        { break; } // error
+        if (a == "Other")
+            break;
+        camap[a] = b;
+        // process pair (a,b)
+    }
+
+    while (std::getline(infile, line))
+    {
+        std::istringstream iss(line);
+        string a, b;
+        if (!(iss >> a >> b))
+        { break; } // error
+        if (a == "Canadian")
+            break;
+        omap[a] = b;
+        // process pair (a,b)
+    }
+}
+
+bool
+EdgarData::getCountry(O_Stock& stock)
+{
+    string cik( to_string(stock._cik()) );
+    string statType = "10-k";
+    string uri = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=" +
+            statType + "&dateb=&owner=exclude&count=40";
+
+    Url url = Url(uri);
+    string page;
+    downloadToString( url, page);
+
+    string tagname("State of Inc.: <strong>");
+    size_t pos = page.find(tagname) ;
+    string country_code;
+    if (pos != string::npos)
+        country_code = page.substr( pos + tagname.length(), 2);
+
+    string country;
+    if (usmap[country_code] != "")
+        country = "USA";
+    else
+        if (camap[country_code] != "")
+            country = "CANADA";
+        else
+            country = omap[country_code];
+
+    cout << "Got " << country << " for " << stock._ticker() <<
+            " for country code " << country_code << endl;
+
+    if (country != ""){
+        stock._country() = country;
+        stock.update();
+    }
     return true;
 }
 

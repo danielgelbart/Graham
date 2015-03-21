@@ -134,6 +134,24 @@ removeParenthasis(string& str)
 }
 
 string
+removeleadingComma(string& str)
+{
+    string ret("");
+    bool atstart = true;
+    for ( auto it = str.begin() ; it != str.end() ; ++it)
+    {
+        if (atstart){
+        if ( (*it == ' ' )   ||
+             (*it == ':' )    )
+            continue;
+        }
+        atstart = false;
+        ret += *it;
+    }
+    return ret;
+}
+
+string
 trimSpaces(const string& s)
 {
     return trim_copy(s);

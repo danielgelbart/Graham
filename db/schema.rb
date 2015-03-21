@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150313124758) do
+ActiveRecord::Schema.define(:version => 20150318124724) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -41,15 +41,16 @@ ActiveRecord::Schema.define(:version => 20150313124758) do
   create_table "eps", :force => true do |t|
     t.integer  "year"
     t.string   "source"
-    t.decimal  "eps",         :precision => 12, :scale => 6
+    t.decimal  "eps",            :precision => 12, :scale => 6
     t.integer  "stock_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "revenue"
     t.string   "net_income"
-    t.integer  "quarter",                                    :default => 0
+    t.integer  "quarter",                                       :default => 0
     t.datetime "report_date"
     t.string   "shares"
+    t.boolean  "shares_diluted",                                :default => true
   end
 
   create_table "notes", :force => true do |t|
@@ -89,19 +90,20 @@ ActiveRecord::Schema.define(:version => 20150313124758) do
     t.string   "ticker"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "ttm_eps",                                                                                                                                 :precision => 12, :scale => 6
-    t.decimal  "book_value_per_share",                                                                                                                    :precision => 12, :scale => 6
-    t.integer  "dividends_per_year",                                                                                                                                                     :default => 4
-    t.decimal  "latest_price",                                                                                                                            :precision => 12, :scale => 6
+    t.decimal  "ttm_eps",                                                                                                                                                                    :precision => 12, :scale => 6
+    t.decimal  "book_value_per_share",                                                                                                                                                       :precision => 12, :scale => 6
+    t.integer  "dividends_per_year",                                                                                                                                                                                        :default => 4
+    t.decimal  "latest_price",                                                                                                                                                               :precision => 12, :scale => 6
     t.string   "market_cap"
-    t.decimal  "ttm_div",                                                                                                                                 :precision => 10, :scale => 3
-    t.decimal  "yield",                                                                                                                                   :precision => 6,  :scale => 3
-    t.boolean  "listed",                                                                                                                                                                 :default => true
-    t.boolean  "has_currant_ratio",                                                                                                                                                      :default => true
+    t.decimal  "ttm_div",                                                                                                                                                                    :precision => 10, :scale => 3
+    t.decimal  "yield",                                                                                                                                                                      :precision => 6,  :scale => 3
+    t.boolean  "listed",                                                                                                                                                                                                    :default => true
+    t.boolean  "has_currant_ratio",                                                                                                                                                                                         :default => true
     t.string   "mark"
     t.integer  "cik"
-    t.string   "fiscal_year_end",                                                                                                                                                        :default => ""
-    t.enum     "company_type",         :limit => [:COMPANY, :ROYALTY_TRUST, :REIT, :ASSET_MNGMT, :FINANCE, :HOLDING, :INDUSTRY, :TECH, :PHARMA, :RETAIL],                                :default => :COMPANY
+    t.string   "fiscal_year_end",                                                                                                                                                                                           :default => ""
+    t.enum     "company_type",         :limit => [:COMPANY, :ROYALTY_TRUST, :REIT, :ASSET_MNGMT, :FINANCE, :PARTNERSHIP, :PIPELINE, :FOREIGN, :HOLDING, :INDUSTRY, :TECH, :PHARMA, :RETAIL],                                :default => :COMPANY
+    t.string   "country"
   end
 
   create_table "users", :force => true do |t|

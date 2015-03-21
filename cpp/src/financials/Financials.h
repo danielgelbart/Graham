@@ -37,7 +37,8 @@ public:
 
     void updateFinancials(O_Stock& stock);
     bool getFiscalYearEndDate(O_Stock& stock);
-
+    void loadCountryMaps();
+    bool getCountry(O_Stock& stock);
 
 private:
     string getEdgarSearchResultsPage(O_Stock& stock, StatementType st);
@@ -62,6 +63,11 @@ private:
     map<ReportType,string> _reports;
     // for testing
     O_Ep _ep;
+    // For selecting countries
+        map<string,string> usmap;
+        map<string,string> camap;
+        map<string,string> omap;
+
 };
 
 

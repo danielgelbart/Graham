@@ -304,6 +304,7 @@ bool withinPercent(T testV, float p, T val)
 
 std::string removeNonDigit(string& str);
 std::string removeParenthasis(string& str);
+std::string removeleadingComma(string& str);
 
 std::string trimSpaces(const std::string& s);
 

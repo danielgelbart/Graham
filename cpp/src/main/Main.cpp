@@ -107,7 +107,7 @@ mainMain(int argc, char* argv[])
                 stocks = ts.select(ts._ticker() == string(argv[3]));
             else
                 stocks = ts.select(ts._listed() == true && ts._id() >
-                  ts.select(ts._ticker() == string("APO")).front()._id());
+                  ts.select(ts._ticker() == string("IMN")).front()._id());
             
             for( auto it = stocks.begin(); it != stocks.end();++it)
                 test.getReportsTest( *it, outFile );
@@ -215,6 +215,15 @@ mainMain(int argc, char* argv[])
 
         Test test;
         test.seedStocks(stocks);
+    }
+
+    if (command == string("getcountry")){
+        EdgarData eData = EdgarData();
+        eData.loadCountryMaps();
+        T_Stock ts;
+        auto stocks = ts.select();
+        for(auto it = stocks.begin(); it != stocks.end(); ++it)
+            eData.getCountry(*it);
     }
 
     if (command == string("")){

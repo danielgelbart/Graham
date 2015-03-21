@@ -1,0 +1,1513 @@
+
+Testing shows 3 failures as follows:
+1. NRGY: | NO COVER REPORT
+2. NRGY: | NO INCOME REPORT
+3. NRGY: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. IR: | No earnings record for 2013 retrieved from DB
+2. IR: | No Revenue exracted from Income Statement
+3. IR: | No Income exracted from Income Statement
+4. IR: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. IBI: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. IN: | NO COVER REPORT
+2. IN: | NO INCOME REPORT
+3. IN: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. IGT: | No earnings record for 2013 retrieved from DB
+2. IGT: | No Revenue exracted from Income Statement
+3. IGT: | No Income exracted from Income Statement
+4. IGT: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. INXN: | NO COVER REPORT
+2. INXN: | NO INCOME REPORT
+3. INXN: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. IVC: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. IVR: | No earnings record for 2013 retrieved from DB
+2. IVR: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. SFI: | NO COVER REPORT
+2. SFI: | NO INCOME REPORT
+3. SFI: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. ESI: | NO COVER REPORT
+2. ESI: | NO INCOME REPORT
+3. ESI: | NO BALANCE REPORT
+
+IVN is foreign - CANADA
+Testing shows 3 failures as follows:
+1. IVN: | NO COVER REPORT
+2. IVN: | NO INCOME REPORT
+3. IVN: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. JEF: | No Eps exracted from Income Statement
+2. JEF: | No Share data exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. JLL: | No earnings record for 2013 retrieved from DB
+2. JLL: | No Income exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. KCP: | NO COVER REPORT
+2. KCP: | NO INCOME REPORT
+3. KCP: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. KEY: | No earnings record for 2013 retrieved from DB
+2. KEY: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. KID: | NO COVER REPORT
+2. KID: | NO INCOME REPORT
+3. KID: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. KMP: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. KMR: | No earnings record for 2013 retrieved from DB
+2. KMR: | No Revenue exracted from Income Statement
+
+KFS is foreign - CANADA
+Testing shows 3 failures as follows:
+1. KFS: | NO COVER REPORT
+2. KFS: | NO INCOME REPORT
+3. KFS: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. KGC: | NO COVER REPORT
+2. KGC: | NO INCOME REPORT
+3. KGC: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. LRY: | No earnings record for 2013 retrieved from DB
+2. LRY: | No Revenue exracted from Income Statement
+3. LRY: | No Income exracted from Income Statement
+4. LRY: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. LB: | NO COVER REPORT
+2. LB: | NO INCOME REPORT
+3. LB: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. TVL: | NO COVER REPORT
+2. TVL: | NO INCOME REPORT
+3. TVL: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. LNC: | No earnings record for 2013 retrieved from DB
+2. LNC: | No Income exracted from Income Statement
+3. LNC: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. LUB: | NO COVER REPORT
+2. LUB: | NO INCOME REPORT
+3. LUB: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. MTB: | No earnings record for 2013 retrieved from DB
+2. MTB: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. MIC: | NO COVER REPORT
+2. MIC: | NO INCOME REPORT
+3. MIC: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. MMP: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. MGA: | NO COVER REPORT
+2. MGA: | NO INCOME REPORT
+3. MGA: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. MX: | NO COVER REPORT
+2. MX: | NO INCOME REPORT
+3. MX: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. MFB: | NO COVER REPORT
+2. MFB: | NO INCOME REPORT
+3. MFB: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. MAIN: | NO COVER REPORT
+2. MAIN: | NO INCOME REPORT
+3. MAIN: | NO BALANCE REPORT
+
+MFC is foreign - CANADA
+Testing shows 3 failures as follows:
+1. MFC: | NO COVER REPORT
+2. MFC: | NO INCOME REPORT
+3. MFC: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. MWE: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. MMR: | NO COVER REPORT
+2. MMR: | NO INCOME REPORT
+3. MMR: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. MD: | No earnings record for 2013 retrieved from DB
+2. MD: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. WFR: | NO COVER REPORT
+2. WFR: | NO INCOME REPORT
+3. WFR: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. MTR: | NO COVER REPORT
+2. MTR: | NO INCOME REPORT
+3. MTR: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. MSB: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. PCS: | NO COVER REPORT
+2. PCS: | NO INCOME REPORT
+3. PCS: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. MFA: | No earnings record for 2013 retrieved from DB
+2. MFA: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. MNR: | No earnings record for 2013 retrieved from DB
+2. MNR: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. MPG: | NO COVER REPORT
+2. MPG: | NO INCOME REPORT
+3. MPG: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. MVO: | NO COVER REPORT
+2. MVO: | NO INCOME REPORT
+3. MVO: | NO BALANCE REPORT
+
+NTP is foreign - VIRGIN
+Testing shows 3 failures as follows:
+1. NTP: | NO COVER REPORT
+2. NTP: | NO INCOME REPORT
+3. NTP: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NFP: | NO COVER REPORT
+2. NFP: | NO INCOME REPORT
+3. NFP: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. NRP: | No Eps exracted from Income Statement
+
+NM is foreign - MARSHALL
+Testing shows 3 failures as follows:
+1. NM: | NO COVER REPORT
+2. NM: | NO INCOME REPORT
+3. NM: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. NNI: | No earnings record for 2013 retrieved from DB
+2. NNI: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. NPTN: | NO COVER REPORT
+2. NPTN: | NO INCOME REPORT
+3. NPTN: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. N: | No Share data exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. NYCB: | No earnings record for 2013 retrieved from DB
+2. NYCB: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. NCT: | No earnings record for 2013 retrieved from DB
+2. NCT: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. NFX: | No earnings record for 2013 retrieved from DB
+2. NFX: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. NKE: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. NKA: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. NAT: | NO COVER REPORT
+2. NAT: | NO INCOME REPORT
+3. NAT: | NO BALANCE REPORT
+
+NDZ is foreign - CANADA
+Testing shows 3 failures as follows:
+1. NDZ: | NO COVER REPORT
+2. NDZ: | NO INCOME REPORT
+3. NDZ: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NOA: | NO COVER REPORT
+2. NOA: | NO INCOME REPORT
+3. NOA: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NRT: | NO COVER REPORT
+2. NRT: | NO INCOME REPORT
+3. NRT: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. NRF: | No earnings record for 2013 retrieved from DB
+2. NRF: | No Revenue exracted from Income Statement
+
+
+Testing shows 4 failures as follows:
+1. NWN: | No earnings record for 2013 retrieved from DB
+2. NWN: | No Revenue exracted from Income Statement
+3. NWN: | No Income exracted from Income Statement
+4. NWN: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. NS: | No Eps exracted from Income Statement
+
+
+Testing shows 5 failures as follows:
+1. NSH: | No earnings record for 2013 retrieved from DB
+2. NSH: | No Revenue exracted from Income Statement
+3. NSH: | No Income exracted from Income Statement
+4. NSH: | No Eps exracted from Income Statement
+5. NSH: | No Share data exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. NVE: | NO COVER REPORT
+2. NVE: | NO INCOME REPORT
+3. NVE: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NYX: | NO COVER REPORT
+2. NYX: | NO INCOME REPORT
+3. NYX: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. OZM: | No earnings record for 2013 retrieved from DB
+2. OZM: | No Revenue exracted from Income Statement
+3. OZM: | No Income exracted from Income Statement
+4. OZM: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. OMX: | NO COVER REPORT
+2. OMX: | NO INCOME REPORT
+3. OMX: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. ONB: | No earnings record for 2013 retrieved from DB
+2. ONB: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. OLP: | No earnings record for 2013 retrieved from DB
+2. OLP: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. OKS: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. OFG: | No earnings record for 2013 retrieved from DB
+2. OFG: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. ORN: | No earnings record for 2013 retrieved from DB
+2. ORN: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. OXF: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. PNG: | NO COVER REPORT
+2. PNG: | NO INCOME REPORT
+3. PNG: | NO BALANCE REPORT
+
+PRGN is foreign - MARSHALL
+Testing shows 3 failures as follows:
+1. PRGN: | NO COVER REPORT
+2. PRGN: | NO INCOME REPORT
+3. PRGN: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. PGH: | NO COVER REPORT
+2. PGH: | NO INCOME REPORT
+3. PGH: | NO BALANCE REPORT
+
+PWE is foreign - CANADA
+Testing shows 3 failures as follows:
+1. PWE: | NO COVER REPORT
+2. PWE: | NO INCOME REPORT
+3. PWE: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. PBT: | NO COVER REPORT
+2. PBT: | NO INCOME REPORT
+3. PBT: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. PNX: | NO COVER REPORT
+2. PNX: | NO INCOME REPORT
+3. PNX: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. PNK: | NO COVER REPORT
+2. PNK: | NO INCOME REPORT
+3. PNK: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. PXD: | No earnings record for 2013 retrieved from DB
+2. PXD: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. PSE: | NO COVER REPORT
+2. PSE: | NO INCOME REPORT
+3. PSE: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. PAA: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. PXP: | NO COVER REPORT
+2. PXP: | NO INCOME REPORT
+3. PXP: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. PNM: | No earnings record for 2013 retrieved from DB
+2. PNM: | No Revenue exracted from Income Statement
+
+POT is foreign - CANADA
+Testing shows 3 failures as follows:
+1. POT: | NO COVER REPORT
+2. POT: | NO INCOME REPORT
+3. POT: | NO BALANCE REPORT
+
+PDS is foreign - CANADA
+Testing shows 3 failures as follows:
+1. PDS: | NO COVER REPORT
+2. PDS: | NO INCOME REPORT
+3. PDS: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. PGR: | No earnings record for 2013 retrieved from DB
+2. PGR: | No Revenue exracted from Income Statement
+3. PGR: | No Income exracted from Income Statement
+4. PGR: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. PFS: | No earnings record for 2013 retrieved from DB
+2. PFS: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. QRE: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. RAH: | NO COVER REPORT
+2. RAH: | NO INCOME REPORT
+3. RAH: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. RWT: | No earnings record for 2013 retrieved from DB
+2. RWT: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. RF: | No earnings record for 2013 retrieved from DB
+2. RF: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. RGA: | No Share data exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. RNO: | No Eps exracted from Income Statement
+
+RBA is foreign - CANADA
+Testing shows 3 failures as follows:
+1. RBA: | NO COVER REPORT
+2. RBA: | NO INCOME REPORT
+3. RBA: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. RBN: | NO COVER REPORT
+2. RBN: | NO INCOME REPORT
+3. RBN: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. RHI: | No earnings record for 2013 retrieved from DB
+2. RHI: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. COL: | NO COVER REPORT
+2. COL: | NO INCOME REPORT
+3. COL: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. RCI: | NO COVER REPORT
+2. RCI: | NO INCOME REPORT
+3. RCI: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. ROL: | No earnings record for 2013 retrieved from DB
+2. ROL: | No Revenue exracted from Income Statement
+
+RY is foreign - CANADA
+Testing shows 3 failures as follows:
+1. RY: | NO COVER REPORT
+2. RY: | NO INCOME REPORT
+3. RY: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. RCL: | No earnings record for 2013 retrieved from DB
+2. RCL: | No Revenue exracted from Income Statement
+3. RCL: | No Income exracted from Income Statement
+4. RCL: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. SBR: | NO COVER REPORT
+2. SBR: | NO INCOME REPORT
+3. SBR: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SB: | NO COVER REPORT
+2. SB: | NO INCOME REPORT
+3. SB: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. SFE: | No earnings record for 2013 retrieved from DB
+2. SFE: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. SKS: | NO COVER REPORT
+2. SKS: | NO INCOME REPORT
+3. SKS: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SJT: | NO COVER REPORT
+2. SJT: | NO INCOME REPORT
+3. SJT: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SHS: | NO COVER REPORT
+2. SHS: | NO INCOME REPORT
+3. SHS: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. SCG: | No earnings record for 2013 retrieved from DB
+2. SCG: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. STNG: | NO COVER REPORT
+2. STNG: | NO INCOME REPORT
+3. STNG: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SBX: | NO COVER REPORT
+2. SBX: | NO INCOME REPORT
+3. SBX: | NO BALANCE REPORT
+
+BOX is foreign - BERMUDA
+Testing shows 3 failures as follows:
+1. BOX: | NO COVER REPORT
+2. BOX: | NO INCOME REPORT
+3. BOX: | NO BALANCE REPORT
+
+SDRL is foreign - BERMUDA
+Testing shows 3 failures as follows:
+1. SDRL: | NO COVER REPORT
+2. SDRL: | NO INCOME REPORT
+3. SDRL: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. ZZ: | NO COVER REPORT
+2. ZZ: | NO INCOME REPORT
+3. ZZ: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SSW: | NO COVER REPORT
+2. SSW: | NO INCOME REPORT
+3. SSW: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SJR: | NO COVER REPORT
+2. SJR: | NO INCOME REPORT
+3. SJR: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SFL: | NO COVER REPORT
+2. SFL: | NO INCOME REPORT
+3. SFL: | NO BALANCE REPORT
+
+SLW is foreign - CANADA
+Testing shows 3 failures as follows:
+1. SLW: | NO COVER REPORT
+2. SLW: | NO INCOME REPORT
+3. SLW: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. SKY: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. SLM: | No earnings record for 2013 retrieved from DB
+2. SLM: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. SFD: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. SOA: | NO COVER REPORT
+2. SOA: | NO INCOME REPORT
+3. SOA: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SEH: | NO COVER REPORT
+2. SEH: | NO INCOME REPORT
+3. SEH: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. SEP: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. SXI: | NO COVER REPORT
+2. SXI: | NO INCOME REPORT
+3. SXI: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. STN: | NO COVER REPORT
+2. STN: | NO INCOME REPORT
+3. STN: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. LVB: | NO COVER REPORT
+2. LVB: | NO INCOME REPORT
+3. LVB: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. STL: | NO COVER REPORT
+2. STL: | NO INCOME REPORT
+3. STL: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. SWC: | No earnings record for 2013 retrieved from DB
+2. SWC: | No Revenue exracted from Income Statement
+3. SWC: | No Income exracted from Income Statement
+4. SWC: | No Share data exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. SLF: | NO COVER REPORT
+2. SLF: | NO INCOME REPORT
+3. SLF: | NO BALANCE REPORT
+
+SU is foreign - CANADA
+Testing shows 3 failures as follows:
+1. SU: | NO COVER REPORT
+2. SU: | NO INCOME REPORT
+3. SU: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SRZ: | NO COVER REPORT
+2. SRZ: | NO INCOME REPORT
+3. SRZ: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. SNV: | No earnings record for 2013 retrieved from DB
+2. SNV: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. SYX: | No Eps exracted from Income Statement
+
+TLM is foreign - CANADA
+Testing shows 3 failures as follows:
+1. TLM: | NO COVER REPORT
+2. TLM: | NO INCOME REPORT
+3. TLM: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. TRGP: | NO COVER REPORT
+2. TRGP: | NO INCOME REPORT
+3. TRGP: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. NGLS: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. TCB: | No earnings record for 2013 retrieved from DB
+2. TCB: | No Revenue exracted from Income Statement
+
+
+Testing shows 4 failures as follows:
+1. TMH: | No earnings record for 2013 retrieved from DB
+2. TMH: | No Revenue exracted from Income Statement
+3. TMH: | No Income exracted from Income Statement
+4. TMH: | No Eps exracted from Income Statement
+
+TCK is foreign - CANADA
+Testing shows 3 failures as follows:
+1. TCK: | NO COVER REPORT
+2. TCK: | NO INCOME REPORT
+3. TCK: | NO BALANCE REPORT
+
+TK is foreign - BERMUDA
+Testing shows 3 failures as follows:
+1. TK: | NO COVER REPORT
+2. TK: | NO INCOME REPORT
+3. TK: | NO BALANCE REPORT
+
+TNK is foreign - BERMUDA
+Testing shows 3 failures as follows:
+1. TNK: | NO COVER REPORT
+2. TNK: | NO INCOME REPORT
+3. TNK: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. TU: | NO COVER REPORT
+2. TU: | NO INCOME REPORT
+3. TU: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. TNH: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. TTI: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. TXI: | NO COVER REPORT
+2. TXI: | NO INCOME REPORT
+3. TXI: | NO BALANCE REPORT
+
+TGH is foreign - BERMUDA
+Testing shows 3 failures as follows:
+1. TGH: | NO COVER REPORT
+2. TGH: | NO INCOME REPORT
+3. TGH: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. TGX: | NO COVER REPORT
+2. TGX: | NO INCOME REPORT
+3. TGX: | NO BALANCE REPORT
+
+TRI is foreign - CANADA
+Testing shows 3 failures as follows:
+1. TRI: | NO COVER REPORT
+2. TRI: | NO INCOME REPORT
+3. TRI: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. TIE: | NO COVER REPORT
+2. TIE: | NO INCOME REPORT
+3. TIE: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. TR: | No Eps exracted from Income Statement
+
+TD is foreign - CANADA
+Testing shows 3 failures as follows:
+1. TD: | NO COVER REPORT
+2. TD: | NO INCOME REPORT
+3. TD: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. TW: | NO COVER REPORT
+
+
+Testing shows 3 failures as follows:
+1. TAC: | NO COVER REPORT
+2. TAC: | NO INCOME REPORT
+3. TAC: | NO BALANCE REPORT
+
+TRP is foreign - CANADA
+Testing shows 3 failures as follows:
+1. TRP: | NO COVER REPORT
+2. TRP: | NO INCOME REPORT
+3. TRP: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. TCI: | NO COVER REPORT
+2. TCI: | NO INCOME REPORT
+3. TCI: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. TLP: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. TNP: | NO COVER REPORT
+2. TNP: | NO INCOME REPORT
+3. TNP: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. TWO: | No earnings record for 2013 retrieved from DB
+2. TWO: | No Revenue exracted from Income Statement
+
+UBS is foreign - SWITZERLAND
+Testing shows 3 failures as follows:
+1. UBS: | NO COVER REPORT
+2. UBS: | NO INCOME REPORT
+3. UBS: | NO BALANCE REPORT
+
+
+Testing shows 4 failures as follows:
+1. UFI: | No earnings record for 2013 retrieved from DB
+2. UFI: | No Revenue exracted from Income Statement
+3. UFI: | No Income exracted from Income Statement
+4. UFI: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. LCC: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. USB: | No earnings record for 2013 retrieved from DB
+2. USB: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. USU: | NO COVER REPORT
+2. USU: | NO INCOME REPORT
+3. USU: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. EGY: | No earnings record for 2013 retrieved from DB
+2. EGY: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. VCI: | NO COVER REPORT
+2. VCI: | NO INCOME REPORT
+3. VCI: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. VLY: | No earnings record for 2013 retrieved from DB
+2. VLY: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. VVI: | NO COVER REPORT
+2. VVI: | NO INCOME REPORT
+3. VVI: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. WRB: | No Share data exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. WRC: | NO COVER REPORT
+2. WRC: | NO INCOME REPORT
+3. WRC: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. WRE: | No earnings record for 2013 retrieved from DB
+2. WRE: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. WAT: | No Eps exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. WPI: | NO COVER REPORT
+2. WPI: | NO INCOME REPORT
+3. WPI: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. WBS: | No earnings record for 2013 retrieved from DB
+2. WBS: | No Revenue exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. WCG: | No Eps exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. WFC: | No earnings record for 2013 retrieved from DB
+2. WFC: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. WAL: | No earnings record for 2013 retrieved from DB
+2. WAL: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. WHX: | NO COVER REPORT
+2. WHX: | NO INCOME REPORT
+3. WHX: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. WPZ: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. WSH: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. WWW: | No Eps exracted from Income Statement
+
+AUY is foreign - CANADA
+Testing shows 3 failures as follows:
+1. AUY: | NO COVER REPORT
+2. AUY: | NO INCOME REPORT
+3. AUY: | NO BALANCE REPORT
+
+TEVA is foreign - ISRAEL
+Testing shows 3 failures as follows:
+1. TEVA: | NO COVER REPORT
+2. TEVA: | NO INCOME REPORT
+3. TEVA: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. RDS.A: | NO COVER REPORT
+2. RDS.A: | NO INCOME REPORT
+3. RDS.A: | NO BALANCE REPORT
+
+DEG is foreign - BELGIUM
+Testing shows 3 failures as follows:
+1. DEG: | NO COVER REPORT
+2. DEG: | NO INCOME REPORT
+3. DEG: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NVO: | NO COVER REPORT
+2. NVO: | NO INCOME REPORT
+3. NVO: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NOK: | NO COVER REPORT
+2. NOK: | NO INCOME REPORT
+3. NOK: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. ALU: | NO COVER REPORT
+2. ALU: | NO INCOME REPORT
+3. ALU: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. CGV: | NO COVER REPORT
+2. CGV: | NO INCOME REPORT
+3. CGV: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. FTE: | NO COVER REPORT
+2. FTE: | NO INCOME REPORT
+3. FTE: | NO BALANCE REPORT
+
+SNY is foreign - FRANCE
+Testing shows 3 failures as follows:
+1. SNY: | NO COVER REPORT
+2. SNY: | NO INCOME REPORT
+3. SNY: | NO BALANCE REPORT
+
+SQNS is foreign - FRANCE
+Testing shows 3 failures as follows:
+1. SQNS: | NO COVER REPORT
+2. SQNS: | NO INCOME REPORT
+3. SQNS: | NO BALANCE REPORT
+
+TOT is foreign - FRANCE
+Testing shows 3 failures as follows:
+1. TOT: | NO COVER REPORT
+2. TOT: | NO INCOME REPORT
+3. TOT: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. VE: | NO COVER REPORT
+2. VE: | NO INCOME REPORT
+3. VE: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. FMS: | NO COVER REPORT
+2. FMS: | NO INCOME REPORT
+3. FMS: | NO BALANCE REPORT
+
+SAP is foreign - GERMANY
+Testing shows 3 failures as follows:
+1. SAP: | NO COVER REPORT
+2. SAP: | NO INCOME REPORT
+3. SAP: | NO BALANCE REPORT
+
+SI is foreign - GERMANY
+Testing shows 3 failures as follows:
+1. SI: | NO COVER REPORT
+2. SI: | NO INCOME REPORT
+3. SI: | NO BALANCE REPORT
+
+TEU is foreign - MARSHALL
+Testing shows 3 failures as follows:
+1. TEU: | NO COVER REPORT
+2. TEU: | NO INCOME REPORT
+3. TEU: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. CCH: | NO COVER REPORT
+2. CCH: | NO INCOME REPORT
+3. CCH: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NBG: | NO COVER REPORT
+2. NBG: | NO INCOME REPORT
+3. NBG: | NO BALANCE REPORT
+
+NNA is foreign - MARSHALL
+Testing shows 3 failures as follows:
+1. NNA: | NO COVER REPORT
+2. NNA: | NO INCOME REPORT
+3. NNA: | NO BALANCE REPORT
+
+CRH is foreign - IRELAND
+Testing shows 3 failures as follows:
+1. CRH: | NO COVER REPORT
+2. CRH: | NO INCOME REPORT
+3. CRH: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. ELN: | NO COVER REPORT
+2. ELN: | NO INCOME REPORT
+3. ELN: | NO BALANCE REPORT
+
+FLY is foreign - BERMUDA
+Testing shows 3 failures as follows:
+1. FLY: | NO COVER REPORT
+2. FLY: | NO INCOME REPORT
+3. FLY: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. IRE: | NO COVER REPORT
+2. IRE: | NO INCOME REPORT
+3. IRE: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. E: | NO COVER REPORT
+2. E: | NO INCOME REPORT
+3. E: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. LUX: | NO COVER REPORT
+2. LUX: | NO INCOME REPORT
+3. LUX: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NTZ: | NO COVER REPORT
+2. NTZ: | NO INCOME REPORT
+3. NTZ: | NO BALANCE REPORT
+
+TI is foreign - ITALY
+Testing shows 3 failures as follows:
+1. TI: | NO COVER REPORT
+2. TI: | NO INCOME REPORT
+3. TI: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. MT: | NO COVER REPORT
+2. MT: | NO INCOME REPORT
+3. MT: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. TS: | NO COVER REPORT
+2. TS: | NO INCOME REPORT
+3. TS: | NO BALANCE REPORT
+
+TX is foreign - LUXEMBOURG
+Testing shows 3 failures as follows:
+1. TX: | NO COVER REPORT
+2. TX: | NO INCOME REPORT
+3. TX: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. AEG: | NO COVER REPORT
+2. AEG: | NO INCOME REPORT
+3. AEG: | NO BALANCE REPORT
+
+ING is foreign - NETHERLANDS
+Testing shows 3 failures as follows:
+1. ING: | NO COVER REPORT
+2. ING: | NO INCOME REPORT
+3. ING: | NO BALANCE REPORT
+
+ENL is foreign - MYANMAR
+Testing shows 3 failures as follows:
+1. ENL: | NO COVER REPORT
+2. ENL: | NO INCOME REPORT
+3. ENL: | NO BALANCE REPORT
+
+RDS.B is foreign - UNITED
+Testing shows 3 failures as follows:
+1. RDS.B: | NO COVER REPORT
+2. RDS.B: | NO INCOME REPORT
+3. RDS.B: | NO BALANCE REPORT
+
+PHG is foreign - NETHERLANDS
+Testing shows 3 failures as follows:
+1. PHG: | NO COVER REPORT
+2. PHG: | NO INCOME REPORT
+3. PHG: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. UN: | NO COVER REPORT
+2. UN: | NO INCOME REPORT
+3. UN: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. STO: | NO COVER REPORT
+2. STO: | NO INCOME REPORT
+3. STO: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. PT: | NO COVER REPORT
+2. PT: | NO INCOME REPORT
+3. PT: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. BBVA: | NO COVER REPORT
+2. BBVA: | NO INCOME REPORT
+3. BBVA: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. PRIS: | NO COVER REPORT
+2. PRIS: | NO INCOME REPORT
+3. PRIS: | NO BALANCE REPORT
+
+TEF is foreign - SPAIN
+Testing shows 3 failures as follows:
+1. TEF: | NO COVER REPORT
+2. TEF: | NO INCOME REPORT
+3. TEF: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. ABB: | NO COVER REPORT
+2. ABB: | NO INCOME REPORT
+3. ABB: | NO BALANCE REPORT
+
+CS is foreign - SWITZERLAND
+Testing shows 3 failures as follows:
+1. CS: | NO COVER REPORT
+2. CS: | NO INCOME REPORT
+3. CS: | NO BALANCE REPORT
+
+NVS is foreign - SWITZERLAND
+Testing shows 3 failures as follows:
+1. NVS: | NO COVER REPORT
+2. NVS: | NO INCOME REPORT
+3. NVS: | NO BALANCE REPORT
+
+STM is foreign - NETHERLANDS
+Testing shows 3 failures as follows:
+1. STM: | NO COVER REPORT
+2. STM: | NO INCOME REPORT
+3. STM: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SYT: | NO COVER REPORT
+2. SYT: | NO INCOME REPORT
+3. SYT: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. AZN: | NO COVER REPORT
+2. AZN: | NO INCOME REPORT
+3. AZN: | NO BALANCE REPORT
+
+AV is foreign - UNITED
+Testing shows 3 failures as follows:
+1. AV: | NO COVER REPORT
+2. AV: | NO INCOME REPORT
+3. AV: | NO BALANCE REPORT
+
+BCS is foreign - UNITED
+Testing shows 3 failures as follows:
+1. BCS: | NO COVER REPORT
+2. BCS: | NO INCOME REPORT
+3. BCS: | NO BALANCE REPORT
+
+BBL is foreign - UNITED
+Testing shows 3 failures as follows:
+1. BBL: | NO COVER REPORT
+2. BBL: | NO INCOME REPORT
+3. BBL: | NO BALANCE REPORT
+
+BP is foreign - UNITED
+Testing shows 3 failures as follows:
+1. BP: | NO COVER REPORT
+2. BP: | NO INCOME REPORT
+3. BP: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. BT: | NO COVER REPORT
+2. BT: | NO INCOME REPORT
+3. BT: | NO BALANCE REPORT
+
+DEO is foreign - UNITED
+Testing shows 3 failures as follows:
+1. DEO: | NO COVER REPORT
+2. DEO: | NO INCOME REPORT
+3. DEO: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. GSK: | NO COVER REPORT
+2. GSK: | NO INCOME REPORT
+3. GSK: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. HBC: | NO COVER REPORT
+2. HBC: | NO INCOME REPORT
+3. HBC: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. IHG: | NO COVER REPORT
+2. IHG: | NO INCOME REPORT
+3. IHG: | NO BALANCE REPORT
+
+LYG is foreign - UNITED
+Testing shows 3 failures as follows:
+1. LYG: | NO COVER REPORT
+2. LYG: | NO INCOME REPORT
+3. LYG: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NGG: | NO COVER REPORT
+2. NGG: | NO INCOME REPORT
+3. NGG: | NO BALANCE REPORT
+
+PSO is foreign - UNITED
+Testing shows 3 failures as follows:
+1. PSO: | NO COVER REPORT
+2. PSO: | NO INCOME REPORT
+3. PSO: | NO BALANCE REPORT
+
+PUK is foreign - UNITED
+Testing shows 3 failures as follows:
+1. PUK: | NO COVER REPORT
+2. PUK: | NO INCOME REPORT
+3. PUK: | NO BALANCE REPORT
+
+RUK is foreign - UNITED
+Testing shows 3 failures as follows:
+1. RUK: | NO COVER REPORT
+2. RUK: | NO INCOME REPORT
+3. RUK: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. RIO: | NO COVER REPORT
+2. RIO: | NO INCOME REPORT
+3. RIO: | NO BALANCE REPORT
+
+RBS is foreign - UNITED
+Testing shows 3 failures as follows:
+1. RBS: | NO COVER REPORT
+2. RBS: | NO INCOME REPORT
+3. RBS: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. SNN: | NO COVER REPORT
+2. SNN: | NO INCOME REPORT
+3. SNN: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. UL: | NO COVER REPORT
+2. UL: | NO INCOME REPORT
+3. UL: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. BMC: | NO COVER REPORT
+2. BMC: | NO INCOME REPORT
+3. BMC: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. BF.B: | NO COVER REPORT
+2. BF.B: | NO INCOME REPORT
+3. BF.B: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. CMCSA: | No Eps exracted from Income Statement
+
+
+Testing shows 1 failures as follows:
+1. XRAY: | NO COVER REPORT
+
+
+Testing shows 2 failures as follows:
+1. EA: | No earnings record for 2013 retrieved from DB
+2. EA: | No Income exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. HCBK: | No earnings record for 2013 retrieved from DB
+2. HCBK: | No Revenue exracted from Income Statement
+
+
+Testing shows 2 failures as follows:
+1. HBAN: | No earnings record for 2013 retrieved from DB
+2. HBAN: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. LIFE: | NO COVER REPORT
+2. LIFE: | NO INCOME REPORT
+3. LIFE: | NO BALANCE REPORT
+
+MIL is foreign - CANADA
+Testing shows 3 failures as follows:
+1. MIL: | NO COVER REPORT
+2. MIL: | NO INCOME REPORT
+3. MIL: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. NWSA: | NO COVER REPORT
+2. NWSA: | NO INCOME REPORT
+3. NWSA: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. PBCT: | No earnings record for 2013 retrieved from DB
+2. PBCT: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. TLAB: | NO COVER REPORT
+2. TLAB: | NO INCOME REPORT
+3. TLAB: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. VIA: | NO COVER REPORT
+
+
+Testing shows 3 failures as follows:
+1. WFM: | NO COVER REPORT
+2. WFM: | NO INCOME REPORT
+3. WFM: | NO BALANCE REPORT
+
+
+Testing shows 2 failures as follows:
+1. ZION: | No earnings record for 2013 retrieved from DB
+2. ZION: | No Revenue exracted from Income Statement
+
+
+Testing shows 3 failures as follows:
+1. TSLA: | NO COVER REPORT
+2. TSLA: | NO INCOME REPORT
+3. TSLA: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. PTR: | NO COVER REPORT
+2. PTR: | NO INCOME REPORT
+3. PTR: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. VLKAY: | NO COVER REPORT
+2. VLKAY: | NO INCOME REPORT
+3. VLKAY: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. VOD: | NO COVER REPORT
+2. VOD: | NO INCOME REPORT
+3. VOD: | NO BALANCE REPORT
+
+
+Testing shows 3 failures as follows:
+1. HMC: | NO COVER REPORT
+2. HMC: | NO INCOME REPORT
+3. HMC: | NO BALANCE REPORT
+
+
+Testing shows 1 failures as follows:
+1. ACMP: | No Eps exracted from Income Statement
+

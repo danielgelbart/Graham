@@ -2,18 +2,19 @@
 #
 # Table name: eps
 #
-#  id          :integer(4)      not null, primary key
-#  year        :integer(4)
-#  source      :string(255)
-#  eps         :decimal(12, 6)
-#  stock_id    :integer(4)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  revenue     :string(255)
-#  net_income  :string(255)
-#  quarter     :integer(4)      default(0)
-#  report_date :datetime
-#  shares      :string(255)
+#  id             :integer(4)      not null, primary key
+#  year           :integer(4)
+#  source         :string(255)
+#  eps            :decimal(12, 6)
+#  stock_id       :integer(4)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  revenue        :string(255)
+#  net_income     :string(255)
+#  quarter        :integer(4)      default(0)
+#  report_date    :datetime
+#  shares         :string(255)
+#  shares_diluted :boolean(1)      default(TRUE)
 #
 
 class Ep < ActiveRecord::Base

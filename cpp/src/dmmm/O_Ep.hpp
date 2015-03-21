@@ -110,6 +110,13 @@ O_Ep(const I_Ep& id)
         _f_shares._dirty = true; 
         return _f_shares._base; 
     }
+    const F_Object::Base& _shares_diluted() const { 
+        return _f_shares_diluted._base; 
+    }
+    F_Object::Base& _shares_diluted() { 
+        _f_shares_diluted._dirty = true; 
+        return _f_shares_diluted._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -149,6 +156,9 @@ O_Ep(const I_Ep& id)
         if (_f_shares._dirty)
             field2Val["shares"] = 
                 toSQLString(_f_shares._base);
+        if (_f_shares_diluted._dirty)
+            field2Val["shares_diluted"] = 
+                toSQLString(_f_shares_diluted._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("eps", 
@@ -166,6 +176,7 @@ O_Ep(const I_Ep& id)
             _f_quarter._dirty = false;
             _f_report_date._dirty = false;
             _f_shares._dirty = false;
+            _f_shares_diluted._dirty = false;
             return true;
         }
         else
@@ -210,6 +221,9 @@ O_Ep(const I_Ep& id)
         if (_f_shares._dirty)
             field2Val["shares"] = 
                 toSQLString(_f_shares._base);
+        if (_f_shares_diluted._dirty)
+            field2Val["shares_diluted"] = 
+                toSQLString(_f_shares_diluted._base);
 
         
         if (DBFace::instance()->
@@ -228,6 +242,7 @@ O_Ep(const I_Ep& id)
             _f_quarter._dirty = false;
             _f_report_date._dirty = false;
             _f_shares._dirty = false;
+            _f_shares_diluted._dirty = false;
             return true;
         }
         else
@@ -247,6 +262,7 @@ private:
     F_Fixnum _f_quarter;
     F_Time _f_report_date;
     F_String _f_shares;
+    F_Object _f_shares_diluted;
 
     friend class T_Ep;
 };
