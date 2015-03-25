@@ -9,7 +9,7 @@
 #include "dmmm_fields.hpp"
 #include "dmmm_comparators.hpp"
 
-enum EnumNotePERTAINS_TO { K10 = 1, Q10 = 2, REPORTS = 3, INCOME_REP = 4, BALANCE_REP = 5, COVER_REP = 6, SHARES_OUTSTANDING = 7 };
+enum EnumNotePERTAINS_TO { K10 = 1, Q10 = 2, REPORTS = 3, INCOME_REP = 4, NO_REV = 5, NO_INC = 6, NO_SHARES = 7, NO_EPS = 8, BALANCE_REP = 9, COVER_REP = 10, SHARES_OUTSTANDING = 11 };
 
 namespace DMMM {
 

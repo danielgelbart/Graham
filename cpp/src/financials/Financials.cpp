@@ -215,9 +215,7 @@ EdgarData::insertEp( O_Ep& ep )
          (ep._year() < greg_year(1980)) ||
          (ep._year() > greg_year(2020)) ||
          (ep._quarter() > 5 )           ||
-         (ep._quarter() < 0 )           ||
-         (ep._revenue() == "")          ||
-         (ep._net_income() == "")       
+         (ep._quarter() < 0 )
         )
         return false;
 
@@ -242,7 +240,45 @@ EdgarData::insertEp( O_Ep& ep )
                 <<"already exists";
         return false;
     }
-    // insert
+
+    // Add notes on failure, if needed
+    if ( (ep._revenue() == "")            ||
+         (ep._net_income() == "")         ||
+         (withinPercent(ep._eps(),0.1,0.0)) ||
+         (ep._shares() =="")
+         ){
+        O_Note note;
+        note._stock_id() = stock._id();
+        note._year() = ep._year();
+
+        if (ep._revenue() == ""){
+            note._pertains_to() = EnumNotePERTAINS_TO::NO_REV;
+            string message = "Could not retrieve revenue";
+            note._note() = message;
+            LOG_INFO << "Added NOTE - "<< message ;
+        }
+        if (ep._net_income() == ""){
+            note._pertains_to() = EnumNotePERTAINS_TO::NO_INC;
+            string message = "Could not retrieve Net Income";
+            note._note() = message;
+            LOG_INFO << "Added NOTE - "<< message ;
+        }
+        if (withinPercent(ep._eps(),0.1,0.0)){
+            note._pertains_to() = EnumNotePERTAINS_TO::NO_EPS;
+            string message = "Could not retrieve EPS";
+            note._note() = message;
+            LOG_INFO << "Added NOTE - "<< message ;
+        }
+        if (ep._shares() == ""){
+            note._pertains_to() = EnumNotePERTAINS_TO::NO_SHARES;
+            string message = "Could not retrieve shares outstanding";
+            note._note() = message;
+            LOG_INFO << "Added NOTE - "<< message ;
+        }
+        // insert note for missing data
+        note.insert();
+    }
+    // insert earnings
     return ep.insert();
 }
 
@@ -428,7 +464,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     greg_year last_year = today.year() - 1;
 
     bool updated(false);
-    updated = getQuarters( stock );
+    //updated = getQuarters( stock );
 
 // check if last years 10k exists
     T_Ep t;
@@ -443,7 +479,7 @@ EdgarData::updateFinancials(O_Stock& stock)
         //Info info( stock._ticker(), last_year, StatementType::K10) ;
         extract10kToDisk( k10text, stock, last_year);
 
-        createFourthQuarter( stock, last_year );
+      //  createFourthQuarter( stock, last_year );
         updated = true;
     }
     else
@@ -452,12 +488,12 @@ EdgarData::updateFinancials(O_Stock& stock)
         if (stock._eps( t._year() == last_year &&  
                         t._quarter() == 5 ).empty() )
         {
-            createFourthQuarter( stock, last_year );
-            updated = true;
+        //    createFourthQuarter( stock, last_year );
+        //    updated = true;
         }
     }
     if (updated)
-        createTtmEps( stock );
+        ;//createTtmEps( stock );
 }
 
 void
@@ -508,8 +544,6 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
         shares_outstanding = true;
     }
 
-    // Deactivated only for testing
-    /*
     if ( (withinPercent(ep._eps(),0.01,0.0)) &&
          (ep._shares() != "" ) &&
          (ep._net_income() != "") )
@@ -528,7 +562,7 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
         note.insert();
         LOG_INFO << "Calculated eps to be "<< to_string(ep._eps());
     }
-*/
+
     if ( addEarningsRecordToDB( stock, ep) &&
          shares_outstanding )
     {

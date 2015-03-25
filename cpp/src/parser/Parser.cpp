@@ -527,6 +527,8 @@ Parser::parseQuarterlyIncomeStatment(XmlElement* tree,
 {
     getUnitsAndCurrency( tree, units, currency );
 
+    // use extract* methods
+
     // get rev, inc, eps        
     //revenue = removeNonDigit( getRevenues(tree,true).front() ) + units;
     //income = removeNonDigit( getIncs(tree,true).front() ) + units;

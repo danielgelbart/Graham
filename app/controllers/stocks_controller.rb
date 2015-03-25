@@ -72,6 +72,7 @@ class StocksController < ApplicationController
     @earnings = @earnings.sort{ |a,b| a.year <=> b.year }
     @income = @earnings.map{|s| s.net_income.to_i }
     @revenue = @earnings.map{|s| s.revenue.to_i }
+    @notes = @stock.notes
     @ttm = @stock.get_ttm_earnings
     if !@ttm.nil?
       @income << @ttm.net_income.to_i

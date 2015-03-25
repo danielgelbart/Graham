@@ -12,7 +12,9 @@
 - if !@ttm.nil?
   .red
     Showing TTM data in last column of chart   
-    
+- if !@notes.empty?
+  .blue
+    Stock has notes (displayed at bottom)
 %script{ :type => "text/javascript", :charset => "utf-8"}
   :plain
     $(function() {
@@ -201,5 +203,23 @@
           = a.shares if a
         %td
           = "%5.2f" % e.margin
+- if !@notes.empty?
+  %table.stock-list
+    %thead
+      %th
+        year
+      %th
+        pertains to
+      %th
+        note  
+    %tbody
+      - @notes.sort{ |a,b| b.year <=> a.year }.each do |n|
+        %tr
+          %td
+            = n.year
+          %td
+            = n.pertains_to 
+          %td
+            = n.note
 
 = link_to 'Back', stocks_path
