@@ -107,7 +107,7 @@ stock_contains_acn(O_Stock& stock, Acn& acn)
 {
     vector<O_Ep> epss = stock._eps();
     for (auto it = epss.begin() ; it != epss.end(); ++it )
-        if ( it->_year()    == acn._report_date.year() &&
+        if ( it->_year()    == acn._year &&
              it->_quarter() == acn._quarter )
             return true;
     return false;
@@ -131,37 +131,13 @@ EdgarData::getQuarters(O_Stock& stock)
         {
             cout << "\n Stock does not have this data yet" << endl;
             string page = getEdgarFiling( stock, *(*it));
-            addQuarterIncomeStatmentToDB( *(*it), stock, page );
+            addSingleQuarterIncomeStatmentToDB(page,stock, (*it)->_report_date.year(),
+                                               (*it)->_quarter);
             updated = true;
         }
     }  
     return updated;
 }    
-
-void
-EdgarData::addQuarterIncomeStatmentToDB(Acn& acn, O_Stock& stock, 
-                                        string& q10filingStr)
-{
-    //string page = getEdgarFiling( stock, acn);
-    Parser parser = Parser();
-    string incomeStr = parser.extract_quarterly_income(q10filingStr);
-
-    incomeStr = parser.extractFirstTableStr( incomeStr );
-    XmlElement* tree = parser.buildXmlTree(incomeStr);
-
-    string units;
-    string currency;
-    string revenue;
-    string income;
-    float eps;
-    string numshares;
-    parser.parseQuarterlyIncomeStatment(tree, units, currency,
-                                        revenue, income, eps, numshares);
-    
-    addEarningsRecordToDB( stock, acn._report_date.year(), acn._quarter,
-                           revenue, income, eps, numshares, 
-                           "edgar.com"/*source*/);
-}
 
 bool
 EdgarData::addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS)
@@ -231,9 +207,9 @@ EdgarData::insertEp( O_Ep& ep )
     O_Stock stock = spair.first;
    
     // check if it already exits in DB
-    string dummy("dummy "); 
     date dd( ep._year(),Jan,1);
-    Acn acn( dummy, dd, ep._quarter() );
+    Acn acn( string("dummy"), dd, ep._quarter() );
+    acn._year = ep._year();
     if ( stock_contains_acn( stock, acn ) )
     {
         LOG_INFO<<"NOT adding earnings to DB. Record for that quarter/year "
@@ -464,7 +440,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     greg_year last_year = today.year() - 1;
 
     bool updated(false);
-    //updated = getQuarters( stock );
+    updated = getQuarters( stock );
 
 // check if last years 10k exists
     T_Ep t;
@@ -579,6 +555,54 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
     _ep = ep;
 }
 
+void
+EdgarData::addSingleQuarterIncomeStatmentToDB(string& filing,
+                                            O_Stock& stock, size_t year, size_t quarter)
+{
+    Parser parser;
+    parser.set_stock(stock);
+
+    string incomeStr = parser.extract_quarterly_income(filing);
+    incomeStr = parser.extractFirstTableStr( incomeStr );
+    XmlElement* tree = parser.buildXmlTree(incomeStr);
+
+    if(tree == NULL)
+    {
+        LOG_INFO << "No income statement to parse to DB for "<<stock._ticker();
+        return;
+    }
+
+    O_Ep ep;
+    ep._stock_id() = stock._id();
+    ep._year() = year;
+    ep._quarter() = quarter; // Anual record
+    ep._source() = string("edgar.com");
+    parser.parseIncomeTree(tree, ep);
+
+    if ( (withinPercent(ep._eps(),0.01,0.0)) &&
+         (ep._shares() != "" ) &&
+         (ep._net_income() != "") )
+    {
+        long income = stol(ep._net_income());
+        long shares = stol(ep._shares());
+
+        double eps = (double)income/shares;
+        ep._eps() = eps;
+
+        O_Note note;
+        note._stock_id() = stock._id();
+        note._year() = ep._year();
+        note._pertains_to() = EnumNotePERTAINS_TO::INCOME_REP;
+        note._note() = "QUARTER: " + to_string(quarter) +" |EPS calculated using shares and income";
+        note.insert();
+        LOG_INFO << "Calculated eps to be "<< to_string(ep._eps());
+    }
+
+    // for testing
+    _ep = ep;
+}
+
+
 bool 
 EdgarData::getFiscalYearEndDate(O_Stock& stock)
 {
@@ -672,6 +696,8 @@ EdgarData::loadCountryMaps()
         // process pair (a,b)
     }
 }
+
+
 
 bool
 EdgarData::getCountry(O_Stock& stock)

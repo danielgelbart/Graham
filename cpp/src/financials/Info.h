@@ -21,26 +21,37 @@ struct Info{
 
 struct Acn {
 
-    Acn() {}
+    Acn() : _year(2014) {}
     Acn( string acn, date repDate, size_t quarter ) :
-        _acn(acn), _report_date(repDate), _quarter(quarter) {}
+        _acn(acn), _report_date(repDate), _year(repDate.year()-1), _quarter(quarter) {}
 
-    void set_quarter_from_date()
+    void set_quarter_from_date(date& endate)
+    {
+        _year = (endate.year() + 1);
+
+        date_period fourthQ( endate, (endate + months(3)) );
+        if ( fourthQ.contains( _report_date) )
         {
-            greg_year year = _report_date.year();
-            date_period secondQ( date(year,Apr,1), date(year,Jun,30) );
-            if ( secondQ.contains( _report_date) )
-                _quarter = 1;
-            date_period thirdQ( date(year,Jul,1), date(year,Sep,30) );
-            if ( thirdQ.contains( _report_date) )
-                _quarter = 2;
-            date_period fourthQ( date(year,Oct,1), date(year,Dec,31) );
-            if ( fourthQ.contains( _report_date) )
-                _quarter = 3;
+            _quarter = 4;
+            _year = (endate - days(2)).year();
         }
-// members
+
+        date_period firstQ( endate + months(3), (endate + months(6)) );
+        if ( firstQ.contains( _report_date) )
+            _quarter = 1;
+
+        date_period secondQ( endate + months(6), (endate + months(9)) );
+        if ( secondQ.contains( _report_date) )
+            _quarter = 2;
+
+        date_period thirdQ( endate + months(9), (endate + months(12)) );
+        if ( thirdQ.contains( _report_date) )
+            _quarter = 3;
+    }
+    // members
     string _acn;
     date _report_date;
+    greg_year _year;
     int _quarter;
 };
 

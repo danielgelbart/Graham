@@ -118,11 +118,7 @@ public:
                                     StatementType st = StatementType::Q10);
     Acn* trToAcn( XmlElement* tr );
 
-    void parseQuarterlyIncomeStatment(XmlElement* tree, 
-                                      string& units, string& currency,
-                                      string& revenue, string& income, 
-                                      float& eps, string& numshares);
-    string getUnitsAndCurrency(XmlElement* tree, 
+    string getUnitsAndCurrency(XmlElement* tree,
                              string& units, string& currency);
     void parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnigs_data);
 

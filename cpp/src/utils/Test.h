@@ -60,6 +60,7 @@ public:
                        TestResults& tResults);
     void seedStocks(vector<O_Stock>& stocks);
     bool getReportsTest(O_Stock& stock,boost::filesystem::ofstream& outFile);
+    bool updateTest(O_Stock& stock );
 
 private: //members
 //    path _mockPath;

@@ -520,26 +520,6 @@ Parser::getUnitsAndCurrency(XmlElement* tree, string& units, string& currency)
 }
 
 void
-Parser::parseQuarterlyIncomeStatment(XmlElement* tree, 
-                                     string& units, string& currency,
-                                     string& revenue, string& income, 
-                                     float& eps, string& numshares)
-{
-    getUnitsAndCurrency( tree, units, currency );
-
-    // use extract* methods
-
-    // get rev, inc, eps        
-    //revenue = removeNonDigit( getRevenues(tree,true).front() ) + units;
-    //income = removeNonDigit( getIncs(tree,true).front() ) + units;
-    //eps = getQarterEps(tree);
-    //numshares = getNumShares(tree, units)[0];
-    cout << "\n Got income data: rev = " << revenue
-         << "; inc = " << income << "; eps = " << to_string(eps) 
-         << " numshares " << numshares << endl;
-}
-
-void
 XmlElement::getNodes(string tagName, 
                      size_t number, 
                      vector<XmlElement*>* collected)
@@ -1670,9 +1650,11 @@ Parser::trToAcn( XmlElement* tr )
     date report_date( from_string( match[0] ) );
 
     Acn* acn_rec = new Acn( acn, report_date, 1);
-    acn_rec->set_quarter_from_date();
+    date endate = convertFyedStringToDate((report_date.year() - 1), _stock._fiscal_year_end());
+    acn_rec->set_quarter_from_date(endate);
 
-    LOG_INFO << "Extracted ACN: "<< acn << " filed on date" << report_date;
+    LOG_INFO << "Extracted ACN: "<< acn << " filed on date" << report_date
+                << "for quarter " << acn_rec->_quarter;
     return acn_rec;
 }
 

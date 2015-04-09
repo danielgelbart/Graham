@@ -423,7 +423,7 @@ Test::runSingleQarterTest(TestResults& tResults)
     }
     EdgarData edgar;
     Acn acn( string("0000093410-14-000024"), date(2014,May,2), 1 );
-    edgar.addQuarterIncomeStatmentToDB(acn,stock,filing);
+    edgar.addSingleQuarterIncomeStatmentToDB(filing,stock,acn._report_date.year(),acn._quarter);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() &&
@@ -770,6 +770,38 @@ Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
     cout << "\n ---  TEST Results for "<<stock._ticker()<<" ---" <<resultSummary << endl;
     return repFail;
 }
+
+bool
+Test::updateTest(O_Stock& stock)
+{
+    LOG_INFO << "\n --- Testing retreval of data for " << stock._ticker()
+             << "  ---\n";
+
+    // Ensure we switched to test DB
+    bool rok(false);
+    rok = db_setup();
+    if(!rok)
+    {
+        LOG_ERROR << "Something wrong with TEST(probably with TEST DB setup)."
+                  << "EXITING";
+        cout << "An error uccored. exiting";
+        exit(-1);
+    }
+    bool repFail(true);
+    TestResults testRes;
+    string testName(stock._ticker() + ": ");
+    testRes.setTestName(testName);
+
+    EdgarData edgar;
+
+    edgar.updateFinancials( stock );
+// test covreage (if data missing)
+// income
+//  balance_
+
+}
+
+
 
 long
 convertNumSharesToLong( string numShares )
