@@ -10,7 +10,7 @@ body {
     margin:0px auto; /* Right and left margin widths set to "auto" */
     text-align:left; /* Counteract to IE5/Win Hack */
     padding:15px;
-    background-color:#eee;
+//    background-color:#eee;
 }
 
 body, p, ol, ul, td {
@@ -33,6 +33,15 @@ a:hover { color: #fff; background-color:#000; }
   padding: 2px;
   background-color: red;
   display: table;
+}
+
+h1 {
+  font-size: 18px;
+}
+
+h2 {
+  font-size: 14px;
+  color: blue;
 }
 
 #errorExplanation {
