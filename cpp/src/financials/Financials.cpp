@@ -769,51 +769,9 @@ EdgarData::addBalanceStatmentToDB(string& balanceFileStr,
     bs._stock_id() = stock._id();
     bs._year() = year;
     bs._quarter() = 0; // Anual record
- //   bs._source() = string("edgar.com");
 
- //upto here
     parser.parseBalanceTree(tree, bs);
-    if (bs._shares() == "")
-    {
-        parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], bs );
-        shares_outstanding = true;
-    }
 
-    if ( (withinPercent(bs._eps(),0.01,0.0)) &&
-         (bs._shares() != "" ) &&
-         (bs._net_income() != "") )
-    {
-        long income = stol(bs._net_income());
-        long shares = stol(bs._shares());
-
-        double bss = (double)income/shares;
-        bs._eps() = eps;
-
-        O_Note note;
-        note._stock_id() = stock._id();
-        note._year() = bs._year();
-        note._pertains_to() = EnumNotePERTAINS_TO::INCOME_REP;
-        note._note() = "EPS calculated using shares and income";
-        note.insert();
-        LOG_INFO << "Calculated eps to be "<< to_string(bs._eps());
-    }
-
-    if ( addEarningsRecordToDB( stock, bs) &&
-         shares_outstanding )
-    {
-        O_Note note;
-        note._stock_id() = stock._id();
-        note._year() = bs._year();
-        note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING;
-        note._note() = "using shares outstanding from cover report";
-        note.insert();
-    }
-
-
-    // for testing
-    _bs = bs;
-
-
-
-
+  //  if ( addEarningsRecordToDB( stock, bs) )
+//    _bs = bs;
 }

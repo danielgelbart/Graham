@@ -136,13 +136,20 @@ private:
     vector<string> getTrByName(XmlElement* tree, string& trTitlePattern,
         bool singleYear);
     XmlElement* edgarResultsTableToTree(string& page);
-    size_t findColumnToExtract(XmlElement* tree, DMMM::O_Ep& earnigs_data);
+    size_t findColumnToExtract(XmlElement* tree, size_t year, size_t quarter);
     bool checkTrPattern( string& text, boost::regex& title_pattern, 
                          string& units, XmlElement* node,
                          boost::regex& extract_pattern, DMMM::O_Ep& earnings,
                          void(*func)(DMMM::O_Ep&,string&,string&));
+    bool checkTrPattern( string& text, boost::regex& title_pattern,
+                            string& units, XmlElement* node,
+                            boost::regex& extract_pattern, DMMM::O_BalanceSheet& balance,
+                            void(*func)(DMMM::O_BalanceSheet&,string&,string&));
+
     bool findDefref(trIterator& trIt, boost::regex& defref, boost::regex& num_pattern, string& units,
                DMMM::O_Ep& earnings_data, void(*func)(DMMM::O_Ep&,string&,string&));
+    bool findDefref(trIterator& trIt, boost::regex& defref, boost::regex& num_pattern, string& units,
+               DMMM::O_BalanceSheet& balance_data, void(*func)(DMMM::O_BalanceSheet&,string&,string&));
 
     bool extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                         string& units);
@@ -151,6 +158,8 @@ private:
     bool extractEps(XmlElement* tree, DMMM::O_Ep& earnigs_data,string& units);
     bool extractNumShares(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                           string& units, string& nsrUnits);
+
+    bool extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, string& units);
 
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;
