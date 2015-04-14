@@ -121,6 +121,7 @@ public:
     string getUnitsAndCurrency(XmlElement* tree,
                              string& units, string& currency);
     void parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnigs_data);
+    void parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data);
 
     vector<size_t> titleInfo(XmlElement* tree, string& units, 
                              string& currency, bool singleYear);

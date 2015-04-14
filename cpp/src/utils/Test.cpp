@@ -799,6 +799,8 @@ Test::updateTest(O_Stock& stock)
 // income
 //  balance_
 
+    return repFail;
+
 }
 
 

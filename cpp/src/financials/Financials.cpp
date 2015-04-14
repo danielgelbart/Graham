@@ -435,27 +435,24 @@ EdgarData::updateFinancials(O_Stock& stock)
 {
     LOG_INFO << "updateFinancials method was called for " << stock._ticker() << "\n";
     string cik = to_string( stock._cik() );
-// get current date
+
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
     bool updated(false);
     updated = getQuarters( stock );
 
-// check if last years 10k exists
+    // check if last years 10k exists
     T_Ep t;
-
     if (stock._eps( t._year() == last_year &&  
                     t._quarter() == 0 ).empty() )
     {
         cout << "\n Going to get last year 10k" << endl;
         Acn* acn  = getLastYear10KAcn( stock );
         string k10text = getEdgarFiling( stock, *acn);
-
-        //Info info( stock._ticker(), last_year, StatementType::K10) ;
         extract10kToDisk( k10text, stock, last_year);
 
-      //  createFourthQuarter( stock, last_year );
+        createFourthQuarter( stock, last_year );
         updated = true;
     }
     else
@@ -464,12 +461,12 @@ EdgarData::updateFinancials(O_Stock& stock)
         if (stock._eps( t._year() == last_year &&  
                         t._quarter() == 5 ).empty() )
         {
-        //    createFourthQuarter( stock, last_year );
-        //    updated = true;
+            createFourthQuarter( stock, last_year );
+            updated = true;
         }
     }
     if (updated)
-        ;//createTtmEps( stock );
+        createTtmEps( stock );
 }
 
 void
@@ -490,7 +487,11 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
         LOG_ERROR << "MISING INCOME REPORT";
     else
         addSingleAnualIncomeStatmentToDB(income_report, stock, year);
-    addBalanceStatmentToDB(_reports[ReportType::BALANCE], stock, year);
+    string balance_report = _reports[ReportType::INCOME];
+    if (balance_report == "")
+        LOG_ERROR << "MISING BALANCE REPORT";
+    else
+        addBalanceStatmentToDB(balance_report, stock, year);
 }
 
 void 
@@ -738,7 +739,7 @@ EdgarData::getCountry(O_Stock& stock)
 
 
 void
-EdgarData::addBalanceStatmentToDB(string& incomeFileStr, 
+EdgarData::addBalanceStatmentToDB(string& balanceFileStr,
                                   O_Stock& stock, size_t year)
 {
 // #  current_assets      :string(255)
@@ -749,6 +750,68 @@ EdgarData::addBalanceStatmentToDB(string& incomeFileStr,
 //#  net_tangible_assets :string(255)
 //-calculate:
 //#  book_value          :string(255)
+    Parser parser;
+    parser.set_stock(stock);
+
+    string balanceTableStr = parser.extractFirstTableStr(balanceFileStr);
+
+
+    XmlElement* tree = parser.buildXmlTree(balanceTableStr);
+    if(tree == NULL)
+    {
+        LOG_INFO << "No BALANCE statement to parse to DB for "<<stock._ticker();
+        return;
+    }
+
+
+    O_BalanceSheet bs;
+
+    bs._stock_id() = stock._id();
+    bs._year() = year;
+    bs._quarter() = 0; // Anual record
+ //   bs._source() = string("edgar.com");
+
+ //upto here
+    parser.parseBalanceTree(tree, bs);
+    if (bs._shares() == "")
+    {
+        parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], bs );
+        shares_outstanding = true;
+    }
+
+    if ( (withinPercent(bs._eps(),0.01,0.0)) &&
+         (bs._shares() != "" ) &&
+         (bs._net_income() != "") )
+    {
+        long income = stol(bs._net_income());
+        long shares = stol(bs._shares());
+
+        double bss = (double)income/shares;
+        bs._eps() = eps;
+
+        O_Note note;
+        note._stock_id() = stock._id();
+        note._year() = bs._year();
+        note._pertains_to() = EnumNotePERTAINS_TO::INCOME_REP;
+        note._note() = "EPS calculated using shares and income";
+        note.insert();
+        LOG_INFO << "Calculated eps to be "<< to_string(bs._eps());
+    }
+
+    if ( addEarningsRecordToDB( stock, bs) &&
+         shares_outstanding )
+    {
+        O_Note note;
+        note._stock_id() = stock._id();
+        note._year() = bs._year();
+        note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING;
+        note._note() = "using shares outstanding from cover report";
+        note.insert();
+    }
+
+
+    // for testing
+    _bs = bs;
 
 
 

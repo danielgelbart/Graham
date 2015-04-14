@@ -58,7 +58,7 @@ class StocksController < ApplicationController
   end
 
   def show
-    # This acceps bot id and ticker to find the stock
+    # This acceps both id and ticker to find the stock
     # wrap this in a helper or before filter
     id = params["id"]
     if (id.to_i > 0)
@@ -67,20 +67,28 @@ class StocksController < ApplicationController
       @stock = Stock.find_by_ticker(id)
       @stock = Stock.all.select{ |s| s.to_param == id }.first if @stock.nil?
     end
-    @numshares = @stock.numshares.sort{ |a,b| a.year <=> b.year }
+
+    # realy all that is needed for constructing chart
     @earnings = @stock.eps.select{ |e| e.quarter == 0 }
     @earnings = @earnings.sort{ |a,b| a.year <=> b.year }
+
+    # 1) copy all numshare data into eps table in dev environment
+    @numshare = @earnings.map{|s| s.shares.to_i }
     @income = @earnings.map{|s| s.net_income.to_i }
     @revenue = @earnings.map{|s| s.revenue.to_i }
     @notes = @stock.notes
+=begin TTM EPS
+    # How to add ttm - as future year +1
+    # Don't add if ttm == last year annual report
     @ttm = @stock.get_ttm_earnings
     if !@ttm.nil?
       @income << @ttm.net_income.to_i
       @revenue << @ttm.revenue.to_i
+      @numshare << @ttm.shares.to_i
       @stock.ttm_eps = @ttm.eps
       @stock.save
     end
-
+=end
   end
 
   # GET /stocks/new

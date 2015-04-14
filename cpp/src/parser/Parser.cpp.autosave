@@ -1452,39 +1452,38 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
     trIterator trIt(tree);
     XmlElement* trp = tree;
 
-    bool foundRev(false);
-    bool foundRevBlock(false);
+    bool foundCA(false);
+    bool foundCAlock(false);
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
 
-    // **** Search for REVENUE using 'defref' html attribute
-
+    // **** Search for CA using 'defref' html attribute
     regex defref("defref_us-gaap_Revenues");
-    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+    if (( foundCA = findDefref(trIt, defref, num_pattern, units,
                                 earnings_data, writeRevenueToEarnings )))
     {
         LOG_INFO<<" Successfully found REVENUE using defref_us-gaap_Revenues (1st)";
-        return foundRev;
+        return foundCA;
     }
 
     // This is a less inclusive item, includes "normal course of buisness" revenues,
     // So may not include interest, premiums, etc
     // BDX, ACO use this only, (without total revenue line).
     defref.assign("'defref_us-gaap_SalesRevenueNet'");
-    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+    if (( foundCA = findDefref(trIt, defref, num_pattern, units,
                                 earnings_data, writeRevenueToEarnings )))
     {
         LOG_INFO<<" Successfully found REVENUE using defref_us-gaap_SalesRevenueNet (2nd)";
-        return foundRev;
+        return foundCA;
     }
 
     // For AA: us-gaap_SalesRevenueGoodsNet
     // They list revenue as "Salses (Q)"
     defref.assign("us-gaap_SalesRevenueGoodsNet");
-    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+    if (( foundCA = findDefref(trIt, defref, num_pattern, units,
                                 earnings_data, writeRevenueToEarnings )))
     {
         LOG_INFO<<" Successfully found REVENUE using us-gaap_SalesRevenueGoodsNet (3rd)";
-        return foundRev;
+        return foundCA;
     }
 
     //**** Special handling for non-company type stocks
@@ -1497,19 +1496,19 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
     {
         LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT";
         defref.assign("us-gaap_Interest\\w*IncomeOperating|us-gaap_InterestIncomeExpenseNet");
-        if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+        if (( foundCA = findDefref(trIt, defref, num_pattern, units,
                                     earnings_data, writeRevenueToEarnings )))
         {
             LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (REIT/BANK specific)";
-            return foundRev;
+            return foundCA;
         }
         // CPT
         defref.assign("gaap_RealEstateRevenueNet");
-        if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+        if (( foundCA = findDefref(trIt, defref, num_pattern, units,
                                     earnings_data, writeRevenueToEarnings )))
         {
             LOG_INFO<<" Successfully found REVENUE using gaap_RealEstateRevenueNet (REIT specific)";
-            return foundRev;
+            return foundCA;
         }
     } // REIT
 
@@ -1524,14 +1523,14 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
 
         boost::regex rev_pattern("Total revenue", boost::regex::icase );
         if ( regex_search( trtext, rev_pattern)) {
-            foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+            foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                          num_pattern, earnings_data, writeRevenueToEarnings);
             break;
         }
         // INTC, CAR
         rev_pattern.assign("Net revenue",boost::regex::icase);
         if (regex_search( trtext, rev_pattern)){
-            foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+            foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                          num_pattern, earnings_data, writeRevenueToEarnings);
             break;
         }
@@ -1540,28 +1539,28 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
 
     // if not found - iterate in block search mode
     trIt.resetToStart();
-    if(!foundRev){
+    if(!foundCA){
         LOG_INFO << "Looking for revenue by block strocture";
         while( (trp = trIt.nextTr()) != NULL )
         {
             string trtext = trp->text();
-            if(!foundRevBlock)
+            if(!foundCABlock)
             {
                 // DE Block
                 regex block_pattern("Sales and Revenues",regex::icase);
-                if((foundRevBlock = testBlock(trtext,block_pattern)))
+                if((foundCABlock = testBlock(trtext,block_pattern)))
                     continue;
                 // CVX block
                 block_pattern.assign("^((\\s|:)*Revenues?)",regex::icase);
-                if((foundRevBlock = testBlock(trtext,block_pattern)))
+                if((foundCABlock = testBlock(trtext,block_pattern)))
                     continue;
                 // AHC block
                 block_pattern.assign("operating Revenue",regex::icase);
-                if((foundRevBlock = testBlock(trtext,block_pattern)))
+                if((foundCABlock = testBlock(trtext,block_pattern)))
                     continue;
                 // ALG, A, ACO block
                 block_pattern.assign("net (sales|revenue):?",regex::icase);
-                if((foundRevBlock = testBlock(trtext,block_pattern)))
+                if((foundCABlock = testBlock(trtext,block_pattern)))
                     continue;
 
             } else {
@@ -1577,19 +1576,19 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
                 string row_title = tdIt.at(0)->text();
                    LOG_INFO<<"row title is |"<<row_title<<"|";
                 if (regex_match(row_title,rev_pattern))
-                    if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                    if ((foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                                 num_pattern, earnings_data, writeRevenueToEarnings)))
                         break;
 
                 // DE Pattern
                 rev_pattern.assign("Total", boost::regex::icase );
-                if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                if ((foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                         num_pattern, earnings_data, writeRevenueToEarnings)))
                     break;
 
                 // ATO Pattern
                 rev_pattern.assign("operating revenues", boost::regex::icase );
-                if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                if ((foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                         num_pattern, earnings_data, writeRevenueToEarnings)))
                     break;
 
@@ -1599,16 +1598,16 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
                 rev_pattern.assign(" : net sales:?", boost::regex::icase );
                 if (regex_match(row_title,rev_pattern))
                 {
-                    foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                    foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                         num_pattern, earnings_data, writeRevenueToEarnings);
                 }
             }
         } // while for block find
-    } // if !foundRev
+    } // if !foundCA
 
     // 3rd Iteration - single line
 
-    if(!foundRev){
+    if(!foundCA){
         trIt.resetToStart();
         LOG_INFO << "3rd iteration, Looking for revenue in line form";
         while( (trp = trIt.nextTr()) != NULL )
@@ -1621,35 +1620,35 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
             string row_title = tdIt.at(0)->text();
             LOG_INFO<<"row title is |"<<row_title<<"|";
             if(regex_match(row_title,rev_pattern))
-                foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                     num_pattern, earnings_data, writeRevenueToEarnings);
 
-            if (foundRev)
+            if (foundCA)
                 break;
 
             rev_pattern.assign("Operating (revenues?|income)",boost::regex::icase);
             if (regex_search( trtext, rev_pattern)){
-                foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                                            num_pattern, earnings_data, writeRevenueToEarnings);
                 break;
             }
             // Added for BDX/MSFT
             rev_pattern.assign("^((\\s|:)*Revenues?)",boost::regex::icase);
             if (regex_search( trtext, rev_pattern)){
-                foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                                            num_pattern, earnings_data, writeRevenueToEarnings);
                 break;
             }
             // Added for MMM
             rev_pattern.assign("net sales",boost::regex::icase);
             if (regex_search( trtext, rev_pattern)){
-                foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
                                            num_pattern, earnings_data, writeRevenueToEarnings);
                 break;
             }
         }// while
      }//if
-    return foundRev;
+    return foundCA;
 }
 
 void

@@ -25,7 +25,12 @@
           text: "Earnings"
         },
         xAxis: {
-          //
+
+          labels: {
+            formatter: function () {
+                return Highcharts.dateFormat("%Y", Date.UTC(this.value, 0, 1));
+            }
+          }, // labels
         },
         yAxis: [{  // For earnings
           title: {
@@ -41,29 +46,21 @@
           name: "Shares Outstanding",
           type: 'line',
           yAxis: 1,
-          pointStart: #{ @numshares.last.year - @numshares.size + 1 },
+          pointStart: #{ @earnings.first.year },
           pointInterval: 1,
-          data: #{ @numshares.map{|s| s.shares_to_i } }
+          data: #{ @numshare }
         }, { 
           name: "Revenue",
           type: 'column',
-          pointStart: #{ @earnings.last.year - @earnings.size + 1 },
+          pointStart: #{ @earnings.first.year },
           pointInterval: 1,
-          data: #{ @revenue } 
-        }, {
+          data: #{ @revenue }
+        }, { 
           name: "Net Income",
           type: 'column',
-          pointStart: #{ @earnings.last.year - @earnings.size + 1 },
+          pointStart: #{ @earnings.first.year },
           pointInterval: 1,
-          data: #{ @income },
-          dataLabels: {
-            enabled: false,
-            rotation: 0,
-            align: 'center'
-            //formatter: function() {
-            //  return this.y ;
-            //}
-          }
+          data: #{ @income }
         }]
 
       });
