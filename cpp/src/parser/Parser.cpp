@@ -732,6 +732,34 @@ writeCurrentAssetsToBalance(O_BalanceSheet& bs, string& val, string& units)
     bs._current_assets() = adjustForDecimals(val,units);
 }
 
+void
+writeTotalAssetsToBalance(O_BalanceSheet& bs, string& val, string& units)
+{
+    // use adjust for decimals
+    bs._total_assets() = adjustForDecimals(val,units);
+}
+
+void
+writeCurrentLiabilitiesToBalance(O_BalanceSheet& bs, string& val, string& units)
+{
+    // use adjust for decimals
+    bs._current_liabilities() = adjustForDecimals(val,units);
+}
+
+void
+writeTotalLiabilitiesToBalance(O_BalanceSheet& bs, string& val, string& units)
+{
+    // use adjust for decimals
+    bs._total_liabilities() = adjustForDecimals(val,units);
+}
+
+void
+writeLongTermDebtToBalance(O_BalanceSheet& bs, string& val, string& units)
+{
+    // use adjust for decimals
+    bs._long_term_debt() = adjustForDecimals(val,units);
+}
+
 size_t 
 Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
 {
@@ -1561,25 +1589,383 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
     // if not found - iterate in block search mode
     trIt.resetToStart();
     if(!foundCA){
-        LOG_INFO << "Looking for revenue by block strocture";
+        LOG_INFO << "Looking for current assets by block strocture";
         while( (trp = trIt.nextTr()) != NULL )
         {
             string trtext = trp->text();
             if(!foundCABlock)
             {
-                // DE Block
-                regex block_pattern("Sales and Revenues",regex::icase);
+                //
+                regex block_pattern("current assets",regex::icase);
 
             } else {
                 // We are searching WITHIN block, so test if entered a new block
                 if( (!regex_search(trtext,num_pattern)) &&
                     containsNoData(trtext) )
                     break;
+
+                //test line inside block
+                regex ca_pattern("^((\\s|:)*total)", regex::icase );
+
+                // looking for EXACT match here
+                tdIterator tdIt(trp);
+                string row_title = tdIt.at(0)->text();
+                   LOG_INFO<<"row title is |"<<row_title<<"|";
+                if (regex_match(row_title,ca_pattern))
+                    if ((foundCA = checkTrPattern( trtext, ca_pattern, units, trp,
+                                num_pattern, balance_data, writeCurrentAssetsToBalance)))
+                        break;
+
+
             }
         } // while for block find
     } // if !foundCA
 
     return foundCA;
+}
+
+bool
+Parser::extractTotalAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_data,
+                    string& units)
+{
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+
+    bool foundTA(false);
+    bool foundTABlock(false);
+    regex num_pattern("\\d+[,\\d]+(.\\d+)?");
+
+    // **** Search for TA using 'defref' html attribute
+    regex defref("us-gaap_Assets'");
+    if (( foundTA = findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeTotalLiabilitiesToBalance )))
+    {
+        LOG_INFO<<" Successfully found Total Assest using us-gaap_Assets' (1st)";
+        return foundTA;
+    }
+
+    //**** Special handling for non-company type stocks
+
+    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+    // If compnay is a REIT - they report interest income
+    // e.g. NLY, ANH
+    if ( (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT) ||
+         (_stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT - NOT yet implemented";
+        defref.assign("");
+    } // REIT
+
+    LOG_INFO << "Could not find TOTAL ASSETS using defref. Going to use heuristics" ;
+
+    trIt.resetToStart();
+    // first, try to get single line in one shot
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+        LOG_INFO << "\n Handling line - \n" << trtext;
+
+        boost::regex rev_pattern("Total assets", boost::regex::icase );
+        if ( regex_search( trtext, rev_pattern)) {
+            foundTA = checkTrPattern( trtext, rev_pattern, units, trp,
+                         num_pattern, balance_data, writeTotalAssetsToBalance);
+            break;
+        }
+    } // while loop over table
+
+    // if not found - iterate in block search mode
+    trIt.resetToStart();
+    if(!foundTA){
+        LOG_INFO << "Looking for current assets by block strocture";
+        while( (trp = trIt.nextTr()) != NULL )
+        {
+            string trtext = trp->text();
+            if(!foundTABlock)
+            {
+                //
+                regex block_pattern("^((\\s|:)*assets)",regex::icase);
+
+            } else {
+                // We are searching WITHIN block, so test if entered a new block
+                if( (!regex_search(trtext,num_pattern)) &&
+                    containsNoData(trtext) )
+                    break;
+
+                //test line inside block
+                regex ca_pattern("^((\\s|:)*total assets)", regex::icase );
+
+                // looking for EXACT match here
+                tdIterator tdIt(trp);
+                string row_title = tdIt.at(0)->text();
+                   LOG_INFO<<"row title is |"<<row_title<<"|";
+                if (regex_match(row_title,ca_pattern))
+                    if ((foundTA = checkTrPattern( trtext, ca_pattern, units, trp,
+                                num_pattern, balance_data, writeTotalAssetsToBalance)))
+                        break;
+            }
+        } // while for block find
+    } // if !foundTA
+    return foundTA;
+}
+
+bool
+Parser::extractCurrentLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_data,
+                    string& units)
+{
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+
+    bool foundCL(false);
+    bool foundCLBlock(false);
+    regex num_pattern("\\d+[,\\d]+(.\\d+)?");
+
+    // **** Search for TL using 'defref' html attribute
+    regex defref("us-gaap_LiabilitiesCurrent");
+    if (( foundCL = findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeCurrentLiabilitiesToBalance )))
+    {
+        LOG_INFO<<" Successfully found Total Liabilities using us-gaap_LiabilitiesCurrent (1st)";
+        return foundCL;
+    }
+
+    //**** Special handling for non-company type stocks
+
+    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+    // If compnay is a REIT - they report interest income
+    // e.g. NLY, ANH
+    if ( (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT) ||
+         (_stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT - NOT yet implemented";
+        defref.assign("");
+    } // REIT
+
+    LOG_INFO << "Could not find CURRENT Liabilities using defref. Going to use heuristics" ;
+
+    trIt.resetToStart();
+    // first, try to get single line in one shot
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+        LOG_INFO << "\n Handling line - \n" << trtext;
+
+        boost::regex tl_pattern("Total liabilities", boost::regex::icase );
+        if ( regex_search( trtext, tl_pattern)) {
+            foundCL = checkTrPattern( trtext, tl_pattern, units, trp,
+                         num_pattern, balance_data, writeCurrentLiabilitiesToBalance );
+            break;
+        }
+    } // while loop over table
+
+    // if not found - iterate in block search mode
+    trIt.resetToStart();
+    if(!foundCL){
+        LOG_INFO << "Looking for current assets by block strocture";
+        while( (trp = trIt.nextTr()) != NULL )
+        {
+            string trtext = trp->text();
+            if(!foundCLBlock)
+            {
+                //
+                regex block_pattern("^((\\s|:)*current liabilities)",regex::icase);
+
+            } else {
+                // We are searching WITHIN block, so test if entered a new block
+                if( (!regex_search(trtext,num_pattern)) &&
+                    containsNoData(trtext) )
+                    break;
+
+                //test line inside block
+                regex ca_pattern("^((\\s|:)*total current liabilities)", regex::icase );
+
+                // looking for EXACT match here
+                tdIterator tdIt(trp);
+                string row_title = tdIt.at(0)->text();
+                   LOG_INFO<<"row title is |"<<row_title<<"|";
+                if (regex_match(row_title,ca_pattern))
+                    if ((foundCL = checkTrPattern( trtext, ca_pattern, units, trp,
+                                num_pattern, balance_data, writeCurrentLiabilitiesToBalance)))
+                        break;
+            }
+        } // while for block find
+    } // if !foundCL
+    return foundCL;
+}
+
+bool
+Parser::extractTotalLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_data,
+                    string& units)
+{
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+
+    bool foundTL(false);
+    bool foundTLBlock(false);
+    regex num_pattern("\\d+[,\\d]+(.\\d+)?");
+
+    // **** Search for TL using 'defref' html attribute
+    regex defref("us-gaap_Liabilities'");
+    if (( foundTL = findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeTotalLiabilitiesToBalance )))
+    {
+        LOG_INFO<<" Successfully found Total Liabilities using us-gaap_Liabilities' (1st)";
+        return foundTL;
+    }
+
+    //**** Special handling for non-company type stocks
+
+    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+    // If compnay is a REIT - they report interest income
+    // e.g. NLY, ANH
+    if ( (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT) ||
+         (_stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT - NOT yet implemented";
+        defref.assign("");
+    } // REIT
+
+    LOG_INFO << "Could not find TOTAL Liabilities using defref. Going to use heuristics" ;
+
+    trIt.resetToStart();
+    // first, try to get single line in one shot
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+        LOG_INFO << "\n Handling line - \n" << trtext;
+
+        boost::regex tl_pattern("Total liabilities", boost::regex::icase );
+        if ( regex_search( trtext, tl_pattern)) {
+            foundTL = checkTrPattern( trtext, tl_pattern, units, trp,
+                         num_pattern, balance_data, writeTotalLiabilitiesToBalance );
+            break;
+        }
+    } // while loop over table
+
+    // if not found - iterate in block search mode
+    trIt.resetToStart();
+    if(!foundTL){
+        LOG_INFO << "Looking for current assets by block strocture";
+        while( (trp = trIt.nextTr()) != NULL )
+        {
+            string trtext = trp->text();
+            if(!foundTLBlock)
+            {
+                //
+                regex block_pattern("^((\\s|:)*liabilities)",regex::icase);
+
+            } else {
+                // We are searching WITHIN block, so test if entered a new block
+                if( (!regex_search(trtext,num_pattern)) &&
+                    containsNoData(trtext) )
+                    break;
+
+                //test line inside block
+                regex ca_pattern("^((\\s|:)*total liabilities)", regex::icase );
+
+                // looking for EXACT match here
+                tdIterator tdIt(trp);
+                string row_title = tdIt.at(0)->text();
+                   LOG_INFO<<"row title is |"<<row_title<<"|";
+                if (regex_match(row_title,ca_pattern))
+                    if ((foundTL = checkTrPattern( trtext, ca_pattern, units, trp,
+                                num_pattern, balance_data, writeTotalLiabilitiesToBalance)))
+                        break;
+            }
+        } // while for block find
+    } // if !foundTL
+    return foundTL;
+}
+
+bool
+Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data,
+                    string& units)
+{
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+
+    bool foundLTD(false);
+    bool foundLTDBlock(false);
+    regex num_pattern("\\d+[,\\d]+(.\\d+)?");
+
+    // **** Search for TL using 'defref' html attribute
+    regex defref("us-gaap_LongTermDebtNoncurrent");
+    if (( foundLTD = findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeLongTermDebtToBalance )))
+    {
+        LOG_INFO<<" Successfully found Long Term Debt using us-gaap_LongTermDebtNoncurrent (1st)";
+        return foundLTD;
+    }
+
+    //**** Special handling for non-company type stocks
+
+    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+    // If compnay is a REIT - they report interest income
+    // e.g. NLY, ANH
+    if ( (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT) ||
+         (_stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT - NOT yet implemented";
+        defref.assign("");
+    } // REIT
+
+    LOG_INFO << "Could not find TOTAL Liabilities using defref. Going to use heuristics" ;
+
+    trIt.resetToStart();
+    // first, try to get single line in one shot
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+        LOG_INFO << "\n Handling line - \n" << trtext;
+
+        boost::regex ltd_pattern("long-term (debt|borrowings)", boost::regex::icase );
+        if ( regex_search( trtext, ltd_pattern)) {
+            foundLTD = checkTrPattern( trtext, ltd_pattern, units, trp,
+                         num_pattern, balance_data, writeLongTermDebtToBalance );
+            break;
+        }
+    } // while loop over table
+
+    // if not found - iterate in block search mode
+    trIt.resetToStart();
+    if(!foundLTD){
+        LOG_INFO << "Looking for current assets by block strocture";
+        while( (trp = trIt.nextTr()) != NULL )
+        {
+            string trtext = trp->text();
+            if(!foundLTDBlock)
+            {
+                //
+                regex block_pattern("^((\\s|:)*liabilities)",regex::icase);
+
+            } else {
+                // We are searching WITHIN block, so test if entered a new block
+                if( (!regex_search(trtext,num_pattern)) &&
+                    containsNoData(trtext) )
+                    break;
+
+                //test line inside block
+                regex ltd_pattern("^((\\s|:)*long-term)", regex::icase );
+
+                // looking for EXACT match here
+                tdIterator tdIt(trp);
+                string row_title = tdIt.at(0)->text();
+                   LOG_INFO<<"row title is |"<<row_title<<"|";
+                if (regex_match(row_title,ltd_pattern))
+                    if ((foundLTD = checkTrPattern( trtext, ltd_pattern, units, trp,
+                                num_pattern, balance_data, writeLongTermDebtToBalance)))
+                        break;
+            }
+        } // while for block find
+    } // if !foundLTD
+    return foundLTD;
+}
+
+void
+calculate_book_value(DMMM::O_BalanceSheet& balance_data)
+{
+    size_t assets = stoi(balance_data._total_assets());
+    size_t liabilities = stoi(balance_data._total_liabilities());
+    balance_data._book_value() = to_string(liabilities - assets);
 }
 
 void
@@ -1609,7 +1995,20 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
     _col_num = findColumnToExtract(tree, balance_data._year(), balance_data._quarter() );
     LOG_INFO << "Extractino col num for balance sheets is " << _col_num;
 
-    extractCurrentAssets(tree, balance_data, units);
+
+    bool has_ca = extractCurrentAssets(tree, balance_data, units);
+    bool has_ta = extractTotalAssets(tree, balance_data, units);
+    bool has_cl = extractCurrentLiabilities(tree, balance_data, units);
+    bool has_tl = extractTotalLiabilities(tree, balance_data, units);
+    extractLongTermDebt(tree, balance_data, units);
+
+    if (has_ca && has_cl)
+        _stock._has_currant_ratio() = true;
+
+    if (has_ta && has_tl)
+        calculate_book_value(balance_data);
+
+
 }
 
 string 
