@@ -3,6 +3,7 @@
 
 database.yml
 log/development.log
+cpp/graham_log/
 
 rdoc/
 reports/
