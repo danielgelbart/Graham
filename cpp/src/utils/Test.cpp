@@ -338,18 +338,32 @@ Test::runSingleYearTest(TestResults& tResults)
     if (bdx2013._shares() != "194094466")   
       tResults.addFailure(testName + "Number of shares should be: 194094466, but is: " + bdx2013._shares() );
 
-/*
-    T_Note tn;
-    if (tn.select( tn._stock_id() == stock._id() 
-                   && tn._pertains_to() == EnumNotePERTAINS_TO::SHARES_OUTSTANDING).empty())
-    {
-        tResults.addFailure(testName + "No note added to indicate shares are from cover report");       
-        return tResults.getResultsSummary();
-    }
-    tn.erase();
-*/
     // test clean up
     te.erase( te._id() == bdx2013._id());
+
+    //BALANCE extraction test
+    O_BalanceSheet b_bdx2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+
+    if (b_bdx2013._current_assets() != "5873000000")
+        tResults.addFailure(balanceTestName + "CA should be: 5873000000, but is: " + b_bdx2013._current_assets() );
+    if (b_bdx2013._total_assets() != "12148000000")
+        tResults.addFailure(balanceTestName + "TA should be: 12148000000, but is: " + b_bdx2013._total_assets() );
+    if (b_bdx2013._current_liabilities() != "2130000000")
+        tResults.addFailure(balanceTestName + "CL should be: 2130000000, but is: " + b_bdx2013._current_liabilities() );
+    if (b_bdx2013._book_value() != "5043000000")
+        tResults.addFailure(balanceTestName + "TL should be: 5043000000, but is: " + b_bdx2013._book_value() );
+
+    if (b_bdx2013._total_liabilities() != "7106000000")
+        tResults.addFailure(balanceTestName + "TL should be: 7106000000, but is: " + b_bdx2013._total_liabilities() );
+    if (b_bdx2013._long_term_debt() != "3763000000")
+        tResults.addFailure(balanceTestName + "LTD should be: 3763000000, but is: " + b_bdx2013._long_term_debt() );
+    if (stock._has_currant_ratio() != true)
+        tResults.addFailure(balanceTestName + "Should Have current ratio. but is set to FALSE" );
+    // test clean up
+    tb.erase( tb._id() == b_bdx2013._id());
+
+
 
     // BRK.A
     stock = ts.select( ts._ticker() == string("BRK.A")).front();
