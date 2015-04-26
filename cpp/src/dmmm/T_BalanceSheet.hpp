@@ -213,6 +213,32 @@ public:
     static E_quarter _quarter(){ 
         return E_quarter();
     }
+    struct E_calculated_bv{
+        E_calculated_bv() 
+        {  
+            _field = "balance_sheets.calculated_bv";
+        }
+        std::string _field;
+        typedef T_BalanceSheet::Condition ConditionType;
+        typedef F_Object::Base ComparerType;
+    };
+
+    static E_calculated_bv _calculated_bv(){ 
+        return E_calculated_bv();
+    }
+    struct E_calculated_tl{
+        E_calculated_tl() 
+        {  
+            _field = "balance_sheets.calculated_tl";
+        }
+        std::string _field;
+        typedef T_BalanceSheet::Condition ConditionType;
+        typedef F_Object::Base ComparerType;
+    };
+
+    static E_calculated_tl _calculated_tl(){ 
+        return E_calculated_tl();
+    }
     
 
     std::vector<std::string> getFields()
@@ -233,6 +259,8 @@ public:
         ret.push_back("net_tangible_assets");
         ret.push_back("total_sales");
         ret.push_back("quarter");
+        ret.push_back("calculated_bv");
+        ret.push_back("calculated_tl");
         return ret;
     }
 
@@ -275,6 +303,10 @@ public:
                 UTILS::fromString<F_String::Base>(res[i]["total_sales"]);
             ret[i]._f_quarter._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["quarter"]);
+            ret[i]._f_calculated_bv._base =
+                UTILS::fromString<F_Object::Base>(res[i]["calculated_bv"]);
+            ret[i]._f_calculated_tl._base =
+                UTILS::fromString<F_Object::Base>(res[i]["calculated_tl"]);
         }
         return ret;
     }
@@ -375,6 +407,12 @@ public:
         
 
         fields.push_back(std::string("quarter"));
+        
+
+        fields.push_back(std::string("calculated_bv"));
+        
+
+        fields.push_back(std::string("calculated_tl"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_BalanceSheet& r = *begin;
@@ -405,6 +443,10 @@ public:
             row.push_back(toSQLString(r._total_sales()));
             
             row.push_back(toSQLString(r._quarter()));
+            
+            row.push_back(toSQLString(r._calculated_bv()));
+            
+            row.push_back(toSQLString(r._calculated_tl()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("balance_sheets",
@@ -499,6 +541,18 @@ public:
             if (it->_f_quarter._dirty){
                 fields.push_back(std::string("quarter"));
                 row.push_back(toSQLString(it->_quarter()));
+            }
+            
+
+            if (it->_f_calculated_bv._dirty){
+                fields.push_back(std::string("calculated_bv"));
+                row.push_back(toSQLString(it->_calculated_bv()));
+            }
+            
+
+            if (it->_f_calculated_tl._dirty){
+                fields.push_back(std::string("calculated_tl"));
+                row.push_back(toSQLString(it->_calculated_tl()));
             }
             fields2Rows[fields].push_back(row);
 	}

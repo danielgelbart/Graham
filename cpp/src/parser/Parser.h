@@ -164,6 +164,7 @@ private:
     bool extractCurrentLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, string& units);
     bool extractTotalLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, string& units);
     bool extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, string& units);
+    bool extractBookValue(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, string& units);
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;
     size_t _col_num;

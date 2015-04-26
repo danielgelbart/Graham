@@ -51,14 +51,13 @@ private:
     bool downloadToString(Url& url, string& rContent);
     void downloadAndSave(Url& url, Info& info, const path& writeDest);
 
-    bool
-    addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
+    bool addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
                             string revenue, string income, float eps,
                             string shares, const string& source);
-    bool
-    addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS);
-
+    bool addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS);
     bool insertEp( O_Ep& ep );
+    bool addBalanceRecordToDB( O_Stock& stock, O_BalanceSheet& bs);
+    bool insertBs( O_BalanceSheet& bs );
 
 private:
     HttpClient mHttpClient;

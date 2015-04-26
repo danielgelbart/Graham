@@ -93,12 +93,12 @@ Test::runSingleYearTest(TestResults& tResults)
     O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
 
     tResults.setStockTickerName( stock._ticker() );
-
     // extract to DB
     string filing = getMockFromDisk("IBM_2013_10k");
     if ( filing == "")
     {
-        tResults.addFailure(testName + "Could not load mock 10k for testing");          return tResults.getResultsSummary();
+        tResults.addFailure(testName + "Could not load mock 10k for testing");
+        return tResults.getResultsSummary();
     }
 
     // Hard code 2013 to be used in all stocks in test
@@ -137,6 +137,34 @@ Test::runSingleYearTest(TestResults& tResults)
   
     // test clean up
     te.erase( te._id() == ibm2013._id());
+
+    //BALANCE extraction test
+    T_BalanceSheet tb;
+    string balanceTestName = "BalanceTest";
+    O_BalanceSheet b_ibm2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+
+    if (b_ibm2013._year() != 2013)
+        tResults.addFailure(balanceTestName + "Year should be: 2013, but is: "
+                            + to_string(b_ibm2013._year()) );
+
+    if (b_ibm2013._current_assets() != "51350000000")
+        tResults.addFailure(balanceTestName + "CA should be: 51350000000, but is: " + b_ibm2013._current_assets() );
+    if (b_ibm2013._total_assets() != "126223000000")
+        tResults.addFailure(balanceTestName + "TA should be: 126223000000, but is: " + b_ibm2013._total_assets() );
+    if (b_ibm2013._current_liabilities() != "40154000000")
+        tResults.addFailure(balanceTestName + "CL should be: 40154000000, but is: " + b_ibm2013._current_liabilities() );
+    if (b_ibm2013._total_liabilities() != "103294000000")
+        tResults.addFailure(balanceTestName + "TA should be: 103294000000, but is: " + b_ibm2013._total_liabilities() );
+    if (b_ibm2013._long_term_debt() != "32856000000")
+        tResults.addFailure(balanceTestName + "LTD should be: 32856000000, but is: " + b_ibm2013._long_term_debt() );
+    if (stock._has_currant_ratio() != true)
+        tResults.addFailure(balanceTestName + "Should Have current ratio. but is set to FALSE" );
+   // if (b_ibm2013._book_value() != "99751000000")
+     //   tResults.addFailure(balanceTestName + "Calculated Book value should be: 99751000000, but is: "
+       //                     + b_ibm2013._book_value() );
+    // test clean up
+    tb.erase( tb._id() == b_ibm2013._id());
 
     // CVX
     stock = ts.select( ts._ticker() == string("CVX")).front();
@@ -181,6 +209,28 @@ Test::runSingleYearTest(TestResults& tResults)
     // test clean up
     te.erase( te._id() == cvx2013._id());
 
+    //BALANCE extraction test
+    O_BalanceSheet b_cvx2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+    if (b_cvx2013._year() != 2013)
+        tResults.addFailure(balanceTestName + "Year should be: 2013, but is: "
+                            + to_string(b_cvx2013._year()) );
+
+    if (b_cvx2013._current_assets() != "50250000000")
+        tResults.addFailure(balanceTestName + "CA should be: 50250000000, but is: " + b_cvx2013._current_assets() );
+    if (b_cvx2013._total_assets() != "253753000000")
+        tResults.addFailure(balanceTestName + "TA should be: 253753000000, but is: " + b_cvx2013._total_assets() );
+    if (b_cvx2013._current_liabilities() != "33018000000")
+        tResults.addFailure(balanceTestName + "CL should be: 33018000000, but is: " + b_cvx2013._current_liabilities() );
+    if (b_cvx2013._total_liabilities() != "103326000000")
+        tResults.addFailure(balanceTestName + "TA should be: 103326000000, but is: " + b_cvx2013._total_liabilities() );
+    if (b_cvx2013._long_term_debt() != "19960000000")
+        tResults.addFailure(balanceTestName + "LTD should be: 19960000000, but is: " + b_cvx2013._long_term_debt() );
+    if (stock._has_currant_ratio() != true)
+        tResults.addFailure(balanceTestName + "Should Have current ratio. but is set to FALSE" );
+    // test clean up
+    tb.erase( tb._id() == b_cvx2013._id());
+
     // GOOG
     stock = ts.select( ts._ticker() == string("GOOG")).front();
     tResults.setStockTickerName( stock._ticker() );
@@ -223,6 +273,32 @@ Test::runSingleYearTest(TestResults& tResults)
     // test clean up
     te.erase( te._id() == goog2013._id());
 
+    //BALANCE extraction test
+    O_BalanceSheet b_goog2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+    if (b_goog2013._year() != 2013)
+        tResults.addFailure(balanceTestName + "Year should be: 2013, but is: "
+                            + to_string(b_goog2013._year()) );
+
+    if (b_goog2013._current_assets() != "72886000000")
+        tResults.addFailure(balanceTestName + "CA should be: 72886000000, but is: " + b_goog2013._current_assets() );
+    if (b_goog2013._total_assets() != "110920000000")
+        tResults.addFailure(balanceTestName + "TA should be: 110920000000, but is: " + b_goog2013._total_assets() );
+    if (b_goog2013._current_liabilities() != "15908000000")
+        tResults.addFailure(balanceTestName + "CL should be: 15908000000, but is: " + b_goog2013._current_liabilities() );
+    if (b_goog2013._book_value() != "87309000000")
+        tResults.addFailure(balanceTestName + "TL should be: 87309000000, but is: " + b_goog2013._book_value() );
+
+    if (b_goog2013._total_liabilities() != "23611000000")
+        tResults.addFailure(balanceTestName + "TL should be: 23611000000, but is: " + b_goog2013._total_liabilities() );
+    if (b_goog2013._long_term_debt() != "2236000000")
+        tResults.addFailure(balanceTestName + "LTD should be: 2236000000, but is: " + b_goog2013._long_term_debt() );
+    if (stock._has_currant_ratio() != true)
+        tResults.addFailure(balanceTestName + "Should Have current ratio. but is set to FALSE" );
+    // test clean up
+    tb.erase( tb._id() == b_goog2013._id());
+
+
     // BDX
     stock = ts.select( ts._ticker() == string("BDX")).front();
     tResults.setStockTickerName( stock._ticker() );
@@ -232,6 +308,7 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "Could not load mock 10k for testing");
         return tResults.getResultsSummary();
     }
+
     edgar.extract10kToDisk( filing, stock, year);
 
     //Test results writen to DB

@@ -258,6 +258,69 @@ EdgarData::insertEp( O_Ep& ep )
     return ep.insert();
 }
 
+bool
+EdgarData::addBalanceRecordToDB( O_Stock& stock, O_BalanceSheet& balance_rec)
+{
+    bool inserted(false);
+    stringstream message;
+    message << " BALAMCE Record to DB for " << stock._ticker()
+            <<". YEAR: "<< balance_rec._year() <<" CA: "<<balance_rec._current_assets()
+            <<" TA: "<<balance_rec._total_assets() << " CL: "<<balance_rec._current_liabilities()
+            <<" TL: "<<balance_rec._total_liabilities() << " TLD: " << balance_rec._long_term_debt()
+            <<" BV: "<<balance_rec._book_value() << "\n";
+
+    if ( (inserted = insertBs(balance_rec)) )
+    {
+        LOG_INFO << "\nInserted NEW "<< message.str();
+        cout << "\nInserted NEW "<<message.str() << endl;
+    } else {
+        LOG_ERROR << "\n FAILED to insert "<<message.str();
+        cout << "\nFAILED to insert "<<message.str() << endl;
+    }
+    return inserted;
+}
+
+bool
+EdgarData::insertBs( O_BalanceSheet& bs )
+{
+    // check that bs is valid
+// Add checks for existance of :
+// bs
+// num shares
+    if ( (bs._stock_id() <= 0 )         ||
+         (bs._year() < greg_year(1980)) ||
+         (bs._year() > greg_year(2020))
+        )
+        return false;
+
+    T_Stock ta;
+    I_Stock stock_id( bs._stock_id() );
+    pair<O_Stock, bool> spair = ta.select( stock_id );
+    if (!spair.second)
+    {
+        LOG_ERROR<<"Stock with id "<<to_string(bs._stock_id())<<" could not be"
+                  <<" found in DB. Therefore, cannot add earnings for it to DB";
+        return false;
+    }
+    O_Stock stock = spair.first;
+
+    // check if it already exits in DB
+    vector<O_BalanceSheet> bss = stock._balance_sheets();
+    for (auto it = bss.begin() ; it != bss.end(); ++it )
+        if ( it->_year() == bs._year() )
+        {
+            LOG_INFO<<"NOT adding balance statment to DB. Record for that year already exists";
+            return false;
+        }
+
+    // insert new balance record
+    return bs.insert();
+}
+
+
+
+
+
 long
 convert_string_to_long( string& str)
 {
@@ -487,7 +550,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
         LOG_ERROR << "MISING INCOME REPORT";
     else
         addSingleAnualIncomeStatmentToDB(income_report, stock, year);
-    string balance_report = _reports[ReportType::INCOME];
+    string balance_report = _reports[ReportType::BALANCE];
     if (balance_report == "")
         LOG_ERROR << "MISING BALANCE REPORT";
     else
@@ -755,23 +818,18 @@ EdgarData::addBalanceStatmentToDB(string& balanceFileStr,
 
     string balanceTableStr = parser.extractFirstTableStr(balanceFileStr);
 
-
     XmlElement* tree = parser.buildXmlTree(balanceTableStr);
     if(tree == NULL)
     {
         LOG_INFO << "No BALANCE statement to parse to DB for "<<stock._ticker();
         return;
     }
-
-
     O_BalanceSheet bs;
-
     bs._stock_id() = stock._id();
     bs._year() = year;
     bs._quarter() = 0; // Anual record
-
     parser.parseBalanceTree(tree, bs);
 
-  //  if ( addEarningsRecordToDB( stock, bs) )
-//    _bs = bs;
+    addBalanceRecordToDB ( stock, bs);
+    //_bs = bs;
 }

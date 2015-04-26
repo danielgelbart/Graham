@@ -2,7 +2,8 @@
 #include <streambuf>
 #include <iostream>
 #include <map>
-#include <math.h>  
+#include <math.h>
+//#include <limits>
 #include "Utils.hpp"
 #include "Logger.h"
 #include "Tokenizer.h"
@@ -758,6 +759,12 @@ writeLongTermDebtToBalance(O_BalanceSheet& bs, string& val, string& units)
 {
     // use adjust for decimals
     bs._long_term_debt() = adjustForDecimals(val,units);
+}
+void
+writeBookValueBalance(O_BalanceSheet& bs, string& val, string& units)
+{
+    // use adjust for decimals
+    bs._book_value() = adjustForDecimals(val,units);
 }
 
 size_t 
@@ -1638,7 +1645,7 @@ Parser::extractTotalAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_data,
     // **** Search for TA using 'defref' html attribute
     regex defref("us-gaap_Assets'");
     if (( foundTA = findDefref(trIt, defref, num_pattern, units,
-                                balance_data, writeTotalLiabilitiesToBalance )))
+                                balance_data, writeTotalAssetsToBalance )))
     {
         LOG_INFO<<" Successfully found Total Assest using us-gaap_Assets' (1st)";
         return foundTA;
@@ -1877,6 +1884,55 @@ Parser::extractTotalLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_
 }
 
 bool
+Parser::extractBookValue(XmlElement* tree, O_BalanceSheet& balance_data, string& units)
+{
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+
+    bool foundBV(false);
+    regex num_pattern("\\d+[,\\d]+(.\\d+)?");
+
+    // **** Search for TL using 'defref' html attribute
+    regex defref("us-gaap_StockholdersEquity");
+    if (( foundBV = findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeBookValueBalance )))
+    {
+        LOG_INFO<<" Successfully found Total Liabilities using us-gaap_StockholdersEquity (1st)";
+        return foundBV;
+    }
+
+    //**** Special handling for non-company type stocks
+    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+    // If compnay is a REIT - they report interest income
+    // e.g. NLY, ANH
+    if ( (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT) ||
+         (_stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT - NOT yet implemented";
+        defref.assign("");
+    } // REIT
+
+    LOG_INFO << "Could not find TOTAL Liabilities using defref. Going to use heuristics" ;
+
+    trIt.resetToStart();
+    // first, try to get single line in one shot
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+        LOG_INFO << "\n Handling line - \n" << trtext;
+
+        boost::regex bv_pattern("Total (Stock|Share)holder's Equity", boost::regex::icase );
+        if ( regex_search( trtext, bv_pattern)) {
+            foundBV = checkTrPattern( trtext, bv_pattern, units, trp,
+                         num_pattern, balance_data, writeBookValueBalance );
+            break;
+        }
+    } // while loop over table
+
+    return foundBV;
+}
+
+bool
 Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data,
                     string& units)
 {
@@ -1963,15 +2019,28 @@ Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data
 void
 calculate_book_value(DMMM::O_BalanceSheet& balance_data)
 {
-    size_t assets = stoi(balance_data._total_assets());
-    size_t liabilities = stoi(balance_data._total_liabilities());
+    LOG_INFO << "Calculaing book value in method Parser::calculate_book_value()";
+    LOG_INFO << "total assets are" << balance_data._total_assets() << " and TL are: " << balance_data._total_liabilities();
+    long assets = stol(balance_data._total_assets());
+    long liabilities = stol(balance_data._total_liabilities());
     balance_data._book_value() = to_string(liabilities - assets);
+    balance_data._calculated_bv() = true;
 }
+
+void
+calculate_total_liabilities(DMMM::O_BalanceSheet& balance_data)
+{
+    LOG_INFO << "Calculaing total liabilities in method Parser::calculate_total_liabiities()";
+    long assets = stol(balance_data._total_assets());
+    long book_value = stol(balance_data._book_value());
+    balance_data._total_liabilities() = to_string(book_value - assets);
+    balance_data._calculated_tl() = true;
+}
+
 
 void
 Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
 {
-
     // #  current_assets      :string(255)
     //#  total_assets        :string(255)
     //#  current_liabilities :string(255)
@@ -2001,14 +2070,16 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
     bool has_cl = extractCurrentLiabilities(tree, balance_data, units);
     bool has_tl = extractTotalLiabilities(tree, balance_data, units);
     extractLongTermDebt(tree, balance_data, units);
-
     if (has_ca && has_cl)
         _stock._has_currant_ratio() = true;
 
-    if (has_ta && has_tl)
+    bool has_bv = extractBookValue(tree, balance_data, units);
+
+    if (!has_tl && has_bv && has_ta)
+        calculate_total_liabilities(balance_data);
+
+    if (!has_bv && has_ta && has_tl)
         calculate_book_value(balance_data);
-
-
 }
 
 string 
