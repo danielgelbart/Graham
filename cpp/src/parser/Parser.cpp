@@ -757,8 +757,16 @@ writeTotalLiabilitiesToBalance(O_BalanceSheet& bs, string& val, string& units)
 void
 writeLongTermDebtToBalance(O_BalanceSheet& bs, string& val, string& units)
 {
-    // use adjust for decimals
-    bs._long_term_debt() = adjustForDecimals(val,units);
+    // there may be multiple lines for long term debt
+    // we ADD together each one that was found
+    long new_debt = stol( adjustForDecimals(val,units) );
+    long existing_debt = 0;
+    if (bs._long_term_debt() != "")
+        existing_debt = stol( bs._long_term_debt());
+    string ltds = to_string(existing_debt + new_debt);
+    LOG_INFO << "Adding to long term debt of "<< bs._long_term_debt()
+                << " new value for total of "<< ltds;
+    bs._long_term_debt() = ltds;
 }
 void
 writeBookValueBalance(O_BalanceSheet& bs, string& val, string& units)
@@ -1756,9 +1764,9 @@ Parser::extractCurrentLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balanc
         string trtext = trp->text();
         LOG_INFO << "\n Handling line - \n" << trtext;
 
-        boost::regex tl_pattern("Total liabilities", boost::regex::icase );
-        if ( regex_search( trtext, tl_pattern)) {
-            foundCL = checkTrPattern( trtext, tl_pattern, units, trp,
+        boost::regex cl_pattern("total current liabilities", boost::regex::icase );
+        if ( regex_search( trtext, cl_pattern)) {
+            foundCL = checkTrPattern( trtext, cl_pattern, units, trp,
                          num_pattern, balance_data, writeCurrentLiabilitiesToBalance );
             break;
         }
@@ -1947,13 +1955,37 @@ Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
 
     // **** Search for TL using 'defref' html attribute
+    // For Long Term Debt, there may be multiple lines, so we sum them all up
     regex defref("us-gaap_LongTermDebtNoncurrent");
     if (( foundLTD = findDefref(trIt, defref, num_pattern, units,
                                 balance_data, writeLongTermDebtToBalance )))
-    {
         LOG_INFO<<" Successfully found Long Term Debt using us-gaap_LongTermDebtNoncurrent (1st)";
+
+    //seniour long term notes
+    // So far ONLY BERKSHIRE usese the following 3 defrefs, and does NOT use the first one
+    defref.assign("us-gaap_Senior*LongTermNotes");
+    if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeLongTermDebtToBalance )))
+        LOG_INFO<<" Successfully found Long Term Debt using us-gaap_Senior*LongTermNotes (2nd)";
+
+    // junior long term notes
+    defref.assign("us-gaap_Junior*LongTermNotes");
+    if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeLongTermDebtToBalance )))
+        LOG_INFO<<" Successfully found Long Term Debt using us-gaap_Junior*LongTermNotes (3rd)";
+
+    // "other" long term debt
+    defref.assign("us-gaap_OtherLongTermDebtNoncurrent");
+    if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeLongTermDebtToBalance )))
+        LOG_INFO<<" Successfully found Long Term Debt using us-gaap_OtherTermDebtNoncurrent (4th)";
+
+    if (foundLTD)
+    {
+        LOG_INFO << "Found Long Term Debt using defref for TOTAL if "<< balance_data._long_term_debt();
         return foundLTD;
     }
+
 
     //**** Special handling for non-company type stocks
 
@@ -2075,6 +2107,9 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
     extractLongTermDebt(tree, balance_data, units);
     if (has_ca && has_cl)
         _stock._has_currant_ratio() = true;
+    else
+        _stock._has_currant_ratio() = false;
+    _stock.update();
 
     bool has_bv = extractBookValue(tree, balance_data, units);
 

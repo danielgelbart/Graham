@@ -364,7 +364,6 @@ Test::runSingleYearTest(TestResults& tResults)
     tb.erase( tb._id() == b_bdx2013._id());
 
 
-
     // BRK.A
     stock = ts.select( ts._ticker() == string("BRK.A")).front();
     tResults.setStockTickerName( stock._ticker() );
@@ -403,6 +402,28 @@ Test::runSingleYearTest(TestResults& tResults)
     // test clean up
     te.erase( te._id() == brk2013._id());
 
+    //BALANCE extraction test
+    O_BalanceSheet b_brk2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+
+    if (b_brk2013._current_assets() != "")
+        tResults.addFailure(balanceTestName + " CA should be: , but is: " + b_brk2013._current_assets() );
+    if (b_brk2013._total_assets() != "484931000000")
+        tResults.addFailure(balanceTestName + " TA should be: 484931000000, but is: " + b_brk2013._total_assets() );
+    if (b_brk2013._current_liabilities() != "")
+        tResults.addFailure(balanceTestName + " CL should be: , but is: " + b_brk2013._current_liabilities() );
+    if (b_brk2013._total_liabilities() != "260446000000")
+        tResults.addFailure(balanceTestName + " TL should be: 260446000000, but is: " + b_brk2013._total_liabilities() );
+    if (b_brk2013._long_term_debt() != "")
+        tResults.addFailure(balanceTestName + " LTD should be: , but is: " + b_brk2013._long_term_debt() );
+    if (b_brk2013._book_value() != "221890000000")
+        tResults.addFailure(balanceTestName + " BV should be: 221890000000, but is: " + b_brk2013._book_value() );
+    if (stock._has_currant_ratio() == true)
+        tResults.addFailure(balanceTestName + "Should NOT Have current ratio. but is set to TRUE" );
+    // test clean up
+    tb.erase( tb._id() == b_brk2013._id());
+
+
     // DE
     stock = ts.select( ts._ticker() == string("DE")).front();
     tResults.setStockTickerName( stock._ticker() );
@@ -433,6 +454,27 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "Number of shares should be: 389200000, but is: " + de2013._shares() );
     // test clean up
     te.erase( te._id() == de2013._id());
+
+    //BALANCE extraction test
+    O_BalanceSheet b_de2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+    if (b_de2013._current_assets() != "")
+        tResults.addFailure(balanceTestName + " CA should be: , but is: " + b_de2013._current_assets() );
+    if (b_de2013._total_assets() != "59521300000")
+        tResults.addFailure(balanceTestName + " TA should be: 59521300000, but is: " + b_de2013._total_assets() );
+    if (b_de2013._current_liabilities() != "")
+        tResults.addFailure(balanceTestName + " CL should be: , but is: " + b_de2013._current_liabilities() );
+    if (b_de2013._total_liabilities() != "49253600000")
+        tResults.addFailure(balanceTestName + " TL should be: 49253600000, but is: " + b_de2013._total_liabilities() );
+    if (b_de2013._long_term_debt() != "21577700000")
+        tResults.addFailure(balanceTestName + " LTD should be: 21577700000, but is: " + b_de2013._long_term_debt() );
+    if (b_de2013._book_value() != "10265800000")
+        tResults.addFailure(balanceTestName + " BV should be: 10265800000, but is: " + b_de2013._book_value() );
+    if (stock._has_currant_ratio() == true)
+        tResults.addFailure(balanceTestName + "Should NOT Have current ratio. but is set to TRUE" );
+    // test clean up
+    tb.erase( tb._id() == b_de2013._id());
+
 
     // INTC
     stock = ts.select( ts._ticker() == string("INTC")).front();
