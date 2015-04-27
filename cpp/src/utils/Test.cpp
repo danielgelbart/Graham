@@ -347,8 +347,8 @@ Test::runSingleYearTest(TestResults& tResults)
 
     if (b_bdx2013._current_assets() != "5873000000")
         tResults.addFailure(balanceTestName + "CA should be: 5873000000, but is: " + b_bdx2013._current_assets() );
-    if (b_bdx2013._total_assets() != "12148000000")
-        tResults.addFailure(balanceTestName + "TA should be: 12148000000, but is: " + b_bdx2013._total_assets() );
+    if (b_bdx2013._total_assets() != "12149000000")
+        tResults.addFailure(balanceTestName + "TA should be: 12149000000, but is: " + b_bdx2013._total_assets() );
     if (b_bdx2013._current_liabilities() != "2130000000")
         tResults.addFailure(balanceTestName + "CL should be: 2130000000, but is: " + b_bdx2013._current_liabilities() );
     if (b_bdx2013._book_value() != "5043000000")

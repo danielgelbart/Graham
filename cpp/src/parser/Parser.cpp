@@ -1726,12 +1726,12 @@ Parser::extractCurrentLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balanc
     bool foundCLBlock(false);
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
 
-    // **** Search for TL using 'defref' html attribute
+    // **** Search for CL using 'defref' html attribute
     regex defref("us-gaap_LiabilitiesCurrent");
     if (( foundCL = findDefref(trIt, defref, num_pattern, units,
                                 balance_data, writeCurrentLiabilitiesToBalance )))
     {
-        LOG_INFO<<" Successfully found Total Liabilities using us-gaap_LiabilitiesCurrent (1st)";
+        LOG_INFO<<" Successfully found Current Liabilities using us-gaap_LiabilitiesCurrent (1st)";
         return foundCL;
     }
 
@@ -1840,7 +1840,10 @@ Parser::extractTotalLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_
         string trtext = trp->text();
         LOG_INFO << "\n Handling line - \n" << trtext;
 
-        boost::regex tl_pattern("Total liabilities", boost::regex::icase );
+        regex tl_pattern("Total liabilities", boost::regex::icase );
+        regex exclution("equity", regex::icase);
+        if (regex_search( trtext, exclution))
+            continue;
         if ( regex_search( trtext, tl_pattern)) {
             foundTL = checkTrPattern( trtext, tl_pattern, units, trp,
                          num_pattern, balance_data, writeTotalLiabilitiesToBalance );
@@ -2023,7 +2026,7 @@ calculate_book_value(DMMM::O_BalanceSheet& balance_data)
     LOG_INFO << "total assets are" << balance_data._total_assets() << " and TL are: " << balance_data._total_liabilities();
     long assets = stol(balance_data._total_assets());
     long liabilities = stol(balance_data._total_liabilities());
-    balance_data._book_value() = to_string(liabilities - assets);
+    balance_data._book_value() = to_string(assets - liabilities);
     balance_data._calculated_bv() = true;
 }
 
@@ -2033,7 +2036,7 @@ calculate_total_liabilities(DMMM::O_BalanceSheet& balance_data)
     LOG_INFO << "Calculaing total liabilities in method Parser::calculate_total_liabiities()";
     long assets = stol(balance_data._total_assets());
     long book_value = stol(balance_data._book_value());
-    balance_data._total_liabilities() = to_string(book_value - assets);
+    balance_data._total_liabilities() = to_string(assets - book_value);
     balance_data._calculated_tl() = true;
 }
 
