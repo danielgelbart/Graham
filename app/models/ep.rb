@@ -32,6 +32,17 @@ class Ep < ActiveRecord::Base
      0
     end
   end
+
+  def shares_to_str
+    return "-" if shares.to_i == 0
+    billion = 1000000000.0
+    if shares.to_i > billion
+      return ("%5.2f" % (shares.to_i / billion) )+ " Bil"
+    else
+      return ("%5.2f" % (shares.to_i / 1000000.0) )+ " Mil"
+    end
+  end
+
 end
 
 

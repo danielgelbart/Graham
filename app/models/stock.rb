@@ -93,7 +93,7 @@ class Stock < ActiveRecord::Base
     end
 
     if ret.nil? && !lbs.nil? && !lbs.assets_t.nil? && !lbs.liabilities_t.nil?
-      ret = (lbs.assets_t - lbs.liabilities_t) >= MIN_BV
+      ret = lbs.equity >= MIN_BV
     end
 
     ret.nil? ? false : ret
@@ -102,7 +102,6 @@ class Stock < ActiveRecord::Base
   # 2) Finantialy strong
   # current assets > current liabilaties * 2   # For industrial
   # long term debt < current assets
-
   # debt < 2 * stock equity (at book value) # for public utilities
 
   def financialy_strong?
@@ -424,6 +423,7 @@ class Stock < ActiveRecord::Base
 
   def get_ttm_eps
     ttm = eps.select{ |e| e.quarter == 5}.first.eps
+    ttm ||= latest_eps.eps
     ttm ||= ttm_eps
     ttm
   end

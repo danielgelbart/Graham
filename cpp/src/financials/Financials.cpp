@@ -263,7 +263,7 @@ EdgarData::addBalanceRecordToDB( O_Stock& stock, O_BalanceSheet& balance_rec)
 {
     bool inserted(false);
     stringstream message;
-    message << " BALAMCE Record to DB for " << stock._ticker()
+    message << " BALANCE Record to DB for " << stock._ticker()
             <<". YEAR: "<< balance_rec._year() <<" CA: "<<balance_rec._current_assets()
             <<" TA: "<<balance_rec._total_assets() << " CL: "<<balance_rec._current_liabilities()
             <<" TL: "<<balance_rec._total_liabilities() << " TLD: " << balance_rec._long_term_debt()

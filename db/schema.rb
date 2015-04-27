@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(:version => 20150426133458) do
     t.datetime "updated_at"
     t.string   "net_tangible_assets"
     t.string   "total_sales"
-    t.integer  "quarter",               :default => 0
-    t.boolean  "calculated_book_value"
+    t.integer  "quarter",             :default => 0
+    t.boolean  "calculated_bv"
+    t.boolean  "calculated_tl"
   end
 
   create_table "dividends", :force => true do |t|
