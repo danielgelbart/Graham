@@ -146,10 +146,12 @@ private:
                             boost::regex& extract_pattern, DMMM::O_BalanceSheet& balance,
                             void(*func)(DMMM::O_BalanceSheet&,string&,string&));
 
+    // Could use template for these methods
     bool findDefref(trIterator& trIt, boost::regex& defref, boost::regex& num_pattern, string& units,
                DMMM::O_Ep& earnings_data, void(*func)(DMMM::O_Ep&,string&,string&));
     bool findDefref(trIterator& trIt, boost::regex& defref, boost::regex& num_pattern, string& units,
-               DMMM::O_BalanceSheet& balance_data, void(*func)(DMMM::O_BalanceSheet&,string&,string&));
+               DMMM::O_BalanceSheet& balance_data, void(*func)(DMMM::O_BalanceSheet&,string&,string&),
+                    string stop_search = "");
 
     bool extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                         string& units);

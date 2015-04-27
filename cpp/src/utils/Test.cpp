@@ -281,18 +281,18 @@ Test::runSingleYearTest(TestResults& tResults)
                             + to_string(b_goog2013._year()) );
 
     if (b_goog2013._current_assets() != "72886000000")
-        tResults.addFailure(balanceTestName + "CA should be: 72886000000, but is: " + b_goog2013._current_assets() );
+        tResults.addFailure(balanceTestName + " CA should be: 72886000000, but is: " + b_goog2013._current_assets() );
     if (b_goog2013._total_assets() != "110920000000")
-        tResults.addFailure(balanceTestName + "TA should be: 110920000000, but is: " + b_goog2013._total_assets() );
+        tResults.addFailure(balanceTestName + " TA should be: 110920000000, but is: " + b_goog2013._total_assets() );
     if (b_goog2013._current_liabilities() != "15908000000")
-        tResults.addFailure(balanceTestName + "CL should be: 15908000000, but is: " + b_goog2013._current_liabilities() );
+        tResults.addFailure(balanceTestName + " CL should be: 15908000000, but is: " + b_goog2013._current_liabilities() );
     if (b_goog2013._book_value() != "87309000000")
-        tResults.addFailure(balanceTestName + "TL should be: 87309000000, but is: " + b_goog2013._book_value() );
+        tResults.addFailure(balanceTestName + " BV should be: 87309000000, but is: " + b_goog2013._book_value() );
 
     if (b_goog2013._total_liabilities() != "23611000000")
-        tResults.addFailure(balanceTestName + "TL should be: 23611000000, but is: " + b_goog2013._total_liabilities() );
+        tResults.addFailure(balanceTestName + " TL should be: 23611000000, but is: " + b_goog2013._total_liabilities() );
     if (b_goog2013._long_term_debt() != "2236000000")
-        tResults.addFailure(balanceTestName + "LTD should be: 2236000000, but is: " + b_goog2013._long_term_debt() );
+        tResults.addFailure(balanceTestName + " LTD should be: 2236000000, but is: " + b_goog2013._long_term_debt() );
     if (stock._has_currant_ratio() != true)
         tResults.addFailure(balanceTestName + "Should Have current ratio. but is set to FALSE" );
     // test clean up
@@ -346,13 +346,13 @@ Test::runSingleYearTest(TestResults& tResults)
                               && tb._year() == year ).front();
 
     if (b_bdx2013._current_assets() != "5873000000")
-        tResults.addFailure(balanceTestName + "CA should be: 5873000000, but is: " + b_bdx2013._current_assets() );
+        tResults.addFailure(balanceTestName + " CA should be: 5873000000, but is: " + b_bdx2013._current_assets() );
     if (b_bdx2013._total_assets() != "12149000000")
-        tResults.addFailure(balanceTestName + "TA should be: 12149000000, but is: " + b_bdx2013._total_assets() );
+        tResults.addFailure(balanceTestName + " TA should be: 12149000000, but is: " + b_bdx2013._total_assets() );
     if (b_bdx2013._current_liabilities() != "2130000000")
-        tResults.addFailure(balanceTestName + "CL should be: 2130000000, but is: " + b_bdx2013._current_liabilities() );
+        tResults.addFailure(balanceTestName + " CL should be: 2130000000, but is: " + b_bdx2013._current_liabilities() );
     if (b_bdx2013._book_value() != "5043000000")
-        tResults.addFailure(balanceTestName + "TL should be: 5043000000, but is: " + b_bdx2013._book_value() );
+        tResults.addFailure(balanceTestName + " BV should be: 5043000000, but is: " + b_bdx2013._book_value() );
 
     if (b_bdx2013._total_liabilities() != "7106000000")
         tResults.addFailure(balanceTestName + "TL should be: 7106000000, but is: " + b_bdx2013._total_liabilities() );
@@ -414,8 +414,8 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(balanceTestName + " CL should be: , but is: " + b_brk2013._current_liabilities() );
     if (b_brk2013._total_liabilities() != "260446000000")
         tResults.addFailure(balanceTestName + " TL should be: 260446000000, but is: " + b_brk2013._total_liabilities() );
-    if (b_brk2013._long_term_debt() != "")
-        tResults.addFailure(balanceTestName + " LTD should be: , but is: " + b_brk2013._long_term_debt() );
+//    if (b_brk2013._long_term_debt() != "")
+//        tResults.addFailure(balanceTestName + " LTD should be: , but is: " + b_brk2013._long_term_debt() );
     if (b_brk2013._book_value() != "221890000000")
         tResults.addFailure(balanceTestName + " BV should be: 221890000000, but is: " + b_brk2013._book_value() );
     if (stock._has_currant_ratio() == true)
@@ -504,6 +504,27 @@ Test::runSingleYearTest(TestResults& tResults)
     // test clean up
     te.erase( te._id() == intc2013._id());
 
+    //BALANCE extraction test
+    O_BalanceSheet b_intc2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+    if (b_intc2013._current_assets() != "32084000000")
+        tResults.addFailure(balanceTestName + " CA should be: 32084000000, but is: " + b_intc2013._current_assets() );
+    if (b_intc2013._total_assets() != "92358000000")
+        tResults.addFailure(balanceTestName + " TA should be: 92358000000, but is: " + b_intc2013._total_assets() );
+    if (b_intc2013._current_liabilities() != "13568000000")
+        tResults.addFailure(balanceTestName + " CL should be: 13568000000, but is: " + b_intc2013._current_liabilities() );
+    if (b_intc2013._total_liabilities() != "34102000000")
+        tResults.addFailure(balanceTestName + " TL should be: 34102000000, but is: " + b_intc2013._total_liabilities() );
+    if (b_intc2013._calculated_tl() == false)
+        tResults.addFailure(balanceTestName + " TL NOT suplied, so calculated_tl should be NOT be false" );
+    if (b_intc2013._long_term_debt() != "13165000000")
+        tResults.addFailure(balanceTestName + " LTD should be: 13165000000, but is: " + b_intc2013._long_term_debt() );
+    if (b_intc2013._book_value() != "58256000000")
+        tResults.addFailure(balanceTestName + " BV should be: 58256000000, but is: " + b_intc2013._book_value() );
+    // test clean up
+    tb.erase( tb._id() == b_intc2013._id());
+
+
     // F
     stock = ts.select( ts._ticker() == string("F")).front();
     tResults.setStockTickerName( stock._ticker() );
@@ -531,6 +552,27 @@ Test::runSingleYearTest(TestResults& tResults)
         tResults.addFailure(testName + "(diluted) Eps should be: 1.76, but is: " + to_string(f2013._eps()) );
     // test clean up
     te.erase( te._id() == f2013._id());
+
+    //BALANCE extraction test
+    O_BalanceSheet b_f2013 = tb.select( tb._stock_id() == stock._id()
+                              && tb._year() == year ).front();
+    if (b_f2013._current_assets() != "")
+        tResults.addFailure(balanceTestName + " CA should be: , but is: " + b_f2013._current_assets() );
+    if (b_f2013._total_assets() != "202026000000")
+        tResults.addFailure(balanceTestName + " TA should be: 202026000000, but is: " + b_f2013._total_assets() );
+    if (b_f2013._current_liabilities() != "")
+        tResults.addFailure(balanceTestName + " CL should be: , but is: " + b_f2013._current_liabilities() );
+    if (b_f2013._total_liabilities() != "175279000000")
+        tResults.addFailure(balanceTestName + " TL should be: 175279000000, but is: " + b_f2013._total_liabilities() );
+    if (stock._has_currant_ratio() == true)
+        tResults.addFailure(balanceTestName + " NO current ratios, so stock._has_currant() should be false" );
+    if (b_f2013._long_term_debt() != "114688000000")
+        tResults.addFailure(balanceTestName + " LTD should be: 114688000000, but is: " + b_f2013._long_term_debt() );
+    if (b_f2013._book_value() != "26383000000")
+        tResults.addFailure(balanceTestName + " BV should be: 26383000000, but is: " + b_f2013._book_value() );
+    // test clean up
+    tb.erase( tb._id() == b_f2013._id());
+
 
     return tResults.getResultsSummary();
 }

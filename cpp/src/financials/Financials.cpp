@@ -828,6 +828,7 @@ EdgarData::addBalanceStatmentToDB(string& balanceFileStr,
     bs._stock_id() = stock._id();
     bs._year() = year;
     bs._quarter() = 0; // Anual record
+
     parser.parseBalanceTree(tree, bs);
 
     addBalanceRecordToDB ( stock, bs);

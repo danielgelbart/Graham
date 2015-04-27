@@ -1532,14 +1532,20 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
 
 bool
 Parser::findDefref(trIterator& trIt, regex& defref, regex& num_pattern, string& units,
-           DMMM::O_BalanceSheet& balance_data, void(*func)(O_BalanceSheet&,string&,string&))
+           DMMM::O_BalanceSheet& balance_data, void(*func)(O_BalanceSheet&,string&,string&),
+                   string stop_search)
 {
+    LOG_INFO << "Looking for defref "<<defref.str()<<" stop pattern is: "<< stop_search;
+    regex stop_pattern(stop_search);
     trIt.resetToStart();
     XmlElement* trp;
     bool founddefref = false;
     while( (trp = trIt.nextTr()) != NULL )
     {
         string attr_text = trp->attrText();
+        if (stop_pattern.str().length() > 3)
+            if (regex_search( attr_text, stop_pattern))
+                break;
         LOG_INFO<<"attr_text is: "<<attr_text;
         if(( founddefref = checkTrPattern(attr_text, defref, units, trp,
                           num_pattern, balance_data, func)))
@@ -1564,8 +1570,10 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
 
     // **** Search for CA using 'defref' html attribute
     regex defref("us-gaap_AssetsCurrent");
+    string stop_search = "us-gaap_Liabilities'";
     if (( foundCA = findDefref(trIt, defref, num_pattern, units,
-                                balance_data, writeCurrentAssetsToBalance )))
+                               balance_data, writeCurrentAssetsToBalance,
+                               stop_search)))
     {
         LOG_INFO<<" Successfully found Current Assest using us-gaap_AssetsCurrent (1st)";
         return foundCA;
@@ -1588,11 +1596,13 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
 
     trIt.resetToStart();
     // first, try to get single line in one shot
+    regex stop_pattern("total liabilities", regex::icase);
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
         LOG_INFO << "\n Handling line - \n" << trtext;
-
+        if (regex_search(trtext, stop_pattern))
+            break;
         boost::regex rev_pattern("Total current assets", boost::regex::icase );
         if ( regex_search( trtext, rev_pattern)) {
             foundCA = checkTrPattern( trtext, rev_pattern, units, trp,
@@ -1733,11 +1743,12 @@ Parser::extractCurrentLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balanc
     bool foundCL(false);
     bool foundCLBlock(false);
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
-
+    string stop_search = "us-gaap_Liabilities'";
     // **** Search for CL using 'defref' html attribute
     regex defref("us-gaap_LiabilitiesCurrent");
     if (( foundCL = findDefref(trIt, defref, num_pattern, units,
-                                balance_data, writeCurrentLiabilitiesToBalance )))
+                               balance_data, writeCurrentLiabilitiesToBalance,
+                               stop_search)))
     {
         LOG_INFO<<" Successfully found Current Liabilities using us-gaap_LiabilitiesCurrent (1st)";
         return foundCL;
@@ -1759,10 +1770,13 @@ Parser::extractCurrentLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balanc
 
     trIt.resetToStart();
     // first, try to get single line in one shot
+    regex stop_pattern("total liabilities", regex::icase);
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
         LOG_INFO << "\n Handling line - \n" << trtext;
+        if (regex_search(trtext, stop_pattern))
+            break;
 
         boost::regex cl_pattern("total current liabilities", boost::regex::icase );
         if ( regex_search( trtext, cl_pattern)) {
@@ -1862,7 +1876,7 @@ Parser::extractTotalLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_
     // if not found - iterate in block search mode
     trIt.resetToStart();
     if(!foundTL){
-        LOG_INFO << "Looking for current assets by block strocture";
+        LOG_INFO << "Looking for TOTAL LIABILITIES by block strocture";
         while( (trp = trIt.nextTr()) != NULL )
         {
             string trtext = trp->text();
@@ -1878,14 +1892,14 @@ Parser::extractTotalLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balance_
                     break;
 
                 //test line inside block
-                regex ca_pattern("^((\\s|:)*total liabilities)", regex::icase );
+                regex tl_pattern("^((\\s|:)*total liabilities)", regex::icase );
 
                 // looking for EXACT match here
                 tdIterator tdIt(trp);
                 string row_title = tdIt.at(0)->text();
                    LOG_INFO<<"row title is |"<<row_title<<"|";
-                if (regex_match(row_title,ca_pattern))
-                    if ((foundTL = checkTrPattern( trtext, ca_pattern, units, trp,
+                if (regex_match(row_title,tl_pattern))
+                    if ((foundTL = checkTrPattern( trtext, tl_pattern, units, trp,
                                 num_pattern, balance_data, writeTotalLiabilitiesToBalance)))
                         break;
             }
@@ -1903,12 +1917,12 @@ Parser::extractBookValue(XmlElement* tree, O_BalanceSheet& balance_data, string&
     bool foundBV(false);
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
 
-    // **** Search for TL using 'defref' html attribute
+    // **** Search for BV using 'defref' html attribute
     regex defref("us-gaap_StockholdersEquity");
     if (( foundBV = findDefref(trIt, defref, num_pattern, units,
                                 balance_data, writeBookValueBalance )))
     {
-        LOG_INFO<<" Successfully found Total Liabilities using us-gaap_StockholdersEquity (1st)";
+        LOG_INFO<<" Successfully found Book Value using us-gaap_StockholdersEquity (1st)";
         return foundBV;
     }
 
@@ -1923,7 +1937,7 @@ Parser::extractBookValue(XmlElement* tree, O_BalanceSheet& balance_data, string&
         defref.assign("");
     } // REIT
 
-    LOG_INFO << "Could not find TOTAL Liabilities using defref. Going to use heuristics" ;
+    LOG_INFO << "Could not find Book value using defref. Going to use heuristics" ;
 
     trIt.resetToStart();
     // first, try to get single line in one shot
@@ -1956,6 +1970,10 @@ Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data
 
     // **** Search for TL using 'defref' html attribute
     // For Long Term Debt, there may be multiple lines, so we sum them all up
+    // ** POSSIBLE ALTERMATIVE:
+    // Use one defref regex with ALL below regex values as OR ( | | )
+    // And cycle over balance sheet ONCE summing as we go
+    // This will sum up all subsidiary debt if appears (as in BRK)
     regex defref("us-gaap_LongTermDebtNoncurrent");
     if (( foundLTD = findDefref(trIt, defref, num_pattern, units,
                                 balance_data, writeLongTermDebtToBalance )))
@@ -1974,11 +1992,17 @@ Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data
                                 balance_data, writeLongTermDebtToBalance )))
         LOG_INFO<<" Successfully found Long Term Debt using us-gaap_Junior*LongTermNotes (3rd)";
 
+    // Used by F
+    defref.assign("us-gaap_DebtAndCapitalLeaseObligations");
+    if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeLongTermDebtToBalance )))
+        LOG_INFO<<" Successfully found Long Term Debt us-gaap_DebtAndCapitalLeaseObligations (4th)";
+
     // "other" long term debt
     defref.assign("us-gaap_OtherLongTermDebtNoncurrent");
     if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
                                 balance_data, writeLongTermDebtToBalance )))
-        LOG_INFO<<" Successfully found Long Term Debt using us-gaap_OtherTermDebtNoncurrent (4th)";
+        LOG_INFO<<" Successfully found Long Term Debt using us-gaap_OtherTermDebtNoncurrent (last)";
 
     if (foundLTD)
     {
