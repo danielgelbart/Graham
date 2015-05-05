@@ -40,8 +40,6 @@ module DataScraper
     update_price
     get_dividends
 
-#    update_current_data #This works, but takes a long time to run
-# since it makes multiple requests, - shorten number of requests!
     get_eps
 
     # mark stock as updated
@@ -61,7 +59,7 @@ module DataScraper
     get_historic_eps(10) # get earnings for last year
     # get_eps # ttmeps
 
-    update_current_data # ttm_eps, sales, div_yield
+    #update_current_data # ttm_eps, sales, div_yield
 
     get_numshares
 

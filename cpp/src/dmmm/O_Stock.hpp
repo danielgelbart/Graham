@@ -124,20 +124,6 @@ O_Stock(const I_Stock& id)
         _f_updated_at._dirty = true; 
         return _f_updated_at._base; 
     }
-    const F_BigDecimal::Base& _ttm_eps() const { 
-        return _f_ttm_eps._base; 
-    }
-    F_BigDecimal::Base& _ttm_eps() { 
-        _f_ttm_eps._dirty = true; 
-        return _f_ttm_eps._base; 
-    }
-    const F_BigDecimal::Base& _book_value_per_share() const { 
-        return _f_book_value_per_share._base; 
-    }
-    F_BigDecimal::Base& _book_value_per_share() { 
-        _f_book_value_per_share._dirty = true; 
-        return _f_book_value_per_share._base; 
-    }
     const F_Fixnum::Base& _dividends_per_year() const { 
         return _f_dividends_per_year._base; 
     }
@@ -240,12 +226,6 @@ O_Stock(const I_Stock& id)
 
         field2Val["updated_at"] = "NOW()";
 
-        if (_f_ttm_eps._dirty)
-            field2Val["ttm_eps"] = 
-                toSQLString(_f_ttm_eps._base);
-        if (_f_book_value_per_share._dirty)
-            field2Val["book_value_per_share"] = 
-                toSQLString(_f_book_value_per_share._base);
         if (_f_dividends_per_year._dirty)
             field2Val["dividends_per_year"] = 
                 toSQLString(_f_dividends_per_year._base);
@@ -292,8 +272,6 @@ O_Stock(const I_Stock& id)
             _f_ticker._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
-            _f_ttm_eps._dirty = false;
-            _f_book_value_per_share._dirty = false;
             _f_dividends_per_year._dirty = false;
             _f_latest_price._dirty = false;
             _f_market_cap._dirty = false;
@@ -329,12 +307,6 @@ O_Stock(const I_Stock& id)
         if (_f_updated_at._dirty)
             field2Val["updated_at"] = 
                 toSQLString(_f_updated_at._base);
-        if (_f_ttm_eps._dirty)
-            field2Val["ttm_eps"] = 
-                toSQLString(_f_ttm_eps._base);
-        if (_f_book_value_per_share._dirty)
-            field2Val["book_value_per_share"] = 
-                toSQLString(_f_book_value_per_share._base);
         if (_f_dividends_per_year._dirty)
             field2Val["dividends_per_year"] = 
                 toSQLString(_f_dividends_per_year._base);
@@ -382,8 +354,6 @@ O_Stock(const I_Stock& id)
             _f_ticker._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
-            _f_ttm_eps._dirty = false;
-            _f_book_value_per_share._dirty = false;
             _f_dividends_per_year._dirty = false;
             _f_latest_price._dirty = false;
             _f_market_cap._dirty = false;
@@ -408,8 +378,6 @@ private:
     F_String _f_ticker;
     F_Time _f_created_at;
     F_Time _f_updated_at;
-    F_BigDecimal _f_ttm_eps;
-    F_BigDecimal _f_book_value_per_share;
     F_Fixnum _f_dividends_per_year;
     F_BigDecimal _f_latest_price;
     F_String _f_market_cap;

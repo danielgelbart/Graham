@@ -14,7 +14,7 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  net_tangible_assets :string(255)
-#  total_sales         :string(255) X-->Should remove this!
+#  total_sales         :string(255)
 #  quarter             :integer(4)      default(0)
 #  calculated_bv       :boolean(1)
 #  calculated_tl       :boolean(1)

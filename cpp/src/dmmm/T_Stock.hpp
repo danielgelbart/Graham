@@ -89,32 +89,6 @@ public:
     static E_updated_at _updated_at(){ 
         return E_updated_at();
     }
-    struct E_ttm_eps{
-        E_ttm_eps() 
-        {  
-            _field = "stocks.ttm_eps";
-        }
-        std::string _field;
-        typedef T_Stock::Condition ConditionType;
-        typedef F_BigDecimal::Base ComparerType;
-    };
-
-    static E_ttm_eps _ttm_eps(){ 
-        return E_ttm_eps();
-    }
-    struct E_book_value_per_share{
-        E_book_value_per_share() 
-        {  
-            _field = "stocks.book_value_per_share";
-        }
-        std::string _field;
-        typedef T_Stock::Condition ConditionType;
-        typedef F_BigDecimal::Base ComparerType;
-    };
-
-    static E_book_value_per_share _book_value_per_share(){ 
-        return E_book_value_per_share();
-    }
     struct E_dividends_per_year{
         E_dividends_per_year() 
         {  
@@ -282,8 +256,6 @@ public:
         ret.push_back("ticker");
         ret.push_back("created_at");
         ret.push_back("updated_at");
-        ret.push_back("ttm_eps");
-        ret.push_back("book_value_per_share");
         ret.push_back("dividends_per_year");
         ret.push_back("latest_price");
         ret.push_back("market_cap");
@@ -320,10 +292,6 @@ public:
                 UTILS::fromString<F_Time::Base>(res[i]["created_at"]);
             ret[i]._f_updated_at._base =
                 UTILS::fromString<F_Time::Base>(res[i]["updated_at"]);
-            ret[i]._f_ttm_eps._base =
-                UTILS::fromString<F_BigDecimal::Base>(res[i]["ttm_eps"]);
-            ret[i]._f_book_value_per_share._base =
-                UTILS::fromString<F_BigDecimal::Base>(res[i]["book_value_per_share"]);
             ret[i]._f_dividends_per_year._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["dividends_per_year"]);
             ret[i]._f_latest_price._base =
@@ -423,12 +391,6 @@ public:
         fields.push_back(std::string("updated_at"));
         
 
-        fields.push_back(std::string("ttm_eps"));
-        
-
-        fields.push_back(std::string("book_value_per_share"));
-        
-
         fields.push_back(std::string("dividends_per_year"));
         
 
@@ -475,10 +437,6 @@ public:
             row.push_back(toSQLString(r._created_at()));
             
             row.push_back(toSQLString(r._updated_at()));
-            
-            row.push_back(toSQLString(r._ttm_eps()));
-            
-            row.push_back(toSQLString(r._book_value_per_share()));
             
             row.push_back(toSQLString(r._dividends_per_year()));
             
@@ -543,18 +501,6 @@ public:
             if (it->_f_updated_at._dirty){
                 fields.push_back(std::string("updated_at"));
                 row.push_back(toSQLString(it->_updated_at()));
-            }
-            
-
-            if (it->_f_ttm_eps._dirty){
-                fields.push_back(std::string("ttm_eps"));
-                row.push_back(toSQLString(it->_ttm_eps()));
-            }
-            
-
-            if (it->_f_book_value_per_share._dirty){
-                fields.push_back(std::string("book_value_per_share"));
-                row.push_back(toSQLString(it->_book_value_per_share()));
             }
             
 

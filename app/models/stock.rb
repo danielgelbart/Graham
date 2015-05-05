@@ -2,25 +2,23 @@
 #
 # Table name: stocks
 #
-#  id                   :integer(4)      not null, primary key
-#  name                 :string(255)
-#  ticker               :string(255)
-#  created_at           :datetime
-#  updated_at           :datetime
-#  ttm_eps              :decimal(12, 6)
-#  book_value_per_share :decimal(12, 6)
-#  dividends_per_year   :integer(4)      default(4)
-#  latest_price         :decimal(12, 6)
-#  market_cap           :string(255)
-#  ttm_div              :decimal(10, 3)
-#  yield                :decimal(6, 3)
-#  listed               :boolean(1)      default(TRUE)
-#  has_currant_ratio    :boolean(1)      default(TRUE)
-#  mark                 :string(255)
-#  cik                  :integer(4)
-#  fiscal_year_end      :string(255)     default("")
-#  company_type         :enum([:COMPANY, default(:COMPANY)
-#  country              :string(255)
+#  id                 :integer(4)      not null, primary key
+#  name               :string(255)
+#  ticker             :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  dividends_per_year :integer(4)      default(4)
+#  latest_price       :decimal(12, 6)
+#  market_cap         :string(255)
+#  ttm_div            :decimal(10, 3)
+#  yield              :decimal(6, 3)
+#  listed             :boolean(1)      default(TRUE)
+#  has_currant_ratio  :boolean(1)      default(TRUE)
+#  mark               :string(255)
+#  cik                :integer(4)
+#  fiscal_year_end    :string(255)     default("")
+#  company_type       :enum([:COMPANY, default(:COMPANY)
+#  country            :string(255)
 #
 
 #enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3,
@@ -208,7 +206,7 @@ class Stock < ActiveRecord::Base
   end
 
   def bargain?
-    (price * 1.5) < bv_per_share #Not working in rails 3: 'price' is somehow morphed to a nokogiri::element  of some sort
+    (price * 1.5) < book_value_per_share #Not working in rails 3: 'price' is somehow morphed to a nokogiri::element  of some sort
     false
   end
 
@@ -251,23 +249,6 @@ class Stock < ActiveRecord::Base
     if newest_dividend.date < Date.today - (365/dividends_per_year).days
       # get (newest?) data
     end
-  end
-
-  def update_current_data(markp = "0")
-    markn = markp
-    return if self.mark == markn
-
-    ttm_eps = get_eps
-    book_value = get_book_value
-    sales = get_sales
-    div = get_ttm_div
-    get_market_cap
-
-    if ttm_eps && book_value
-      update_attributes(:finantial_data_updated => Date.today)
-    end
-    # Mark stock as handled:
-    update_attributes(:mark => markn)
   end
 
   #/ End /Data retrenal methods ------------------------------------------------
@@ -327,7 +308,7 @@ class Stock < ActiveRecord::Base
 
     current_year = YEAR
     # Create copy array with only last number of years
-    recent = eps.select{|e| e.year >= current_year - years }
+    recent = eps.select{ |e| (e.year >= current_year - years) && (e.quarter == 0) }
 
     recent = adjust_for_inflation(recent)
     # Calculate the avarage
@@ -385,10 +366,8 @@ class Stock < ActiveRecord::Base
     eps.select{ |e| (e.year == year) && (e.quarter == 0) }.first
   end
 
-
-  def bv_per_share
-    return 1 if latest_numshare.nil?
-    latest_balance_sheet.book_val.to_f / latest_numshare.shares_to_i
+  def book_value_per_share
+    book_value / latest_eps.shares.to_f
   end
 
   def ncav
@@ -421,14 +400,14 @@ class Stock < ActiveRecord::Base
     ticker.gsub(/\./,"")
   end
 
-  def get_ttm_eps
-    ttm = eps.select{ |e| e.quarter == 5}.first.eps
+  def ttm_eps
+    ttm_record = eps.select{ |e| e.quarter == 5}.first
+    ttm = ttm_record.eps if !ttm_record.nil?
     ttm ||= latest_eps.eps
-    ttm ||= ttm_eps
     ttm
   end
 
-  def get_ttm_earnings
+  def get_ttm_earnings #usage?
     ttmep = eps.select{ |e| e.quarter == 5}.first
 #    ttmep.nil? ? nil : ttmep.net_income
   end

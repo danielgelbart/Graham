@@ -503,7 +503,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     greg_year last_year = today.year() - 1;
 
     bool updated(false);
-    updated = getQuarters( stock );
+    //updated = getQuarters( stock );
 
     // check if last years 10k exists
     T_Ep t;

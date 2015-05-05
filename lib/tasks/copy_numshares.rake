@@ -4,7 +4,7 @@ namespace :copy do
     # Create stocks from a list
 #    ss = Stock.all
 
-   s = Stock.find_by_ticker("CELG")
+   s = Stock.find_by_ticker("WFC")
  #   ss = [s,a]
 #   ss.each do |s|
     s.numshares.each do |ns|
