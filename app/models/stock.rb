@@ -79,14 +79,12 @@ class Stock < ActiveRecord::Base
 
 #/ Valuation methods ---------------------------------------------------------
 
-
-
   # 1) Adequate size
   def big_enough?
     lbs = latest_balance_sheet
     lep = latest_eps
 
-    if !lbs.nil? && !lep.nil? && !lbs.book_val.nil?
+    if !lbs.nil? && !lep.nil? && !lbs.book_val.nil? && !lep.revenue.nil?
       ret=( lep.revenue.to_i >= MIN_SALES || lbs.book_val >=MIN_BV)
     end
 
@@ -107,7 +105,7 @@ class Stock < ActiveRecord::Base
     if bs
       cr = bs.current_ratio
       alr = cr >= 2 if !cr.nil?
-      alr = bs.assets_t >= bs.liabilities_t * 2 if alr.nil? && !bs.assets_t.nil? && !bs.liabilities_t.nil?
+       alr = bs.assets_t >= bs.liabilities_t * 2 if alr.nil? && !bs.assets_t.nil? && !bs.liabilities_t.nil?
       dr = bs.debt < bs.assets_c if !bs.debt.nil? && !bs.assets_c.nil?
       dr = bs.debt < bs.assets_t if dr.nil? && !bs.debt.nil? && !bs.assets_t.nil?
     end
@@ -117,7 +115,12 @@ class Stock < ActiveRecord::Base
   # 3) Earnings stability
   # No loses in past 10 years
   def no_earnings_deficit?
-    earning_deficit = eps.select{ |e| e.eps < 0 }
+    if annual_eps.size >= 10
+      epss = annual_eps.sort{ |b,y| b.year <=> y.year }.last(10)
+    else
+      epss = annual_eps
+    end
+    earning_deficit = epss.select{ |e| e.eps < 0 }
     earning_deficit.empty?
   end
 
@@ -139,7 +142,7 @@ class Stock < ActiveRecord::Base
   # 5) Earnings growth
   # This needs to be adjusted for stock splits/new offers/float ?
   def eps_growth?
-    epss = eps.sort_by{ |e| e.year }
+    epss = annual_eps.sort_by{ |e| e.year }
     eps_avg(epss.first(max(epss.size / 2,3))) * 1.3 <= eps_avg(epss.last(3))
   end
 
@@ -221,7 +224,7 @@ class Stock < ActiveRecord::Base
   #/ Data retreval methods ----------------------------------------------------
 
   def price
-    @price ||= latest_price
+    @price ||= update_price
   end
 
   def update_price
@@ -302,7 +305,7 @@ class Stock < ActiveRecord::Base
   # Returns nil if earnings record does not exist going 'years' back
   def historic_eps(years)
 
-    if eps.size < years
+    if annual_eps.size < years
       return "Do not have #{years} of earnings for #{ticker}"
     end
 
@@ -327,8 +330,8 @@ class Stock < ActiveRecord::Base
   end
 
   def ten_year_eps
-    ds = eps.size
-    return  price / historic_eps(10) if ds > 0 && ds >= 10 && !price.nil?
+    ds = annual_eps.size
+    return  price / historic_eps(10) if ds >= 10 && !price.nil?
     0.0
   end
 
@@ -358,9 +361,15 @@ class Stock < ActiveRecord::Base
 
   # Gets most recent earnings, regardles if updated
   def latest_eps
-    epss = eps.select{ |e| e.quarter == 0 }
-    epss.sort{ |b,y| b.year <=> y.year }.last
+    annual_eps.sort{ |b,y| b.year <=> y.year }.last
   end
+
+  def annual_eps
+    epss = eps.select{ |e| e.quarter == 0 }
+    epss.sort{ |b,y| b.year <=> y.year }
+    epss
+  end
+
 
   def ep_for_year(year)
     eps.select{ |e| (e.year == year) && (e.quarter == 0) }.first
