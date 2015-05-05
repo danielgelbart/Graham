@@ -134,11 +134,11 @@
   = sprintf( "%.2f", @stock.price.to_f / @stock.book_value_per_share)    
 %p
   1 year P/E :
-  =h short_float(@stock.price / @stock.ttm_eps )
+  =h short_float( @stock.pe )
 %p
   - if !@stock.historic_eps(5).nil?
     5 year P/E (adjusted for inflation)
-    = short_float(@stock.price / @stock.historic_eps(5) )
+    = short_float( @stock.price / @stock.historic_eps(5) )
   - else
     Cannot calculate 5 year eps because earnings don't go back that far    
 %p

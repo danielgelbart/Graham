@@ -86,8 +86,8 @@ class Stock < ActiveRecord::Base
     lbs = latest_balance_sheet
     lep = latest_eps
 
-    if !lbs.nil? && !lep.nil? && !lbs.total_assets_balance.nil?
-      ret=( lep.revenue.to_i >= MIN_SALES || lbs.total_assets_balance >=MIN_BV)
+    if !lbs.nil? && !lep.nil? && !lbs.book_val.nil?
+      ret=( lep.revenue.to_i >= MIN_SALES || lbs.book_val >=MIN_BV)
     end
 
     if ret.nil? && !lbs.nil? && !lbs.assets_t.nil? && !lbs.liabilities_t.nil?

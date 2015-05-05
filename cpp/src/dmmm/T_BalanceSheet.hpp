@@ -187,19 +187,6 @@ public:
     static E_net_tangible_assets _net_tangible_assets(){ 
         return E_net_tangible_assets();
     }
-    struct E_total_sales{
-        E_total_sales() 
-        {  
-            _field = "balance_sheets.total_sales";
-        }
-        std::string _field;
-        typedef T_BalanceSheet::Condition ConditionType;
-        typedef F_String::Base ComparerType;
-    };
-
-    static E_total_sales _total_sales(){ 
-        return E_total_sales();
-    }
     struct E_quarter{
         E_quarter() 
         {  
@@ -257,7 +244,6 @@ public:
         ret.push_back("created_at");
         ret.push_back("updated_at");
         ret.push_back("net_tangible_assets");
-        ret.push_back("total_sales");
         ret.push_back("quarter");
         ret.push_back("calculated_bv");
         ret.push_back("calculated_tl");
@@ -299,8 +285,6 @@ public:
                 UTILS::fromString<F_Time::Base>(res[i]["updated_at"]);
             ret[i]._f_net_tangible_assets._base =
                 UTILS::fromString<F_String::Base>(res[i]["net_tangible_assets"]);
-            ret[i]._f_total_sales._base =
-                UTILS::fromString<F_String::Base>(res[i]["total_sales"]);
             ret[i]._f_quarter._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["quarter"]);
             ret[i]._f_calculated_bv._base =
@@ -403,9 +387,6 @@ public:
         fields.push_back(std::string("net_tangible_assets"));
         
 
-        fields.push_back(std::string("total_sales"));
-        
-
         fields.push_back(std::string("quarter"));
         
 
@@ -439,8 +420,6 @@ public:
             row.push_back(toSQLString(r._updated_at()));
             
             row.push_back(toSQLString(r._net_tangible_assets()));
-            
-            row.push_back(toSQLString(r._total_sales()));
             
             row.push_back(toSQLString(r._quarter()));
             
@@ -529,12 +508,6 @@ public:
             if (it->_f_net_tangible_assets._dirty){
                 fields.push_back(std::string("net_tangible_assets"));
                 row.push_back(toSQLString(it->_net_tangible_assets()));
-            }
-            
-
-            if (it->_f_total_sales._dirty){
-                fields.push_back(std::string("total_sales"));
-                row.push_back(toSQLString(it->_total_sales()));
             }
             
 

@@ -110,13 +110,6 @@ O_BalanceSheet(const I_BalanceSheet& id)
         _f_net_tangible_assets._dirty = true; 
         return _f_net_tangible_assets._base; 
     }
-    const F_String::Base& _total_sales() const { 
-        return _f_total_sales._base; 
-    }
-    F_String::Base& _total_sales() { 
-        _f_total_sales._dirty = true; 
-        return _f_total_sales._base; 
-    }
     const F_Fixnum::Base& _quarter() const { 
         return _f_quarter._base; 
     }
@@ -177,9 +170,6 @@ O_BalanceSheet(const I_BalanceSheet& id)
         if (_f_net_tangible_assets._dirty)
             field2Val["net_tangible_assets"] = 
                 toSQLString(_f_net_tangible_assets._base);
-        if (_f_total_sales._dirty)
-            field2Val["total_sales"] = 
-                toSQLString(_f_total_sales._base);
         if (_f_quarter._dirty)
             field2Val["quarter"] = 
                 toSQLString(_f_quarter._base);
@@ -206,7 +196,6 @@ O_BalanceSheet(const I_BalanceSheet& id)
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
             _f_net_tangible_assets._dirty = false;
-            _f_total_sales._dirty = false;
             _f_quarter._dirty = false;
             _f_calculated_bv._dirty = false;
             _f_calculated_tl._dirty = false;
@@ -254,9 +243,6 @@ O_BalanceSheet(const I_BalanceSheet& id)
         if (_f_net_tangible_assets._dirty)
             field2Val["net_tangible_assets"] = 
                 toSQLString(_f_net_tangible_assets._base);
-        if (_f_total_sales._dirty)
-            field2Val["total_sales"] = 
-                toSQLString(_f_total_sales._base);
         if (_f_quarter._dirty)
             field2Val["quarter"] = 
                 toSQLString(_f_quarter._base);
@@ -284,7 +270,6 @@ O_BalanceSheet(const I_BalanceSheet& id)
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
             _f_net_tangible_assets._dirty = false;
-            _f_total_sales._dirty = false;
             _f_quarter._dirty = false;
             _f_calculated_bv._dirty = false;
             _f_calculated_tl._dirty = false;
@@ -307,7 +292,6 @@ private:
     F_Time _f_created_at;
     F_Time _f_updated_at;
     F_String _f_net_tangible_assets;
-    F_String _f_total_sales;
     F_Fixnum _f_quarter;
     F_Object _f_calculated_bv;
     F_Object _f_calculated_tl;
