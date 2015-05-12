@@ -138,7 +138,7 @@
 %p
   - if !@stock.historic_eps(5).nil?
     5 year P/E (adjusted for inflation)
-    = short_float( @stock.price / @stock.historic_eps(5) )
+    = short_float( @stock.price / @stock.historic_eps(5).to_f )
   - else
     Cannot calculate 5 year eps because earnings don't go back that far    
 %p

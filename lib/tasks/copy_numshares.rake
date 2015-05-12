@@ -2,13 +2,13 @@ namespace :copy do
   desc " Copy num shares data to ep model/table"
   task :nshares => :environment do |task, args|
     # Create stocks from a list
-#    ss = Stock.all
+ ss = Stock.all
 
-   s = Stock.find_by_ticker("WFC")
+#   s = Stock.find_by_ticker("CVX")
  #   ss = [s,a]
-#   ss.each do |s|
+    ss.each do |s|
     s.numshares.each do |ns|
-      ep = s.eps.select{ |e| e.year == ns.year }.first
+      ep = s.eps.select{ |e| e.year == ns.year && e.quarter == 0 }.first
       if ep.nil?
         puts "No ep for year #{ns.year} for #{s.ticker}"
         next
@@ -32,7 +32,7 @@ namespace :copy do
       ep.save!
 
     end #numshares
-#   end #stocks
+   end #stocks
   end #task
 #  end
 end #namespace
