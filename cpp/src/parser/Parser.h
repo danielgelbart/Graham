@@ -111,7 +111,8 @@ public:
 
     void extract_reports(string& k10, 
                          map<ReportType,string>* extract_reports);
-    string extract_quarterly_income(string& page);
+    string get_report(map<ReportType,string>* reports, ReportType reportType );
+    map<ReportType,string>* get_reports_map(string& page);
     string extractFirstTableStr(string& incomeStr);
     vector<Acn*> getAcnsFromSearchResults(string& page,
                                     size_t limit,

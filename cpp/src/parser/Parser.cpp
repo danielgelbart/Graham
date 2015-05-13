@@ -402,10 +402,24 @@ Parser::extract_reports(string& k10,
     }
 
 }
+string
+Parser::get_report(map<ReportType,string>* reports, ReportType reportType )
+{
+    //extract INCOME statement from dump file
+    string retRep("");
+    string reportKey;
+    if ( (reports->find(reportType)) != reports->end() )
+    {
+        reportKey = reports->find(reportType)->second;
+        string docString = "<FILENAME>"+reportKey;
+        retRep = tokenizer.findDoc(docString);
+        LOG_INFO << "\n Found report " << reportKey ;
+    }
+    return retRep;
+}
 
-
-string 
-Parser::extract_quarterly_income(string& page)
+map<ReportType,string>*
+Parser::get_reports_map(string& page)
 {
     Tokenizer tokenizer(page);
     //cout << "\n Called extract_quarterly_income() with downladed doc " 
@@ -415,19 +429,7 @@ Parser::extract_quarterly_income(string& page)
     Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
     filingSummaryTok.getReportDocNames(reports);
-
-    //extract INCOME statement from dump file
-    string retIncRep("");
-    string reportKey;
-    ReportType reportType = ReportType::INCOME;
-    if ( (reports->find(reportType)) != reports->end() )
-    { 
-        reportKey = reports->find(reportType)->second;
-        string docString = "<FILENAME>"+reportKey;
-        retIncRep = tokenizer.findDoc(docString);
-        cout << "\n Found inc report " << reportKey << endl;
-    }
-    return retIncRep;
+    return reports;
 }
 
 

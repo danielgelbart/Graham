@@ -96,7 +96,7 @@ mainMain(int argc, char* argv[])
         DMMM::DBFace dbFace(database, host, user, password, logger->logFile());
         Test test;
 
-        if ((argc >2) && (string(argv[2])=="-reps")) 
+        if ((argc >2) && (string(argv[2])=="-reps"))
         {
             path pp = basePath / string("get_reports_issues.txt");       
             boost::filesystem::ofstream outFile(pp);

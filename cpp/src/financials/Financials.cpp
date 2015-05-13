@@ -119,18 +119,23 @@ EdgarData::getQuarters(O_Stock& stock)
     // get back to Q1 LAST year
     string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
     Parser parser;
-    vector<Acn*> qAcns = parser.getAcnsFromSearchResults( page, 7,/*limit*/ 
+    vector<Acn*> qAcns = parser.getAcnsFromSearchResults( page, 5,/*limit*/
                                                           StatementType::Q10 );
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
     {
-        cout << "\n Going to get Acn: " << (*it)->_acn << " date: " << 
-            (*it)->_report_date << " quartr: " << (*it)->_quarter << endl;
+        LOG_INFO << "\n Looking at Acn: " << (*it)->_acn << " date: " <<
+            (*it)->_report_date << " quartr: " << (*it)->_quarter;
         
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
-            cout << "\n Stock does not have this data yet" << endl;
+            cout << "\n Getting Qaurter report dated " << (*it)->_report_date << endl;
             string page = getEdgarFiling( stock, *(*it));
+            Parser parser;
+            auto reports = parser.get_reports_map(page);
+            string cover_rep = parser.get_report(reports,ReportType::COVER);
+            //check_report_year_and_date()
+            string income_rep = parser.get_report(reports,ReportType::INCOME);
             addSingleQuarterIncomeStatmentToDB(page,stock, (*it)->_report_date.year(),
                                                (*it)->_quarter);
             updated = true;
@@ -503,7 +508,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     greg_year last_year = today.year() - 1;
 
     bool updated(false);
-    //updated = getQuarters( stock );
+    updated = getQuarters( stock );
 
     // check if last years 10k exists
     T_Ep t;
@@ -620,13 +625,11 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
 }
 
 void
-EdgarData::addSingleQuarterIncomeStatmentToDB(string& filing,
+EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr,
                                             O_Stock& stock, size_t year, size_t quarter)
 {
     Parser parser;
     parser.set_stock(stock);
-
-    string incomeStr = parser.extract_quarterly_income(filing);
     incomeStr = parser.extractFirstTableStr( incomeStr );
     XmlElement* tree = parser.buildXmlTree(incomeStr);
 
