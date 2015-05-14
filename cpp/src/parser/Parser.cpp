@@ -402,10 +402,19 @@ Parser::extract_reports(string& k10,
     }
 
 }
+
 string
-Parser::get_report(map<ReportType,string>* reports, ReportType reportType )
+Parser::get_report_from_complete_filing(string& page, ReportType reportType )
 {
-    //extract INCOME statement from dump file
+    Tokenizer tokenizer(page);
+    //cout << "\n Called extract_quarterly_income() with downladed doc " 
+    //     << page.substr(0,300) << endl;
+    string filingSummary = tokenizer.findFilingSummary();
+
+    Tokenizer filingSummaryTok(filingSummary);
+    auto reports = new map<ReportType,string>;
+    filingSummaryTok.getReportDocNames(reports);
+
     string retRep("");
     string reportKey;
     if ( (reports->find(reportType)) != reports->end() )
@@ -417,21 +426,6 @@ Parser::get_report(map<ReportType,string>* reports, ReportType reportType )
     }
     return retRep;
 }
-
-map<ReportType,string>*
-Parser::get_reports_map(string& page)
-{
-    Tokenizer tokenizer(page);
-    //cout << "\n Called extract_quarterly_income() with downladed doc " 
-    //     << page.substr(0,300) << endl;
-    string filingSummary = tokenizer.findFilingSummary();
-
-    Tokenizer filingSummaryTok(filingSummary);
-    auto reports = new map<ReportType,string>;
-    filingSummaryTok.getReportDocNames(reports);
-    return reports;
-}
-
 
 string 
 Parser::extractFirstTableStr(string& incomeStr){
@@ -800,7 +794,7 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
         ++i;
         string dateStr = (*mit)[0].str();
         date rep_date = convertFromDocString(dateStr);
-        cout << "\n Examining date: "<< to_simple_string(rep_date)<<endl;
+       // cout << "\n Examining date: "<< to_simple_string(rep_date)<<endl;
         if (foundDate)
         {
             if ( ( rep_date == (end_date - years(1)) ) &&
@@ -812,7 +806,7 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
         }
         if (rep_date == end_date)
         {
-            cout << "^ This date matches the requested report date."<<endl;
+        //    cout << "^ This date matches the requested report date."<<endl;
             col_num = i;
             foundDate = true;
         }
@@ -2355,7 +2349,7 @@ Parser::trToAcn( XmlElement* tr )
     acn_rec->set_quarter_from_date(endate);
 
     LOG_INFO << "Extracted ACN: "<< acn << " filed on date" << report_date
-                << "for quarter " << acn_rec->_quarter;
+                << " Evaluated it to be for year: " << acn_rec->_year << " adn quarter: " << acn_rec->_quarter;
     return acn_rec;
 }
 

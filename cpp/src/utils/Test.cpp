@@ -833,6 +833,40 @@ Test::seedStocks(vector<O_Stock>& stocks)
     }
 }
 
+void
+Test::runGetQartersTM(O_Stock& stock){
+    LOG_INFO << "\n --- Testing retreval of latest quarters in test mode for " << stock._ticker()
+             << "  ---\n";
+
+    // Ensure we switched to test DB
+    bool rok(false);
+    rok = db_setup();
+    if(!rok)
+    {
+        LOG_ERROR << "Something wrong with TEST(probably with TEST DB setup)."
+                  << "EXITING";
+        cout << "An error uccored. exiting";
+        exit(-1);
+    }
+    //bool repFail(true);
+    TestResults testRes;
+    string testName(stock._ticker() + ": ");
+    testRes.setTestName(testName);
+
+    EdgarData edgar;
+    edgar.updateFinancials(stock);
+
+
+    // delete added quarters from test DB
+
+    T_Ep te;
+    vector<DMMM::O_Ep> eps_copy = stock._eps();
+    for(auto it = eps_copy.begin(); it != eps_copy.end();++it)
+        if (it->_quarter() < 5)
+            te.erase( te._id() ==  it->_id() );
+
+}
+
 bool 
 Test::getReportsTest(O_Stock& stock, boost::filesystem::ofstream& outFile)
 {
@@ -977,8 +1011,6 @@ Test::updateTest(O_Stock& stock)
     return repFail;
 
 }
-
-
 
 long
 convertNumSharesToLong( string numShares )

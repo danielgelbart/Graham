@@ -8,6 +8,9 @@
 #include "O_Stock.hpp"
 #include "info.h"
 #include "types.h"
+#include "Parser.h"
+
+
 
 using namespace boost::filesystem;
 using namespace boost::gregorian;
@@ -24,6 +27,7 @@ public:
         {}
 
     bool getQuarters(O_Stock& stock);
+    bool check_report_year_and_date(string cover_rep, Acn* acn_p);
 
     void createFourthQuarter(O_Stock& stock, size_t year);
     void createTtmEps(O_Stock& stock);
@@ -62,6 +66,7 @@ private:
 private:
     HttpClient mHttpClient;
     map<ReportType,string> _reports;
+    Parser _parser; // the default parser to use
     // for testing
     O_Ep _ep;
     // For selecting countries

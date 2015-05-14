@@ -15,11 +15,12 @@
 #include "T_Ep.hpp"
 #include "T_Note.hpp"
 #include "Financials.h"
-#include "Parser.h"
 #include <boost/regex.hpp>
 
 using namespace std;
 using namespace DMMM;
+using namespace boost;
+
 
 void
 EdgarData::downloadAndSave10k(Url& url, Info& info)
@@ -114,12 +115,79 @@ stock_contains_acn(O_Stock& stock, Acn& acn)
 }
 
 bool
+EdgarData::check_report_year_and_date(string cover_rep, Acn* acn_p){
+    // convert cover_rep string to tree
+    string cover_table = _parser.extractFirstTableStr( cover_rep );
+    XmlElement* tree = _parser.buildXmlTree( cover_table );
+
+    if(tree == NULL)
+    {
+        LOG_INFO << "Failed to build tree for cover report from stirng: \n" << cover_rep;
+        return false;
+    }
+    // extract year for - check if matches - set on Acn
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+    string yearStr(""), quarterStr("");
+    int year = 0, quarter = 0;
+    regex yearfor_pattern("Document Fiscal Year Focus", regex::icase);
+    regex quarterfor_pattern("Document Fiscal Period Focus", regex::icase);
+
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+
+        if (regex_search(trtext, yearfor_pattern))
+        {
+            boost::regex year_pattern("\\d\\d\\d\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, year_pattern) )
+            {
+                yearStr = match[0];
+                LOG_INFO << "Report is for year "<< yearStr;
+                year = stoi(yearStr);
+
+            } else
+                LOG_ERROR << "Could not get the year the report is for";
+        }
+
+        if (regex_search(trtext, quarterfor_pattern))
+        {
+            boost::regex quarter_pattern("Q\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, quarter_pattern) )
+            {
+                quarterStr = match[0];
+                LOG_INFO << "Report is for quarter "<< quarterStr;
+                quarter = (quarterStr[1] - '0');
+
+            } else
+                LOG_ERROR << "Could not get the quarter the report is for";
+        }
+    }
+  // compare to acn, if different  - write error to log?
+    if ( (acn_p->_year != year) || (acn_p->_quarter != quarter) )
+        LOG_ERROR << "DEBUG: found mistake in evaluating quarter of report "
+                  << "from report date and fyed. Evaluated year/Q where  - "
+                  << to_string(acn_p->_year) <<"/"<<to_string(acn_p->_quarter)
+                  <<"\n while report itself says it is for year/Q - "
+                  << yearStr <<"/"<<quarterStr;
+
+    //set acn year and quarter regardless
+    acn_p->_year = year;
+    acn_p->_quarter = quarter;
+
+    // return true just means we succeeded to check with no failure
+    return true;
+}
+
+bool
 EdgarData::getQuarters(O_Stock& stock)
 {
     // get back to Q1 LAST year
+    _parser.set_stock(stock);
     string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
-    Parser parser;
-    vector<Acn*> qAcns = parser.getAcnsFromSearchResults( page, 5,/*limit*/
+    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 4,/*limit*/
                                                           StatementType::Q10 );
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
@@ -131,16 +199,20 @@ EdgarData::getQuarters(O_Stock& stock)
         {
             cout << "\n Getting Qaurter report dated " << (*it)->_report_date << endl;
             string page = getEdgarFiling( stock, *(*it));
-            Parser parser;
-            auto reports = parser.get_reports_map(page);
-            string cover_rep = parser.get_report(reports,ReportType::COVER);
-            //check_report_year_and_date()
-            string income_rep = parser.get_report(reports,ReportType::INCOME);
-            addSingleQuarterIncomeStatmentToDB(page,stock, (*it)->_report_date.year(),
-                                               (*it)->_quarter);
+            string cover_rep = _parser.get_report_from_complete_filing(page,ReportType::COVER);
+            check_report_year_and_date(cover_rep, *it);
+            string income_rep = _parser.get_report_from_complete_filing(page,ReportType::INCOME);
+            addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter);
             updated = true;
+        } else {
+            string message = "Not going to download, since stock already contains this info";
+            LOG_INFO << message;
+            cout << message << " for year/Q: " << (*it)->_year << "/" << (*it)->_quarter << endl;
         }
+
     }  
+    // just to test
+    createFourthQuarter(stock, 2014);
     return updated;
 }    
 
@@ -338,34 +410,46 @@ convert_string_to_long( string& str)
     return ret;
 }
 
+greg_year
+getLatestAnnualEpYear(O_Stock& stock){
+    greg_year year = 1980;
+    auto epss = stock._eps();
+    for(auto it = epss.begin(); it != epss.end(); ++it )
+      if (( it->_quarter() == 0) && (it->_year() > year))
+      {
+          cout << "Year is " << it->_year() << endl;
+          year = it->_year();
+      }
+    return year;
+}
+
 void
 EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
 {
+    //first check that stock has latest annual report + 3 quarter reports of same year
     T_Ep t;
-    vector<O_Ep> incs = stock._eps( t._year() == year );
-
-    if ( incs.size() != 4 )
+    vector<O_Ep> epss = stock._eps( (t._year() == year) && (t._quarter() == 0) );
+    if (epss.empty())
     {
-        LOG_ERROR << "Cannot create fourth quarter. Missing quarters ";
+            LOG_ERROR << "Could not retrive any annual income records for year " << to_string(year);
+            return;
+    }
+    O_Ep annual_ep = epss.front();
+
+    vector<O_Ep> incs = stock._eps( (t._year() == year) && (t._quarter() > 0) );
+    if ( incs.size() != 3 )
+    {
+        LOG_ERROR << "Cannot create fourth quarter. Missing quarters data for " << stock._ticker()
+                     << " for year " << annual_ep._year();
         return;
     }
 
-    long revp(0);
-    long incp(0);
-    long numshares(1);
+    long revp = stol(annual_ep._revenue());
+    long incp = stol(annual_ep._net_income());
+    long numshares= stol(annual_ep._shares());
+
     for ( auto it = incs.begin(); it != incs.end(); ++it)
     {
-        if ( it->_quarter() == 0 )
-        {
-            revp += stol( it->_revenue() );
-            incp += stol( it->_net_income() );
-            string annual_shares = it->_shares();
-            if ( annual_shares.find("il") != string::npos )
-                numshares = convert_string_to_long( annual_shares );
-            else    
-                numshares = stol( annual_shares );
-            continue;
-        }
         revp -= stol( it->_revenue() );
         incp -= stol( it->_net_income() );
     }
@@ -378,24 +462,29 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
 }
 
 struct ep_comp {
-    bool operator() (const O_Ep& i, const O_Ep& j) const 
+    bool operator() (const O_Ep& i, const O_Ep& j) const
         { 
-            if ( i._year() != j._year() )
-                return (i._year() > j._year() );
+        if ( i._year() == j._year() )
             return ( i._quarter() > j._quarter() );
+        else
+            return (i._year() > j._year() );
         }
 } ep_comp;
 
 void
 EdgarData::createTtmEps(O_Stock& stock)
 {
+
+    cout << "Called ttm eps";
     // delete last ttm
     T_Ep t;
-//    O_Ep old_ttm = stock._eps( t._quarter() == 5)[0];
+
     string table("eps");
     string where = "stock_id=" + to_string(stock._id())+" AND quarter=5";
-    
     DBFace::instance()->erase(table,where);
+
+    cout << "deleted old ttm eps            ";
+
 
     // get all quarter reports, and SORT - NEWEST FIRST
     vector<O_Ep> qrts = stock._eps( t._quarter() > 0);
@@ -404,9 +493,30 @@ EdgarData::createTtmEps(O_Stock& stock)
         LOG_ERROR << " Stock does not have enough quarters."
              << " Cannot procede to calculate ttm eps";
         return;
-        
     }
+
     sort( qrts.begin(), qrts.end(), ep_comp );
+
+    for(auto it = qrts.begin(); it != qrts.end(); ++it)
+        cout << it->_year() << " Q:" << it->_quarter() << endl;
+
+    cout << "Sorted the eps";
+
+    cout << "Newest quarter is " << qrts[0]._year() << "/" << qrts[0]._quarter();
+
+    O_Ep latest_annual_ep = t.select( (t._quarter() == 0)
+                                       && (t._year() == getLatestAnnualEpYear(stock)) ).front();
+
+    if ( (qrts[0]._year() == latest_annual_ep._year()) &&
+         (qrts[0]._quarter() == 4 ) )
+    {
+        LOG_INFO << "Annual report for "<< latest_annual_ep._year() << " is the newest earnings recod"
+                    << " So setting ttm record (quarter 5) to be identical";
+        addEarningsRecordToDB( stock, qrts[0]._year(), 5,/*quarter*/
+                                latest_annual_ep._revenue(), latest_annual_ep._net_income(),
+                                latest_annual_ep._eps(), latest_annual_ep._shares(),"calculated");
+        return;
+    }
 
     // sum latest 4 quarters
     long revp(0);
@@ -527,7 +637,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     {
         cout << "\n No need to download" << endl;
         if (stock._eps( t._year() == last_year &&  
-                        t._quarter() == 5 ).empty() )
+                        t._quarter() == 4 ).empty() )
         {
             createFourthQuarter( stock, last_year );
             updated = true;
@@ -664,6 +774,8 @@ EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr,
         note.insert();
         LOG_INFO << "Calculated eps to be "<< to_string(ep._eps());
     }
+
+    addEarningsRecordToDB( stock, ep);
 
     // for testing
     _ep = ep;

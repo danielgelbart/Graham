@@ -96,6 +96,14 @@ mainMain(int argc, char* argv[])
         DMMM::DBFace dbFace(database, host, user, password, logger->logFile());
         Test test;
 
+        if ((argc >2) && (string(argv[2])=="-tmq"))
+        {
+            T_Stock ts;
+            O_Stock stock = ts.select(ts._ticker() == string(argv[3]))[0];
+            test.runGetQartersTM(stock);
+            goto exitest;
+        }
+
         if ((argc >2) && (string(argv[2])=="-reps"))
         {
             path pp = basePath / string("get_reports_issues.txt");       
