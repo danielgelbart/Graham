@@ -120,43 +120,49 @@
     %tr
       %td
         To many losses to recomend a buying price limit
-%p
-  Earnigs (12 month trailing per share):
-  =h  "%5.2f" % @stock.ttm_eps 
-%p
-  - if !@stock.historic_eps(7).nil?
-    Earnigs average per share, past 7 years, (adjusted for inflation):
-    = short_float(@stock.historic_eps(7))
-  - else
-    Earnings do not go back far enought to compute histroic (average) eps
-%p
-  Price to book :
-  = sprintf( "%.2f", @stock.price.to_f / @stock.book_value_per_share)    
-%p
-  1 year P/E :
-  =h short_float( @stock.pe )
-%p
-  - if !@stock.historic_eps(5).nil?
-    5 year P/E (adjusted for inflation)
-    = short_float( @stock.price / @stock.historic_eps(5).to_f )
-  - else
-    Cannot calculate 5 year eps because earnings don't go back that far    
-%p
-  - if !@stock.ten_year_eps.nil?
-    10 year P/E (adjusted for inflation)
-    = short_float(@stock.ten_year_eps)
-  - else
-    Cannot calculate 10 year eps because earnings don't go back that far
-%p
-  - if @stock.dilution >= 1
-    Stock was DILUTED by 
-    #{ ((@stock.dilution - 1)* 100).to_i } % 
-  - else
-    Shares REDUCED by
-    #{ ((1 - @stock.dilution) * 100).to_i } %
-%p
-  - @margins = @earnings.map{ |s| s.margin}.select{ |v| v != 0}
-  Average Margin over past #{ @margins.size } years is #{ "%5.2f" % (100 * @margins.inject{ |sum, el| sum + el }.to_f / @margins.size) } %
+%ul.list-group
+  %li.list-group-item.row.list-group-item-info
+    Financial data last updated 
+    =h @stock.latest_eps.created_at
+  %li.list-group-item.row
+    %div.col-xs-5
+      TTM EPS : 
+    %span.badge.col-xs-5
+      =h  "%5.2f" % @stock.ttm_eps 
+  %li.list-group-item
+    1 year (TTM) P/E :
+    =h short_float( @stock.pe )
+  %li.list-group-item
+    - if !@stock.historic_eps(5).nil?
+      5 year P/E (adjusted for inflation)
+      = short_float( @stock.price / @stock.historic_eps(5).to_f )
+    - else
+      Cannot calculate 5 year eps because earnings don't go back that far    
+  %li.list-group-item
+    - if !@stock.ten_year_eps.nil?
+      10 year P/E (adjusted for inflation)
+      = short_float(@stock.ten_year_eps)
+    - else
+      Cannot calculate 10 year eps because earnings don't go back that far
+  %li.list-group-item
+    - if !@stock.historic_eps(7).nil?
+      Average EPS for past 7 years, (adjusted for inflation):
+      = short_float(@stock.historic_eps(7))
+    - else
+      Earnings do not go back far enought to compute histroic (average) eps
+  %li.list-group-item
+    Price to book (per share):
+    = sprintf( "%.2f", @stock.price.to_f / @stock.book_value_per_share)    
+  %li.list-group-item
+    - if @stock.dilution >= 1
+      Stock was DILUTED by 
+      #{ ((@stock.dilution - 1)* 100).to_i } % 
+    - else
+      Shares REDUCED by
+      #{ ((1 - @stock.dilution) * 100).to_i } %
+  %li.list-group-item
+    - @margins = @earnings.map{ |s| s.margin}.select{ |v| v != 0}
+    Average Margin over past #{ @margins.size } years is #{ "%5.2f" % (100 * @margins.inject{ |sum, el| sum + el }.to_f / @margins.size) } %
   
 %table.stock-list
   %thead

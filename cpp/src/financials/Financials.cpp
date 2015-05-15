@@ -483,9 +483,6 @@ EdgarData::createTtmEps(O_Stock& stock)
     string where = "stock_id=" + to_string(stock._id())+" AND quarter=5";
     DBFace::instance()->erase(table,where);
 
-    cout << "deleted old ttm eps            ";
-
-
     // get all quarter reports, and SORT - NEWEST FIRST
     vector<O_Ep> qrts = stock._eps( t._quarter() > 0);
     if ( qrts.size() < 4 )
@@ -496,13 +493,6 @@ EdgarData::createTtmEps(O_Stock& stock)
     }
 
     sort( qrts.begin(), qrts.end(), ep_comp );
-
-    for(auto it = qrts.begin(); it != qrts.end(); ++it)
-        cout << it->_year() << " Q:" << it->_quarter() << endl;
-
-    cout << "Sorted the eps";
-
-    cout << "Newest quarter is " << qrts[0]._year() << "/" << qrts[0]._quarter();
 
     O_Ep latest_annual_ep = t.select( (t._quarter() == 0)
                                        && (t._year() == getLatestAnnualEpYear(stock)) ).front();
