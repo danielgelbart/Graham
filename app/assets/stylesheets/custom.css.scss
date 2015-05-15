@@ -1,1 +1,14 @@
-@import "bootstrap"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@media (min-width: 768px) { .container { max-width: 450px; } }
+
+.red{
+  color: red;
+  font-weight: bold;
+}
+.green{
+  color: green;
+  font-weight: bold;
+}
+

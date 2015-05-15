@@ -28,6 +28,7 @@ gem 'dm-metamapper', path: "../dm-metamapper", require: false
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'bootstrap-sass', '~> 3.2.0'
   gem 'sass-rails',   '~> 3.2.6'
   gem 'coffee-rails', '~> 3.2.1'
 
@@ -39,6 +40,5 @@ end
 
 gem 'jquery-rails'
 
-#gem 'sass', '~> 3.2.0'
-gem 'bootstrap-sass', '~> 3.2.0'
+
 
