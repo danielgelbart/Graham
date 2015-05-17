@@ -1,0 +1,19 @@
+%li.list-group-item.row
+  - if @stock.dilution(num) == 0
+    %div.col-xs-12
+      = "Not enough data to calulate dilution #{num} years back"
+  - else 
+    - if @stock.dilution(num) >= 1 
+      %div.col-xs-10
+        Over past 
+        =h num
+        years, shares where <span class='red'>DILUTED</span> by
+      %span.bold.col-xs-2
+        ="+ #{ ((@stock.dilution(num) - 1)* 100).to_i } % "
+    - else
+      %div.col-xs-10
+        Over past
+        =h num
+        years shares where <span class='green'>REDUCED</span> by
+      %span.bold.col-xs-2
+        ="-  #{ ((1 - @stock.dilution(num)) * 100).to_i } % "

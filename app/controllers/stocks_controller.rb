@@ -69,8 +69,7 @@ class StocksController < ApplicationController
     end
 
     # realy all that is needed for constructing chart
-    @earnings = @stock.eps.select{ |e| e.quarter == 0 }
-    @earnings = @earnings.sort{ |a,b| a.year <=> b.year }
+    @earnings = @stock.annual_eps
 
     # 1) copy all numshare data into eps table in dev environment
     @numshare = @earnings.map{|s| s.shares.to_i }

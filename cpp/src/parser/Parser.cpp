@@ -717,8 +717,12 @@ checkForShareUnitsInTitle(const string& titleText)
         LOG_INFO << "Checking for share units in title text ";
         boost::regex a_pattern ("share data", boost::regex::icase);
         if (boost::regex_search(additional, a_pattern) )
+        {
             units = get_units_from_text( additional );
+            LOG_INFO << "Found units in title text, they are "<< units;
+        }
     }
+    LOG_INFO << "Returned unist for shares in title text are"<< units;
     return units;
 }
 
@@ -1289,7 +1293,7 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
         if ( regex_search( attr_text, defref ) )
         {
             // check for units in trtext
-            if(nsrUnits != "")
+            if(nsrUnits == "")
             {
                 string trtext = trp->text();
                 nsrUnits = checkForShareUnits(trtext);

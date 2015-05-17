@@ -1,0 +1,52 @@
+%script{ :type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $(function() {
+      new Highcharts.Chart({
+        chart: {
+          renderTo: "stock_chart"
+        },
+        title: {
+          text: "Earnings"
+        },
+        xAxis: {
+
+          labels: {
+            formatter: function () {
+                return Highcharts.dateFormat("%Y", Date.UTC(this.value, 0, 1));
+            }
+          }, // labels
+        },
+        yAxis: [{  // For earnings
+          title: {
+            text: "Earnings"
+          },
+          opposite: true
+        },{        // For Shares outstanding
+          title: {
+            text: "Shares Outstanding"
+          }
+        }],
+        series: [{ 
+          name: "Shares Outstanding",
+          type: 'line',
+          yAxis: 1,
+          pointStart: #{ @earnings.first.year },
+          pointInterval: 1,
+          data: #{ @numshare }
+        }, { 
+          name: "Revenue",
+          type: 'column',
+          pointStart: #{ @earnings.first.year },
+          pointInterval: 1,
+          data: #{ @revenue }
+        }, { 
+          name: "Net Income",
+          type: 'column',
+          pointStart: #{ @earnings.first.year },
+          pointInterval: 1,
+          data: #{ @income }
+        }]
+
+      });
+    });
+#stock_chart{ :style => "width:860px; height:460px;"}

@@ -1,0 +1,40 @@
+%table.stock-list
+  %thead
+    %th
+      year
+    %th
+      Current Ratio
+    %th
+      Book Value   
+    %th
+      Earnings
+    %th
+      ROE  
+    %th  
+      Eps (NOT adjusted)
+    %th
+      Shares outstanding
+    %th
+      Margin
+  %tbody
+    - @earnings.each do |e|
+      %tr
+        %td
+          = e.year
+        %td
+          - bs = (@stock.balance_sheets.select{ |b| b.year == e.year } ).first
+          = short_float(bs.current_ratio) if bs 
+        %td
+          - if bs
+            = sprintf("%.1f", bs.equity.to_f / 1000000000) + " Bil"
+        %td
+          = sprintf("%.1f", e.net_income.to_f / 1000000000) + " Bil"
+        %td
+          - if bs
+            = sprintf("%.2f", e.net_income.to_f /  bs.equity.to_f)
+        %td
+          = short_float(e.eps) # inflation calculation is incorrect
+        %td
+          = e.shares_to_str 
+        %td
+          = "%5.2f" % e.margin

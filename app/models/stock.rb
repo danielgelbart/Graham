@@ -336,12 +336,12 @@ class Stock < ActiveRecord::Base
   end
 
 # Stock dilution
-  def dilution
-    return 0 if numshares.nil? || numshares.empty? || numshares.last.nil?
-    ns = numshares.sort{ |a,b| a.year <=> b.year }
-    startd = ns.first.shares_to_i.to_f
-    endd = ns.last.shares_to_i.to_f
-    dil_rate =  endd/startd
+  def dilution(num)
+    return 0 if annual_eps[num-1].nil?
+    latest = annual_eps[0]
+    first = annual_eps[num-1]
+    return 0 if first.shares.to_i == 0 || latest.shares.to_i == 0
+    dil_rate =  latest.shares.to_i.to_f / first.shares.to_i.to_f
   end
 
   # Gets most recent balance sheet, regardles if updated
@@ -353,12 +353,6 @@ class Stock < ActiveRecord::Base
     latest_balance_sheet.book_val
   end
 
-  # Gets most recent number of shares outstanding, regardles if updated
-  def latest_numshare
-    lns = numshares.sort{ |b,y| b.year <=> y.year }.last
-    #Numshare.new(:shares => "1") if lns.nil? # about 4 stocks on PLC I don't have data for
-  end
-
   # Gets most recent earnings, regardles if updated
   def latest_eps
     annual_eps.sort{ |b,y| b.year <=> y.year }.last
@@ -366,10 +360,10 @@ class Stock < ActiveRecord::Base
 
   def annual_eps
     epss = eps.select{ |e| e.quarter == 0 }
-    epss.sort{ |b,y| b.year <=> y.year }
+    #Newest FIRST
+    epss.sort!{ |a,b| b.year <=> a.year }
     epss
   end
-
 
   def ep_for_year(year)
     eps.select{ |e| (e.year == year) && (e.quarter == 0) }.first
