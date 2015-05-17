@@ -360,8 +360,8 @@ class Stock < ActiveRecord::Base
 
   def annual_eps
     epss = eps.select{ |e| e.quarter == 0 }
-    #Newest FIRST
-    epss.sort!{ |a,b| b.year <=> a.year }
+    #OLDEST FIRST
+    epss.sort!{ |a,b| a.year <=> b.year }
     epss
   end
 

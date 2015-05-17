@@ -1,4 +1,5 @@
 %ul.list-group.container
+  - @earnings.sort!{ |b,a| a.year <=> b.year } #NEWEST FIRST
   %li.list-group-item.row.list-group-item-info
     Financial data last updated 
     <span class="bold">
@@ -56,7 +57,7 @@
       = sprintf( "%.2f", @stock.price.to_f / @stock.book_value_per_share)    
   %li.list-group-item.row
     %h4
-      Float, Margin, and ROI
+      Float, Margin, and ROE
   = render 'stocks/dilution', :num => 10
   = render 'stocks/dilution', :num => 3
   %li.list-group-item.row
