@@ -36,8 +36,8 @@ public:
     void extract10kToDisk(string& k10, O_Stock& stock, size_t year);
     void addSingleAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
                                           size_t year);
-    void addSingleQuarterIncomeStatmentToDB(string& incomeFileStr,
-                                            O_Stock& stock, size_t year, size_t quarter);
+    void addSingleQuarterIncomeStatmentToDB(string& incomeFileStr, O_Stock& stock,
+                                            size_t year, size_t quarter, string& cover_report);
 
     void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock, size_t year);
 

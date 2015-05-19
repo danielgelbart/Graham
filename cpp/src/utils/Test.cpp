@@ -598,7 +598,8 @@ Test::runSingleQarterTest(TestResults& tResults)
     }
     EdgarData edgar;
     Acn acn( string("0000093410-14-000024"), date(2014,May,2), 1 );
-    edgar.addSingleQuarterIncomeStatmentToDB(filing,stock,acn._report_date.year(),acn._quarter);
+    string cover_rep_mok = "";
+    edgar.addSingleQuarterIncomeStatmentToDB(filing,stock,acn._report_date.year(),acn._quarter,cover_rep_mok );
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() &&

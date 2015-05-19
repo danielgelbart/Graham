@@ -129,7 +129,7 @@ EdgarData::check_report_year_and_date(string cover_rep, Acn* acn_p){
     trIterator trIt(tree);
     XmlElement* trp = tree;
     string yearStr(""), quarterStr("");
-    int year = 0, quarter = 0;
+    int year = -1, quarter = -1;
     regex yearfor_pattern("Document Fiscal Year Focus", regex::icase);
     regex quarterfor_pattern("Document Fiscal Period Focus", regex::icase);
 
@@ -167,15 +167,23 @@ EdgarData::check_report_year_and_date(string cover_rep, Acn* acn_p){
     }
   // compare to acn, if different  - write error to log?
     if ( (acn_p->_year != year) || (acn_p->_quarter != quarter) )
-        LOG_ERROR << "DEBUG: found mistake in evaluating quarter of report "
-                  << "from report date and fyed. Evaluated year/Q where  - "
+        LOG_ERROR << "DEBUG: found mistake in evaluating quarter of report from date "
+                  << acn_p->_report_date
+                  << ". Using report date and fyed, Evaluated year/Q where  - "
                   << to_string(acn_p->_year) <<"/"<<to_string(acn_p->_quarter)
                   <<"\n while report itself says it is for year/Q - "
                   << yearStr <<"/"<<quarterStr;
 
     //set acn year and quarter regardless
-    acn_p->_year = year;
-    acn_p->_quarter = quarter;
+    /* MY assesmet of quarter is BETTER than the companies filings
+     * they have mistakes! example 2014/Q3 for T, dated Nov-10th-2014 is marked at bing for Q2!!!
+     * And At&T (T)'s report for the first quarter, is marked as for quarter 'FY' !!!!
+     * So for now, I am usnig my own evalution, over companies filings
+    if (year > 0)
+        acn_p->_year = year;
+    if (quarter > 0)
+        acn_p->_quarter = quarter;
+     */
 
     // return true just means we succeeded to check with no failure
     return true;
@@ -195,6 +203,8 @@ EdgarData::getQuarters(O_Stock& stock)
         LOG_INFO << "\n Looking at Acn: " << (*it)->_acn << " date: " <<
             (*it)->_report_date << " quartr: " << (*it)->_quarter;
         
+        // skip if is an AMend filing
+
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
             cout << "\n Getting Qaurter report dated " << (*it)->_report_date << endl;
@@ -202,7 +212,7 @@ EdgarData::getQuarters(O_Stock& stock)
             string cover_rep = _parser.get_report_from_complete_filing(page,ReportType::COVER);
             check_report_year_and_date(cover_rep, *it);
             string income_rep = _parser.get_report_from_complete_filing(page,ReportType::INCOME);
-            addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter);
+            addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
             updated = true;
         } else {
             string message = "Not going to download, since stock already contains this info";
@@ -212,7 +222,7 @@ EdgarData::getQuarters(O_Stock& stock)
 
     }  
     // just to test
-    createFourthQuarter(stock, 2014);
+    //createFourthQuarter(stock, 2014);
     return updated;
 }    
 
@@ -417,9 +427,10 @@ getLatestAnnualEpYear(O_Stock& stock){
     for(auto it = epss.begin(); it != epss.end(); ++it )
       if (( it->_quarter() == 0) && (it->_year() > year))
       {
-          cout << "Year is " << it->_year() << endl;
+          //cout << "Year is " << it->_year() << endl;
           year = it->_year();
       }
+    cout << "\nMost recent year for "<< stock._ticker() << " is " << year;
     return year;
 }
 
@@ -474,11 +485,8 @@ struct ep_comp {
 void
 EdgarData::createTtmEps(O_Stock& stock)
 {
-
-    cout << "Called ttm eps";
     // delete last ttm
     T_Ep t;
-
     string table("eps");
     string where = "stock_id=" + to_string(stock._id())+" AND quarter=5";
     DBFace::instance()->erase(table,where);
@@ -711,12 +719,18 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
     if ( addEarningsRecordToDB( stock, ep) &&
          shares_outstanding )
     {
-        O_Note note;
-        note._stock_id() = stock._id();
-        note._year() = ep._year();
-        note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING;
-        note._note() = "using shares outstanding from cover report";
-        note.insert();
+        T_Note nt;
+        if (nt.select(nt._stock_id() == stock._id()
+                      && nt._year() == ep._year()
+                      && nt._pertains_to() == EnumNotePERTAINS_TO::SHARES_OUTSTANDING).empty() )
+        {
+            O_Note note;
+            note._stock_id() = stock._id();
+            note._year() = ep._year();
+            note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING;
+            note._note() = "using shares outstanding from cover report";
+            note.insert();
+        }
     }
 
 
@@ -725,8 +739,8 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
 }
 
 void
-EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr,
-                                            O_Stock& stock, size_t year, size_t quarter)
+EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
+                                              size_t year, size_t quarter, string& cover_report)
 {
     Parser parser;
     parser.set_stock(stock);
@@ -745,6 +759,9 @@ EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr,
     ep._quarter() = quarter; // Anual record
     ep._source() = string("edgar.com");
     parser.parseIncomeTree(tree, ep);
+
+    if (ep._shares() == "")
+        parser.getNumSharesFromCoverReport( cover_report, ep );
 
     if ( (withinPercent(ep._eps(),0.01,0.0)) &&
          (ep._shares() != "" ) &&
