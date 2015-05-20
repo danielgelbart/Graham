@@ -1,9 +1,9 @@
 # General
 *~
-
+log/*
 database.yml
 log/development.log
-cpp/graham_log/
+cpp/graham_log/*
 
 rdoc/
 reports/
