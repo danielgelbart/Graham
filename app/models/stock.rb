@@ -115,10 +115,10 @@ class Stock < ActiveRecord::Base
   # 3) Earnings stability
   # No loses in past 10 years
   def no_earnings_deficit?
-    if annual_eps.size >= 10
-      epss = annual_eps.sort{ |b,y| b.year <=> y.year }.last(10)
+    if annual_eps_newest_first.size >= 10
+      epss = annual_eps_newest_first.sort{ |b,y| b.year <=> y.year }.first(10)
     else
-      epss = annual_eps
+      epss = annual_eps_newest_first
     end
     earning_deficit = epss.select{ |e| e.eps < 0 }
     earning_deficit.empty?
@@ -142,7 +142,7 @@ class Stock < ActiveRecord::Base
   # 5) Earnings growth
   # This needs to be adjusted for stock splits/new offers/float ?
   def eps_growth?
-    epss = annual_eps.sort_by{ |e| e.year }
+    epss = annual_eps_oldest_first
     eps_avg(epss.first(max(epss.size / 2,3))) * 1.3 <= eps_avg(epss.last(3))
   end
 
@@ -225,11 +225,12 @@ class Stock < ActiveRecord::Base
 
   def price
     @price ||= update_price
+    @price.nil? ? latest_price : @price
   end
 
   def update_price
     p = get_stock_price
-    if p
+    if !p.nil?
       update_attributes!(:latest_price => p)
       @price = p
     end
@@ -259,26 +260,29 @@ class Stock < ActiveRecord::Base
   def inflation_ratio_for(year)
 
     #please UPDATE!
-    #Last updated: May 2014
+    #Last updated: May 2015
     # uses inflation from every year, so that I don't need to update
     # Calculated as change in CPI, from jan 1 to jan 1, durring the given year,
     # i.e data for 2013 is for change ending jan 1 2014.
+    # using "ALL Urban Consumers LESS Food & Energy (i.e. CORE inflation)
+    # Source: https://research.stlouisfed.org/fred2/release?rid=10
+    # Saved to file localy
     ir = {
-      2000 => 1.0366,
-      2001 => 1.014,
-      2002 => 1.0256,
-      2003 => 1.0191,
-      2004 => 1.0293,
-      2005 => 1.0391,
-      2006 => 1.0205,
-      2007 => 1.0419,
-      2008 => 1.0003,
-      2009 => 1.0259,
-      2010 => 1.0162,
-      2011 => 1.0292,
-      2012 => 1.0159, #Not as precise as previous year's data
-      2013 => 1.0157,
-      2014 => 1.013   #NOT OUT YET!!!
+      2000 => 1.02581,
+      2001 => 1.02735,
+      2002 => 1.01917,
+      2003 => 1.01149,
+      2004 => 1.02169,
+      2005 => 1.02174,
+      2006 => 1.02573,
+      2007 => 1.02439,
+      2008 => 1.01763,
+      2009 => 1.01816,
+      2010 => 1.00804,
+      2011 => 1.0223,
+      2012 => 1.01893,
+      2013 => 1.01717,
+      2014 => 1.01606
       }
 
 
@@ -299,13 +303,13 @@ class Stock < ActiveRecord::Base
 
 # returns all previous eps per adjusted for inflation
   def adjust_for_inflation(eps)
-     eps.map{ |e| inflation_ratio_for(e.year)*e.eps }
+     eps.map{ |e| inflation_ratio_for(e.year)*e.net_income.to_i }
   end
 
   # Returns nil if earnings record does not exist going 'years' back
   def historic_eps(years)
 
-    if annual_eps.size < years
+    if annual_eps_newest_first.size < years
       return "Do not have #{years} of earnings for #{ticker}"
     end
 
@@ -315,31 +319,42 @@ class Stock < ActiveRecord::Base
 
     recent = adjust_for_inflation(recent)
     # Calculate the avarage
-    recent.inject(0.0){|sum, e| sum + e } / years
-
-  end
-
-# returns true only if there exist earnings for the last 10 years
-  def eps_records_up_to_date?
-    year = YEAR
-    10.times do
-      year = year - 1
-      return false if !eps.detect{ |e| e.year == year}
-    end
-    !ttm_eps.nil? && ttm_eps != 0
+    avrege_earnings = recent.inject(0.0){|sum, e| sum + e } / years
+    avrege_earnings / shares_float.to_f
   end
 
   def ten_year_eps
-    ds = annual_eps.size
+    ds = annual_eps_newest_first.size
     return  price / historic_eps(10) if ds >= 10 && !price.nil?
     0.0
   end
 
+  def return_on_equity(income,equity)
+    ( income.to_i / equity.to_f ) * 100
+  end
+
+  def recent_annual_earnings(years)
+    annual_eps_newest_first.first(years)
+  end
+
+  def historic_roe(years)
+    roe = 0
+    recent_earnings = recent_annual_earnings(years)
+    num_years = 0
+    recent_earnings.each do |e|
+      bs = balance_sheets.where(year: e.year).first
+      next if bs.nil?
+      roe += return_on_equity(e.net_income.to_i,bs.book_val)
+      num_years += 1
+    end
+    roe / num_years
+  end
+
 # Stock dilution
   def dilution(num)
-    return 0 if annual_eps[num-1].nil?
-    latest = annual_eps[0]
-    first = annual_eps[num-1]
+    return 0 if annual_eps_newest_first[num-1].nil?
+    latest = annual_eps_newest_first[0]
+    first = annual_eps_newest_first[num-1]
     return 0 if first.shares.to_i == 0 || latest.shares.to_i == 0
     dil_rate =  latest.shares.to_i.to_f / first.shares.to_i.to_f
   end
@@ -353,16 +368,28 @@ class Stock < ActiveRecord::Base
     latest_balance_sheet.book_val
   end
 
-  # Gets most recent earnings, regardles if updated
-  def latest_eps
-    annual_eps.sort{ |b,y| b.year <=> y.year }.last
+  def shares_float
+    newest_earnings_record.shares.to_i
   end
 
-  def annual_eps
+  # Gets most recent earnings, regardles if updated
+  def newest_earnings_record
+    eps.sort_by{ |e| [e.year,e.quarter] }.last
+  end
+
+  def latest_eps
+    annual_eps_newest_first.first
+  end
+
+  #OLDEST FIRST
+  def annual_eps_oldest_first
     epss = eps.select{ |e| e.quarter == 0 }
-    #OLDEST FIRST
     epss.sort!{ |a,b| a.year <=> b.year }
-    epss
+  end
+
+  #NEWEST FIRST
+  def annual_eps_newest_first
+    annual_eps_oldest_first.sort!{ |a,b| b.year <=> a.year }
   end
 
   def ep_for_year(year)
@@ -407,12 +434,6 @@ class Stock < ActiveRecord::Base
     ttm_record = eps.select{ |e| e.quarter == 5}.first
     ttm = ttm_record.eps if !ttm_record.nil?
     ttm ||= latest_eps.eps
-    ttm
-  end
-
-  def get_ttm_earnings #usage?
-    ttmep = eps.select{ |e| e.quarter == 5}.first
-#    ttmep.nil? ? nil : ttmep.net_income
   end
 
   def pe

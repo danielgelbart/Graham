@@ -209,8 +209,15 @@ module DataScraper
 
 
   def get_stock_price
-    price = get_price_from_msn
-    price = get_price_from_google if price.nil?
+    price = latest_price
+    begin
+      price = get_price_from_google
+    rescue
+      begin
+        price = get_price_from_msn
+      rescue
+      end
+    end
     price                                                                         end
 
   def get_eps
@@ -267,7 +274,8 @@ module DataScraper
     doc = open_url_or_nil(url)
 
     begin
-      price = doc.css('#price-panel').xpath('./div/span').first.text.to_f if doc
+      price = doc.css('#price-panel').xpath('./div/span').first.text if doc
+      price = clean_string(price).to_f
     rescue
     end
     price

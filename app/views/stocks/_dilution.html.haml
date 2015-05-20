@@ -4,16 +4,16 @@
       = "Not enough data to calulate dilution #{num} years back"
   - else 
     - if @stock.dilution(num) >= 1 
-      %div.col-xs-10
-        Over past 
+      %div.col-xs-9
+        Over 
         =h num
         years, shares where <span class='red'>DILUTED</span> by
-      %span.bold.col-xs-2
+      %span.bold.col-xs-3
         ="+ #{ ((@stock.dilution(num) - 1)* 100).to_i } % "
     - else
-      %div.col-xs-10
-        Over past
+      %div.col-xs-9
+        Over
         =h num
         years shares where <span class='green'>REDUCED</span> by
-      %span.bold.col-xs-2
+      %span.bold.col-xs-3
         ="-  #{ ((1 - @stock.dilution(num)) * 100).to_i } % "

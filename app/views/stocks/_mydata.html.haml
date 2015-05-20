@@ -6,7 +6,7 @@
     =h @stock.latest_eps.created_at.to_date
     </span>
     %div.small-italic
-      *All long term values adjusted for inflation
+      *All long term values adjusted for inflation, using CORE CPI
   %li.list-group-item.row
     %h4.strong
       P/E
@@ -27,7 +27,7 @@
   %li.list-group-item.row
     - if !@stock.ten_year_eps.nil?
       %div.col-xs-10
-        10 years P/E years 
+        10 years P/E 
       %span.bold.col-xs-2
         = short_float(@stock.ten_year_eps)
     - else
@@ -62,7 +62,16 @@
   = render 'stocks/dilution', :num => 3
   %li.list-group-item.row
     - @margins = @earnings.map{ |s| s.margin}.select{ |v| v != 0}
-    %div.col-xs-10
-      Average Margin over past #{ @margins.size } years is 
-    %span.bold.col-xs-2    
+    %div.col-xs-9
+      Average 
+      <span class="bold">Margin</span>
+      over past #{ @margins.size } years is 
+    %span.bold.col-xs-3    
       #{ "%5.2f" % (100 * @margins.inject{ |sum, el| sum + el }.to_f / @margins.size) } %
+  %li.list-group-item.row
+    %div.col-xs-9
+      Average 
+      <span class="bold">ROE</span>
+      over past #{ @stock.recent_annual_earnings(10).size } years is 
+    %span.bold.col-xs-3    
+      #{ "%5.2f" %  @stock.historic_roe(10) } %

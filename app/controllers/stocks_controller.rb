@@ -51,16 +51,11 @@ class StocksController < ApplicationController
     @stocks = @stocks.sort_by{ |s| s.historic_eps(3) }
   end
 
-  def aggeresive_stocks
-  end
-
-  def aggeresive_buys
-  end
-
   def show
     # This acceps both id and ticker to find the stock
     # wrap this in a helper or before filter
     id = params["id"]
+
     if (id.to_i > 0)
       @stock = Stock.find_by_ticker(id)
     else
@@ -69,7 +64,7 @@ class StocksController < ApplicationController
     end
 
     # realy all that is needed for constructing chart
-    @earnings = @stock.annual_eps
+    @earnings = @stock.annual_eps_oldest_first
 
     # 1) copy all numshare data into eps table in dev environment
     @numshare = @earnings.map{|s| s.shares.to_i }
@@ -126,7 +121,7 @@ class StocksController < ApplicationController
   # PUT /stocks/1
   # PUT /stocks/1.xml
   def update
-    @stock = Stock.find_by_ticker(params[:id])
+     @stock = Stock.find_by_ticker(params[:id])
 
     if @stock.update_attributes(params[:stock])
       flash[:notice] = 'Stock was successfully updated.'
