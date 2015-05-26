@@ -245,6 +245,19 @@ public:
     static E_country _country(){ 
         return E_country();
     }
+    struct E_fy_same_as_ed{
+        E_fy_same_as_ed() 
+        {  
+            _field = "stocks.fy_same_as_ed";
+        }
+        std::string _field;
+        typedef T_Stock::Condition ConditionType;
+        typedef F_Object::Base ComparerType;
+    };
+
+    static E_fy_same_as_ed _fy_same_as_ed(){ 
+        return E_fy_same_as_ed();
+    }
     
 
     std::vector<std::string> getFields()
@@ -268,6 +281,7 @@ public:
         ret.push_back("fiscal_year_end");
         ret.push_back("company_type+0");
         ret.push_back("country");
+        ret.push_back("fy_same_as_ed");
         return ret;
     }
 
@@ -316,6 +330,8 @@ public:
                 (Field<EnumStockCOMPANY_TYPE>::Base)UTILS::fromString<size_t>(res[i]["company_type+0"]);
             ret[i]._f_country._base =
                 UTILS::fromString<F_String::Base>(res[i]["country"]);
+            ret[i]._f_fy_same_as_ed._base =
+                UTILS::fromString<F_Object::Base>(res[i]["fy_same_as_ed"]);
         }
         return ret;
     }
@@ -425,6 +441,9 @@ public:
         
 
         fields.push_back(std::string("country"));
+        
+
+        fields.push_back(std::string("fy_same_as_ed"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Stock& r = *begin;
@@ -461,6 +480,8 @@ public:
             row.push_back(toSQLString(r._company_type()));
             
             row.push_back(toSQLString(r._country()));
+            
+            row.push_back(toSQLString(r._fy_same_as_ed()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("stocks",
@@ -573,6 +594,12 @@ public:
             if (it->_f_country._dirty){
                 fields.push_back(std::string("country"));
                 row.push_back(toSQLString(it->_country()));
+            }
+            
+
+            if (it->_f_fy_same_as_ed._dirty){
+                fields.push_back(std::string("fy_same_as_ed"));
+                row.push_back(toSQLString(it->_fy_same_as_ed()));
             }
             fields2Rows[fields].push_back(row);
 	}

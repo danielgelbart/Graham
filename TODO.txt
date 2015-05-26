@@ -1,5 +1,8 @@
 TODO:
 
+0. Fiscal year end date
+- I fixed it. Is it working???
+
 1. stock list up to date?
 
 
@@ -44,8 +47,3 @@ $ bundle exec rake dividend:get_data[MSFT]
 
 -------- Quarterly
 
-Added 'Quarter' column to ep and balance sheet.
-
-1) Add scraping data for ALL 4 last quarter, save date/year for each.
-2) Use in last year calculations
-3) Display latest partial year data?

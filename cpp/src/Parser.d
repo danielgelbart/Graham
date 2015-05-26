@@ -30,4 +30,4 @@ Parser.o Parser.d : parser/Parser.cpp include/Utils.hpp include/../utils/Utils.h
  dmmm/T_Ep.hpp dmmm/O_Ep.hpp dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp \
  dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp parser/Parser.h \
  dmmm/O_Ep.hpp dmmm/O_Stock.hpp include/info.h \
- include/../financials/Info.h
+ include/../financials/Info.h utils/Dates.hpp

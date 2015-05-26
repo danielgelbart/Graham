@@ -92,7 +92,7 @@ EdgarData::getLastYear10KAcn( O_Stock& stock)
     string page = getEdgarSearchResultsPage( stock , StatementType::K10);
     LOG_INFO << "Got search results for "<<stock._ticker()<<"\n";
     Parser parser;
-    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 1,/*limit*/ 
+    vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 0,/*limit*/
                                                          StatementType::Q10 );
     if (Acns.empty())
     {
@@ -195,7 +195,7 @@ EdgarData::getQuarters(O_Stock& stock)
     // get back to Q1 LAST year
     _parser.set_stock(stock);
     string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
-    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 4,/*limit*/
+    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 7,/*limit*/
                                                           StatementType::Q10 );
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
@@ -203,7 +203,15 @@ EdgarData::getQuarters(O_Stock& stock)
         LOG_INFO << "\n Looking at Acn: " << (*it)->_acn << " date: " <<
             (*it)->_report_date << " quartr: " << (*it)->_quarter;
         
-        // skip if is an AMend filing
+        // dont get if older than previous year
+        date today = day_clock::local_day();
+        greg_year last_year = today.year() - 1;
+        if ( (*it)->_year < last_year)
+        {
+            LOG_INFO << "Stopping retrival of quarter reports at report dated "<< (*it)->_report_date
+                        << " As it pertains to year "<< (*it)->_year << " which is far back";
+            break;
+        }
 
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
@@ -219,7 +227,6 @@ EdgarData::getQuarters(O_Stock& stock)
             LOG_INFO << message;
             cout << message << " for year/Q: " << (*it)->_year << "/" << (*it)->_quarter << endl;
         }
-
     }  
     // just to test
     //createFourthQuarter(stock, 2014);
@@ -295,8 +302,9 @@ EdgarData::insertEp( O_Ep& ep )
    
     // check if it already exits in DB
     date dd( ep._year(),Jan,1);
-    Acn acn( string("dummy"), dd, ep._quarter() );
+    Acn acn( string("dummy"), dd );
     acn._year = ep._year();
+    acn._quarter = ep._quarter();
     if ( stock_contains_acn( stock, acn ) )
     {
         LOG_INFO<<"NOT adding earnings to DB. Record for that quarter/year "
@@ -455,15 +463,25 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
         return;
     }
 
-    long revp = stol(annual_ep._revenue());
-    long incp = stol(annual_ep._net_income());
-    long numshares= stol(annual_ep._shares());
+    long revp = 0, incp = 0, numshares = 0;
+    // if rev, inc, or share data is missing, stol() will throw an exception
+    try{
+        revp = stol(annual_ep._revenue());
+        incp = stol(annual_ep._net_income());
+        numshares = stol(annual_ep._shares());
 
-    for ( auto it = incs.begin(); it != incs.end(); ++it)
-    {
-        revp -= stol( it->_revenue() );
-        incp -= stol( it->_net_income() );
+        for ( auto it = incs.begin(); it != incs.end(); ++it)
+        {
+            revp -= stol( it->_revenue() );
+            incp -= stol( it->_net_income() );
+        }
     }
+    catch (const std::invalid_argument& ia) {
+        cout << "\nin createFourthQuarter() stol() threw Invalid argument: " << ia.what() << '\n';
+        LOG_ERROR << "missing data to calcualte createFourthQuarter(). cannot do it";
+        return;
+    }
+
     addEarningsRecordToDB( stock, year, 4,/*quarter*/
                             to_string( revp ),/*revenue*/
                             to_string( incp ),/*income*/
@@ -521,12 +539,19 @@ EdgarData::createTtmEps(O_Stock& stock)
     long incp(0);
     bool check[4] = {false,false,false,false};
 
-    for( size_t i=0 ; i < 4; ++i)
-    {
-        revp += stol( qrts[i]._revenue() );
-        incp += stol( qrts[i]._net_income() );
-        check[ qrts[i]._quarter() - 1 ] = true;
+    try{
+        for( size_t i=0 ; i < 4; ++i)
+        {
+            revp += stol( qrts[i]._revenue() );
+            incp += stol( qrts[i]._net_income() );
+            check[ qrts[i]._quarter() - 1 ] = true;
+        }
+    } catch (const std::invalid_argument& ia) {
+        cout << "\nin createTtmEps(), stol() threw Invalid argument: " << ia.what() << '\n';
+        LOG_ERROR << "missing data to calcualte createTtmEps(). cannot do it";
+        return;
     }
+
     if ( !(check[0] && check[1] && check[2] && check[3]) )
     {
         LOG_ERROR << " Mising a quarter for " << stock._ticker() <<
@@ -625,6 +650,10 @@ EdgarData::updateFinancials(O_Stock& stock)
     {
         cout << "\n Going to get last year 10k" << endl;
         Acn* acn  = getLastYear10KAcn( stock );
+        if (acn == NULL){
+            LOG_ERROR << "Could not get last year's acn for annual reports";
+            return;
+        }
         string k10text = getEdgarFiling( stock, *acn);
         extract10kToDisk( k10text, stock, last_year);
 

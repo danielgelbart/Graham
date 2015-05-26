@@ -21,8 +21,7 @@
 #  country            :string(255)
 #
 
-#enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3,
-# ASSET_MNGMT = 4, HOLDING = 5, INDUSTRY = 6, TECH = 7, PHARMA = 8, RETAIL = 9}
+#enum EnumStockCOMPANY_TYPE { :COMPANY, :ROYALTY_TRUST, :REIT, :ASSET_MNGMT, :FINANCE, :PARTNERSHIP, :PIPELINE, :FOREIGN, :HOLDING, :INDUSTRY, :TECH, :PHARMA, :RETAIL ], :default => :COMPANY
 
 class Stock < ActiveRecord::Base
 
@@ -75,14 +74,12 @@ class Stock < ActiveRecord::Base
   # defining this hear, since for some reason it was not working if set from data_scraper
   YEAR = Time.new.year
 
-
-
 #/ Valuation methods ---------------------------------------------------------
 
   # 1) Adequate size
   def big_enough?
     lbs = latest_balance_sheet
-    lep = latest_eps
+    lep = annual_eps_newest_first.first
 
     if !lbs.nil? && !lep.nil? && !lbs.book_val.nil? && !lep.revenue.nil?
       ret=( lep.revenue.to_i >= MIN_SALES || lbs.book_val >=MIN_BV)
@@ -306,6 +303,10 @@ class Stock < ActiveRecord::Base
      eps.map{ |e| inflation_ratio_for(e.year)*e.net_income.to_i }
   end
 
+  def recent_annual_earnings(years)
+    annual_eps_newest_first.first(years)
+  end
+
   # Returns nil if earnings record does not exist going 'years' back
   def historic_eps(years)
 
@@ -315,7 +316,7 @@ class Stock < ActiveRecord::Base
 
     current_year = YEAR
     # Create copy array with only last number of years
-    recent = eps.select{ |e| (e.year >= current_year - years) && (e.quarter == 0) }
+    recent = annual_eps_newest_first.first(years)
 
     recent = adjust_for_inflation(recent)
     # Calculate the avarage
@@ -333,13 +334,9 @@ class Stock < ActiveRecord::Base
     ( income.to_i / equity.to_f ) * 100
   end
 
-  def recent_annual_earnings(years)
-    annual_eps_newest_first.first(years)
-  end
-
   def historic_roe(years)
     roe = 0
-    recent_earnings = recent_annual_earnings(years)
+    recent_earnings = annual_eps_newest_first.first(years)
     num_years = 0
     recent_earnings.each do |e|
       bs = balance_sheets.where(year: e.year).first
@@ -377,6 +374,12 @@ class Stock < ActiveRecord::Base
     eps.sort_by{ |e| [e.year,e.quarter] }.last
   end
 
+  # this is for any eps, quarterly OR annual
+  def most_recent_eps
+    eps.sort_by{ |e| [e.year,e.quarter] }.last
+  end
+
+  # this is for annual
   def latest_eps
     annual_eps_newest_first.first
   end

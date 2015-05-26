@@ -33,7 +33,8 @@ Main.o Main.d : main/Main.cpp utils/Identifier.h utils/Config.h utils/Utils.hpp 
  include/../financials/Financials.h include/HttpClient.h \
  include/../utils/HttpClient.h include/Url.h include/../html/Url.h \
  dmmm/O_Stock.hpp include/info.h include/../financials/Info.h \
- include/types.h include/../parser/types.h include/Parser.h \
- include/../parser/Parser.h dmmm/O_Ep.hpp include/../parser/types.h \
- include/../parser/Tokenizer.h include/Test.h include/../utils/Test.h \
- include/Tokenizer.h include/../parser/Tokenizer.h
+ utils/Dates.hpp include/types.h include/../parser/types.h \
+ include/Parser.h include/../parser/Parser.h dmmm/O_Ep.hpp \
+ include/../parser/types.h include/../parser/Tokenizer.h include/Test.h \
+ include/../utils/Test.h include/Tokenizer.h \
+ include/../parser/Tokenizer.h

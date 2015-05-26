@@ -56,7 +56,8 @@ greg_year
 calculateYearFor(string fyenStr, greg_year yyear)
 {
     date extracted_date = convertFyedStringToDate( yyear, fyenStr ); 
-    if ( extracted_date.month() < Jun )
-        extracted_date.year() = yyear - 1;
+    date cutoff_date(extracted_date.year(),Jan,30);
+    if ( extracted_date < cutoff_date )
+        extracted_date.year() = (yyear - 1);
     return extracted_date.year();
 }

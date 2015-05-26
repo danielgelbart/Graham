@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150505115457) do
+ActiveRecord::Schema.define(:version => 20150526123317) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20150505115457) do
     t.string   "fiscal_year_end",                                                                                                                                                                                         :default => ""
     t.enum     "company_type",       :limit => [:COMPANY, :ROYALTY_TRUST, :REIT, :ASSET_MNGMT, :FINANCE, :PARTNERSHIP, :PIPELINE, :FOREIGN, :HOLDING, :INDUSTRY, :TECH, :PHARMA, :RETAIL],                                :default => :COMPANY
     t.string   "country"
+    t.boolean  "fy_same_as_ed",                                                                                                                                                                                           :default => true
   end
 
   create_table "users", :force => true do |t|

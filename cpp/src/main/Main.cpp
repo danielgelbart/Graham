@@ -173,7 +173,8 @@ mainMain(int argc, char* argv[])
     if (command == string("get_single_year")){
         EdgarData eData = EdgarData();
         O_Stock stock = findStockByTicker( argv[2] );
-        eData.getSingleYear( stock,2013 );
+        size_t year = stoi( argv[3]);
+        eData.getSingleYear( stock, year );
     }
 // should be passed a ticker?
     if (command == string("get_quarters")){

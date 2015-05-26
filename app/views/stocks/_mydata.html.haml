@@ -3,7 +3,7 @@
   %li.list-group-item.row.list-group-item-info
     Financial data last updated 
     <span class="bold">
-    =h @stock.latest_eps.created_at.to_date
+    =h @stock.most_recent_eps.created_at.to_date
     </span>
     %div.small-italic
       *All long term values adjusted for inflation, using CORE CPI

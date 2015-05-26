@@ -551,7 +551,19 @@ void
 writeRevenueToEarnings(O_Ep& ep, string& val, string& units)
 {
     // use adjust for decimals
-    ep._revenue() = adjustForDecimals(val,units);
+    LOG_INFO << "DEBUG val is "<< val << " and existing rev is "<<ep._revenue();
+    if ( ep._revenue() == "")
+    {
+        ep._revenue() = adjustForDecimals(val,units);
+        return;
+    }
+    // Banks have total income on TWO lines that need to be added together
+    long sub_rev = stol(ep._revenue());
+    string new_val = adjustForDecimals(val,units);
+    LOG_INFO << "DEBUG new_val is "<< new_val;
+    long total = sub_rev + stol( new_val );
+    LOG_INFO << "DEBUG total val is "<< to_string(total);
+    ep._revenue() = to_string(total);
 }
 void
 writeIncomeToEarnings(O_Ep& ep, string& val, string& units)
@@ -881,21 +893,60 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
     }
 
     //**** Special handling for non-company type stocks
+     LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
 
-    LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
+     if (( _stock._company_type() == EnumStockCOMPANY_TYPE::COMPANY) ||
+         ( _stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
+     {
+         LOG_INFO << "Going to see if Handling "<<_stock._ticker()<< " as a BANK";
+
+         // Interest Income
+         defref.assign("us-gaap_InterestAndDividendIncomeOperating'");
+         if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                     earnings_data, writeRevenueToEarnings ))){
+             LOG_INFO<<" Successfully found REVENUE using us-gaap_InterestAndDividendIncomeOperating (BANK specific)";
+         }
+         // NON-interest income
+         defref.assign("us-gaap_NoninterestIncome'");
+         if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                     earnings_data, writeRevenueToEarnings )))
+         {
+             LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (BANK specific)";
+         }
+         if ( _stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE ){
+             if (foundRev)
+             {
+                 return true;
+             } else {
+                 // add Note;
+                 // return
+             }
+         }
+         if ( ( _stock._company_type() == EnumStockCOMPANY_TYPE::COMPANY)
+              && foundRev )
+         {
+             LOG_INFO << "Found intrest income for "<<_stock._ticker()<< ". Going to mark it as a BANK";
+             _stock._company_type() = EnumStockCOMPANY_TYPE::FINANCE;
+             _stock.update();
+             return true;
+         }
+     }// Banks
+
+
     // If compnay is a REIT - they report interest income
     // e.g. NLY, ANH
-    if ( (_stock._company_type() == EnumStockCOMPANY_TYPE::REIT) ||
-         (_stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE) )
+    if ( _stock._company_type() == EnumStockCOMPANY_TYPE::REIT)
     {
         LOG_INFO << "Handling "<<_stock._ticker()<< " as a REIT";
+
         defref.assign("us-gaap_Interest\\w*IncomeOperating|us-gaap_InterestIncomeExpenseNet");
         if (( foundRev = findDefref(trIt, defref, num_pattern, units,
                                     earnings_data, writeRevenueToEarnings )))
         {
-            LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (REIT/BANK specific)";
+            LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (REIT specific)";
             return foundRev;
         }
+
         // CPT
         defref.assign("gaap_RealEstateRevenueNet");
         if (( foundRev = findDefref(trIt, defref, num_pattern, units,
@@ -905,6 +956,8 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
             return foundRev;
         }
     } // REIT
+
+
 
     LOG_INFO << "Could not find REVENUE using defref. Going to use heuristics" ;
 
@@ -2348,9 +2401,18 @@ Parser::trToAcn( XmlElement* tr )
 
     date report_date( from_string( match[0] ) );
 
-    Acn* acn_rec = new Acn( acn, report_date, 1);
-    date endate = convertFyedStringToDate((report_date.year() - 1), _stock._fiscal_year_end());
-    acn_rec->set_quarter_from_date(endate);
+    Acn* acn_rec = new Acn( acn, report_date);
+    LOG_INFO << "Going to calculate year and quarter for report from "<< report_date << " for stock "<< _stock._ticker();
+
+    if (!acn_rec->setAcnYearAndQuarter(report_date, _stock._fiscal_year_end()) )
+    {
+        LOG_ERROR << "FAILED to calculate year and quarter for ACN no "
+                  << acn_rec->_acn << " and dated " << acn_rec->_report_date;
+    }
+    // For some stocks, if fiscal year end date is early in the year
+    // the fiscal focus year is the previous year
+    if ( !(_stock._fy_same_as_ed()) )
+        acn_rec->_year = (acn_rec->_year - 1);
 
     LOG_INFO << "Extracted ACN: "<< acn << " filed on date" << report_date
                 << " Evaluated it to be for year: " << acn_rec->_year << " adn quarter: " << acn_rec->_quarter;

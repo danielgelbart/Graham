@@ -208,6 +208,13 @@ O_Stock(const I_Stock& id)
         _f_country._dirty = true; 
         return _f_country._base; 
     }
+    const F_Object::Base& _fy_same_as_ed() const { 
+        return _f_fy_same_as_ed._base; 
+    }
+    F_Object::Base& _fy_same_as_ed() { 
+        _f_fy_same_as_ed._dirty = true; 
+        return _f_fy_same_as_ed._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -262,6 +269,9 @@ O_Stock(const I_Stock& id)
         if (_f_country._dirty)
             field2Val["country"] = 
                 toSQLString(_f_country._base);
+        if (_f_fy_same_as_ed._dirty)
+            field2Val["fy_same_as_ed"] = 
+                toSQLString(_f_fy_same_as_ed._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("stocks", 
@@ -284,6 +294,7 @@ O_Stock(const I_Stock& id)
             _f_fiscal_year_end._dirty = false;
             _f_company_type._dirty = false;
             _f_country._dirty = false;
+            _f_fy_same_as_ed._dirty = false;
             return true;
         }
         else
@@ -343,6 +354,9 @@ O_Stock(const I_Stock& id)
         if (_f_country._dirty)
             field2Val["country"] = 
                 toSQLString(_f_country._base);
+        if (_f_fy_same_as_ed._dirty)
+            field2Val["fy_same_as_ed"] = 
+                toSQLString(_f_fy_same_as_ed._base);
 
         
         if (DBFace::instance()->
@@ -366,6 +380,7 @@ O_Stock(const I_Stock& id)
             _f_fiscal_year_end._dirty = false;
             _f_company_type._dirty = false;
             _f_country._dirty = false;
+            _f_fy_same_as_ed._dirty = false;
             return true;
         }
         else
@@ -390,6 +405,7 @@ private:
     F_String _f_fiscal_year_end;
     Field<EnumStockCOMPANY_TYPE> _f_company_type;
     F_String _f_country;
+    F_Object _f_fy_same_as_ed;
 
     friend class T_Stock;
 };
