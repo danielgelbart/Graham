@@ -1,7 +1,6 @@
-
-#include "Dates.hpp"
 #include <iostream>
-
+#include <cmath>
+#include "Dates.hpp"
 
 using namespace boost::filesystem;
 using namespace boost::gregorian;
@@ -18,6 +17,14 @@ convertFromDocString(string& docStr)
     ss >> d;  //conversion fails to not-a-date-time
 //    std::cout << "'" << d << "'" << std::endl;  //'not-a-date-time' 
     return d;
+}
+
+bool
+withinAweek(string fd1, string fd2){
+    date d1 = convertFyedStringToDate(2015,fd1);
+    date d2 = convertFyedStringToDate(2015,fd2);
+    date_duration dd = d2 - d1;
+    return abs(dd.days()) < 7;
 }
 
 date

@@ -14,6 +14,7 @@ using namespace std;
 
 date convertFromDocString(string& inp);
 date convertFyedStringToDate(greg_year year,string fyenStr);
+bool withinAweek(string fd1, string fd2);
 date calculateEndDate(string fyenStr, greg_year year, size_t quarter);
 greg_year calculateYearFor(string fyenStr, greg_year year);
 

@@ -1428,6 +1428,14 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
     return foundNsr;
 }
 
+XmlElement*
+Parser::convertReportToTree(string& report)
+{
+    string tableStr = extractFirstTableStr(report);
+    XmlElement* tree = buildXmlTree(tableStr);
+    return tree;
+}
+
 void
 Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
 {
@@ -2197,36 +2205,62 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
         calculate_book_value(balance_data);
 }
 
-string 
-Parser::extractFiscalDateFromReport(string& report)
+void
+Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* date_end, int* year_end)
 {
-    string tableStr = extractFirstTableStr(report); 
-    XmlElement* tree = buildXmlTree(tableStr);
-    string date="";
+    LOG_INFO << "going to extract from cover report: (1) focus year (2) document end date (3) fiscal year end date\n";
+    XmlElement* tree = convertReportToTree(report);
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
 
-    string trTitle("Fiscal Year End Date");
-    string tagName("tr");
-    size_t* counter = new size_t;
-    *counter=0;
-    XmlElement* dataLine = tree->tagWithText(tagName,trTitle,1,counter);
-    if (dataLine==NULL)
+    string fiscal_end_date(""), fiscal_year_for("");
+    int year = -1;
+    regex end_pattern("Fiscal Year End Date", regex::icase);
+    regex focus_pattern("Document fiscal year focus", regex::icase);
+    regex doc_end_pattern("Document period end date", regex::icase);
+
+    while( (trp = trIt.nextTr()) != NULL )
     {
-        LOG_ERROR << "Could not get FYED for stock\n";
-        return "";
+        string trtext = trp->text();
+        if (regex_search(trtext, end_pattern))
+        {
+            boost::regex ed_pattern("\\d\\d-\\d\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, ed_pattern) )
+            {
+                fiscal_end_date = match[0];
+                LOG_INFO << "fiscal year ends on"<< fiscal_end_date;
+                date_end = new string(fiscal_end_date);
+            } else
+                LOG_ERROR << "Could not get fiscal year end date (mm/dd)";
+        }
+        if (regex_search(trtext, focus_pattern))
+        {
+            boost::regex year_pattern("\\d\\d\\d\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, year_pattern) )
+            {
+                fiscal_year_for = match[0];
+                LOG_INFO << "Report is for "<< fiscal_year_for;
+                year = stoi(fiscal_year_for);
+                focus_year = new int(year);
+            } else
+                LOG_ERROR << "Could not get the focus year";
+        }
+        if (regex_search(trtext, doc_end_pattern))
+        {
+            boost::regex year_pattern("\\d\\d\\d\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, year_pattern) )
+            {
+                fiscal_year_for = match[0];
+                LOG_INFO << "Report period end date is YEAR only"<< fiscal_year_for;
+                year = stoi(fiscal_year_for);
+                year_end = new int(year);
+            } else
+                LOG_ERROR << "Could not get report period end date";
+        }
     }
-    string dataText = dataLine->text();
-    LOG_INFO << " Got fiscal year end date of " << dataText<< "\n";
-    
-    boost::regex pattern("\\d\\d-\\d\\d");
-    boost::smatch match;
-    if (boost::regex_search(dataText, match, pattern) )
-    {
-        date = match[0];
-        LOG_INFO << "Saving end date string of "<< date<<"\n";
-    } else
-        LOG_ERROR << "Failed to get end date string from cover report";
-
-    return date;
 }
 
 double

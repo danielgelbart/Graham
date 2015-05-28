@@ -15,6 +15,7 @@
 #include "T_Ep.hpp"
 #include "T_Note.hpp"
 #include "Financials.h"
+#include "Dates.hpp"
 #include <boost/regex.hpp>
 
 using namespace std;
@@ -678,6 +679,7 @@ void
 EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
 
     Parser parser = Parser();
+    parser.set_stock(stock);
     auto extracted_reports = new map<ReportType,string>;
     parser.extract_reports(k10, extracted_reports);
     
@@ -687,6 +689,44 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     if (_reports.size() == 0)
         return;
 
+    string cover_report = _reports[ReportType::COVER];
+    if (cover_report == "")
+        LOG_ERROR << "MISING COVER REPORT";
+    else {
+        int* focus_year = NULL, *year_end = NULL;
+        string* date_end = NULL;
+        parser.extractFiscalDatesFromReport(cover_report, focus_year, date_end, year_end);
+
+        if (date_end != NULL) {
+            if( stock._fiscal_year_end() == ""){
+                LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
+                stock._fiscal_year_end() = *date_end;
+                stock.update();
+            } else {
+                if ( withinAweek(*date_end, stock._fiscal_year_end())){
+                    LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
+                    stock._fiscal_year_end() = *date_end;
+                    stock.update();
+                } else {
+                    O_Note note;
+                    note._stock_id() = stock._id();
+                    note._year() = year;
+                    note._pertains_to() = EnumNotePERTAINS_TO::INCOME_REP;
+                    string message = " Fiscal year end date not clear: previous year end was " +
+                            stock._fiscal_year_end() + " but new 10k states it as " + *date_end;
+                    note._note() = message;
+                    note.insert();
+                    LOG_INFO << "Added the following note to "<< stock._ticker() << " : "<< message;
+                }
+            }
+        }
+        if ((focus_year != NULL) && (year_end != NULL) && ((*focus_year) != (*year_end)) ){
+            LOG_INFO << "NOTE " << stock._ticker() <<
+                        " has focus year DIFFER from end year date year (one back) - SETTING accordingly";
+            stock._fy_same_as_ed() = false;
+            stock.update();
+        }
+    }
     string income_report = _reports[ReportType::INCOME];
     if (income_report == "")
         LOG_ERROR << "MISING INCOME REPORT";
@@ -785,7 +825,7 @@ EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
     O_Ep ep;
     ep._stock_id() = stock._id();
     ep._year() = year;
-    ep._quarter() = quarter; // Anual record
+    ep._quarter() = quarter;
     ep._source() = string("edgar.com");
     parser.parseIncomeTree(tree, ep);
 
@@ -850,14 +890,16 @@ EdgarData::getFiscalYearEndDate(O_Stock& stock)
         return false;
     LOG_INFO << "Got cover report\n";
 
-    string date = parser.extractFiscalDateFromReport(coverReportIt->second);
-    if (date == "")
+    string* date = NULL;
+    int* dyear = NULL;
+    parser.extractFiscalDatesFromReport(coverReportIt->second, dyear, date);
+    if (date == NULL)
     {
         LOG_INFO << "Failed to get fiscal year end date from cover report";
         return false;
     }
-    cout << "Adding fyed: "<< date<<" to "<<stock._ticker()<<endl;
-    stock._fiscal_year_end() = date;
+    cout << "Adding fyed: "<< *date<<" to "<<stock._ticker()<<endl;
+    stock._fiscal_year_end() = *date;
     stock.update();
     return true;
 }
