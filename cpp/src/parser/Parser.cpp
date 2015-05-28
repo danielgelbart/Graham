@@ -2214,7 +2214,7 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
     XmlElement* trp = tree;
 
     string fiscal_end_date(""), fiscal_year_for("");
-    int year = -1;
+    //int year = -1;
     regex end_pattern("Fiscal Year End Date", regex::icase);
     regex focus_pattern("Document fiscal year focus", regex::icase);
     regex doc_end_pattern("Document period end date", regex::icase);
@@ -2230,7 +2230,9 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
             {
                 fiscal_end_date = match[0];
                 LOG_INFO << "fiscal year ends on"<< fiscal_end_date;
-                date_end = new string(fiscal_end_date);
+                //boost::shared_ptr<string> f(new Foo);
+                *date_end = fiscal_end_date;
+                LOG_INFO << "date_end is now" << *date_end;
             } else
                 LOG_ERROR << "Could not get fiscal year end date (mm/dd)";
         }
@@ -2242,8 +2244,7 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
             {
                 fiscal_year_for = match[0];
                 LOG_INFO << "Report is for "<< fiscal_year_for;
-                year = stoi(fiscal_year_for);
-                focus_year = new int(year);
+                *focus_year = stoi(fiscal_year_for);
             } else
                 LOG_ERROR << "Could not get the focus year";
         }
@@ -2255,8 +2256,7 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
             {
                 fiscal_year_for = match[0];
                 LOG_INFO << "Report period end date is YEAR only"<< fiscal_year_for;
-                year = stoi(fiscal_year_for);
-                year_end = new int(year);
+                *year_end = stoi(fiscal_year_for);
             } else
                 LOG_ERROR << "Could not get report period end date";
         }
@@ -2436,7 +2436,8 @@ Parser::trToAcn( XmlElement* tr )
     date report_date( from_string( match[0] ) );
 
     Acn* acn_rec = new Acn( acn, report_date);
-    LOG_INFO << "Going to calculate year and quarter for report from "<< report_date << " for stock "<< _stock._ticker();
+    LOG_INFO << "Going to calculate year and quarter for report from "<< report_date
+             << " for stock "<< _stock._ticker() << "with fyed " << _stock._fiscal_year_end();
 
     if (!acn_rec->setAcnYearAndQuarter(report_date, _stock._fiscal_year_end()) )
     {
@@ -2445,7 +2446,7 @@ Parser::trToAcn( XmlElement* tr )
     }
     // For some stocks, if fiscal year end date is early in the year
     // the fiscal focus year is the previous year
-    if ( !(_stock._fy_same_as_ed()) )
+    if ( !_stock._fy_same_as_ed() )
         acn_rec->_year = (acn_rec->_year - 1);
 
     LOG_INFO << "Extracted ACN: "<< acn << " filed on date" << report_date

@@ -92,7 +92,8 @@ EdgarData::getLastYear10KAcn( O_Stock& stock)
 {
     string page = getEdgarSearchResultsPage( stock , StatementType::K10);
     LOG_INFO << "Got search results for "<<stock._ticker()<<"\n";
-    Parser parser;
+    Parser parser(stock);
+    //parser.set_stock(stock);
     vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 0,/*limit*/
                                                          StatementType::Q10 );
     if (Acns.empty())
@@ -587,10 +588,7 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
    // get search page for 10k
     string page = getEdgarSearchResultsPage( stock, StatementType::K10);
     Parser parser;
-
-// get All Acns
-    // 1) Change name
-    // 2) compare annual and quarter url strings to use same method
+    parser.set_stock(stock);
     vector<Acn*> Acns = parser.getAcnsFromSearchResults( page, 10,/*limit*/ 
                                                          StatementType::K10 );
     greg_year gyear(year);
@@ -600,12 +598,13 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
         LOG_INFO << "\n Got Acn: " << (*it)->_acn << " date: " << 
             (*it)->_report_date << " quartr: " << (*it)->_quarter;
         
-        if ( ! stock_contains_acn( stock, *(*it) ) )
+        if ( ((*it)->_quarter == 0) && ( ! stock_contains_acn( stock, *(*it))) )
         {
-            date end_date = calculateEndDate(stock._fiscal_year_end(),year,0);
-            if(reportWithin3Months( (*it)->_report_date, end_date) ) 
+            //date end_date = calculateEndDate(stock._fiscal_year_end(),year,0);
+            //if(reportWithin3Months( (*it)->_report_date, end_date) )
+            if( year == (*it)->_year )
             {
-                acn = *it;
+                acn = (*it);
                 LOG_INFO << "Got ACN for specific year " << to_string(year);
                 break;
             }
@@ -621,9 +620,13 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     string filing = getEdgarFiling(stock,*acn);
     if (filing == "")
         return false;
-// extract to DB
-    //Info info( stock._ticker(), gyear, StatementType::K10);
-    extract10kToDisk(filing, stock, year);
+
+
+    if (!extract10kToDisk(filing, stock, year))
+    {
+        LOG_INFO << "Could not add annual report for "<< year;
+        return false;
+    }
 
     return retVal;
 }
@@ -656,7 +659,9 @@ EdgarData::updateFinancials(O_Stock& stock)
             return;
         }
         string k10text = getEdgarFiling( stock, *acn);
-        extract10kToDisk( k10text, stock, last_year);
+        // try twice in case year is wrong
+        if (!extract10kToDisk( k10text, stock, last_year))
+            extract10kToDisk( k10text, stock, last_year);
 
         createFourthQuarter( stock, last_year );
         updated = true;
@@ -675,7 +680,7 @@ EdgarData::updateFinancials(O_Stock& stock)
         createTtmEps( stock );
 }
 
-void
+bool
 EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
 
     Parser parser = Parser();
@@ -687,17 +692,20 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     _reports = *extracted_reports;
 
     if (_reports.size() == 0)
-        return;
+        return false;
 
     string cover_report = _reports[ReportType::COVER];
     if (cover_report == "")
         LOG_ERROR << "MISING COVER REPORT";
     else {
-        int* focus_year = NULL, *year_end = NULL;
-        string* date_end = NULL;
+        int* focus_year = new int(0), *year_end = new int(0);
+        string* date_end = new string("");
         parser.extractFiscalDatesFromReport(cover_report, focus_year, date_end, year_end);
 
-        if (date_end != NULL) {
+        //LOG_INFO << "Test print UPDATE: focus year: "<< *focus_year
+          //       << " fyed: "<< *date_end << " current period end year: "<< *year_end;
+
+        if (*date_end != "") {
             if( stock._fiscal_year_end() == ""){
                 LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
                 stock._fiscal_year_end() = *date_end;
@@ -705,6 +713,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
             } else {
                 if ( withinAweek(*date_end, stock._fiscal_year_end())){
                     LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
+                    // Note that the following is will update even if there is no need to
                     stock._fiscal_year_end() = *date_end;
                     stock.update();
                 } else {
@@ -720,11 +729,16 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
                 }
             }
         }
-        if ((focus_year != NULL) && (year_end != NULL) && ((*focus_year) != (*year_end)) ){
+        if ( (stock._fy_same_as_ed() == true)
+             && (*focus_year != 0) && (*year_end != 0)
+             && ((*focus_year) != (*year_end)) ){
             LOG_INFO << "NOTE " << stock._ticker() <<
                         " has focus year DIFFER from end year date year (one back) - SETTING accordingly";
             stock._fy_same_as_ed() = false;
             stock.update();
+
+            // if updated -> then we have the wrong report!
+            return false;
         }
     }
     string income_report = _reports[ReportType::INCOME];
@@ -737,6 +751,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
         LOG_ERROR << "MISING BALANCE REPORT";
     else
         addBalanceStatmentToDB(balance_report, stock, year);
+    return true;
 }
 
 void 

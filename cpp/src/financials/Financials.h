@@ -33,7 +33,7 @@ public:
     void createTtmEps(O_Stock& stock);
 
     bool getSingleYear(O_Stock& stock, size_t year);    
-    void extract10kToDisk(string& k10, O_Stock& stock, size_t year);
+    bool extract10kToDisk(string& k10, O_Stock& stock, size_t year);
     void addSingleAnualIncomeStatmentToDB(string& incomeFileStr,O_Stock& stock,
                                           size_t year);
     void addSingleQuarterIncomeStatmentToDB(string& incomeFileStr, O_Stock& stock,

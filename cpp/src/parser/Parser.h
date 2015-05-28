@@ -104,7 +104,8 @@ private:
 
 class Parser {
 public:
-    Parser():_col_num(0){}
+    Parser():_col_num(0){ }
+    Parser(DMMM::O_Stock& stock):_col_num(0){ _stock = stock; }
 
     XmlElement* buildXmlTree(string& xmlDocument);
     void parseXML(XmlElement* node, Tokenizer& tok);
