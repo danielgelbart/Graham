@@ -26,6 +26,7 @@ public:
         mHttpClient(std::string("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"))
         {}
 
+    bool getAnnuals(O_Stock& stock);
     bool getQuarters(O_Stock& stock);
     bool check_report_year_and_date(string cover_rep, Acn* acn_p);
 

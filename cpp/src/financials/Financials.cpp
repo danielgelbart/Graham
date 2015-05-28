@@ -191,6 +191,38 @@ EdgarData::check_report_year_and_date(string cover_rep, Acn* acn_p){
     return true;
 }
 
+
+bool
+EdgarData::getAnnuals(O_Stock& stock)
+{
+    // get back to Q1 LAST year
+    _parser.set_stock(stock);
+    string page = getEdgarSearchResultsPage(stock,StatementType::K10);
+    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 3,/*limit*/
+                                                          StatementType::K10 );
+    bool updated(false);
+    for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
+    {
+        LOG_INFO << "\n Looking at Acn: " << (*it)->_acn << " date: " <<
+            (*it)->_report_date << " quartr: " << (*it)->_quarter;
+
+        if ( ! stock_contains_acn( stock, *(*it) ) )
+        {
+            cout << "\n Getting Annual report dated " << (*it)->_report_date
+                 << " for year "<< (*it)->_year << endl;
+            string page = getEdgarFiling( stock, *(*it));
+
+            updated = (updated || extract10kToDisk( page, stock, (*it)->_year ));
+        } else {
+            string message = "Not going to download, since stock already contains this info";
+            LOG_INFO << message;
+            cout << message << " for year/Q: " << (*it)->_year << "/" << (*it)->_quarter << endl;
+        }
+    }
+    return updated;
+}
+
+
 bool
 EdgarData::getQuarters(O_Stock& stock)
 {
@@ -641,10 +673,13 @@ EdgarData::updateFinancials(O_Stock& stock)
     LOG_INFO << "updateFinancials method was called for " << stock._ticker() << "\n";
     string cik = to_string( stock._cik() );
 
+    _parser = Parser(stock);
+
     date today = day_clock::local_day();
     greg_year last_year = today.year() - 1;
 
     bool updated(false);
+
     updated = getQuarters( stock );
 
     // check if last years 10k exists
@@ -678,6 +713,10 @@ EdgarData::updateFinancials(O_Stock& stock)
     }
     if (updated)
         createTtmEps( stock );
+
+    // try to get a few more years if they are missing
+    // This is at the end so that if year for needed to be updated it alreadyd did.
+    getAnnuals(stock);
 }
 
 bool
@@ -732,8 +771,11 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
         if ( (stock._fy_same_as_ed() == true)
              && (*focus_year != 0) && (*year_end != 0)
              && ((*focus_year) != (*year_end)) ){
-            LOG_INFO << "NOTE " << stock._ticker() <<
-                        " has focus year DIFFER from end year date year (one back) - SETTING accordingly";
+            string message = "Setting " + stock._ticker() +
+                    " to have focus year not correlat with end of period year fd_same_as_ey = false."
+                    + " end date for stock is " + stock._fiscal_year_end();
+            LOG_INFO << "NOTE " << message;
+            cout << "! "<< message;
             stock._fy_same_as_ed() = false;
             stock.update();
 

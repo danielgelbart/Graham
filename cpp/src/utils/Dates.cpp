@@ -24,7 +24,7 @@ withinAweek(string fd1, string fd2){
     date d1 = convertFyedStringToDate(2015,fd1);
     date d2 = convertFyedStringToDate(2015,fd2);
     date_duration dd = d2 - d1;
-    return abs(dd.days()) < 7;
+    return abs(dd.days()) < 8;
 }
 
 date
