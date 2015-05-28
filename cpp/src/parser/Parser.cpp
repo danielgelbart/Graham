@@ -1436,13 +1436,13 @@ Parser::convertReportToTree(string& report)
     return tree;
 }
 
-void
+bool
 Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
 {
     if (report ==""){
         LOG_ERROR << "No cover report available. So exusted attempt to "
                   << "read num shares";
-        return;
+        return false;
     }
     string tableStr = extractFirstTableStr(report);
     XmlElement* tree = buildXmlTree(tableStr);
@@ -1477,7 +1477,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     XmlElement* trp = tree;
     string numshares("");
     regex shares_pattern("Entity Common Stock,? Shares Outstanding", regex::icase);
-
+    size_t counter = 0;
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
@@ -1490,24 +1490,34 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                 LOG_INFO << "got numshares";
                 numshares = match[0];
                 LOG_INFO << "Got num shares from cover report. They are: "<< numshares;
-
+                ++counter;
             } else{
                 LOG_ERROR << "Could not get numshares from cover report";
-                return;
+                return false;
             }
-            break;
+            // break; // allow for multiple classes of stock
         }
     }
+    if (counter > 1)
+    {
+        cout << "! There are multiple classes of shares\n";
+        LOG_ERROR << "Could not get numshares from cover reprot. there are multiple classes of shares";
+        // should discard recored
+        // IF hav eps and net_income
+        // can calculate num shares from that.
+        return false;
+    }
+
     if (numshares == "")
     {
         LOG_ERROR << "Failed to retrieve num shares from cover report";
-        return;
+        return false;
     }
     // Need to add the "|" for units|bunits structure
     units = "|"+units;
     ep._shares_diluted() = false;
     writeNsToEarnings( ep, numshares, units);
-
+    return true;
 }
 
 void 

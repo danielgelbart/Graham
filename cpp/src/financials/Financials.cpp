@@ -819,8 +819,16 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
     parser.parseIncomeTree(tree, ep);
     if (ep._shares() == "")
     {
-        parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], ep );
-        shares_outstanding = true;
+        if (!parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], ep )){
+            if ( (ep._net_income() != "") && (!withinPercent(ep._eps(),0.01,0.0)))
+            {
+                long income = stol(ep._net_income());
+                double shares_f = income / ep._eps() ;
+                int shares_int = (int)(shares_f + 0.5);
+                ep._shares() = to_string(shares_int);
+            }
+        } else
+            shares_outstanding = true;
     }
 
     if ( (withinPercent(ep._eps(),0.01,0.0)) &&

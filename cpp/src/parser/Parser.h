@@ -129,7 +129,7 @@ public:
                              string& currency, bool singleYear);
     double getQarterEps(XmlElement* tree);
 
-    void getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
+    bool getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
     void extractFiscalDatesFromReport(string& report, int* focus_year = NULL,
                                       string* date_end = NULL, int* year_end = NULL);
     void set_stock(DMMM::O_Stock& stock);
