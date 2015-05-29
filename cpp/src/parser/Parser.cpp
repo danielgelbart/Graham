@@ -245,6 +245,25 @@ get_title_text(XmlElement* tree)
     return titleText;
 }
 
+/*
+Each title has 2 tr:
+1) with multiple th:
+   with text rowspan=2
+   ( X months ended + colspan
+2) the dates
+*/
+bool
+find_columns_range(XmlElement* tree, bool annual, size_t* first, size_t* last)
+{
+    vector<XmlElement*>* elements = new vector<XmlElement*>;
+    string tagName("tr");
+    tree->getNodes(tagName, 2, elements);
+    //iterate over th elements
+    (*elements)[0]
+
+    return true;
+}
+
 XmlTokenType
 Parser::tokenType( string& xml)
 {
@@ -783,8 +802,17 @@ writeLongTermDebtToBalance(O_BalanceSheet& bs, string& val, string& units)
 void
 writeBookValueBalance(O_BalanceSheet& bs, string& val, string& units)
 {
+    LOG_INFO << "Book value for  "<<val<<"\n";
+
+    // Handle negative values
+    string sign("");
+    if (val[0] == '(')
+    {
+        val = removeParenthasis(val);
+        sign = "-";
+    }
     // use adjust for decimals
-    bs._book_value() = adjustForDecimals(val,units);
+    bs._book_value() = sign + adjustForDecimals(val,units);
 }
 
 size_t 
@@ -801,6 +829,15 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
     // save column num
     // if next column date exactly 1 year before, exit 
     // else continue
+
+    /* TODO - try to only include "3 months ended" columsn for quarter if quarter > 0
+    /*                        amd "12 months ended" for annual, if quarter == 0
+    Each title has 2 tr:
+    1) with multiple th:
+       with text rowspan=2
+       ( X months ended + colspan
+    2) the dates
+    */
     sregex_iterator mit(titleText.begin(), titleText.end(), date_pattern);
     sregex_iterator mEnd;
     size_t col_num = 1;
@@ -1181,7 +1218,6 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
 
     bool foundEps(false);
     bool foundEpsBlock(false);
-    //regex num_pattern("\\d+[,\\d]+\\d+(.\\d+)?");
     regex digit_pattern("\\(?(\\d+)(.\\d+)\\)?");
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 //    smatch match;
@@ -1986,7 +2022,7 @@ Parser::extractBookValue(XmlElement* tree, O_BalanceSheet& balance_data, string&
     XmlElement* trp = tree;
 
     bool foundBV(false);
-    regex num_pattern("\\d+[,\\d]+(.\\d+)?");
+    regex num_pattern("\\(?\\d+[,\\d]+(.\\d+)?\\)?");
 
     // **** Search for BV using 'defref' html attribute
     regex defref("us-gaap_StockholdersEquity");

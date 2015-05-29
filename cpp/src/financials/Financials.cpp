@@ -884,6 +884,7 @@ EdgarData::postParseEarningsFix( O_Stock& stock, O_Ep& ep)
     _ep = ep;
 }
 
+// Can probably unite this method with annual verstion, only differende is quarter parameter
 void
 EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
                                               size_t year, size_t quarter, string& cover_report)
