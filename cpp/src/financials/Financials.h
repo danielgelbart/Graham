@@ -39,6 +39,7 @@ public:
                                           size_t year);
     void addSingleQuarterIncomeStatmentToDB(string& incomeFileStr, O_Stock& stock,
                                             size_t year, size_t quarter, string& cover_report);
+    void postParseEarningsFix( O_Stock& stock, O_Ep& ep);
 
     void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock, size_t year);
 

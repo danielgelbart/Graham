@@ -132,14 +132,17 @@ public:
     bool getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
     void extractFiscalDatesFromReport(string& report, int* focus_year = NULL,
                                       string* date_end = NULL, int* year_end = NULL);
+
     void set_stock(DMMM::O_Stock& stock);
+    XmlElement* convertReportToTree(string& report);
+
 private:
 
     XmlTokenType tokenType( string& xml);
     vector<string> getTrByName(XmlElement* tree, string& trTitlePattern,
         bool singleYear);
     XmlElement* edgarResultsTableToTree(string& page);
-    XmlElement* convertReportToTree(string& report);
+
     size_t findColumnToExtract(XmlElement* tree, size_t year, size_t quarter);
     bool checkTrPattern( string& text, boost::regex& title_pattern, 
                          string& units, XmlElement* node,

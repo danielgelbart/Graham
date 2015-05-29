@@ -16,6 +16,7 @@
 #include "T_Note.hpp"
 #include "Financials.h"
 #include "Dates.hpp"
+#include <cmath>
 #include <boost/regex.hpp>
 
 using namespace std;
@@ -796,41 +797,53 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     return true;
 }
 
+
+
 void 
 EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr, 
                                             O_Stock& stock, size_t year)
 {
-    Parser parser;
-    parser.set_stock(stock);
+    _parser.set_stock(stock);
 
-    string incomeTableStr = parser.extractFirstTableStr(incomeFileStr); 
-    XmlElement* tree = parser.buildXmlTree(incomeTableStr);
+    XmlElement* tree = _parser.convertReportToTree(incomeFileStr);
+
     if(tree == NULL)
     {
         LOG_INFO << "No income statement to parse to DB for "<<stock._ticker();
         return;
     }
     O_Ep ep;
-    bool shares_outstanding(false);
     ep._stock_id() = stock._id();
     ep._year() = year;
     ep._quarter() = 0; // Anual record
     ep._source() = string("edgar.com");
-    parser.parseIncomeTree(tree, ep);
+
+    _parser.parseIncomeTree(tree, ep);
+    postParseEarningsFix( stock, ep);
+}
+
+void
+EdgarData::postParseEarningsFix( O_Stock& stock, O_Ep& ep)
+{
+     bool shares_outstanding(false);
+    // try to get num shares from cover report
+    // try to calculate num shares from EPS and Income
     if (ep._shares() == "")
     {
-        if (!parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], ep )){
-            if ( (ep._net_income() != "") && (!withinPercent(ep._eps(),0.01,0.0)))
+        if (!_parser.getNumSharesFromCoverReport( _reports[ReportType::COVER], ep )){
+            if ( (ep._net_income() != "") && ( abs(ep._eps()) > 0.01) )
             {
                 long income = stol(ep._net_income());
                 double shares_f = income / ep._eps() ;
                 int shares_int = (int)(shares_f + 0.5);
+                LOG_INFO << " Got numshares from calculating EPS and Net Income: "<< shares_int;
                 ep._shares() = to_string(shares_int);
             }
         } else
             shares_outstanding = true;
     }
 
+    // try to calculate EPS from num shares and net income
     if ( (withinPercent(ep._eps(),0.01,0.0)) &&
          (ep._shares() != "" ) &&
          (ep._net_income() != "") )
@@ -850,6 +863,7 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
         LOG_INFO << "Calculated eps to be "<< to_string(ep._eps());
     }
 
+    // inesrt record to DB
     if ( addEarningsRecordToDB( stock, ep) &&
          shares_outstanding )
     {
@@ -866,8 +880,6 @@ EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr,
             note.insert();
         }
     }
-
-
     // for testing
     _ep = ep;
 }
@@ -876,10 +888,8 @@ void
 EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
                                               size_t year, size_t quarter, string& cover_report)
 {
-    Parser parser;
-    parser.set_stock(stock);
-    incomeStr = parser.extractFirstTableStr( incomeStr );
-    XmlElement* tree = parser.buildXmlTree(incomeStr);
+     _parser.set_stock(stock);
+     XmlElement* tree = _parser.convertReportToTree(incomeStr);
 
     if(tree == NULL)
     {
@@ -892,34 +902,9 @@ EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
     ep._year() = year;
     ep._quarter() = quarter;
     ep._source() = string("edgar.com");
-    parser.parseIncomeTree(tree, ep);
+    _parser.parseIncomeTree(tree, ep);
+    postParseEarningsFix( stock, ep);
 
-    if (ep._shares() == "")
-        parser.getNumSharesFromCoverReport( cover_report, ep );
-
-    if ( (withinPercent(ep._eps(),0.01,0.0)) &&
-         (ep._shares() != "" ) &&
-         (ep._net_income() != "") )
-    {
-        long income = stol(ep._net_income());
-        long shares = stol(ep._shares());
-
-        double eps = (double)income/shares;
-        ep._eps() = eps;
-
-        O_Note note;
-        note._stock_id() = stock._id();
-        note._year() = ep._year();
-        note._pertains_to() = EnumNotePERTAINS_TO::INCOME_REP;
-        note._note() = "QUARTER: " + to_string(quarter) +" |EPS calculated using shares and income";
-        note.insert();
-        LOG_INFO << "Calculated eps to be "<< to_string(ep._eps());
-    }
-
-    addEarningsRecordToDB( stock, ep);
-
-    // for testing
-    _ep = ep;
 }
 
 
