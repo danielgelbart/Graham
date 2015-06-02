@@ -88,9 +88,12 @@ Test::runSingleYearTest(TestResults& tResults)
     LOG_INFO << "\n --- Running runSingelYearTest() ---\n";
     string testName("Test-Single year 10K retrieval: ");
 
+setTestDB();
+    string ibmstr("IBM");
     T_Stock ts;
-    T_Ep te;
-    O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
+    auto ss = ts.select( ts._ticker() == ibmstr);
+    O_Stock stock = ss.front();
+T_Ep te;
 
     tResults.setStockTickerName( stock._ticker() );
     // extract to DB

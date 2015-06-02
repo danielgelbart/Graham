@@ -87,14 +87,34 @@ XmlElement::printXmlTree(size_t depth)
         (*it)->printXmlTree( depth+1);
 }
 
+tagIterator::tagIterator(XmlElement* node, string start, string tag_name):_i(0){
+    _start = start;
+    _tag_name = tag_name;
+    if(node == NULL){
+        _node = node;
+    }else{
+        if( node->_tagName == start){
+            _node = node;
+        }else{
+            for( auto it = node->_children.begin() ;
+                 it!= node->_children.end(); ++it )
+                if( (*it)->_tagName == start)
+                {
+                    _node = *it;
+                    break;
+                }
+            } // else2
+        }   // else1
+}
+
 XmlElement*
-trIterator::nextTr()
+tagIterator::nextTag()
 {
     size_t num_children = _node->_children.size();
     if ( _i >= num_children )
         return NULL;
 
-    while ( _node->_children[_i]->_tagName != "tr")
+    while ( _node->_children[_i]->_tagName != _tag_name)
     {
         _i = _i + 1;
         if ( _i >= num_children )
@@ -103,14 +123,17 @@ trIterator::nextTr()
     _i = _i + 1;
     return _node->_children[_i-1];
 }
+
 XmlElement*
-tdIterator::at(size_t i)
+tagIterator::at(size_t i)
 {
     if (_node == NULL)
         LOG_ERROR << "node is NULL when calling at()";
+
     size_t num_children = _node->_children.size();
     if ( i >= num_children )
         return NULL;
+
     // iterate over children
     // advance counter only if text!=""
     regex blank_pattern("\\s:\\s\\[\\d\\]|\\s*");
@@ -258,9 +281,23 @@ find_columns_range(XmlElement* tree, bool annual, size_t* first, size_t* last)
     vector<XmlElement*>* elements = new vector<XmlElement*>;
     string tagName("tr");
     tree->getNodes(tagName, 2, elements);
-    //iterate over th elements
-    (*elements)[0]
 
+    tagIterator thIt((*elements)[0], string("tr"), string("th"));
+    XmlElement* thp;
+    //size_t months = 3;
+    regex months_pattern("\\d+ Months Ended", regex::icase);
+    while( (thp = thIt.nextTag() ) != NULL )
+    {
+        string th_text = thp->text();
+        if(regex_search( th_text, months_pattern))
+            ;// count months
+
+        // matches 3 months ended
+        //
+    }
+
+    // now we know total num of columns,
+    // AND where start and end range are
     return true;
 }
 
@@ -831,7 +868,7 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
     // else continue
 
     /* TODO - try to only include "3 months ended" columsn for quarter if quarter > 0
-    /*                        amd "12 months ended" for annual, if quarter == 0
+                            amd "12 months ended" for annual, if quarter == 0
     Each title has 2 tr:
     1) with multiple th:
        with text rowspan=2

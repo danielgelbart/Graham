@@ -44,62 +44,32 @@ public: //members
     string              _text;
 }; // end class XmlElement
 
-class trIterator {
-public:
-    trIterator(XmlElement* node): _i(0)
-        {
-            if(node == NULL){
-                _node = node;
-            }else{
-                string table("table");
-                if( node->_tagName == table ){
-                    _node = node;
-                }else{
-                    for( auto it = node->_children.begin() ; 
-                         it!= node->_children.end(); ++it )
-                        if( (*it)->_tagName == table)
-                        {
-                            _node = *it;
-                            break;
-                        }
-                } // else2
-            }   // else1
-        } // C-tor      
-    
-    XmlElement* nextTr();
-    void resetToStart(){ _i = 0; }
 
-private:
-    //members   
+
+class tagIterator {
+public:
+    tagIterator(XmlElement* node, string start, string tag_name);
+    XmlElement* at(size_t i);
+    XmlElement* nextTag();
+    void resetToStart(){ _i = 0; }
+protected:
+    //members
     XmlElement* _node;
+    string _start;
+    string _tag_name;
     size_t _i;
+}; // class td iterator
+
+// the following two classes can be removed, just need to change the code that calls them explicitly
+class trIterator : public tagIterator {
+public:
+    trIterator(XmlElement* node): tagIterator(node,string("table"), string("tr")){}
+    XmlElement* nextTr() { return tagIterator::nextTag(); }
 }; // class iterator
 
-class tdIterator {
+class tdIterator : public tagIterator{
 public:
-    tdIterator(XmlElement* node){
-        if(node == NULL){
-            _node = node;
-        }else{
-            string tr("tr");
-            if( node->_tagName == tr ){
-                _node = node;
-            }else{
-                for( auto it = node->_children.begin() ; 
-                     it!= node->_children.end(); ++it )
-                    if( (*it)->_tagName == tr)
-                    {
-                        _node = *it;
-                        break;
-                    }
-                } // else2
-            }   // else1
-        } // C-tor      
-    XmlElement* at(size_t i);
-    XmlElement* nextTd();
-private:
-    //members   
-    XmlElement* _node;
+    tdIterator(XmlElement* node) : tagIterator(node, string("tr"), string("td")){}
 }; // class td iterator
 
 class Parser {
