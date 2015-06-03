@@ -88,12 +88,9 @@ Test::runSingleYearTest(TestResults& tResults)
     LOG_INFO << "\n --- Running runSingelYearTest() ---\n";
     string testName("Test-Single year 10K retrieval: ");
 
-setTestDB();
-    string ibmstr("IBM");
     T_Stock ts;
-    auto ss = ts.select( ts._ticker() == ibmstr);
-    O_Stock stock = ss.front();
-T_Ep te;
+    O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
+    T_Ep te;
 
     tResults.setStockTickerName( stock._ticker() );
     // extract to DB
@@ -586,12 +583,13 @@ Test::runSingleQarterTest(TestResults& tResults)
     LOG_INFO << "\n --- Running runSingleQarterTest() ---\n";
     string testName("Test-Single Quarter 10Q retrieval: ");
 
-    LOG_INFO << "single quarter test under restructuring\n";
-    return "";
+    //LOG_INFO << "single quarter test under restructuring\n";
+    //return "";
 
     T_Stock ts;
     T_Ep te;
     O_Stock stock = ts.select( ts._ticker() == string("CVX")).front();
+    tResults.setStockTickerName( stock._ticker() );
 
     string filing = getMockFromDisk("CVX_2014_1stQ.txt");
     if ( filing == "")
@@ -599,10 +597,20 @@ Test::runSingleQarterTest(TestResults& tResults)
         tResults.addFailure(testName + "Could not load mock 10q for testing");
         return tResults.getResultsSummary();
     }
+    //cout << "Got filing " << filing.substr(0,300) << endl;
     EdgarData edgar;
     Acn acn( string("0000093410-14-000024"), date(2014,May,2), 1 );
-    string cover_rep_mok = "";
-    edgar.addSingleQuarterIncomeStatmentToDB(filing,stock,acn._report_date.year(),acn._quarter,cover_rep_mok );
+    acn._year = 2014;
+    //string cover_rep_mok = "";
+
+    //string page = filing;
+
+    Parser parser(stock);
+
+    string cover_rep = parser.get_report_from_complete_filing(filing,ReportType::COVER);
+    //check_report_year_and_date(cover_rep, *it);
+    string income_rep = parser.get_report_from_complete_filing(filing,ReportType::INCOME);
+    edgar.addSingleQuarterIncomeStatmentToDB( income_rep, stock, acn._year, acn._quarter, cover_rep);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() &&
@@ -715,7 +723,7 @@ Test::run_all()
     TestResults testRes;
 
     // test single year
-    runSingleYearTest(testRes);
+  //  runSingleYearTest(testRes);
     runSingleQarterTest(testRes);
 //    runFourthQarterTest(testRes);
 

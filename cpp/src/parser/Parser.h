@@ -146,7 +146,7 @@ private:
     bool extractBookValue(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, string& units);
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;
-    size_t _col_num;
+    int _col_num;
 };
 
 #endif //PARSER

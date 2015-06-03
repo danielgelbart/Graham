@@ -269,15 +269,15 @@ get_title_text(XmlElement* tree)
 }
 
 /*
-Each title has 2 tr:
-1) with multiple th:
-   with text rowspan=2
-   ( X months ended + colspan
-2) the dates
+Retruns the range of columns that span the title "3 months ended"
+first column is number 0
+Range is inclusive: (1 - 5) includes columns 1 and 5.
 */
 bool
-find_columns_range(XmlElement* tree, bool annual, size_t* first, size_t* last)
+find_columns_range(XmlElement* tree, size_t* start_of_range, size_t* end_of_range)
 {
+
+    LOG_INFO << "Going to find range of collumns that are marked as '3 months ending' (range)";
     vector<XmlElement*>* elements = new vector<XmlElement*>;
     string tagName("tr");
     tree->getNodes(tagName, 2, elements);
@@ -285,20 +285,37 @@ find_columns_range(XmlElement* tree, bool annual, size_t* first, size_t* last)
     tagIterator thIt((*elements)[0], string("tr"), string("th"));
     XmlElement* thp;
     //size_t months = 3;
-    regex months_pattern("\\d+ Months Ended", regex::icase);
+    size_t number_of_cols = 0;
+    bool in_range(false);
+    regex months_pattern("(3|three) Months Ended", regex::icase);
     while( (thp = thIt.nextTag() ) != NULL )
     {
         string th_text = thp->text();
+        string attrs = thp->attrText();
+
+       // LOG_INFO << " ATtributes are| "<< attrs << " Text is| " << th_text << "\n";
         if(regex_search( th_text, months_pattern))
-            ;// count months
+            in_range = true;           ;// count months
 
-        // matches 3 months ended
-        //
+        boost::smatch match;
+        regex span_pattern("colspan = (\\d)");
+        if (boost::regex_search(attrs, match, span_pattern) )
+        {
+            //LOG_INFO << "Found colspan match mathc[0] is| "<< match[0] << " and match[1] is "<< match[1]<< "\n";
+            string val = match[1];
+            size_t range_span = stoi(val);
+            if (in_range){
+                *start_of_range = number_of_cols;
+                *end_of_range = number_of_cols + range_span - 1;
+                LOG_INFO << "FOUND RANGE! it starts at col "<< *start_of_range << " and ends at " << *end_of_range;
+                return true;
+            }
+            number_of_cols += range_span;
+        }
     }
-
-    // now we know total num of columns,
-    // AND where start and end range are
-    return true;
+    LOG_INFO << "Did not succeed in locating range :( ";
+    // Did not succeed in finding the range :(
+    return false;
 }
 
 XmlTokenType
@@ -861,20 +878,11 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
 // calculate relavent end date from - stock.fye, ep.year, ep.quarter
     date end_date = calculateEndDate(_stock._fiscal_year_end(), year, quarter);
 
-// iterate over dates in text
-    // if found match
-    // save column num
-    // if next column date exactly 1 year before, exit 
-    // else continue
+    size_t* col_range_start = new size_t(1), *col_range_end = new size_t(1);
+    bool found_col_range(false);
+    if (quarter > 0)
+        found_col_range = find_columns_range(tree, col_range_start, col_range_end);
 
-    /* TODO - try to only include "3 months ended" columsn for quarter if quarter > 0
-                            amd "12 months ended" for annual, if quarter == 0
-    Each title has 2 tr:
-    1) with multiple th:
-       with text rowspan=2
-       ( X months ended + colspan
-    2) the dates
-    */
     sregex_iterator mit(titleText.begin(), titleText.end(), date_pattern);
     sregex_iterator mEnd;
     size_t col_num = 1;
@@ -884,19 +892,29 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
         ++i;
         string dateStr = (*mit)[0].str();
         date rep_date = convertFromDocString(dateStr);
-       // cout << "\n Examining date: "<< to_simple_string(rep_date)<<endl;
+        // cout << "\n Examining date: "<< to_simple_string(rep_date)<<endl;
         if (foundDate)
         {
+            if ( found_col_range && (i > *col_range_end) ){
+                LOG_ERROR << " Still searching for column to extract, but reached end of found range"
+                             << ". col_num is set as " << col_num;
+                return col_num;
+            }
+
             if ( ( rep_date == (end_date - years(1)) ) &&
                  ( col_num == i-1 ) )
             {
+                if ( found_col_range && (col_num < *col_range_start) ){
+                    LOG_INFO << " Found column for correct date, but it is not in the range found for time period";
+                    continue;
+                }
                 LOG_INFO<<"Setting column index to "<<to_string(col_num);
                 break;
             }
         }
         if (rep_date == end_date)
         {
-        //    cout << "^ This date matches the requested report date."<<endl;
+            LOG_INFO << "Date matches the requested report date, col num is "<< i ;
             col_num = i;
             foundDate = true;
         }
@@ -1617,6 +1635,9 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
 //LOG_INFO<<"Share units are currently "<<nsrUnits<<" going to parse table...";
   
     _col_num = findColumnToExtract(tree, earnings_data._year(), earnings_data._quarter());
+    if (_col_num < 0)
+        return;
+
     LOG_INFO << "Extractino col num is " << _col_num;
 
     foundRev = extractTotalRevenue(tree, earnings_data, units);
@@ -2265,6 +2286,8 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
     }
 
     _col_num = findColumnToExtract(tree, balance_data._year(), balance_data._quarter() );
+    if(_col_num < 0)
+        return;
     LOG_INFO << "Extractino col num for balance sheets is " << _col_num;
 
 
