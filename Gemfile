@@ -40,5 +40,7 @@ end
 
 gem 'jquery-rails'
 
+# to get pages
+gem 'selenium-webdriver', '~> 2.45.0'
 
 

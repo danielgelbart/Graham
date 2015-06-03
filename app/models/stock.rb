@@ -9,7 +9,6 @@
 #  updated_at         :datetime
 #  dividends_per_year :integer(4)      default(4)
 #  latest_price       :decimal(12, 6)
-#  market_cap         :string(255)
 #  ttm_div            :decimal(10, 3)
 #  yield              :decimal(6, 3)
 #  listed             :boolean(1)      default(TRUE)
@@ -19,6 +18,7 @@
 #  fiscal_year_end    :string(255)     default("")
 #  company_type       :enum([:COMPANY, default(:COMPANY)
 #  country            :string(255)
+#  fy_same_as_ed      :boolean(1)      default(TRUE)
 #
 
 #enum EnumStockCOMPANY_TYPE { :COMPANY, :ROYALTY_TRUST, :REIT, :ASSET_MNGMT, :FINANCE, :PARTNERSHIP, :PIPELINE, :FOREIGN, :HOLDING, :INDUSTRY, :TECH, :PHARMA, :RETAIL ], :default => :COMPANY
@@ -221,8 +221,7 @@ class Stock < ActiveRecord::Base
   #/ Data retreval methods ----------------------------------------------------
 
   def price
-    @price ||= update_price
-    @price.nil? ? latest_price : @price
+    @price ||= latest_price
   end
 
   def update_price
@@ -231,6 +230,11 @@ class Stock < ActiveRecord::Base
       update_attributes!(:latest_price => p)
       @price = p
     end
+    price
+  end
+
+  def update_price_if(num_days)
+    update_price if updated_at < num_days.days.ago
     price
   end
 
@@ -367,6 +371,10 @@ class Stock < ActiveRecord::Base
 
   def shares_float
     newest_earnings_record.shares.to_i
+  end
+
+  def market_cap
+    shares_float * price
   end
 
   # Gets most recent earnings, regardles if updated

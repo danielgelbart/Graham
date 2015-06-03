@@ -1,6 +1,6 @@
 <h1>New search</h1>
 
-<%= form_for(@search) do |f| %>
+<%= form_for(@search ) do |f| %>
   <% @search.errors.full_messages.each do |msg| %>
     <p><%= msg %></p>
   <% end %>
@@ -63,6 +63,21 @@
     <%= f.label :defensive_price %><br />
     <%= f.check_box :defensive_price %>
   </p>
+
+  <p>
+    <%= f.label :sort_results_by %><br />
+    <%= f.radio_button :sort_by, "pe10", :checked => true %>
+    <%= f.label :sort, "pe10" %>
+    <%= f.radio_button :sort_by, "price_to_limit" %>
+    <%= f.label :sort, "price_to_limit" %>
+    <%= f.radio_button :sort_by, "price_to_book" %>
+    <%= f.label :sort, "price_to_book" %>
+    <%= f.radio_button :sort_by, "market_cap" %>
+    <%= f.label :sort, "market_cap" %>
+    <%= f.radio_button :sort_by, "pe" %>
+    <%= f.label :sort, "pe" %>
+  </p>
+
 
   <p>
     <%= f.submit 'Create' %>

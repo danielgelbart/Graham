@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
   # GET /searches/1.xml
   def show
     @search = Search.find(params[:id])
-    
+
     @stocks = @search.stocks(params[:sort])
 
     respond_to do |format|
@@ -43,6 +43,7 @@ class SearchesController < ApplicationController
   # POST /searches.xml
   def create
     @search = Search.new(params[:search])
+    @params = params
 
     respond_to do |format|
       if @search.save

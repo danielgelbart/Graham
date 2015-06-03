@@ -63,6 +63,7 @@ class StocksController < ApplicationController
       @stock = Stock.all.select{ |s| s.to_param == id }.first if @stock.nil?
     end
 
+    @stock.update_price
     # realy all that is needed for constructing chart
     @earnings = @stock.annual_eps_oldest_first
 
