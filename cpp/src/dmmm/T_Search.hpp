@@ -187,11 +187,24 @@ public:
         }
         std::string _field;
         typedef T_Search::Condition ConditionType;
-        typedef F_Fixnum::Base ComparerType;
+        typedef F_String::Base ComparerType;
     };
 
     static E_market_cap _market_cap(){ 
         return E_market_cap();
+    }
+    struct E_sort_by{
+        E_sort_by() 
+        {  
+            _field = "searches.sort_by";
+        }
+        std::string _field;
+        typedef T_Search::Condition ConditionType;
+        typedef F_String::Base ComparerType;
+    };
+
+    static E_sort_by _sort_by(){ 
+        return E_sort_by();
     }
     
 
@@ -212,6 +225,7 @@ public:
         ret.push_back("defensive_price");
         ret.push_back("big_enough");
         ret.push_back("market_cap");
+        ret.push_back("sort_by");
         return ret;
     }
 
@@ -251,7 +265,9 @@ public:
             ret[i]._f_big_enough._base =
                 UTILS::fromString<F_Object::Base>(res[i]["big_enough"]);
             ret[i]._f_market_cap._base =
-                UTILS::fromString<F_Fixnum::Base>(res[i]["market_cap"]);
+                UTILS::fromString<F_String::Base>(res[i]["market_cap"]);
+            ret[i]._f_sort_by._base =
+                UTILS::fromString<F_String::Base>(res[i]["sort_by"]);
         }
         return ret;
     }
@@ -349,6 +365,9 @@ public:
         
 
         fields.push_back(std::string("market_cap"));
+        
+
+        fields.push_back(std::string("sort_by"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Search& r = *begin;
@@ -377,6 +396,8 @@ public:
             row.push_back(toSQLString(r._big_enough()));
             
             row.push_back(toSQLString(r._market_cap()));
+            
+            row.push_back(toSQLString(r._sort_by()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("searches",
@@ -465,6 +486,12 @@ public:
             if (it->_f_market_cap._dirty){
                 fields.push_back(std::string("market_cap"));
                 row.push_back(toSQLString(it->_market_cap()));
+            }
+            
+
+            if (it->_f_sort_by._dirty){
+                fields.push_back(std::string("sort_by"));
+                row.push_back(toSQLString(it->_sort_by()));
             }
             fields2Rows[fields].push_back(row);
 	}

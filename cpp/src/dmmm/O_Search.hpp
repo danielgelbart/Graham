@@ -107,12 +107,19 @@ O_Search(const I_Search& id)
         _f_big_enough._dirty = true; 
         return _f_big_enough._base; 
     }
-    const F_Fixnum::Base& _market_cap() const { 
+    const F_String::Base& _market_cap() const { 
         return _f_market_cap._base; 
     }
-    F_Fixnum::Base& _market_cap() { 
+    F_String::Base& _market_cap() { 
         _f_market_cap._dirty = true; 
         return _f_market_cap._base; 
+    }
+    const F_String::Base& _sort_by() const { 
+        return _f_sort_by._base; 
+    }
+    F_String::Base& _sort_by() { 
+        _f_sort_by._dirty = true; 
+        return _f_sort_by._base; 
     }
 
     bool update(){
@@ -156,6 +163,9 @@ O_Search(const I_Search& id)
         if (_f_market_cap._dirty)
             field2Val["market_cap"] = 
                 toSQLString(_f_market_cap._base);
+        if (_f_sort_by._dirty)
+            field2Val["sort_by"] = 
+                toSQLString(_f_sort_by._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("searches", 
@@ -174,6 +184,7 @@ O_Search(const I_Search& id)
             _f_defensive_price._dirty = false;
             _f_big_enough._dirty = false;
             _f_market_cap._dirty = false;
+            _f_sort_by._dirty = false;
             return true;
         }
         else
@@ -221,6 +232,9 @@ O_Search(const I_Search& id)
         if (_f_market_cap._dirty)
             field2Val["market_cap"] = 
                 toSQLString(_f_market_cap._base);
+        if (_f_sort_by._dirty)
+            field2Val["sort_by"] = 
+                toSQLString(_f_sort_by._base);
 
         
         if (DBFace::instance()->
@@ -240,6 +254,7 @@ O_Search(const I_Search& id)
             _f_defensive_price._dirty = false;
             _f_big_enough._dirty = false;
             _f_market_cap._dirty = false;
+            _f_sort_by._dirty = false;
             return true;
         }
         else
@@ -259,7 +274,8 @@ private:
     F_Object _f_earning_growth;
     F_Object _f_defensive_price;
     F_Object _f_big_enough;
-    F_Fixnum _f_market_cap;
+    F_String _f_market_cap;
+    F_String _f_sort_by;
 
     friend class T_Search;
 };

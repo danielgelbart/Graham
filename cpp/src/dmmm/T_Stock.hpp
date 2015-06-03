@@ -115,19 +115,6 @@ public:
     static E_latest_price _latest_price(){ 
         return E_latest_price();
     }
-    struct E_market_cap{
-        E_market_cap() 
-        {  
-            _field = "stocks.market_cap";
-        }
-        std::string _field;
-        typedef T_Stock::Condition ConditionType;
-        typedef F_String::Base ComparerType;
-    };
-
-    static E_market_cap _market_cap(){ 
-        return E_market_cap();
-    }
     struct E_ttm_div{
         E_ttm_div() 
         {  
@@ -271,7 +258,6 @@ public:
         ret.push_back("updated_at");
         ret.push_back("dividends_per_year");
         ret.push_back("latest_price");
-        ret.push_back("market_cap");
         ret.push_back("ttm_div");
         ret.push_back("yield");
         ret.push_back("listed");
@@ -310,8 +296,6 @@ public:
                 UTILS::fromString<F_Fixnum::Base>(res[i]["dividends_per_year"]);
             ret[i]._f_latest_price._base =
                 UTILS::fromString<F_BigDecimal::Base>(res[i]["latest_price"]);
-            ret[i]._f_market_cap._base =
-                UTILS::fromString<F_String::Base>(res[i]["market_cap"]);
             ret[i]._f_ttm_div._base =
                 UTILS::fromString<F_BigDecimal::Base>(res[i]["ttm_div"]);
             ret[i]._f_yield._base =
@@ -413,9 +397,6 @@ public:
         fields.push_back(std::string("latest_price"));
         
 
-        fields.push_back(std::string("market_cap"));
-        
-
         fields.push_back(std::string("ttm_div"));
         
 
@@ -460,8 +441,6 @@ public:
             row.push_back(toSQLString(r._dividends_per_year()));
             
             row.push_back(toSQLString(r._latest_price()));
-            
-            row.push_back(toSQLString(r._market_cap()));
             
             row.push_back(toSQLString(r._ttm_div()));
             
@@ -534,12 +513,6 @@ public:
             if (it->_f_latest_price._dirty){
                 fields.push_back(std::string("latest_price"));
                 row.push_back(toSQLString(it->_latest_price()));
-            }
-            
-
-            if (it->_f_market_cap._dirty){
-                fields.push_back(std::string("market_cap"));
-                row.push_back(toSQLString(it->_market_cap()));
             }
             
 

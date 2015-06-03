@@ -138,13 +138,6 @@ O_Stock(const I_Stock& id)
         _f_latest_price._dirty = true; 
         return _f_latest_price._base; 
     }
-    const F_String::Base& _market_cap() const { 
-        return _f_market_cap._base; 
-    }
-    F_String::Base& _market_cap() { 
-        _f_market_cap._dirty = true; 
-        return _f_market_cap._base; 
-    }
     const F_BigDecimal::Base& _ttm_div() const { 
         return _f_ttm_div._base; 
     }
@@ -239,9 +232,6 @@ O_Stock(const I_Stock& id)
         if (_f_latest_price._dirty)
             field2Val["latest_price"] = 
                 toSQLString(_f_latest_price._base);
-        if (_f_market_cap._dirty)
-            field2Val["market_cap"] = 
-                toSQLString(_f_market_cap._base);
         if (_f_ttm_div._dirty)
             field2Val["ttm_div"] = 
                 toSQLString(_f_ttm_div._base);
@@ -284,7 +274,6 @@ O_Stock(const I_Stock& id)
             _f_updated_at._dirty = false;
             _f_dividends_per_year._dirty = false;
             _f_latest_price._dirty = false;
-            _f_market_cap._dirty = false;
             _f_ttm_div._dirty = false;
             _f_yield._dirty = false;
             _f_listed._dirty = false;
@@ -324,9 +313,6 @@ O_Stock(const I_Stock& id)
         if (_f_latest_price._dirty)
             field2Val["latest_price"] = 
                 toSQLString(_f_latest_price._base);
-        if (_f_market_cap._dirty)
-            field2Val["market_cap"] = 
-                toSQLString(_f_market_cap._base);
         if (_f_ttm_div._dirty)
             field2Val["ttm_div"] = 
                 toSQLString(_f_ttm_div._base);
@@ -370,7 +356,6 @@ O_Stock(const I_Stock& id)
             _f_updated_at._dirty = false;
             _f_dividends_per_year._dirty = false;
             _f_latest_price._dirty = false;
-            _f_market_cap._dirty = false;
             _f_ttm_div._dirty = false;
             _f_yield._dirty = false;
             _f_listed._dirty = false;
@@ -395,7 +380,6 @@ private:
     F_Time _f_updated_at;
     F_Fixnum _f_dividends_per_year;
     F_BigDecimal _f_latest_price;
-    F_String _f_market_cap;
     F_BigDecimal _f_ttm_div;
     F_BigDecimal _f_yield;
     F_Object _f_listed;
