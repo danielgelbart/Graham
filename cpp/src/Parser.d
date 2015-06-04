@@ -28,6 +28,6 @@ Parser.o Parser.d : parser/Parser.cpp include/Utils.hpp include/../utils/Utils.h
  dmmm/dmmm_identifiers.hpp dmmm/dmmm_fields.hpp dmmm/dmmm_comparators.hpp \
  dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp dmmm/T_Note.hpp dmmm/O_Note.hpp \
  dmmm/T_Ep.hpp dmmm/O_Ep.hpp dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp \
- dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp parser/Parser.h \
- dmmm/O_Ep.hpp dmmm/O_Stock.hpp include/info.h \
- include/../financials/Info.h utils/Dates.hpp
+ dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp dmmm/T_Split.hpp \
+ dmmm/O_Split.hpp parser/Parser.h dmmm/O_Ep.hpp dmmm/O_Stock.hpp \
+ include/info.h include/../financials/Info.h utils/Dates.hpp

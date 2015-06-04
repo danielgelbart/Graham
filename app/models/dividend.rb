@@ -14,7 +14,14 @@
 class Dividend < ActiveRecord::Base
   belongs_to :stock
 
-  validates_uniqueness_of :date, :scope => :stock_id
+  validates :stock, presence: true
+  validates :ex_date, uniqueness: { scope: :stock_id }
+  validates :pay_date, uniqueness: { scope: :stock_id }
+#  validates_uniqueness_of :date, :scope => :stock_id
+
+  def date
+    pay_date.nil? ? ex_date : pay_date
+  end
 
 end
 

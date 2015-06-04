@@ -57,18 +57,18 @@ public:
     static E_stock_id _stock_id(){ 
         return E_stock_id();
     }
-    struct E_date{
-        E_date() 
+    struct E_ex_date{
+        E_ex_date() 
         {  
-            _field = "dividends.date";
+            _field = "dividends.ex_date";
         }
         std::string _field;
         typedef T_Dividend::Condition ConditionType;
         typedef F_Date::Base ComparerType;
     };
 
-    static E_date _date(){ 
-        return E_date();
+    static E_ex_date _ex_date(){ 
+        return E_ex_date();
     }
     struct E_amount{
         E_amount() 
@@ -122,6 +122,19 @@ public:
     static E_updated_at _updated_at(){ 
         return E_updated_at();
     }
+    struct E_pay_date{
+        E_pay_date() 
+        {  
+            _field = "dividends.pay_date";
+        }
+        std::string _field;
+        typedef T_Dividend::Condition ConditionType;
+        typedef F_Date::Base ComparerType;
+    };
+
+    static E_pay_date _pay_date(){ 
+        return E_pay_date();
+    }
     
 
     std::vector<std::string> getFields()
@@ -130,11 +143,12 @@ public:
         ret.clear();
         ret.push_back("id");
         ret.push_back("stock_id");
-        ret.push_back("date");
+        ret.push_back("ex_date");
         ret.push_back("amount");
         ret.push_back("source");
         ret.push_back("created_at");
         ret.push_back("updated_at");
+        ret.push_back("pay_date");
         return ret;
     }
 
@@ -153,8 +167,8 @@ public:
                 UTILS::fromString<Field<I_Dividend>::Base>(res[i]["id"]);
             ret[i]._f_stock_id._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["stock_id"]);
-            ret[i]._f_date._base =
-                UTILS::fromString<F_Date::Base>(res[i]["date"]);
+            ret[i]._f_ex_date._base =
+                UTILS::fromString<F_Date::Base>(res[i]["ex_date"]);
             ret[i]._f_amount._base =
                 UTILS::fromString<F_BigDecimal::Base>(res[i]["amount"]);
             ret[i]._f_source._base =
@@ -163,6 +177,8 @@ public:
                 UTILS::fromString<F_Time::Base>(res[i]["created_at"]);
             ret[i]._f_updated_at._base =
                 UTILS::fromString<F_Time::Base>(res[i]["updated_at"]);
+            ret[i]._f_pay_date._base =
+                UTILS::fromString<F_Date::Base>(res[i]["pay_date"]);
         }
         return ret;
     }
@@ -229,7 +245,7 @@ public:
         fields.push_back(std::string("stock_id"));
         
 
-        fields.push_back(std::string("date"));
+        fields.push_back(std::string("ex_date"));
         
 
         fields.push_back(std::string("amount"));
@@ -242,6 +258,9 @@ public:
         
 
         fields.push_back(std::string("updated_at"));
+        
+
+        fields.push_back(std::string("pay_date"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Dividend& r = *begin;
@@ -249,7 +268,7 @@ public:
                         
             row.push_back(toSQLString(r._stock_id()));
             
-            row.push_back(toSQLString(r._date()));
+            row.push_back(toSQLString(r._ex_date()));
             
             row.push_back(toSQLString(r._amount()));
             
@@ -258,6 +277,8 @@ public:
             row.push_back(toSQLString(r._created_at()));
             
             row.push_back(toSQLString(r._updated_at()));
+            
+            row.push_back(toSQLString(r._pay_date()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("dividends",
@@ -283,9 +304,9 @@ public:
             }
             
 
-            if (it->_f_date._dirty){
-                fields.push_back(std::string("date"));
-                row.push_back(toSQLString(it->_date()));
+            if (it->_f_ex_date._dirty){
+                fields.push_back(std::string("ex_date"));
+                row.push_back(toSQLString(it->_ex_date()));
             }
             
 
@@ -310,6 +331,12 @@ public:
             if (it->_f_updated_at._dirty){
                 fields.push_back(std::string("updated_at"));
                 row.push_back(toSQLString(it->_updated_at()));
+            }
+            
+
+            if (it->_f_pay_date._dirty){
+                fields.push_back(std::string("pay_date"));
+                row.push_back(toSQLString(it->_pay_date()));
             }
             fields2Rows[fields].push_back(row);
 	}

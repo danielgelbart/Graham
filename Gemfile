@@ -6,6 +6,7 @@ gem 'rails', '3.2.0'
 gem 'mysql2'
 #gem "mysql"
 
+gem 'i18n', ">0.6.8"
 gem 'pg'
 gem "coderay", "1.0.5"
 gem 'haml-rails'

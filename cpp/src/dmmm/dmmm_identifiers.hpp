@@ -16,6 +16,8 @@ class DummyO_Numshare;
 typedef ID::Id<DummyO_Numshare> I_Numshare;
 class DummyO_Search;
 typedef ID::Id<DummyO_Search> I_Search;
+class DummyO_Split;
+typedef ID::Id<DummyO_Split> I_Split;
 class DummyO_Stock;
 typedef ID::Id<DummyO_Stock> I_Stock;
 class DummyO_User;

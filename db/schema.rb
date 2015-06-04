@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150603123956) do
+ActiveRecord::Schema.define(:version => 20150604111920) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -32,12 +32,17 @@ ActiveRecord::Schema.define(:version => 20150603123956) do
 
   create_table "dividends", :force => true do |t|
     t.integer  "stock_id"
-    t.date     "date"
+    t.date     "ex_date"
     t.decimal  "amount",     :precision => 12, :scale => 8
     t.string   "source"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "pay_date"
   end
+
+  add_index "dividends", ["ex_date"], :name => "index_dividends_on_ex_date"
+  add_index "dividends", ["pay_date"], :name => "index_dividends_on_pay_date"
+  add_index "dividends", ["stock_id"], :name => "index_dividends_on_stock_id"
 
   create_table "eps", :force => true do |t|
     t.integer  "year"
@@ -86,6 +91,18 @@ ActiveRecord::Schema.define(:version => 20150603123956) do
     t.string   "market_cap"
     t.string   "sort_by"
   end
+
+  create_table "splits", :force => true do |t|
+    t.integer  "stock_id"
+    t.date     "date"
+    t.integer  "base"
+    t.integer  "into"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "splits", ["date"], :name => "index_splits_on_date"
+  add_index "splits", ["stock_id"], :name => "index_splits_on_stock_id"
 
   create_table "stocks", :force => true do |t|
     t.string   "name"

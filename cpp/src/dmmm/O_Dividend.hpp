@@ -40,12 +40,12 @@ O_Dividend(const I_Dividend& id)
         _f_stock_id._dirty = true; 
         return _f_stock_id._base; 
     }
-    const F_Date::Base& _date() const { 
-        return _f_date._base; 
+    const F_Date::Base& _ex_date() const { 
+        return _f_ex_date._base; 
     }
-    F_Date::Base& _date() { 
-        _f_date._dirty = true; 
-        return _f_date._base; 
+    F_Date::Base& _ex_date() { 
+        _f_ex_date._dirty = true; 
+        return _f_ex_date._base; 
     }
     const F_BigDecimal::Base& _amount() const { 
         return _f_amount._base; 
@@ -75,6 +75,13 @@ O_Dividend(const I_Dividend& id)
         _f_updated_at._dirty = true; 
         return _f_updated_at._base; 
     }
+    const F_Date::Base& _pay_date() const { 
+        return _f_pay_date._base; 
+    }
+    F_Date::Base& _pay_date() { 
+        _f_pay_date._dirty = true; 
+        return _f_pay_date._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -84,9 +91,9 @@ O_Dividend(const I_Dividend& id)
         if (_f_stock_id._dirty)
             field2Val["stock_id"] = 
                 toSQLString(_f_stock_id._base);
-        if (_f_date._dirty)
-            field2Val["date"] = 
-                toSQLString(_f_date._base);
+        if (_f_ex_date._dirty)
+            field2Val["ex_date"] = 
+                toSQLString(_f_ex_date._base);
         if (_f_amount._dirty)
             field2Val["amount"] = 
                 toSQLString(_f_amount._base);
@@ -99,6 +106,9 @@ O_Dividend(const I_Dividend& id)
 
         field2Val["updated_at"] = "NOW()";
 
+        if (_f_pay_date._dirty)
+            field2Val["pay_date"] = 
+                toSQLString(_f_pay_date._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("dividends", 
@@ -106,11 +116,12 @@ O_Dividend(const I_Dividend& id)
         {
             _f_id._dirty = false;
             _f_stock_id._dirty = false;
-            _f_date._dirty = false;
+            _f_ex_date._dirty = false;
             _f_amount._dirty = false;
             _f_source._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
+            _f_pay_date._dirty = false;
             return true;
         }
         else
@@ -125,9 +136,9 @@ O_Dividend(const I_Dividend& id)
         if (_f_stock_id._dirty)
             field2Val["stock_id"] = 
                 toSQLString(_f_stock_id._base);
-        if (_f_date._dirty)
-            field2Val["date"] = 
-                toSQLString(_f_date._base);
+        if (_f_ex_date._dirty)
+            field2Val["ex_date"] = 
+                toSQLString(_f_ex_date._base);
         if (_f_amount._dirty)
             field2Val["amount"] = 
                 toSQLString(_f_amount._base);
@@ -140,6 +151,9 @@ O_Dividend(const I_Dividend& id)
         if (_f_updated_at._dirty)
             field2Val["updated_at"] = 
                 toSQLString(_f_updated_at._base);
+        if (_f_pay_date._dirty)
+            field2Val["pay_date"] = 
+                toSQLString(_f_pay_date._base);
 
         
         if (DBFace::instance()->
@@ -148,11 +162,12 @@ O_Dividend(const I_Dividend& id)
         {
             _f_id._dirty = false;
             _f_stock_id._dirty = false;
-            _f_date._dirty = false;
+            _f_ex_date._dirty = false;
             _f_amount._dirty = false;
             _f_source._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
+            _f_pay_date._dirty = false;
             return true;
         }
         else
@@ -162,11 +177,12 @@ O_Dividend(const I_Dividend& id)
 private:
     Field<I_Dividend> _f_id;
     F_Fixnum _f_stock_id;
-    F_Date _f_date;
+    F_Date _f_ex_date;
     F_BigDecimal _f_amount;
     F_String _f_source;
     F_Time _f_created_at;
     F_Time _f_updated_at;
+    F_Date _f_pay_date;
 
     friend class T_Dividend;
 };
