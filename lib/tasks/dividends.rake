@@ -29,7 +29,8 @@ namespace :dividends do
 
   task :get_all => :environment do
 
-    ss = Stock.where( listed: true, mark: "0")
+ #   ss = Stock.where( listed: true, mark: "0")
+    ss = Stock.where(Stock.arel_table[:mark].not_eq("div-ok"))
 
     # go to that page
     driver = Selenium::WebDriver.for :firefox
@@ -71,19 +72,27 @@ namespace :dividends do
 
     puts " All divs for #{stock.ticker} are:"
     rows.each do |row|
+      next if row.css('td').empty?
 
+      next if row.css('td')[0].nil?
       amount = row.css('td')[0].text
       next if amount.empty?
 
       # Get Ex and PAY date of divs
-      pay_date = row.css('td')[4].text
+
+      next if row.css('td')[2].nil?
       ex_date = row.css('td')[2].text
-      next if pay_date.empty? # for example STO newest div
       next if ex_date.empty? # for example STO newest div
 
       # handle as dividend
       if amount.to_s[0] == '$'
+        # remove '$' sighn
         amount[0] = ''
+
+        next if row.css('td')[4].nil?
+        pay_date = row.css('td')[4].text
+        next if pay_date.empty? # for example STO newest div
+
         div = Dividend.where( stock_id: stock.id, ex_date: ex_date.to_date).first
         if div.nil?
           create_new_dividend_record( stock, ex_date, pay_date, amount)

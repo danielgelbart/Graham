@@ -73,6 +73,8 @@
     %th
       Yield
     %th
+      Market Cap
+    %th
       Price
     %th
       Price limit
@@ -93,6 +95,8 @@
           = link_to "Dividends", stock.dividend_url
         %td
           = stock.yield
+        %td
+          = stock.market_cap.to_i
         %td
           = stock.price
         %td

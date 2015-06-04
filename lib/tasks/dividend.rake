@@ -2,21 +2,20 @@
 # current source of data: www.dividend.com
 
 
-
 # Takes a stock ticker to get data for as an argument
-namespace :dividend do
+namespace :dividends do
   desc "Load all past dividends to database"
-  task :get_data, [:ticker] => :environment do |task, args|
+  task :get_div, [:ticker] => :environment do |task, args|
     require 'active_record'
     require 'nokogiri'
     require 'open-uri'
     ticker = args[:ticker]
     stock = Stock.find_by_ticker(ticker) || Stock.create(:ticker => ticker)
-    
+
     # before downloading, check if stock already marked
     mark = "mark5"
     return if stock.mark == mark
-    
+
     url = "http://www.nasdaq.com/symbol/#{ticker}/dividend-history"
 
     puts "\n Getting dividends for #{ticker}"
@@ -24,19 +23,19 @@ namespace :dividend do
       doc = Nokogiri::HTML(open(url))
     rescue
     else
-      # get table with id: table id="dividendhistoryGrid" 
+      # get table with id: table id="dividendhistoryGrid"
       # Better way to do this with css selectors?
       dividends = doc.xpath('//table[@id="dividendhistoryGrid"]/tr').map{ |row| row.xpath('.//td')}
       # Now, dividends[i] is a row
       # dividends[i].children[1] is date of div i
       # dividends[i].children[5] is amount of div i
-      
+
       #.map {|item| item.text.gsub!(/[\r|\n]/,"").strip} }
       # Get the right date format: Date.strptime("2/10/2012", '%m/%d/%Y')
-      
+
       #remove first row
       dividends.delete_at(0)
-      
+
       dividends.each do |d|
         div = Dividend.create(:stock_id => stock.id,
                             :date => Date.strptime( d[0].text.gsub!(/[\r|\n]/,"").strip , '%m/%d/%Y'),
@@ -45,18 +44,18 @@ namespace :dividend do
 
         puts "\n Added dividend record for #{ticker}: date - #{ div.date }, amount: #{div.amount.to_f}" if !div.id.nil?
       end
-      
+
       # Mark stock as handled:
       stock.update_attributes(:mark => mark)
-      
+
     end
   end
 end
 
 
-namespace :dividend do
+namespace :dividends do
   desc "Load all past dividends to database"
-  task :get_many => :environment do |task, args|
+  task :get_div_for_all => :environment do |task, args|
     file = File.open("sp500.txt","r")
     line = file.gets #throw away first line
     while (line = file.gets)
