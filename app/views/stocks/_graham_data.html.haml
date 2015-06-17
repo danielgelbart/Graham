@@ -1,54 +1,56 @@
-%table
-  %tr
-    %td
-      Sales greater than 500 mil?
-    %td
-      = "#{yes_no(@stock.big_enough?)}"
-  %tr
-    %td
-      Good balance ratios?
-    %td
+%ul.list-group
+  %li.list-group-item.row.list-group-item-info.bold
+    Graham financials
+  %li.list-group-item.row
+    %div.col-md-5
+      Big Enough?
+    %span.bold.col-md-2
+      = yes_no(@stock.big_enough?)
+  %li.list-group-item.row
+    %div.col-md-5
+      Good Balance Ratios?
+    %span.bold.col-md-2
       = "#{yes_no(@stock.financialy_strong?)}"
+    %div.col-md-5
       - if !@stock.has_currant_ratio
-        %td
-          = "**Using only total (not current) ratios"
-    %td
-      = link_to "Balance sheet",  "http://investing.money.msn.com/investments/stock-balance-sheet/?symbol=us%3A#{@stock.ticker}&stmtView=Ann"
-  - if @stock.bargain?
-    %tr
-      %td
-        = "At that ratio, #{@stock.ticker} is a bargain!"
-  %tr
-    %td
+        = "*Using TOTAL ratios."
+      link to  
+      = link_to "Balance sheet", "http://investing.money.msn.com/investments/stock-balance-sheet/?symbol=us%3A#{@stock.ticker}&stmtView=Ann"
+  %li.list-group-item.row
+    %div.col-md-5
       No earnings dificet?
-    %td
-      = "#{yes_no(@stock.no_earnings_deficit?)}, (YES means company has not had deficit in 10 years)"
-  %tr
-    %td
+    %span.bold.col-md-2
+      = "#{yes_no(@stock.no_earnings_deficit?)}"
+  %li.list-group-item.row
+    %div.col-md-5
       Dividend record 
-    %td
+    %span.bold.col-xs-2
       - div_ans = yes_no(!@stock.dividends.empty? && @stock.continous_dividend_record?)
       = div_ans
-      - if div_ans == "No"
-        ,         Currently paying dividends?
+    %div.col-md-5
+      - if div_ans.match(/No/)
+        Currently paying dividends?
         = yes_no( @stock.pays_dividends )
-    %td
+      link to
       = link_to "Dividends", @stock.dividend_url
-  %tr
-    %td
+  %li.list-group-item.row
+    %div.col-md-5
       Earnings growth
-    %td
-      = "#{yes_no(@stock.eps_growth?)}"
-  - if @stock.price_limit >= 0
-    %tr
-      %td
-        Cheap?
-      %td
+    %span.bold.col-md-2
+      = "#{yes_no(@stock.eps_growth?)}" 
+  %li.list-group-item.row
+    %div.col-md-5
+      Cheap?
+    - if @stock.price_limit >= 0
+      %span.bold.col-md-2
         = "#{yes_no(@stock.cheap?)}. "
+      %div.col-md-5
         - if @stock.overpriced?
-          = " #{@stock.ticker} Is overpriced, might consider selling:"
-        = "#{@stock.ticker} has a defensive limit buy price of #{short_float(@stock.price_limit)}, and is trading at #{@stock.price} and is overvalued at #{ @stock.valuation_limit }"
-  - else
-    %tr
-      %td
+          = " #{@stock.ticker} Is OVERPRICED, might consider selling:"
+        - if @stock.bargain?
+          = "At that price, #{@stock.ticker} is a bargain!"
+    - else
+      %div.col-md-7
         To many losses to recomend a buying price limit
+  %li.list-group-item.row 
+    = "#{@stock.ticker} has a defensive limit buy price of #{short_float(@stock.price_limit)}, is trading at #{@stock.price}, and is overvalued at #{ @stock.valuation_limit }"

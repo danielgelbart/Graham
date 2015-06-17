@@ -15,8 +15,12 @@
   .blue
     Stock has notes (displayed at bottom)
 = render "stocks/earnings_chart"
-= render "stocks/graham_data"
-= render 'stocks/mydata'
+%div.container
+  %div.row
+    %div.col-md-5
+      = render 'stocks/mydata'
+    %div.col-md-5.col-md-offset-1
+      = render "stocks/graham_data"
 = render 'stocks/be_table'
 - if !@notes.empty?
   %table.stock-list

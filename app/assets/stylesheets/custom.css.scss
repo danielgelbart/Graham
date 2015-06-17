@@ -1,7 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-@media (min-width: 768px) { .container { max-width: 450px; } }
+@media (min-width: 768px) { .container { max-width: 1060px; } }
+
+.list-group-item-info{
+  height: 55px;  
+}
 
 .red{
   color: red;

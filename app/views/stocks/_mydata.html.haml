@@ -1,14 +1,15 @@
-%ul.list-group.container
+%ul.list-group
   - @earnings.sort!{ |b,a| a.year <=> b.year } #NEWEST FIRST
   %li.list-group-item.row.list-group-item-info
-    Financial data last updated 
+    <span class="bold">Financial data</span> 
+    last updated 
     <span class="bold">
     =h @stock.most_recent_eps.created_at.to_date
     </span>
     %div.small-italic
       *All long term values adjusted for inflation, using CORE CPI
   %li.list-group-item.row
-    %h4.strong
+    %div.bold
       P/E
   %li.list-group-item.row
     %div.col-xs-10
@@ -34,7 +35,7 @@
       %div.col-xs-12
       Cannot calculate 10 year eps because earnings don't go back that far
   %li.list-group-item.row
-    %h4.strong
+    %div.bold
       Per Share Data
   %li.list-group-item.row
     %div.col-xs-10
@@ -56,7 +57,7 @@
     %span.bold.col-xs-2
       = sprintf( "%.2f", @stock.price.to_f / @stock.book_value_per_share)    
   %li.list-group-item.row
-    %h4
+    %div.bold
       Float, Margin, and ROE
   = render 'stocks/dilution', :num => 10
   = render 'stocks/dilution', :num => 3

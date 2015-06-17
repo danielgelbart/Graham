@@ -28,10 +28,10 @@ namespace :dividends do
   end # end rake task
 
   task :get_all => :environment do
-
+    Rails.application.eager_load!
  #   ss = Stock.where( listed: true, mark: "0")
     ss = Stock.where(Stock.arel_table[:mark].not_eq("div-ok"))
-
+    ss.select!{ |s| s.listed == true }
     # go to that page
     driver = Selenium::WebDriver.for :firefox
     driver.get "http://www.dividend.com"
