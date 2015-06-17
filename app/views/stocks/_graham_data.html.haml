@@ -59,4 +59,15 @@
       %div.col-md-7
         To many losses to recomend a buying price limit
   %li.list-group-item.row 
-    = "#{@stock.ticker} has a defensive limit buy price of #{short_float(@stock.price_limit)}, is trading at #{@stock.price}, and is overvalued at #{ @stock.valuation_limit }"
+    %div.col-md-9
+      = "#{@stock.ticker} has a defensive limit BUY PRICE of"
+    %div.col-md-3
+      = short_float(@stock.price_limit)
+    %div.col-md-9
+      is TRADING at
+    %div.col-md-3
+      = @stock.price
+    %div.col-md-9
+      and is OVERVALUED at 
+    %div.col-md-3
+      =h "%5.2f" % @stock.valuation_limit 
