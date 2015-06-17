@@ -1532,7 +1532,8 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
 {
     if (report ==""){
         LOG_ERROR << "No cover report available. So exusted attempt to "
-                  << "read num shares";
+                  << "read num shares. Setting them to 0";
+        ep._shares() = "0";
         return false;
     }
     string tableStr = extractFirstTableStr(report);

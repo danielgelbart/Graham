@@ -252,9 +252,14 @@ EdgarData::getQuarters(O_Stock& stock)
         {
             cout << "\n Getting Qaurter report dated " << (*it)->_report_date << endl;
             string page = getEdgarFiling( stock, *(*it));
-            string cover_rep = _parser.get_report_from_complete_filing(page,ReportType::COVER);
+
+            auto extracted_reports = new map<ReportType,string>;
+            _parser.extract_reports(page, extracted_reports);
+            _reports = *extracted_reports;
+
+            string cover_rep = _reports[ReportType::COVER];
             check_report_year_and_date(cover_rep, *it);
-            string income_rep = _parser.get_report_from_complete_filing(page,ReportType::INCOME);
+            string income_rep = _reports[ReportType::INCOME];
             addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
             updated = true;
         } else {
@@ -262,6 +267,7 @@ EdgarData::getQuarters(O_Stock& stock)
             LOG_INFO << message;
             cout << message << " for year/Q: " << (*it)->_year << "/" << (*it)->_quarter << endl;
         }
+        _reports.clear();
     }  
     // just to test
     //createFourthQuarter(stock, 2014);
