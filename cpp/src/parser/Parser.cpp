@@ -764,8 +764,15 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
         } else {
             regex tiny_digit = extract_pattern;
             tdtext = removeleadingComma(tdtext);
-            if (func == writeIncomeToEarnings)
+            if (func == writeIncomeToEarnings){
+                // remove any addional text that may be meta-text about figure
+                size_t endpoint = tdtext.find(":");
+                if (endpoint != string::npos){
+                    tdtext = tdtext.substr(0,endpoint);
+                    LOG_INFO << "String tdtext shortend to"<<tdtext;
+                }
                 tiny_digit.assign("\\(?\\d\\.?\\d?\\)?");
+            }
             if (func == writeNsToEarnings )
                 tiny_digit.assign("\\d+(\\.\\d+)?");
             if (regex_match(tdtext,tiny_digit)){
@@ -1220,12 +1227,22 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
         return foundInc;
     }
 
+    // CAR
+    defref.assign("us-gaap_ComprehensiveIncomeNetOfTax");
+    if (( foundInc = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeIncomeToEarnings )))
+    {
+        LOG_INFO<<" Successfully found NET INCOME using defref defref us-gaap_ComprehensiveIncomeNetOfTax (3rd) \n"
+        << "It is "<< earnings_data._net_income();
+        return foundInc;
+    }
+
     // BSX
     defref.assign("us-gaap_ProfitLoss");
     if (( foundInc = findDefref(trIt, defref, num_pattern, units,
                                 earnings_data, writeIncomeToEarnings )))
     {
-        LOG_INFO<<" Successfully found NET INCOME using defref defref us-gaap_ProfitLoss (3rd)";
+        LOG_INFO<<" Successfully found NET INCOME using defref defref us-gaap_ProfitLoss (4th)";
         return foundInc;
     }
 
@@ -1687,10 +1704,12 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
             func(balance,val,units);
             return true;
         } else {
+
             regex tiny_digit = extract_pattern;
             tdtext = removeleadingComma(tdtext);
             if (func == writeCurrentAssetsToBalance )
                 tiny_digit.assign("\\(?\\d\\.?\\d?\\)?");
+            // this seems to do nothing...
         }
     }
     return false;

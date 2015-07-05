@@ -166,9 +166,27 @@ mainMain(int argc, char* argv[])
         
 // find rigt command to execute and call relavent comand methods
     if (command == string("update_financials")){
-        EdgarData eData = EdgarData();
-        O_Stock stock = findStockByTicker( argv[2] );
-        eData.updateFinancials( stock );
+
+        if (argc <= 2){
+            T_Stock ts;
+            vector<O_Stock> stocks;
+            string markStr = "updated";
+
+            stocks = ts.select(ts._listed() == true && ts._mark() != markStr);
+
+            for( auto it = stocks.begin(); it != stocks.end();++it)
+            {
+                EdgarData eData = EdgarData();
+                cout << "\n\nUpdating financials for "<< it->_ticker() <<endl;
+                eData.updateFinancials(*it );
+                it->_mark() = markStr;
+                it->update();
+            }
+        } else {
+            EdgarData eData = EdgarData();
+            O_Stock stock = findStockByTicker( argv[2] );
+            eData.updateFinancials( stock );
+        }
     }
     if (command == string("get_single_year")){
         EdgarData eData = EdgarData();

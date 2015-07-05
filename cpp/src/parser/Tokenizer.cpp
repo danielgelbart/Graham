@@ -250,7 +250,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     if(!foundIncomeRep){
         LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN ------------------\n";
 
-        income_pattern.assign("consolidated statements? of comprehensive (income|operations|loss)",
+        income_pattern.assign("consolidated (condensed )?(statements? of )?comprehensive (income|operations|loss)",
             boost::regex_constants::icase);
 
         // reset pos

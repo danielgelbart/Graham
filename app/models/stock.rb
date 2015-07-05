@@ -139,6 +139,7 @@ class Stock < ActiveRecord::Base
 
   # 5) Earnings growth
   # This needs to be adjusted for stock splits/new offers/float ?
+  # whats the algorthem here?
   def eps_growth?
     epss = annual_eps_oldest_first
     eps_avg(epss.first(max(epss.size / 2,3))) * 1.3 <= eps_avg(epss.last(3))

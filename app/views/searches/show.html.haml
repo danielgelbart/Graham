@@ -96,7 +96,7 @@
         %td
           = stock.yield
         %td
-          = stock.market_cap.to_i
+          = "#{"%.2f" % (stock.market_cap.to_i.to_f / 1000000000)} Bil"
         %td
           = stock.price
         %td
