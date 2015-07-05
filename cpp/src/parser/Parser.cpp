@@ -484,6 +484,13 @@ Parser::get_report_from_complete_filing(string& page, ReportType reportType )
     //     << page.substr(0,300) << endl;
     string filingSummary = tokenizer.findFilingSummary();
 
+    if (filingSummary == "")
+    {
+        LOG_ERROR << "Cannot procede to handle without filing summary";
+        return "";
+    }
+
+
     Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
     filingSummaryTok.getReportDocNames(reports);

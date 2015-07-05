@@ -255,8 +255,12 @@ EdgarData::getQuarters(O_Stock& stock)
 
             auto extracted_reports = new map<ReportType,string>;
             _parser.extract_reports(page, extracted_reports);
+            if( extracted_reports->empty() )
+            {
+                LOG_ERROR << "Could not extract individual reports from filing";
+                continue;
+            }
             _reports = *extracted_reports;
-
             string cover_rep = _reports[ReportType::COVER];
             check_report_year_and_date(cover_rep, *it);
             string income_rep = _reports[ReportType::INCOME];

@@ -189,13 +189,18 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     string report = "";
     string reportName = "";
 
+    /* TODO SEC do NOT use report names to find them
+     * Cover and financial reports are parsed out based on meta information
+     * Use this information instead of report name
+     */
+
     //NOTE - ARG call their cover report "DEI Document"
     // Not sure if to adjust regex for this single weirdo
 
     // BKH - call it "Document Information Document"
     // BUT - Edgar finds it OK. SO - maybe there is some additional markup used to find the cover document!!!
     boost::regex cover_pattern(
-        "(Document (and )?Entity Information|DEI (Information )?(Document )?)",
+        "(Document (and )?Entity (Supplemental )?Information|DEI )(Information )?(Document )?",
         boost::regex_constants::icase);
 
     // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!

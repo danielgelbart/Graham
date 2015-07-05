@@ -139,9 +139,10 @@ class Stock < ActiveRecord::Base
 
   # 5) Earnings growth
   # This needs to be adjusted for stock splits/new offers/float ?
-  # whats the algorthem here?
+  # If every succeeding 3 year period is better than the previous
   def eps_growth?
     epss = annual_eps_oldest_first
+
     eps_avg(epss.first(max(epss.size / 2,3))) * 1.3 <= eps_avg(epss.last(3))
   end
 
@@ -456,6 +457,39 @@ class Stock < ActiveRecord::Base
   def is_quarterly?
     quarter > 0
   end
+
+  def be_arr_hash
+    years = []
+    year_to_check = annual_eps_newest_first.first.year
+    while(true)
+      if (!eps.where( year: year_to_check, quarter: 0).empty? &&
+          !balance_sheets.where( year: year_to_check).empty?)
+        years << year_to_check
+        year_to_check -= 1
+      else
+        break
+      end
+    end
+
+    be_arr = []
+    years.each do |year|
+      be_arr << data_hash(year)
+    end
+    be_arr
+  end
+
+  def data_hash(year)
+    dhash = {}
+    e = eps.where( year: year, quarter: 0).first
+    b = balance_sheets.where( year: year).first
+    dhash[:year] = year
+    dhash[:net_income] = e.net_income
+    dhash[:revenue] = e.revenue
+    dhash[:equity] = b.equity
+    dhash[:total_debt] = b.debt
+    dhash
+  end
+
 
   # Math module
 
