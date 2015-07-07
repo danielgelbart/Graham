@@ -24,6 +24,8 @@
     %span.bold.col-md-2
       - @yn = @stock.no_earnings_deficit?
       = render 'yes_no'
+    %div.col-md-5
+      = "in past #{[10,@stock.annual_eps_newest_first.size].min} years"
   %li.list-group-item.row
     %div.col-md-5
       Dividend record 

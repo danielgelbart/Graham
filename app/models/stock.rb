@@ -113,11 +113,8 @@ class Stock < ActiveRecord::Base
   # 3) Earnings stability
   # No loses in past 10 years
   def no_earnings_deficit?
-    if annual_eps_newest_first.size >= 10
-      epss = annual_eps_newest_first.sort{ |b,y| b.year <=> y.year }.first(10)
-    else
-      epss = annual_eps_newest_first
-    end
+    epss = annual_eps_newest_first.first(10)
+
     earning_deficit = epss.select{ |e| e.eps < 0 }
     earning_deficit.empty?
   end
