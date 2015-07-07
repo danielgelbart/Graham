@@ -480,10 +480,10 @@ class Stock < ActiveRecord::Base
     e = eps.where( year: year, quarter: 0).first
     b = balance_sheets.where( year: year).first
     dhash[:year] = year
-    dhash[:net_income] = e.net_income
-    dhash[:revenue] = e.revenue
-    dhash[:equity] = b.equity
-    dhash[:total_debt] = b.debt
+    dhash[:net_income] = e.net_income.to_i
+    dhash[:revenue] = e.revenue.to_i
+    dhash[:equity] = b.equity.to_i
+    dhash[:total_debt] = b.debt.to_i
     dhash
   end
 
