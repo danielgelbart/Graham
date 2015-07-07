@@ -1,0 +1,64 @@
+%script{ :type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $(function() {
+      new Highcharts.Chart({
+        chart: {
+          renderTo: "equity_chart"
+        },
+        title: {
+          text: "Equity"
+        },
+        xAxis: {
+          labels: {
+            formatter: function () {
+                return Highcharts.dateFormat("%Y", Date.UTC(this.value, 0, 1));
+            }
+          }, // labels
+        },
+        yAxis: {  // For Return on Equity
+          title: {
+            text: "Equity"
+          },
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            },
+            formatter: function () {
+               if( this.stack == 'debt')
+                 return '';
+               return ( ((this.axis.series[0].yData[ this.x - this.axis.series[0].xData[0]] / this.axis.series[1].yData[this.x - this.axis.series[0].xData[0]]) * 100).toPrecision(2) + '%' ); 
+            }
+          }
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+          }
+        },        
+        series: [{ 
+          name: "Net Income",
+          type: 'column',
+          pointStart: #{@stock.be_arr_hash.last[:year]-@stock.be_arr_hash.size},
+          pointInterval: 1,
+          stack: 'roe',
+          data: #{ @stock.be_arr_hash.map{ |y| y[:net_income] } }
+        }, {
+          name: "Equity",
+          type: 'column',
+          pointStart: #{@stock.be_arr_hash.last[:year]-@stock.be_arr_hash.size},
+          pointInterval: 1,
+          stack: 'roe',
+          data: #{ @stock.be_arr_hash.map{ |y| y[:equity] } }
+        }, {
+          name: "Debt",
+          type: 'column',
+          pointStart: #{@stock.be_arr_hash.last[:year]-@stock.be_arr_hash.size},
+          pointInterval: 1,
+          stack: 'debt',
+          data: #{ @stock.be_arr_hash.map{ |y| y[:total_debt] } }
+        }]
+      });
+    });
+#equity_chart{ :style => "width:860px; height:460px;"}

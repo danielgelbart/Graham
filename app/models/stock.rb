@@ -470,7 +470,7 @@ class Stock < ActiveRecord::Base
 
     be_arr = []
     years.each do |year|
-      be_arr << data_hash(year)
+      be_arr.insert(0,data_hash(year))
     end
     be_arr
   end
