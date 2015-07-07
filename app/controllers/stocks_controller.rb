@@ -72,6 +72,9 @@ class StocksController < ApplicationController
     @income = @earnings.map{|s| s.net_income.to_i }
     @revenue = @earnings.map{|s| s.revenue.to_i }
     @notes = @stock.notes
+
+
+
 =begin TTM EPS
     # How to add ttm - as future year +1
     # Don't add if ttm == last year annual report

@@ -262,7 +262,10 @@ EdgarData::getQuarters(O_Stock& stock)
             }
             _reports = *extracted_reports;
             string cover_rep = _reports[ReportType::COVER];
-            check_report_year_and_date(cover_rep, *it);
+            if (cover_rep != "")
+                check_report_year_and_date(cover_rep, *it);
+            else
+                LOG_ERROR << "NO COVER REPORT";
             string income_rep = _reports[ReportType::INCOME];
             addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
             updated = true;
