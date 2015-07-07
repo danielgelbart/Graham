@@ -29,16 +29,16 @@
   %li.list-group-item.row
     %div.col-md-5
       Dividend record 
-    %span.bold.col-xs-2
+    %span.bold.col-md-2
       - @yn = (!@stock.dividends.empty? && @stock.continous_dividend_record?)
       = render 'yes_no'
     %div.col-md-5
-      - if !@yn
-        Currently paying dividends?
-        - @yn = @stock.pays_dividends 
-        = render 'yes_no'
-      link to
-      = link_to "Dividends", @stock.dividend_url
+      - if @yn
+        link to
+        = link_to "Dividends", @stock.dividend_url
+      - @yn = @stock.pays_dividends 
+      Current divs?
+      = render 'yes_no'
   %li.list-group-item.row
     %div.col-md-5
       Earnings growth

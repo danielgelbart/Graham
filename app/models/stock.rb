@@ -129,7 +129,7 @@ class Stock < ActiveRecord::Base
     dg = dividends.group_by{ |d| d.date.year }
 
     (current_year - years..current_year - 1).each do |year|
-      return false if !(!dg[year].nil? && dg[year].size >= 2)
+      return false if dg[year].nil? || (!dg[year].nil? && dg[year].size < 2)
     end
     true
   end
