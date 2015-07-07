@@ -1,228 +1,221 @@
-2015-Jun-03 13:40:36Logger up
-13:40:36 DMMM SELECT DATABASE()
+2015-Jul-07 14:02:50Logger up
+14:02:50 DMMM SELECT DATABASE()
 
-2015-Jun-03 13:40:36 INFO 6MB PID 704 Test.cpp:runSingleQarterTest() --- 
+2015-Jul-07 14:02:50 INFO 6MB PID 848 Test.cpp:runSingleQarterTest() --- 
  --- Running runSingleQarterTest() ---
-13:40:36 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end,stocks.company_type+0,stocks.country,stocks.fy_same_as_ed FROM stocks WHERE stocks.ticker = 'CVX'
+14:02:50 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.dividends_per_year,stocks.latest_price,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end,stocks.company_type+0,stocks.country,stocks.fy_same_as_ed FROM stocks WHERE stocks.ticker = 'CVX'
 
-2015-Jun-03 13:40:36 INFO 14MB PID 704 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-2015-Jun-03 13:40:36 INFO 15MB PID 704 HttpClient.cpp:HttpClient() --- Got curl handle 0x21b09a0
-2015-Jun-03 13:40:36 INFO 15MB PID 704 HttpClient.cpp:HttpClient() --- Using default interface
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+2015-Jul-07 14:02:50 INFO 14MB PID 848 HttpClient.cpp:HttpClient() --- Initialized HttpClient with user agent Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+2015-Jul-07 14:02:50 INFO 15MB PID 848 HttpClient.cpp:HttpClient() --- Got curl handle 0x174aa20
+2015-Jul-07 14:02:50 INFO 15MB PID 848 HttpClient.cpp:HttpClient() --- Using default interface
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: 
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Document and Entity Information
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
 Document and Entity Information
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
 Consolidated Statement of Income (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income (Unaudited) (Parenthetical)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Comprehensive Income (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Balance Sheet (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
 Consolidated Balance Sheet (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:get_report_from_complete_filing() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:get_report_from_complete_filing() --- 
  Found report R1.htm
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- Tokenizer::getReportDocNames() called
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: 
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Document and Entity Information
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- FOUND COVER REPORT
 Document and Entity Information
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- FOUND INCOME REPORT MATCH!
 Consolidated Statement of Income (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Income (Unaudited) (Parenthetical)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Statement of Comprehensive Income (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- 
  Handling report named: Consolidated Balance Sheet (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Tokenizer.cpp:getReportDocNames() --- FOUND BALANCE REPORT MATCH!
 Consolidated Balance Sheet (Unaudited)
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:get_report_from_complete_filing() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:get_report_from_complete_filing() --- 
  Found report R2.htm
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:buildXmlTree() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:buildXmlTree() --- 
  going to build xml tree
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:buildXmlTree() --- Completed construction of tree
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:getUnitsAndCurrency() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:buildXmlTree() --- Completed construction of tree
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:getUnitsAndCurrency() --- 
  Title text is :  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified : 3 Months Ended : Mar. 31, 2014 : Mar. 31, 2013
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkForShareUnitsInTitle() --- Found units in title text, they are 000
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkForShareUnitsInTitle() --- Returned unist for shares in title text are000
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:find_columns_range() --- Going to find range of collumns that are marked as '3 months ending' (range)
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:find_columns_range() ---  ATtributes are| class = tl colspan = 1 rowspan = 2 style = width: 200px;  Text is|  : Consolidated Statement of Income (Unaudited) (USD $)In Millions, except Share data in Thousands, unless otherwise specified
-
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:find_columns_range() --- Found colspan match mathc[0] is| colspan = 1 and match[1] is 1
-
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:find_columns_range() ---  ATtributes are| class = th colspan = 4  Text is|  : 3 Months Ended
-
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:find_columns_range() --- Found colspan match mathc[0] is| colspan = 4 and match[1] is 4
-
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:find_columns_range() --- FOUND RANGE! it starts at col 1 and ends at 5
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findColumnToExtract() --- Setting column index to 1
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:parseIncomeTree() --- Extractino col num is 1
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = th colspan = 2 class = th colspan = 2 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:getUnitsAndCurrency() --- Title text May contain multiple units. Spliting it
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:getUnitsAndCurrency() --- (general) Units are being set to 000000 Currency is being set to USD
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkForShareUnitsInTitle() --- Checking for share units in title text 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkForShareUnitsInTitle() --- Found units in title text, they are 000
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkForShareUnitsInTitle() --- Returned unist for shares in title text are000
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:find_columns_range() --- Going to find range of collumns that are marked as '3 months ending' (range)
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:find_columns_range() --- FOUND RANGE! it starts at col 1 and ends at 4
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findColumnToExtract() --- Date matches the requested report date, col num is 1
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findColumnToExtract() --- Setting column index to 1
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:parseIncomeTree() --- Extractino col num is 1
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = th colspan = 2 class = th colspan = 2 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  regex match in text: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
  col to get is: 1
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- Matching val from text:  : &#xA0;
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  regex match in text: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
  col to get is: 1
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- Matching val from text:  : 53,265
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- Matching val from text:  : 53,265
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  extracted val is53,265
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:writeRevenueToEarnings() --- DEBUG val is 53,265 and existing rev is 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractTotalRevenue() ---  Successfully found REVENUE using defref_us-gaap_Revenues (1st)
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNetIncome() --- extractNetIncome() called
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = th colspan = 2 class = th colspan = 2 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpensesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostOfPurchasedOilAndGas', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OperatingCostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_SellingGeneralAndAdministrativeExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ExplorationExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_DepreciationDepletionAndAmortization', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_cvx_TaxesOtherThanOnIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeTaxExpenseBenefit', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ProfitLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLossAttributableToNoncontrollingInterest', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:writeRevenueToEarnings() --- DEBUG val is 53,265 and existing rev is 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractTotalRevenue() ---  Successfully found REVENUE using defref_us-gaap_Revenues (1st)
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:parseIncomeTree() --- Succesfully found revenue
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNetIncome() --- extractNetIncome() called
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = th colspan = 2 class = th colspan = 2 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpensesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostOfPurchasedOilAndGas', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OperatingCostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_SellingGeneralAndAdministrativeExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ExplorationExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_DepreciationDepletionAndAmortization', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_cvx_TaxesOtherThanOnIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeTaxExpenseBenefit', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ProfitLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLossAttributableToNoncontrollingInterest', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  regex match in text: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
  col to get is: 1
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 4,512
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 4,512
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  extracted val is4,512
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNetIncome() ---  Successfully found NET INCOME using defref defref_us-gaap_NetIncomeLoss' (1st)
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:parseIncomeTree() --- Succesfully found Net Income
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractEps() --- extractEps() called
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = th colspan = 2 class = th colspan = 2 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpensesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostOfPurchasedOilAndGas', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OperatingCostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_SellingGeneralAndAdministrativeExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ExplorationExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_DepreciationDepletionAndAmortization', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_cvx_TaxesOtherThanOnIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeTaxExpenseBenefit', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ProfitLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLossAttributableToNoncontrollingInterest', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareBasic', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareDiluted', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNetIncome() ---  Successfully found NET INCOME using defref defref_us-gaap_NetIncomeLoss' (1st)
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:parseIncomeTree() --- Succesfully found Net Income
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractEps() --- extractEps() called
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = th colspan = 2 class = th colspan = 2 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpensesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostOfPurchasedOilAndGas', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OperatingCostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_SellingGeneralAndAdministrativeExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ExplorationExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_DepreciationDepletionAndAmortization', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_cvx_TaxesOtherThanOnIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeTaxExpenseBenefit', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ProfitLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLossAttributableToNoncontrollingInterest', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareBasic', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:findDefref() --- attr_text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareDiluted', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  regex match in text: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareDiluted', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
  col to get is: 1
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 2.36
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- Matching val from text:  : $ 2.36
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  extracted val is2.36
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:writeEpsToEarnings() --- Writing eps of 2.36
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:writeEpsToEarnings() --- Writing eps of 2.36
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractEps() ---  Successfully found EPS using defref_us_EarningsPerShareDiluted (1st)
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:parseIncomeTree() --- Succesfully found eps
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- extractNumShares() called
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = th colspan = 2 class = th colspan = 2 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpensesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostOfPurchasedOilAndGas', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OperatingCostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_SellingGeneralAndAdministrativeExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ExplorationExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_DepreciationDepletionAndAmortization', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_cvx_TaxesOtherThanOnIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeTaxExpenseBenefit', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ProfitLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLossAttributableToNoncontrollingInterest', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareBasic', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareDiluted', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CommonStockDividendsPerShareDeclared', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_WeightedAverageNumberOfSharesOutstandingAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_WeightedAverageNumberOfSharesOutstandingBasic', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_WeightedAverageNumberOfDilutedSharesOutstanding', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractEps() ---  Successfully found EPS using defref_us_EarningsPerShareDiluted (1st)
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:parseIncomeTree() --- Succesfully found eps
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- extractNumShares() called
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = tl colspan = 1 rowspan = 2 style = width: 200px; class = th colspan = 4 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = th colspan = 2 class = th colspan = 2 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_RevenuesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OilAndGasRevenue', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OtherNonoperatingIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_Revenues', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpensesAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostOfPurchasedOilAndGas', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_OperatingCostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_SellingGeneralAndAdministrativeExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ExplorationExpense', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_DepreciationDepletionAndAmortization', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_cvx_TaxesOtherThanOnIncome', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = reu class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CostsAndExpenses', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_IncomeTaxExpenseBenefit', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_ProfitLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLossAttributableToNoncontrollingInterest', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = rou class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_NetIncomeLoss', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareBasic', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_EarningsPerShareDiluted', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_CommonStockDividendsPerShareDeclared', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_WeightedAverageNumberOfSharesOutstandingAbstract', window ); class = text class = fn style = border-bottom: 0px; class = text class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = ro class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_WeightedAverageNumberOfSharesOutstandingBasic', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() --- Attr text is: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_WeightedAverageNumberOfDilutedSharesOutstanding', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  regex match in text: class = re class = pl style = border-bottom: 0px; valign = top class = a href = javascript:void(0); onclick = top.Show.showAR( this, 'defref_us-gaap_WeightedAverageNumberOfDilutedSharesOutstanding', window ); class = nump class = fn style = border-bottom: 0px; class = nump class = fn style = border-bottom: 0px; 
  col to get is: 1
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- Matching val from text:  : 1,909,424
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:checkTrPattern() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- Matching val from text:  : 1,909,424
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:checkTrPattern() --- 
  extracted val is1,909,424
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:writeNsToEarnings() --- units for shares are: 000 general units are000000
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:writeNsToEarnings() --- 
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:writeNsToEarnings() --- units for shares are: 000 general units are000000
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:writeNsToEarnings() --- 
  Clean match for value with dec point is 1909424which has 0 decimals
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 1909424000
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:writeNsToEarnings() --- Adding Num Shares value of: 1909424000
 
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:extractNumShares() ---  Successfully found DILUTED SHARES using defref
-2015-Jun-03 13:40:36 INFO 23MB PID 704 Parser.cpp:parseIncomeTree() --- Succesfully shares outstanding13:40:36 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.dividends_per_year,stocks.latest_price,stocks.market_cap,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end,stocks.company_type+0,stocks.country,stocks.fy_same_as_ed FROM stocks WHERE stocks.id = '297' limit 1
-13:40:36 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares,eps.shares_diluted FROM eps WHERE eps.stock_id = '297'
-13:40:36 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),2.3599999999999999,'4512000000',1,'53265000000','1909424000','edgar.com',297,2014)
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:extractNumShares() ---  Successfully found DILUTED SHARES using defref
+2015-Jul-07 14:02:50 INFO 23MB PID 848 Parser.cpp:parseIncomeTree() --- Succesfully shares outstanding14:02:50 DMMM SELECT stocks.id,stocks.name,stocks.ticker,stocks.created_at,stocks.updated_at,stocks.dividends_per_year,stocks.latest_price,stocks.ttm_div,stocks.yield,stocks.listed,stocks.has_currant_ratio,stocks.mark,stocks.cik,stocks.fiscal_year_end,stocks.company_type+0,stocks.country,stocks.fy_same_as_ed FROM stocks WHERE stocks.id = '297' limit 1
+14:02:50 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares,eps.shares_diluted FROM eps WHERE eps.stock_id = '297'
+14:02:50 DMMM INSERT INTO eps (created_at,eps,net_income,quarter,revenue,shares,source,stock_id,year)VALUES(NOW(),2.3599999999999999,'4512000000',1,'53265000000','1909424000','edgar.com',297,2014)
 
-2015-Jun-03 13:40:36 INFO 24MB PID 704 Financials.cpp:addEarningsRecordToDB() --- 
+2015-Jul-07 14:02:51 INFO 23MB PID 848 Financials.cpp:addEarningsRecordToDB() --- 
 Entered NEW Earnings Record to DB for CVX. YEAR: 2014 Q: 1 REV: 53265000000 INC: 4512000000 SHARES: 1909424000 EPS: 2.36
-13:40:36 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares,eps.shares_diluted FROM eps WHERE ((eps.stock_id = '297') AND (eps.year = '2014')) AND (eps.quarter = '1')
-13:40:36 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares,eps.shares_diluted FROM eps WHERE ((eps.stock_id = '297') AND (eps.year = '2014')) AND (eps.quarter = '1')
-13:40:36 DMMM DELETE FROM eps WHERE eps.id = '179'
+14:02:51 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares,eps.shares_diluted FROM eps WHERE ((eps.stock_id = '297') AND (eps.year = '2014')) AND (eps.quarter = '1')
+14:02:51 DMMM SELECT eps.id,eps.year,eps.source,eps.eps,eps.stock_id,eps.created_at,eps.updated_at,eps.revenue,eps.net_income,eps.quarter,eps.report_date,eps.shares,eps.shares_diluted FROM eps WHERE ((eps.stock_id = '297') AND (eps.year = '2014')) AND (eps.quarter = '1')
+14:02:51 DMMM DELETE FROM eps WHERE eps.id = '83'
 
-2015-Jun-03 13:40:36 INFO 24MB PID 704 HttpClient.cpp:~HttpClient() --- shutting down httpclient
+2015-Jul-07 14:02:51 INFO 24MB PID 848 HttpClient.cpp:~HttpClient() --- shutting down httpclient

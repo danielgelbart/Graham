@@ -469,9 +469,12 @@ Parser::extract_reports(string& k10,
         reportKey = reports->find(reportType)->second;
         string docString = "<FILENAME>"+reportKey;
         string docFileString = tokenizer.findDoc(docString);
-        extracted_reports->insert( pair<ReportType,string>( 
-                                       reportType, 
-                                       docFileString) );
+        if (docFileString == "")
+            LOG_ERROR << "Failed to retrive (COVER REPORT) named "<< reportKey << " from filing";
+        else
+            extracted_reports->insert( pair<ReportType,string>(
+                                           reportType,
+                                           docFileString) );
     }
 
 }

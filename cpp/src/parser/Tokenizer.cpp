@@ -58,9 +58,14 @@ Tokenizer::getNextDelString(string& delimiter)
 {
     size_t nextPos = _text.find(delimiter,_pos+1);
 
-    if (nextPos == string::npos)
-        return "";
-
+    if (nextPos == string::npos){
+        delimiter = delimiter.substr(0,1) + "/" + delimiter.substr(1);
+        LOG_INFO << "Could not find closing delimiter, using delimiter "
+                 << delimiter << "instead";
+        nextPos = _text.find(delimiter,_pos+1);
+        if (nextPos == string::npos)
+          return "";
+    }
     size_t lastPos = _pos;
     _pos = nextPos;
 
