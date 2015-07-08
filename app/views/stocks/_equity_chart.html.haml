@@ -9,6 +9,7 @@
           text: "Equity"
         },
         xAxis: {
+          categories: #{ @stock.be_arr_hash.map{ |y| y[:year] } },
           labels: {
             formatter: function () {
                 return Highcharts.dateFormat("%Y", Date.UTC(this.value, 0, 1));
@@ -40,22 +41,18 @@
         series: [{ 
           name: "Net Income",
           type: 'column',
-          pointStart: #{@stock.be_arr_hash.last[:year]-@stock.be_arr_hash.size},
-          pointInterval: 1,
           stack: 'roe',
           data: #{ @stock.be_arr_hash.map{ |y| y[:net_income] } }
         }, {
           name: "Equity",
           type: 'column',
-          pointStart: #{@stock.be_arr_hash.last[:year]-@stock.be_arr_hash.size},
-          pointInterval: 1,
           stack: 'roe',
           data: #{ @stock.be_arr_hash.map{ |y| y[:equity] } }
         }, {
           name: "Debt",
           type: 'column',
-          pointStart: #{@stock.be_arr_hash.last[:year]-@stock.be_arr_hash.size},
-          pointInterval: 1,
+          //pointStart: #{@stock.be_arr_hash.last[:year]-@stock.be_arr_hash.size},
+          //pointInterval: 1,
           stack: 'debt',
           data: #{ @stock.be_arr_hash.map{ |y| y[:total_debt] } }
         }]
