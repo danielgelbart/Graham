@@ -6,7 +6,7 @@
           renderTo: "equity_chart"
         },
         title: {
-          text: "Equity"
+          text: "Return on Equity"
         },
         xAxis: {
           categories: #{ @stock.be_arr_hash.map{ |y| y[:year] } },
@@ -23,8 +23,9 @@
           stackLabels: {
             enabled: true,
             style: {
+              fontSize: '1.3em',
               fontWeight: 'bold',
-              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
             },
             formatter: function () {
                if( this.stack == 'debt')
