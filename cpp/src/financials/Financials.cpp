@@ -267,8 +267,11 @@ EdgarData::getQuarters(O_Stock& stock)
             else
                 LOG_ERROR << "NO COVER REPORT";
             string income_rep = _reports[ReportType::INCOME];
-            addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
-            updated = true;
+            if (income_rep != ""){
+                addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
+                updated = true;
+            } else
+                LOG_ERROR << "NO INCOME REPORT!!!";
         } else {
             string message = "Not going to download, since stock already contains this info";
             LOG_INFO << message;
