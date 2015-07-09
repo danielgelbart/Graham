@@ -340,6 +340,8 @@ EdgarData::insertEp( O_Ep& ep )
 // Add checks for existance of :
 // eps
 // num shares
+
+
     if ( (ep._stock_id() <= 0 )         || 
          (ep._year() < greg_year(1980)) ||
          (ep._year() > greg_year(2020)) ||
@@ -359,12 +361,10 @@ EdgarData::insertEp( O_Ep& ep )
     } 
     O_Stock stock = spair.first;
    
-    // check if it already exits in DB
-    date dd( ep._year(),Jan,1);
-    Acn acn( string("dummy"), dd );
-    acn._year = ep._year();
-    acn._quarter = ep._quarter();
-    if ( stock_contains_acn( stock, acn ) )
+    vector<O_Ep> epss = stock._eps();
+    for (auto it = epss.begin() ; it != epss.end(); ++it )
+        if ( it->_year()    == ep._year() &&
+             it->_quarter() == ep._quarter() )
     {
         LOG_INFO<<"NOT adding earnings to DB. Record for that quarter/year "
                 <<"already exists";

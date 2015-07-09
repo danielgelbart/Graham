@@ -71,8 +71,6 @@
     %th
       ticker
     %th
-      Yield
-    %th
       Market Cap
     %th
       Price
@@ -94,9 +92,7 @@
           = link_to "#{stock.ticker}", stock_path(stock)
           = link_to "Dividends", stock.dividend_url
         %td
-          = stock.yield
-        %td
-          = "#{"%.2f" % (stock.market_cap.to_i.to_f / 1000000000)} Bil"
+          = "#{"%.2f" % (stock.market_cap.to_f / 1000000000)} Bil"
         %td
           = stock.price
         %td

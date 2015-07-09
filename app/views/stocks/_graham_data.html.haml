@@ -36,9 +36,13 @@
       - if @yn
         link to
         = link_to "Dividends", @stock.dividend_url
-      - @yn = @stock.pays_dividends 
-      Current divs?
-      = render 'yes_no'
+      - else
+        - @yn = @stock.pays_dividends 
+        Current divs?
+        = render 'yes_no'
+        - if @yn
+          link to
+          = link_to "Dividends", @stock.dividend_url
   %li.list-group-item.row
     %div.col-md-5
       Earnings growth

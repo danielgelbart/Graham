@@ -723,7 +723,7 @@ Test::run_all()
     TestResults testRes;
 
     // test single year
-  //  runSingleYearTest(testRes);
+    runSingleYearTest(testRes);
     runSingleQarterTest(testRes);
 //    runFourthQarterTest(testRes);
 
