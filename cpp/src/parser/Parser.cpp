@@ -2188,8 +2188,8 @@ Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data
                                 balance_data, writeLongTermDebtToBalance )))
         LOG_INFO<<" Successfully found Long Term Debt using us-gaap_Junior*LongTermNotes (3rd)";
 
-    // Used by F
-    defref.assign("us-gaap_DebtAndCapitalLeaseObligations");
+    // Used by F,NSC uses us-gaap_LongTermDebtAndCapitalLeaseObligations
+    defref.assign("us-gaap_(LongTerm)?DebtAndCapitalLeaseObligations");
     if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
                                 balance_data, writeLongTermDebtToBalance )))
         LOG_INFO<<" Successfully found Long Term Debt us-gaap_DebtAndCapitalLeaseObligations (4th)";

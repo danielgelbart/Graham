@@ -109,12 +109,21 @@ EdgarData::getLastYear10KAcn( O_Stock& stock)
 bool
 stock_contains_acn(O_Stock& stock, Acn& acn)
 {
+    bool has_ep(false);
+    bool has_bs(false);
     vector<O_Ep> epss = stock._eps();
     for (auto it = epss.begin() ; it != epss.end(); ++it )
         if ( it->_year()    == acn._year &&
              it->_quarter() == acn._quarter )
-            return true;
-    return false;
+            has_ep = true;
+    if (acn._quarter == 0){
+        vector<O_BalanceSheet> bss = stock._balance_sheets();
+        for (auto it = bss.begin() ; it != bss.end(); ++it )
+            if ( it->_year()    == acn._year )
+                has_bs = true;
+    } else
+        has_bs = true;
+    return (has_ep && has_bs);
 }
 
 bool
@@ -196,7 +205,6 @@ EdgarData::check_report_year_and_date(string cover_rep, Acn* acn_p){
 bool
 EdgarData::getAnnuals(O_Stock& stock)
 {
-    // get back to Q1 LAST year
     _parser.set_stock(stock);
     string page = getEdgarSearchResultsPage(stock,StatementType::K10);
     vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 3,/*limit*/
@@ -701,8 +709,11 @@ EdgarData::updateFinancials(O_Stock& stock)
 
     // check if last years 10k exists
     T_Ep t;
+    T_BalanceSheet b;
     if (stock._eps( t._year() == last_year &&  
-                    t._quarter() == 0 ).empty() )
+                    t._quarter() == 0 ).empty() ||
+        stock._balance_sheets( b._year() == last_year).empty()
+       )
     {
         cout << "\n Going to get last year 10k" << endl;
         Acn* acn  = getLastYear10KAcn( stock );
