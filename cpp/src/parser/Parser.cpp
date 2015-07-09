@@ -4,6 +4,7 @@
 #include <map>
 #include <math.h>
 //#include <limits>
+#include <exception>
 #include "Utils.hpp"
 #include "Logger.h"
 #include "Tokenizer.h"
@@ -2345,7 +2346,13 @@ void
 Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* date_end, int* year_end)
 {
     LOG_INFO << "going to extract from cover report: (1) focus year (2) document end date (3) fiscal year end date\n";
-    XmlElement* tree = convertReportToTree(report);
+    XmlElement* tree = NULL;
+    try{
+        tree = convertReportToTree(report);
+    }  catch (std::exception& e) {
+        LOG_ERROR << "Could not parse cover report into tree. Cannot extract fiscal dates";
+        return;
+    }
     trIterator trIt(tree);
     XmlElement* trp = tree;
 

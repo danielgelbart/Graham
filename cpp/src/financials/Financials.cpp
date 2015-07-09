@@ -756,6 +756,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     else {
         int* focus_year = new int(0), *year_end = new int(0);
         string* date_end = new string("");
+        LOG_INFO << "\n COVER report is "<< cover_report;
         parser.extractFiscalDatesFromReport(cover_report, focus_year, date_end, year_end);
 
         //LOG_INFO << "Test print UPDATE: focus year: "<< *focus_year

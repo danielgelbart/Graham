@@ -9,7 +9,7 @@
           text: "Earnings"
         },
         xAxis: {
-
+          categories: #{ @earnings.map{ |e| e.year } },
           labels: {
             formatter: function () {
                 return Highcharts.dateFormat("%Y", Date.UTC(this.value, 0, 1));
@@ -30,20 +30,16 @@
           name: "Shares Outstanding",
           type: 'line',
           yAxis: 1,
-          pointStart: #{ @earnings.first.year },
-          pointInterval: 1,
           data: #{ @numshare }
         }, { 
           name: "Revenue",
           type: 'column',
-          pointStart: #{ @earnings.first.year },
-          pointInterval: 1,
           data: #{ @revenue }
         }, { 
           name: "Net Income",
           type: 'column',
-          pointStart: #{ @earnings.first.year },
-          pointInterval: 1,
+          //pointStart: #{ @earnings.first.year },
+          //pointInterval: 1,
           data: #{ @income }
         }]
 

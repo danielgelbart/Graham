@@ -16,7 +16,6 @@
 #  shares         :string(255)
 #  shares_diluted :boolean(1)      default(TRUE)
 #
-
 class Ep < ActiveRecord::Base
 
   belongs_to :stock
