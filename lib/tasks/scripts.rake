@@ -23,7 +23,7 @@ namespace :scripts do
     file = File.open("./text_files/sp500_2015.txt","r")
     failed_tickers = []
     results = {}
-    (2005..2014).each do |year|
+    (2007..2014).each do |year|
       results[ year] = EDData.new
     end
 
@@ -62,10 +62,9 @@ namespace :scripts do
 
     # print results
     results_file.puts "\n\nResults: "
-    (2005..2014).each do |year|
+    (2007..2014).each do |year|
       results_file.puts "YEAR: #{year}, BOOK_VALUE: #{results[ year].equity}, DEBT: #{results[ year].debt}"
     end
-
 
     results_file.close
   end
