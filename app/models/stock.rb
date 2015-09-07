@@ -441,8 +441,12 @@ class Stock < ActiveRecord::Base
     ticker.gsub(/\./,"")
   end
 
+  def ttm_earnings_record
+    eps.select{ |e| e.quarter == 5}.first
+  end
+
   def ttm_eps
-    ttm_record = eps.select{ |e| e.quarter == 5}.first
+    ttm_record = ttm_earnings_record
     ttm = ttm_record.eps if !ttm_record.nil?
     ttm ||= latest_eps.eps
   end

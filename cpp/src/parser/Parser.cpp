@@ -553,11 +553,18 @@ Parser::titleInfo(XmlElement* tree, string& units, string& currency,
 }
 
 string
-get_units_from_text(string& text)
+get_units_from_text(string& text, bool share_data = false)
 {
+    boost::regex sd_pattern ("(shares|share data) In", boost::regex::icase);
     boost::regex t_pattern ("In Thousands", boost::regex::icase);
     boost::regex m_pattern ("In Millions", boost::regex::icase);
     boost::regex b_pattern ("In Billions", boost::regex::icase);
+
+    if ( (!share_data) &&
+        (boost::regex_search(text, sd_pattern) ) ){
+        LOG_INFO << "Could not extract units from text: \n " << text;
+        return "";
+        }
 
     if (boost::regex_search(text, t_pattern) )
         return THOU;
@@ -568,6 +575,7 @@ get_units_from_text(string& text)
     if (boost::regex_search(text, b_pattern) )
         return BILL;
 
+    if (!share_data)
     LOG_INFO << "Could not extract units from text: \n " << text;
     return "";
 }
@@ -813,16 +821,35 @@ string
 checkForShareUnitsInTitle(const string& titleText)
 {
     string units = "";
-    size_t split = titleText.find("except");
-    if (split != string::npos)
+
+    boost::regex sd_pattern ("(shares|share data) in (thousands|millions|billions)", boost::regex::icase);
+    boost::smatch match;
+    if (boost::regex_search(titleText, match, sd_pattern) )
     {
-        string additional = titleText.substr(split, titleText.size()-split);
-        LOG_INFO << "Checking for share units in title text ";
-        boost::regex a_pattern ("share data", boost::regex::icase);
-        if (boost::regex_search(additional, a_pattern) )
+        string units_text = match[0];
+        units = get_units_from_text( units_text, true );
+        LOG_INFO << "Found units in title text, they are "<< units;
+    } else {
+
+        size_t split = titleText.find("except");
+        if (split != string::npos)
         {
-            units = get_units_from_text( additional );
-            LOG_INFO << "Found units in title text, they are "<< units;
+            string additional = titleText.substr(split, titleText.size()-split);
+            string pretext = titleText.substr(0, split);
+            LOG_INFO << "Checking for share units in title text ";
+            boost::regex a_pattern ("share data", boost::regex::icase);
+
+            if (boost::regex_search(additional, a_pattern) )
+            {
+                units = get_units_from_text( additional, true );
+                LOG_INFO << "Found units in title text, they are "<< units;
+            } else {
+                if (boost::regex_search(pretext, a_pattern) )
+                {
+                    units = get_units_from_text( pretext, true );
+                    LOG_INFO << "Found units in title text, they are "<< units;
+                }
+            }
         }
     }
     LOG_INFO << "Returned unist for shares in title text are"<< units;
@@ -1308,7 +1335,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
     //LOG_INFO << "tree is \n"<<tree->printXmlTree(0);
     LOG_INFO << "extractEps() called";
 
-    regex defref("EarningsPerShareDiluted");
+    regex defref("EarningsPerShareDiluted'");
     if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
                                 earnings_data, writeEpsToEarnings )))
     {
@@ -1578,7 +1605,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                  << titleText;
         boost::regex a_pattern ("share data", boost::regex::icase);
         if (boost::regex_search(additional, a_pattern) )
-            units = get_units_from_text( additional );
+            units = get_units_from_text( additional, true );
     }
 
     // get GENERAL units from title block
