@@ -125,7 +125,8 @@ private:
 
     // Could use template for these methods
     bool findDefref(trIterator& trIt, boost::regex& defref, boost::regex& num_pattern, string& units,
-               DMMM::O_Ep& earnings_data, void(*func)(DMMM::O_Ep&,string&,string&));
+               DMMM::O_Ep& earnings_data, void(*func)(DMMM::O_Ep&,string&,string&),
+                    string stop_search = "");
     bool findDefref(trIterator& trIt, boost::regex& defref, boost::regex& num_pattern, string& units,
                DMMM::O_BalanceSheet& balance_data, void(*func)(DMMM::O_BalanceSheet&,string&,string&),
                     string stop_search = "");

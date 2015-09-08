@@ -969,14 +969,19 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
 
 bool
 Parser::findDefref(trIterator& trIt, regex& defref, regex& num_pattern, string& units,
-           DMMM::O_Ep& earnings_data, void(*func)(O_Ep&,string&,string&))
+           DMMM::O_Ep& earnings_data, void(*func)(O_Ep&,string&,string&), string stop_search)
 {
     trIt.resetToStart();
     XmlElement* trp;
+    regex stop_pattern(stop_search);
     bool founddefref = false;
     while( (trp = trIt.nextTr()) != NULL )
     {
         string attr_text = trp->attrText();
+        string full_text = trp->text();
+        if (stop_pattern.str().length() > 3)
+            if (regex_search( full_text, stop_pattern))
+                break;
         LOG_INFO<<"attr_text is: "<<attr_text;
         if(( founddefref = checkTrPattern(attr_text, defref, units, trp,
                           num_pattern, earnings_data, func)))
@@ -1245,12 +1250,16 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     bool foundInc(false);
     regex num_pattern("\\(?\\d+[,\\d]+(.\\d)?\\)?");
 
+    //NOTE: there can be multiple net income lines, due to subdivitions (e.g. SO, F).
+    //Parent company should appear first, subdivitions are marked as "[Member]" and used to stop search
+    string stop_string("\\[Member\\]");
+
     // this defref include cases of 'attributable to'
     // Note - that there is a ' terminating the string.
     // However, there may be multiple such lines in the document
     regex defref("defref_us-gaap_NetIncomeLoss'");
     if (( foundInc = findDefref(trIt, defref, num_pattern, units,
-                                earnings_data, writeIncomeToEarnings )))
+                                earnings_data, writeIncomeToEarnings, stop_string )))
     {
         LOG_INFO<<" Successfully found NET INCOME using defref defref_us-gaap_NetIncomeLoss' (1st)";
         return foundInc;
@@ -1259,7 +1268,7 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     // CAT
     defref.assign("us-gaap_NetIncomeLossAvailableToCommonStockholders");
     if (( foundInc = findDefref(trIt, defref, num_pattern, units,
-                                earnings_data, writeIncomeToEarnings )))
+                                earnings_data, writeIncomeToEarnings, stop_string  )))
     {
         LOG_INFO<<" Successfully found NET INCOME using defref defref_NetIncomeLossAvailableToCommonStockholders (2nd)";
         return foundInc;
@@ -1268,7 +1277,7 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     // CAR
     defref.assign("us-gaap_ComprehensiveIncomeNetOfTax");
     if (( foundInc = findDefref(trIt, defref, num_pattern, units,
-                                earnings_data, writeIncomeToEarnings )))
+                                earnings_data, writeIncomeToEarnings, stop_string )))
     {
         LOG_INFO<<" Successfully found NET INCOME using defref defref us-gaap_ComprehensiveIncomeNetOfTax (3rd) \n"
         << "It is "<< earnings_data._net_income();
@@ -1278,7 +1287,7 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     // BSX
     defref.assign("us-gaap_ProfitLoss");
     if (( foundInc = findDefref(trIt, defref, num_pattern, units,
-                                earnings_data, writeIncomeToEarnings )))
+                                earnings_data, writeIncomeToEarnings, stop_string )))
     {
         LOG_INFO<<" Successfully found NET INCOME using defref defref us-gaap_ProfitLoss (4th)";
         return foundInc;
@@ -1330,7 +1339,9 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
     bool foundEpsBlock(false);
     regex digit_pattern("\\(?(\\d+)(.\\d+)\\)?");
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
-//    smatch match;
+
+    //NOTE: EPS usualy appears once per statemnt, unlike net income which may appear multiple times for subdivisions
+    // As such, do not limit search for EPS, as sometimes it appears after other subdivitions (but relates to parent)
 
     //LOG_INFO << "tree is \n"<<tree->printXmlTree(0);
     LOG_INFO << "extractEps() called";
