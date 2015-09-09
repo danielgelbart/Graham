@@ -698,10 +698,11 @@ get_units_from_text(string& text, bool share_data = false)
     boost::regex b_pattern ("In Billions", boost::regex::icase);
 
     if ( (!share_data) &&
-        (boost::regex_search(text, sd_pattern) ) ){
-        LOG_INFO << "Could not extract units from text: \n " << text;
-        return "";
-        }
+         (boost::regex_search(text, sd_pattern) ) ){
+        t_pattern.assign("\\$ In Thousands", boost::regex::icase);
+        m_pattern.assign("\\$ In Millions", boost::regex::icase);
+        b_pattern.assign("\\$ In Billions", boost::regex::icase);
+    }
 
     if (boost::regex_search(text, t_pattern) )
         return THOU;
