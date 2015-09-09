@@ -619,6 +619,13 @@ EdgarData::createTtmEps(O_Stock& stock)
     }
     long numshares = stol( qrts[0]._shares() );
 
+    LOG_INFO << "Finishe doint ttm earnings. Got quarters: " << qrts[0]._year() << " Q"<< qrts[0]._quarter() << "\n"
+                 << qrts[1]._year() << " Q"<< qrts[1]._quarter() << "\n"
+                     << qrts[2]._year() << " Q"<< qrts[2]._quarter() << "\n"
+                         << qrts[3]._year() << " Q"<< qrts[3]._quarter() << "\n"
+          << "Calculated values are: total Rev"<< to_string(revp) << " total inc: " << to_string(incp)
+             << " numshares " << to_string(numshares);
+
     addEarningsRecordToDB( stock, qrts[0]._year(), 5,/*quarter*/
                             to_string(revp), to_string(incp),
                             ((double)incp) / numshares, /*EPS*/
@@ -710,10 +717,10 @@ EdgarData::updateFinancials(O_Stock& stock)
     // check if last years 10k exists
     T_Ep t;
     T_BalanceSheet b;
-    if (stock._eps( t._year() == last_year &&  
+    if (stock._eps( t._year() == last_year &&
                     t._quarter() == 0 ).empty() ||
-        stock._balance_sheets( b._year() == last_year).empty()
-       )
+            stock._balance_sheets( b._year() == last_year).empty()
+            )
     {
         cout << "\n Going to get last year 10k" << endl;
         Acn* acn  = getLastYear10KAcn( stock );
@@ -732,7 +739,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     else
     {
         cout << "\n No need to download" << endl;
-        if (stock._eps( t._year() == last_year &&  
+        if (stock._eps( t._year() == last_year &&
                         t._quarter() == 4 ).empty() )
         {
             createFourthQuarter( stock, last_year );
