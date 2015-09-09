@@ -36,6 +36,7 @@ public:
     void getNodes(string tagName, //with no leading or trailng whitespace 
                   size_t number, // the number of such xml elements to collect
                   vector<XmlElement*>* collected);
+    size_t span_count(string span_type);
     
 public: //members
     string              _tagName;
@@ -114,6 +115,8 @@ private:
     XmlElement* edgarResultsTableToTree(string& page);
 
     size_t findColumnToExtract(XmlElement* tree, size_t year, size_t quarter);
+
+    // Could use template for these methods
     bool checkTrPattern( string& text, boost::regex& title_pattern, 
                          string& units, XmlElement* node,
                          boost::regex& extract_pattern, DMMM::O_Ep& earnings,
@@ -148,6 +151,7 @@ private:
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;
     int _col_num;
+
 };
 
 #endif //PARSER

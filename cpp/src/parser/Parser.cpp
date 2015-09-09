@@ -64,6 +64,7 @@ XmlElement::printXmlTree(size_t depth)
         cout << "  ";
     
     cout << "< " << _tagName; 
+//    cout << "   Has " << _children.size() << " children";
 /*
     if ( _attributes.empty() )
         cout << " (no attrs) ";
@@ -270,6 +271,113 @@ get_title_text(XmlElement* tree)
 }
 
 /*
+Identifiys from the two first title rows, the specific column with data for relavent date
+Decides if this is an exact mathc (i.e counting non data columns)
+*/
+bool
+find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* exact_match, bool quarterly = false)
+{
+    LOG_INFO << "Going to find column with data for period ending "<< end_date;
+    vector<XmlElement*>* elements = new vector<XmlElement*>;
+    string tagName("tr");
+    tree->getNodes(tagName, 2, elements);
+
+    tagIterator thIt((*elements)[0], string("tr"), string("th"));
+    XmlElement* thp;
+
+    size_t number_of_cols = 0, start_of_range = 1, end_of_range = 1;
+    size_t ths_examined = 0;
+
+    size_t colspan = 1; // here?
+
+    regex months_pattern("(12|twelve) Months Ended", regex::icase);
+    if(quarterly)
+        months_pattern.assign("(3|three) Months Ended", regex::icase);
+
+    // iteration over first row of 'th' titles
+    while( (thp = thIt.nextTag() ) != NULL )
+    {
+        LOG_INFO << "Examining 'th' with ATtributes are| "<< thp->attrText() << " Text is| " << thp->text() << "\n";
+
+        // add th to second row, if this th spans it
+        if (thp->span_count(string("row")) > 1){
+            LOG_INFO << "'th' number "<< ths_examined << " has a rowspan into next row. Adding the in row 2";
+            XmlElement* new_th = new XmlElement(thp->_tagName);
+
+            string new_attr_str = string("colspan=\"") + thp->_attributes["colspan"] + "\"";
+            new_th->addAttr( new_attr_str );
+            auto it = (*elements)[1]->_children.begin();
+            (*elements)[1]->_children.insert(it + ths_examined,new_th);
+        }
+
+        ths_examined++;
+
+        string th_text = thp->text();
+        colspan = thp->span_count(string("col"));
+
+        if(regex_search( th_text, months_pattern)){
+            start_of_range = number_of_cols;
+            end_of_range = number_of_cols + colspan - 1;
+            LOG_INFO << "FOUND RANGE! it starts at col "<< start_of_range << " and ends at " << end_of_range;
+            break;
+        }
+        number_of_cols += colspan;
+    }
+
+    tagIterator thIt2((*elements)[1], string("tr"), string("th"));
+    regex date_pattern("(\\w\\w\\w).? (\\d+)?, (\\d+)?");
+
+    size_t column_counter = 0;
+    *extraction_col = 1;
+
+    // For each th encountered in the priouvous loop, remove exxess
+    while( (thp = thIt2.nextTag() ) != NULL )
+    {
+        size_t th_col_span = thp->span_count(string("col"));
+        LOG_INFO << "iterating over second row. th counter is: " << column_counter << " th text is: "<< thp->text();
+
+        if (th_col_span > 1)
+            *exact_match = true;
+
+        if (column_counter < start_of_range){
+            column_counter += th_col_span;
+            continue;
+        }// not in range yet
+
+        if ((column_counter >= start_of_range) && (column_counter <= end_of_range)){
+            LOG_INFO << "Current Examind th is in found ragne for date";
+            string th_text = thp->text();
+            sregex_iterator mit(th_text.begin(), th_text.end(), date_pattern);
+            sregex_iterator mEnd;
+
+            for(size_t i = 0; mit != mEnd; ++mit){
+
+                string dateStr = (*mit)[0].str();
+                date rep_date = convertFromDocString(dateStr);
+
+                if (rep_date == end_date)
+                {
+                    LOG_INFO << "Date matches the requested report date, col num found is is "<< (column_counter+i) ;
+                    *extraction_col = column_counter + i;
+                    return true;
+                }
+                 ++i; // if there are more dates in the string
+            }
+        }// search for date withing range
+
+        if (column_counter > end_of_range){
+            LOG_ERROR << "Could not find extraction data column number in table within range of columns";
+            return false;
+        }
+
+    } //while - second row iteration
+
+    LOG_ERROR << "Itereated over all title columns buth could not find extraction column:( ";
+    return false;
+}
+
+/*
+ DEPRECATED in favor of find_data_column()
 Retruns the range of columns that span the title "3 months ended"
 first column is number 0
 Range is inclusive: (1 - 5) includes columns 1 and 5.
@@ -287,22 +395,26 @@ find_columns_range(XmlElement* tree, size_t* start_of_range, size_t* end_of_rang
     XmlElement* thp;
     //size_t months = 3;
     size_t number_of_cols = 0;
+    size_t ths_examined = 0;
     bool in_range(false);
     regex months_pattern("(3|three) Months Ended", regex::icase);
+    regex span_pattern("colspan = (\\d)");
+    boost::smatch match;
+
     while( (thp = thIt.nextTag() ) != NULL )
     {
+        ths_examined++;
+
         string th_text = thp->text();
         string attrs = thp->attrText();
 
-       // LOG_INFO << " ATtributes are| "<< attrs << " Text is| " << th_text << "\n";
+        LOG_INFO << " ATtributes are| "<< attrs << " Text is| " << th_text << "\n";
         if(regex_search( th_text, months_pattern))
             in_range = true;           ;// count months
 
-        boost::smatch match;
-        regex span_pattern("colspan = (\\d)");
-        if (boost::regex_search(attrs, match, span_pattern) )
+             if (boost::regex_search(attrs, match, span_pattern) )
         {
-            //LOG_INFO << "Found colspan match mathc[0] is| "<< match[0] << " and match[1] is "<< match[1]<< "\n";
+            LOG_INFO << "Found colspan match mathc[0] is| "<< match[0] << " and match[1] is "<< match[1]<< "\n";
             string val = match[1];
             size_t range_span = stoi(val);
             if (in_range){
@@ -313,6 +425,28 @@ find_columns_range(XmlElement* tree, size_t* start_of_range, size_t* end_of_rang
             }
             number_of_cols += range_span;
         }
+    }
+
+    // Iterate over Look at second tr element
+    regex date_pattern("\\w\\w\\w\\s\\d\\d,\\s\\d\\d\\d\\d", regex::icase);
+    tagIterator thIt2((*elements)[1], string("tr"), string("th"));
+    // For each th encountered in the priouvous loop, remove exxess
+    while( (thp = thIt2.nextTag() ) != NULL )
+    {
+        string th_text = thp->text();
+        string attrs = thp->attrText();
+        if (regex_search( th_text, date_pattern)){
+            LOG_INFO << "Second title row contains a date: "<< th_text;
+            if (boost::regex_search(attrs, match, span_pattern) )
+            {
+                LOG_INFO << "Found colspan match for date: "<< match[0] << " and match[1] is "<< match[1]<< "\n";
+                string val = match[1];
+                size_t range_span = stoi(val);
+                if (range_span > 1)
+                     ;  // recomend no skip
+            }
+        }
+
     }
     LOG_INFO << "Did not succeed in locating range :( ";
     // Did not succeed in finding the range :(
@@ -623,6 +757,25 @@ XmlElement::getNodes(string tagName,
         (*it)->getNodes(tagName, number, collected);
 }
 
+/* If XnlElemnt is a 'th' element, returns the colspan attribute value (the number of columns it spans)
+ * returns 1 for all other cases
+ */
+size_t
+XmlElement::span_count(string span_type){
+
+    size_t colspan = 1;
+    regex span_pattern( span_type + "span = (\\d)");
+    boost::smatch match;
+    string attrs = attrText();
+    if (boost::regex_search(attrs, match, span_pattern) )
+    {
+        //LOG_INFO << "Found colspan match mathc[0] is| "<< match[0] << " and match[1] is "<< match[1]<< "\n";
+        string val = match[1];
+        colspan = stoi(val);
+    }
+    return colspan;
+}
+
 string
 adjustForDecimals(string& val, const string& units)
 {
@@ -923,6 +1076,13 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
 // calculate relavent end date from - stock.fye, ep.year, ep.quarter
     date end_date = calculateEndDate(_stock._fiscal_year_end(), year, quarter);
 
+    // new addition
+    size_t* col_to_ex = new size_t(1);
+    bool* exact_match = new bool(false);
+    find_data_column(tree,end_date,col_to_ex,exact_match, (quarter > 0) );
+    return *col_to_ex;
+
+/* Below is deprecated and has been replace with find_data_column() method
     size_t* col_range_start = new size_t(1), *col_range_end = new size_t(1);
     bool found_col_range(false);
     if (quarter > 0)
@@ -945,7 +1105,6 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
                              << ". col_num is set as " << col_num;
                 return col_num;
             }
-
             if ( ( rep_date == (end_date - years(1)) ) &&
                  ( col_num == i-1 ) )
             {
@@ -964,7 +1123,7 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
             foundDate = true;
         }
     }
-    return col_num;
+    return col_num; */
 }
 
 bool
