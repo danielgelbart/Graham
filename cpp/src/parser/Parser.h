@@ -50,7 +50,7 @@ public: //members
 class tagIterator {
 public:
     tagIterator(XmlElement* node, string start, string tag_name);
-    XmlElement* at(size_t i);
+    XmlElement* at(size_t i, bool exact_match = false);
     XmlElement* nextTag();
     void resetToStart(){ _i = 0; }
 protected:
@@ -75,8 +75,8 @@ public:
 
 class Parser {
 public:
-    Parser():_col_num(0){ }
-    Parser(DMMM::O_Stock& stock):_col_num(0){ _stock = stock; }
+    Parser():_col_num(0), _exact_col_match(false){ }
+    Parser(DMMM::O_Stock& stock):_col_num(0), _exact_col_match(false){ _stock = stock; }
 
     XmlElement* buildXmlTree(string& xmlDocument);
     void parseXML(XmlElement* node, Tokenizer& tok);
@@ -151,6 +151,7 @@ private:
 // members - use to save relavent data for parsing
     DMMM::O_Stock _stock;
     int _col_num;
+    bool _exact_col_match;
 
 };
 

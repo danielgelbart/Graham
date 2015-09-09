@@ -127,7 +127,7 @@ tagIterator::nextTag()
 }
 
 XmlElement*
-tagIterator::at(size_t i)
+tagIterator::at(size_t i, bool exact_match)
 {
     if (_node == NULL)
         LOG_ERROR << "node is NULL when calling at()";
@@ -136,9 +136,12 @@ tagIterator::at(size_t i)
     if ( i >= num_children )
         return NULL;
 
+    if (exact_match)
+        return _node->_children[i];
+
     // iterate over children
     // advance counter only if text!=""
-    regex blank_pattern("\\s:\\s\\[\\d\\]|\\s*");
+    regex blank_pattern("\\s:\\s(\\[\\d\\]|&#160;)|\\s*");
     size_t counter = 0;
     for( auto it = _node->_children.begin(); it != _node->_children.end(); ++it )
     {
@@ -919,7 +922,7 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
         
         // get i'th td from tr
         tdIterator tdIt(node);
-        XmlElement* tdnode = tdIt.at(_col_num);
+        XmlElement* tdnode = tdIt.at(_col_num,_exact_col_match);
         if (tdnode == NULL){
             LOG_ERROR << "td child at "<< _col_num << " is NULL";
             return false;
@@ -1078,11 +1081,11 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
 
     // new addition
     size_t* col_to_ex = new size_t(1);
-    bool* exact_match = new bool(false);
-    find_data_column(tree,end_date,col_to_ex,exact_match, (quarter > 0) );
+  //  bool* exact_match = new bool(false);
+    find_data_column(tree,end_date,col_to_ex, &_exact_col_match, (quarter > 0) );
     return *col_to_ex;
 
-/* Below is deprecated and has been replace with find_data_column() method
+/* Below is deprecated
     size_t* col_range_start = new size_t(1), *col_range_end = new size_t(1);
     bool found_col_range(false);
     if (quarter > 0)
@@ -1164,7 +1167,8 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
 
     // **** Search for REVENUE using 'defref' html attribute
 
-    regex defref("defref_us-gaap_Revenues");
+
+    regex defref("defref_us-gaap_Revenues'");
     if (( foundRev = findDefref(trIt, defref, num_pattern, units,
                                 earnings_data, writeRevenueToEarnings )))
     {
@@ -1897,7 +1901,7 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
 
         // get i'th td from tr
         tdIterator tdIt(node);
-        XmlElement* tdnode = tdIt.at(_col_num);
+        XmlElement* tdnode = tdIt.at(_col_num,_exact_col_match);
         if (tdnode == NULL){
             LOG_ERROR << "td child at "<< _col_num << " is NULL";
             return false;
