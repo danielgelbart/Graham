@@ -203,37 +203,45 @@ mainMain(int argc, char* argv[])
         eData.getQuarters( stock );
     }
     if (command == string("getfyed")){
-        Test test;
-        test.setTestDB();
+       // Test test;
+       // test.setTestDB();
 
         EdgarData eData = EdgarData();
+
+        std::vector<O_Stock> stocks;
+
         if (argc > 2)
         {
-            O_Stock stock = findStockByTicker( argv[2] );
+            auto stock = findStockByTicker( argv[2] );
+
             eData.getFiscalYearEndDate(stock);
             goto exit;
+        }else{
+
+            T_Stock ts;
+            stocks = ts.select();
+
+
+            path pp = basePath / string("no_yefd.txt");
+            boost::filesystem::ofstream outFile(pp);
+
+            for( auto it = stocks.begin(); it != stocks.end();++it)
+            {
+                if( it->_fiscal_year_end().length() == string("12-31").length())
+                {
+                    LOG_INFO << "Skipping for "<<it->_ticker()<<"\n";
+                    continue;
+                }
+                if (!eData.getFiscalYearEndDate( *it ))
+                {
+                    outFile << "\"" << it->_ticker() <<"\",";
+                    outFile.flush();
+                }else
+                    cout << "Succeeded to get fyed for"<< it->_ticker()<<"!\n";
+            }
+            outFile.close();
         }
 
-        T_Stock ts;
-        auto stocks = ts.select();
-        
-        path pp = basePath / string("no_yefd.txt");       
-        boost::filesystem::ofstream outFile(pp);
-        for( auto it = stocks.begin(); it != stocks.end();++it)
-        {
-            if( it->_fiscal_year_end().length() == string("12-31").length())
-            {
-                LOG_INFO << "Skipping for "<<it->_ticker()<<"\n";
-                continue;
-            }
-            if (!eData.getFiscalYearEndDate( *it ))
-            {
-                outFile << "\"" << it->_ticker() <<"\",";
-                outFile.flush();
-            }else
-                cout << "Succeeded to get fyed for"<< it->_ticker()<<"!\n";
-        }
-        outFile.close();
     }
 
     if (command == string("copydevtotest")){

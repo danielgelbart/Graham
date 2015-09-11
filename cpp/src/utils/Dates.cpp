@@ -41,12 +41,12 @@ convertFyedStringToDate(greg_year year,string fyenStr)
 }
 
 date 
-calculateEndDate(string fyenStr, greg_year year, size_t quarter)
+calculateEndDate(string fyenStr, bool fy_same_as_ed, greg_year year, size_t quarter)
 {
     date annualendDate = convertFyedStringToDate(year,fyenStr);
 
     // endDate.year == year + 1 
-    if (annualendDate.month() < Jun )
+    if (!fy_same_as_ed)
     {
         date adj_annualendDate = convertFyedStringToDate( (year + 1), fyenStr);
         return adj_annualendDate;

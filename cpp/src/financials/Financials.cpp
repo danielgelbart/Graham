@@ -947,7 +947,7 @@ EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
 bool 
 EdgarData::getFiscalYearEndDate(O_Stock& stock)
 {
-    LOG_INFO << "fyed() called";
+    LOG_INFO << "fyed() called for "<< stock._ticker();
     Acn* acn = getLastYear10KAcn(stock);
     LOG_INFO << "Got acn\n";
     if (acn == NULL)
@@ -976,8 +976,8 @@ EdgarData::getFiscalYearEndDate(O_Stock& stock)
         return false;
     LOG_INFO << "Got cover report\n";
 
-    string* date = NULL;
-    int* dyear = NULL;
+    string* date = new string("");
+    int* dyear = new int(1000);
     parser.extractFiscalDatesFromReport(coverReportIt->second, dyear, date);
     if (date == NULL)
     {

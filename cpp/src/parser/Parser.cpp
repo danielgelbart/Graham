@@ -1078,7 +1078,10 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
     regex date_pattern("(\\w\\w\\w).? (\\d+)?, (\\d+)?");
 
 // calculate relavent end date from - stock.fye, ep.year, ep.quarter
-    date end_date = calculateEndDate(_stock._fiscal_year_end(), year, quarter);
+    date end_date = calculateEndDate(_stock._fiscal_year_end(), _stock._fy_same_as_ed(), year, quarter);
+    LOG_INFO << " End date calucualted for year " << year << " Q| " << quarter << " from fyend of "
+             << _stock._fiscal_year_end() << " and fd_same_as_ed of " <<_stock._fy_same_as_ed()
+             << " is: " << end_date;
 
     // new addition
     size_t* col_to_ex = new size_t(1);
@@ -2574,7 +2577,7 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
             if (boost::regex_search(trtext, match, ed_pattern) )
             {
                 fiscal_end_date = match[0];
-                LOG_INFO << "fiscal year ends on"<< fiscal_end_date;
+                LOG_INFO << "fiscal year ends on "<< fiscal_end_date;
                 //boost::shared_ptr<string> f(new Foo);
                 *date_end = fiscal_end_date;
                 LOG_INFO << "date_end is now" << *date_end;
@@ -2593,7 +2596,7 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
             } else
                 LOG_ERROR << "Could not get the focus year";
         }
-        if (regex_search(trtext, doc_end_pattern))
+        if ((regex_search(trtext, doc_end_pattern)) && (year_end != NULL))
         {
             boost::regex year_pattern("\\d\\d\\d\\d");
             boost::smatch match;
