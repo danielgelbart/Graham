@@ -2325,7 +2325,7 @@ Parser::extractBookValue(XmlElement* tree, O_BalanceSheet& balance_data, string&
     regex num_pattern("\\(?\\d+[,\\d]+(.\\d+)?\\)?");
 
     // **** Search for BV using 'defref' html attribute
-    regex defref("us-gaap_StockholdersEquity");
+    regex defref("us-gaap_StockholdersEquity'");
     if (( foundBV = findDefref(trIt, defref, num_pattern, units,
                                 balance_data, writeBookValueBalance )))
     {
