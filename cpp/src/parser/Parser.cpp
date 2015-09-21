@@ -1808,21 +1808,27 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
         string trtext = trp->text();
         if (regex_search(trtext,shares_pattern))
         {
-            boost::regex pattern("\\d+[,\\d]+(.\\d)?");
+            //iterate over tds
+            boost::regex pattern("\\d\\d\\d(,|\\d)+(.\\d)?");
+            boost::regex exclude_pattern("\\&#160;");
             boost::smatch match;
-            if (boost::regex_search(trtext, match, pattern) )
+            tdIterator tdIt(trp);
+            XmlElement* td = trp;
+            while( (td = tdIt.nextTag() ) != NULL )
             {
-                LOG_INFO << "got numshares";
-                numshares = match[0];
-                LOG_INFO << "Got num shares from cover report. They are: "<< numshares;
-                ++counter;
-            } else{
-                LOG_ERROR << "Could not get numshares from cover report";
-                return false;
-            }
-            // break; // allow for multiple classes of stock
+                if (boost::regex_search(td->text(), exclude_pattern) )
+                    continue;
+
+                if (boost::regex_search(td->text(), match, pattern) ){
+                    numshares = match[0];
+                    LOG_INFO << "Got num shares from cover report text "<< td->text() <<" They are: "<< numshares;
+                }
+
+            }// itereration over tds
+            ++counter;
         }
-    }
+    } // iteration over trs
+
     if (counter > 1)
     {
         cout << "! There are multiple classes of shares\n";

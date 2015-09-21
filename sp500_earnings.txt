@@ -10,9 +10,8 @@ AMG: 0.5029
 A: 0.325
 GAS: 0.385
 APD: 1.0326
-ARG: ----------Quarter evaluation is wrong Q2 should be Q1, and Q3 is
-calculated to be 0
-
+ARG: Quarter evaluation is wrong Q2 should be Q1, and Q3 is
+calculated to be 0 - Fixed 
 AKAM: 0.338894
 AA: 0.641
 AGN: -0.05607
@@ -21,7 +20,7 @@ ALL: 2.927
 ALTR: 0.450996
 MO: 4.913
 AMZN: -0.406
-AEE: 
+AEE: ---------------
 AEP: 1.703
 AXP: 5.978
 AIG: 8.388
