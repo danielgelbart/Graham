@@ -1806,22 +1806,32 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
+
         if (regex_search(trtext,shares_pattern))
         {
             //iterate over tds
-            boost::regex pattern("\\d\\d\\d(,|\\d)+(.\\d)?");
+            boost::regex pattern("\\d[,\\d]+(\\.)?\\d");
             boost::regex exclude_pattern("\\&#160;");
-            boost::smatch match;
+
             tdIterator tdIt(trp);
             XmlElement* td = trp;
-            while( (td = tdIt.nextTag() ) != NULL )
+
+            // Some stocks (e.g. Google) have multiple classes of stock, only taking data for the first one
+            // Some cover reports (e.g. AEE) include sub units, stop searching if this is the case
+            while( ( (td = tdIt.nextTag() ) != NULL ) &&
+                   (numshares == "") )
             {
                 if (boost::regex_search(td->text(), exclude_pattern) )
                     continue;
 
+                //initialzie, since this object has itererators that become invlaid otherwise
+                boost::smatch match;
                 if (boost::regex_search(td->text(), match, pattern) ){
-                    numshares = match[0];
-                    LOG_INFO << "Got num shares from cover report text "<< td->text() <<" They are: "<< numshares;
+                    numshares = match.str(0);// TODO! - THIS INCORECTLY CAPTURES THE SEQUENCE WTF???????????????
+
+                    LOG_INFO << "Got num shares from cover report text "<< td->text() << " \n"
+                             << "matche[0] is: "<< match.str(0) << " \n"
+                             << "Saved to string as " << numshares << " \n";
                 }
 
             }// itereration over tds
@@ -1832,11 +1842,13 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     if (counter > 1)
     {
         cout << "! There are multiple classes of shares\n";
-        LOG_ERROR << "Could not get numshares from cover reprot. there are multiple classes of shares";
-        // should discard recored
-        // IF hav eps and net_income
-        // can calculate num shares from that.
-        return false;
+        O_Note note;
+        note._stock_id() = _stock._id();
+        note._year() = ep._year();
+        note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING ;
+        note._note() = "There are MULTIPLE classes of shares for thes stock";
+        note.insert();
+
     }
 
     if (numshares == "")
@@ -1892,6 +1904,11 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
     if (foundEps)
         LOG_INFO << "Succesfully found eps";
 
+    /* Where to get numshare data, by order of prefrence:
+     * 1) income statment 'diluted'
+     * 2) Cover report - outstanding
+     * 3) income statment, 'basic' - NOT implememted yet
+     */
     foundNsr = extractNumShares(tree, earnings_data, units, nsrUnits);
     if (foundNsr)
         LOG_INFO << "Succesfully shares outstanding";
