@@ -9,9 +9,12 @@
           text: "Earnings"
         },
         xAxis: {
-          categories: #{ @earnings.map{ |e| e.year } },
+          categories: #{ @earnings.map{ |e| e.year } << "TTM"  },
           labels: {
             formatter: function () {
+                if (this.value == "TTM")
+                   return "TTM"
+                else                                        
                 return Highcharts.dateFormat("%Y", Date.UTC(this.value, 0, 1));
             }
           }, // labels

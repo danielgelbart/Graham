@@ -20,7 +20,7 @@ ALL: 2.927
 ALTR: 0.450996
 MO: 4.913
 AMZN: -0.406
-AEE: ---------------
+AEE: ---fixed! (get numshares from cover report)
 AEP: 1.703
 AXP: 5.978
 AIG: 8.388
@@ -40,7 +40,7 @@ AMAT: 1.269
 ADM: 2.474
 AIZ: 0.383706
 T: 5.772
-ADSK: 
+ADSK: ---Fixed! (get long term debt, 2014.15 duplicate)
 ADP: 1.405
 AN: 0.4351
 AZO: 1.132774
@@ -55,7 +55,7 @@ BAX: 2.371
 BBT: 1.99
 BDX: 1.079
 BBBY: 0.904896
-BBY: 
+BBY: --Fixed
 BIIB: 3.277369
 BLK: 3.36
 HRB: 0.643326

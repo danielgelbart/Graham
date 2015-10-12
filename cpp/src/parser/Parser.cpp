@@ -1827,7 +1827,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                 //initialzie, since this object has itererators that become invlaid otherwise
                 boost::smatch match;
                 if (boost::regex_search(td->text(), match, pattern) ){
-                    numshares = match.str(0);// TODO! - THIS INCORECTLY CAPTURES THE SEQUENCE WTF???????????????
+                    numshares = match.str(0);
 
                     LOG_INFO << "Got num shares from cover report text "<< td->text() << " \n"
                              << "matche[0] is: "<< match.str(0) << " \n"

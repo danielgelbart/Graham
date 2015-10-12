@@ -73,20 +73,14 @@ class StocksController < ApplicationController
     @revenue = @earnings.map{|s| s.revenue.to_i }
     @notes = @stock.notes
 
-
-
-=begin TTM EPS
-    # How to add ttm - as future year +1
-    # Don't add if ttm == last year annual report
-    @ttm = @stock.get_ttm_earnings
+  #=begin TTM EPS
+    @ttm = @stock.ttm_earnings_record
     if !@ttm.nil?
       @income << @ttm.net_income.to_i
       @revenue << @ttm.revenue.to_i
       @numshare << @ttm.shares.to_i
-      @stock.ttm_eps = @ttm.eps
-      @stock.save
     end
-=end
+  #=end
   end
 
   # GET /stocks/new
