@@ -62,7 +62,7 @@ HRB: 0.643326
 BA: 5.817
 BWA: 0.6756
 BXP: 0.560759
-BSX: 
+BSX: --fixed! extact net income with single digit
 BMY: 2.253
 BRCM: 
 CHRW: 0.463

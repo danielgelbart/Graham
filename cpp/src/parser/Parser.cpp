@@ -1415,7 +1415,7 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     trIterator trIt(tree);
     XmlElement* trp = tree;
     bool foundInc(false);
-    regex num_pattern("\\(?\\d+[,\\d]+(.\\d)?\\)?");
+    regex num_pattern("\\(?\\d+[,\\d]*(.\\d)?\\)?");
 
     //NOTE: there can be multiple net income lines, due to subdivitions (e.g. SO, F).
     //Parent company should appear first, subdivitions are marked as "[Member]" and used to stop search
@@ -1938,7 +1938,7 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
         LOG_INFO << "Matching val from text: "<<tdtext;
         if (boost::regex_search(tdtext, match, extract_pattern) )
         {
-            string val = match[0];
+            string val = match.str(0);
             LOG_INFO << "\n extracted val is"<< val;
             func(balance,val,units);
             return true;

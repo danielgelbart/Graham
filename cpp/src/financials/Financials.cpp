@@ -538,7 +538,7 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
     }
     catch (const std::invalid_argument& ia) {
         cout << "\nin createFourthQuarter() stol() threw Invalid argument: " << ia.what() << '\n';
-        LOG_ERROR << "missing data to calcualte createFourthQuarter(). cannot do it";
+        LOG_ERROR << "missing data to calcualte createFourthQuarter() for year "<< year <<". cannot do it";
         return;
     }
 
