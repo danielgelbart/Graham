@@ -160,16 +160,16 @@ Tokenizer::extractTagContent(string& tagName, string& content)
     boost::regex pattern(openTag+"(?<NAME>(.*))("+closeTage+"){1,1}");
     boost::smatch match;
 
-    cout << "\n <>Contstructed pattern is " << pattern << endl;
+    //cout << "\n <>Contstructed pattern is " << pattern << endl;
  
     string retStr("");
     if(boost::regex_search(content, match, pattern)){
 
-        cout << "Matches for tag called" << tagName << " are: \n"
-             << "match[1].str(): " << match[1].str() << " \n"
-             << "match[NAME].str(): " << match["NAME"].str() << " \n"
-             << "match[2].str(): " << match[2].str() << " \n"
-             << endl;
+        //cout << "Matches for tag called" << tagName << " are: \n"
+          //   << "match[1].str(): " << match[1].str() << " \n"
+            // << "match[NAME].str(): " << match["NAME"].str() << " \n"
+            // << "match[2].str(): " << match[2].str() << " \n"
+             //<< endl;
         retStr = match["NAME"];
     }
     return trimSpaces( retStr );
@@ -230,6 +230,12 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
 
     bool hasStatementsCat(false);
 
+
+    /* TODO
+     * This handling is simply parsing an xml doc as a string
+     * Should parse the filing report AS XML, for wich all the code to do so is implemeted:
+     * simply build an xml tree from the filingsummary, then iterate over the reports
+     */
     while( (report = getNextDelString(delimiter)) != "")
     {
         reportName = extractTagContent(tagName,report);

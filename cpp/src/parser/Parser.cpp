@@ -2422,6 +2422,13 @@ Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data
                                 balance_data, writeLongTermDebtToBalance )))
         LOG_INFO<<" Successfully found Long Term Debt us-gaap_DebtAndCapitalLeaseObligations (4th)";
 
+    // Used by EA uses us-gaap_ConvertibleLongTermNotesPayable
+    defref.assign("us-gaap_ConvertibleLongTermNotesPayable");
+    if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeLongTermDebtToBalance )))
+        LOG_INFO<<" Successfully found Long Term Debt us-gaap_ConvertibleLongTermNotesPayable (5th)";
+
+
     // "other" long term debt
     defref.assign("us-gaap_OtherLongTermDebtNoncurrent");
     if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,

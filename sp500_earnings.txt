@@ -107,7 +107,7 @@ CL: 2.334
 CMCSA: 8.568
 CMA: 0.581
 CSC: -0.502
-CAG: 
+CAG: ----------Need to swith to parsing filingsummary using xml
 COP: 5.018
 CNX: 0.126117
 ED: 1.101
@@ -128,9 +128,9 @@ XRAY: 0.313937
 DVN: -2.316
 DO: -0.014508
 DTV: 2.925
-DFS: 
+DFS: Fixed! just needed to mark DFS as a bank
 DISCA: 1.159
-DG: 
+DG: -fixed! (already)
 D: 1.467
 DOV: 0.824607
 DOW: 4.201
