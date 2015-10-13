@@ -157,15 +157,21 @@ Tokenizer::extractTagContent(string& tagName, string& content)
     string openTag("<"+tagName+">");
     string closeTage("</"+tagName+">");
 
-// boost is supposed to allow access to the named subexpression NAME
-// but I don't know how
     boost::regex pattern(openTag+"(?<NAME>(.*))("+closeTage+"){1,1}");
     boost::smatch match;
-    //  cout << "\n <>Contstructed pattern is " << pattern << endl;
- 
-    boost::regex_search(content, match, pattern);
 
-    string retStr = match[1];
+    cout << "\n <>Contstructed pattern is " << pattern << endl;
+ 
+    string retStr("");
+    if(boost::regex_search(content, match, pattern)){
+
+        cout << "Matches for tag called" << tagName << " are: \n"
+             << "match[1].str(): " << match[1].str() << " \n"
+             << "match[NAME].str(): " << match["NAME"].str() << " \n"
+             << "match[2].str(): " << match[2].str() << " \n"
+             << endl;
+        retStr = match["NAME"];
+    }
     return trimSpaces( retStr );
 }
 
@@ -193,6 +199,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
 
     string delimiter("<Report>");
     string tagName("ShortName");
+    string tagCatName("MenuCategory");
     string report = "";
     string reportName = "";
 
@@ -214,21 +221,39 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     // CAT are unique - they use - "Consolidated Results of Operations"
     // CLF - "condensed statement of operations" - NOT going to get that
     boost::regex income_pattern(
-        "(consolidated )?(statements? of (consolidated )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|(and sector )?income statements?|results of operations)",
+        "(consolidated )?(statements? of (consolidated )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|results of operations)",
         boost::regex_constants::icase);
   
     boost::regex balance_pattern(
         "(consolidated )?(and sector )?((statements? of)? financial (position|condition)|balance sheets?)",
         boost::regex_constants::icase);
 
+    bool hasStatementsCat(false);
+
     while( (report = getNextDelString(delimiter)) != "")
     {
         reportName = extractTagContent(tagName,report);
 
+        //The follwoing segment checks if in the filingsummary, reprots are market as 'Statments'
+        // If they are, we want to search only within these marked reports
+        string category = extractTagContent(tagCatName,report);
+        string catName = "Statements";
+
+        if ( !hasStatementsCat && (category == catName)){
+            LOG_INFO << "Entering report listings for Statments in Filingsummarg\n";
+            hasStatementsCat = true;
+        }
+
+        if ( hasStatementsCat &&  (category != catName)){
+            LOG_INFO << "Previously found reports for Statments, next reports are NOT for stamtnest, so stopping search\n";
+            break;
+        }
+
         // TODOcheck that name does NOT inclue (Parenthetical)
         LOG_INFO << "\n Handling report named: " << reportName << "\n";
 
-        if (!foundCoverRep && boost::regex_search(reportName, cover_pattern))
+        if ((!foundCoverRep && (category == "Cover")) ||
+            (!foundCoverRep && boost::regex_search(reportName, cover_pattern)))
         {
             foundCoverRep = true;
             LOG_INFO << "FOUND COVER REPORT\n"<< reportName << "\n";
@@ -262,7 +287,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
     if(!foundIncomeRep){
         LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN ------------------\n";
 
-        income_pattern.assign("consolidated (condensed )?(statements? of )?comprehensive (income|operations|loss)",
+        income_pattern.assign("(consolidated (condensed )?(statements? of )?comprehensive (income|operations|loss)|(and sector )?income statements?)",
             boost::regex_constants::icase);
 
         // reset pos

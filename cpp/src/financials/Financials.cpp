@@ -351,6 +351,16 @@ EdgarData::insertEp( O_Ep& ep )
         )
         return false;
 
+    //If record is empty - do not enter it
+    if( ( ep._revenue() == "")     &&
+            ( ep._net_income() == "" ) &&
+            ( ep._shares() == "" )     &&
+            withinPercent(ep._eps(),0.1,0.0) ){
+            LOG_ERROR<<" Earnings record is empty (contains no data). Not going to insert into DB";
+            return false;
+    }
+
+
     T_Stock ta;
     I_Stock stock_id( ep._stock_id() );
     pair<O_Stock, bool> spair = ta.select( stock_id );

@@ -64,12 +64,14 @@ BWA: 0.6756
 BXP: 0.560759
 BSX: --fixed! extact net income with single digit
 BMY: 2.253
-BRCM: 
+BRCM: --fixed! (by previous fix)
 CHRW: 0.463
 CA: 0.734
 CVC: 0.266309
 COG: 0.037692
-CAM: 
+CAM: Fixed! finds completly wrong report and takes it as income rep for
+quarter reports (2015 Q2) 
+like SEC do
 CPB: 0.76
 COF: 4.427
 CAH: 1.154
