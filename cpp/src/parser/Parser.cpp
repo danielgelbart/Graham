@@ -291,7 +291,7 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
     size_t number_of_cols = 0, start_of_range = 1, end_of_range = 1;
     size_t ths_examined = 0;
 
-    size_t colspan = 1; // here?
+
 
     regex months_pattern("(12|twelve) Months Ended", regex::icase);
     if(quarterly)
@@ -316,12 +316,15 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
         ths_examined++;
 
         string th_text = thp->text();
+        size_t colspan = 1; // here?
         colspan = thp->span_count(string("col"));
 
         if(regex_search( th_text, months_pattern)){
             start_of_range = number_of_cols;
             end_of_range = number_of_cols + colspan - 1;
-            LOG_INFO << "FOUND RANGE! it starts at col "<< start_of_range << " and ends at " << end_of_range;
+            LOG_INFO << "FOUND RANGE! '"<< months_pattern.str() << "' matheces text: "
+                     << th_text <<  " and covers colums starting at col "
+                     << start_of_range << " and ending at col" << end_of_range;
             break;
         }
         number_of_cols += colspan;
@@ -768,13 +771,13 @@ size_t
 XmlElement::span_count(string span_type){
 
     size_t colspan = 1;
-    regex span_pattern( span_type + "span = (\\d)");
+    regex span_pattern( span_type + "span = (\\d+)");
     boost::smatch match;
     string attrs = attrText();
     if (boost::regex_search(attrs, match, span_pattern) )
     {
         //LOG_INFO << "Found colspan match mathc[0] is| "<< match[0] << " and match[1] is "<< match[1]<< "\n";
-        string val = match[1];
+        string val = match.str(1);
         colspan = stoi(val);
     }
     return colspan;
