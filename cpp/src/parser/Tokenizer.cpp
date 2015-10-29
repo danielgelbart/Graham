@@ -126,8 +126,22 @@ Tokenizer::findFilingSummary()
         return "";
     }
 
+    //extract only Filingsummary tag to string
+    //string filstr("FilingSummary");
     string delimiter("<DOCUMENT>");
-    return getNextDelString(delimiter);
+    string filone = getNextDelString(delimiter);
+
+    //string openTag("<FilingSummary");
+    //string closeTage("</FilingSummary>");
+
+    boost::regex pattern("<FilingSummary.*</FilingSummary>{1,1}");
+    boost::smatch match;
+
+    if(boost::regex_search(filone, match, pattern)){
+        string retStr = match.str(0);
+        return trimSpaces( retStr );
+    }
+    return filone;
 }
 string
 Tokenizer::findDoc(string& docName)
@@ -145,10 +159,35 @@ Tokenizer::findDoc(string& docName)
     }                      
     if (!FLfound){
         LOG_ERROR << "Could NOT locate document" << docName <<"\n" ;
+        return "";
     }
 
     string delimiter("<DOCUMENT>");
     return getNextDelString(delimiter);
+}
+
+string
+Tokenizer::extractTag(string& tagName, string& content)
+{
+    string openTag("<"+tagName+">");
+    string closeTage("</"+tagName+">");
+
+    boost::regex pattern(openTag+".*"+closeTage+"{1,1}");
+    boost::smatch match;
+
+    LOG_INFO << "\n Contstructed pattern is " << pattern.str();
+
+    string retStr("");
+    if(boost::regex_search(content, match, pattern)){
+
+        //cout << "Matches for tag called" << tagName << " are: \n"
+          //   << "match[0].str(): " << match[0].str() << " \n"
+            // << "match[NAME].str(): " << match["NAME"].str() << " \n"
+            //<< "match[1].str(): " << match[1].str() << " \n"
+            // << endl;
+        retStr = match.str(0);
+    }
+    return trimSpaces( retStr );
 }
 
 string
@@ -160,7 +199,7 @@ Tokenizer::extractTagContent(string& tagName, string& content)
     boost::regex pattern(openTag+"(?<NAME>(.*))("+closeTage+"){1,1}");
     boost::smatch match;
 
-    //cout << "\n <>Contstructed pattern is " << pattern << endl;
+    LOG_DEBUG << "\n <>Contstructed pattern is " << pattern.str();
  
     string retStr("");
     if(boost::regex_search(content, match, pattern)){
@@ -170,7 +209,7 @@ Tokenizer::extractTagContent(string& tagName, string& content)
             // << "match[NAME].str(): " << match["NAME"].str() << " \n"
             // << "match[2].str(): " << match[2].str() << " \n"
              //<< endl;
-        retStr = match["NAME"];
+        retStr = match.str(1);
     }
     return trimSpaces( retStr );
 }
@@ -229,6 +268,7 @@ Tokenizer::getReportDocNames(map<ReportType,string>* reports_map)
         boost::regex_constants::icase);
 
     bool hasStatementsCat(false);
+
 
 
     /* TODO

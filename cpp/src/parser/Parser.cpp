@@ -89,9 +89,11 @@ XmlElement::printXmlTree(size_t depth)
         (*it)->printXmlTree( depth+1);
 }
 
+/* only searched for start at self and children */
 tagIterator::tagIterator(XmlElement* node, string start, string tag_name):_i(0){
     _start = start;
     _tag_name = tag_name;
+    _node = node;
     if(node == NULL){
         _node = node;
     }else{
@@ -112,12 +114,15 @@ tagIterator::tagIterator(XmlElement* node, string start, string tag_name):_i(0){
 XmlElement*
 tagIterator::nextTag()
 {
+    LOG_INFO << "tagIterator: looking at tag named"<< _node->_tagName<< "\n";
+
     size_t num_children = _node->_children.size();
     if ( _i >= num_children )
         return NULL;
 
     while ( _node->_children[_i]->_tagName != _tag_name)
     {
+        LOG_INFO << "tagIterator: looking at tag named"<< _node->_children[_i]->_tagName << "\n";
         _i = _i + 1;
         if ( _i >= num_children )
             return NULL;
@@ -249,6 +254,12 @@ XmlElement::text()
 }
 
 string
+XmlElement::mytext()
+{
+    return _text;
+}
+
+string
 XmlElement::attrText()
 {
     string rText = "";
@@ -290,8 +301,6 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
 
     size_t number_of_cols = 0, start_of_range = 1, end_of_range = 1;
     size_t ths_examined = 0;
-
-
 
     regex months_pattern("(12|twelve) Months Ended", regex::icase);
     if(quarterly)
@@ -550,6 +559,172 @@ Parser::parseXML(XmlElement* node, Tokenizer& tok){
     } // while
 }
 
+string
+Parser::readReportHtmlNameFromRepTag(XmlElement* report)
+{
+    string doc_name = "";
+    string doc_tag("HtmlFileName");
+    XmlElement* node = report->getFirstChild(doc_tag);
+    if(node != NULL)
+        doc_name = node->_text;
+
+    if (doc_name == "")
+    {
+        doc_tag = "XmlFileName";
+        XmlElement* node = report->getFirstChild(doc_tag);
+        if(node != NULL)
+            doc_name = node->_text;
+    }
+    return doc_name;
+}
+
+/* This is identicla logic to tokenizer's parseing of filingsummary BUT:
+ * Some compnaies have attrs in their 'Report' tags making strin parsing fail
+ * This method parses the report as XmlElement
+ */
+void
+Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_map){
+
+    LOG_INFO << "PARSER::getReportDocNames() called\n";
+    //LOG_INFO << "fiingsummary: \n" << filingSummary;
+    auto filtree = buildXmlTree(filingSummary);
+    string startTagName("MyReports"), tagStrItName("Report");
+    XmlElement* filingRepTree = filtree->getFirstChild(startTagName);
+    tagIterator filingReportsIt(filingRepTree, startTagName, tagStrItName);
+  //  filingRepTree->printXmlTree(0);
+
+    bool foundIncomeRep(false);
+    bool foundBalanceRep(false);
+    bool foundCoverRep(false);
+
+//    string delimiter("<Report>");
+    string tagName("ShortName");
+    string tagCatName("MenuCategory");
+    XmlElement* report;
+    string reportName = "";
+
+    /* TODO SEC do NOT use report names to find them
+     * Cover and financial reports are parsed out based on meta information
+     * Use this information instead of report name
+     */
+
+    //NOTE - ARG call their cover report "DEI Document"
+    // Not sure if to adjust regex for this single weirdo
+
+    // BKH - call it "Document Information Document"
+    // BUT - Edgar finds it OK. SO - maybe there is some additional markup used to find the cover document!!!
+    boost::regex cover_pattern(
+        "(Document (and )?Entity (Supplemental )?Information|DEI )(Information )?(Document )?",
+        boost::regex_constants::icase);
+
+    // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!
+    // CAT are unique - they use - "Consolidated Results of Operations"
+    // CLF - "condensed statement of operations" - NOT going to get that
+    boost::regex income_pattern(
+        "(consolidated )?(statements? of (consolidated )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|results of operations)",
+        boost::regex_constants::icase);
+
+    boost::regex balance_pattern(
+        "(consolidated )?(and sector )?((statements? of)? financial (position|condition)|balance sheets?)",
+        boost::regex_constants::icase);
+
+    bool hasStatementsCat(false);
+
+//TODO - hits seg fault, needs to iterate correctly, possibly searching for start incorrectly
+    while( (report = filingReportsIt.nextTag()) != NULL)
+    {
+        XmlElement* nameNode = report->getFirstChild(tagName);
+        reportName = nameNode->mytext();
+        LOG_INFO << "Examing report named: "<< reportName << "\n";
+        //The follwoing segment checks if in the filingsummary, reprots are market as 'Statments'
+        // If they are, we want to search only within these marked reports
+        XmlElement* catNode = report->getFirstChild(tagCatName);
+        string category = "";
+        if(catNode != NULL){
+        category = catNode->mytext();
+        string catName = "Statements";
+
+        if ( !hasStatementsCat && (category == catName)){
+            LOG_INFO << "Entering report listings for Statments in Filingsummarg\n";
+            hasStatementsCat = true;
+        }
+
+        if ( hasStatementsCat &&  (category != catName)){
+            LOG_INFO << "Previously found reports for Statments, next reports are NOT for stamtnest, so stopping search\n";
+            break;
+        }
+        }
+        // TODOcheck that name does NOT inclue (Parenthetical)
+        //LOG_INFO << "\n Handling report named: " << reportName << "\n";
+
+        if ((!foundCoverRep && (category == "Cover")) ||
+            (!foundCoverRep && boost::regex_search(reportName, cover_pattern)))
+        {
+            foundCoverRep = true;
+            LOG_INFO << "FOUND COVER REPORT\n"<< reportName << "\n";
+            reports_map->insert( pair<ReportType,string>(
+                                     ReportType::COVER,
+                                     readReportHtmlNameFromRepTag(report)) );
+        }
+        if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
+        {
+            // continue of treating "Parenthetical"
+
+            foundIncomeRep = true;
+            LOG_INFO << "FOUND INCOME REPORT MATCH!\n"<< reportName << "\n";
+            reports_map->insert( pair<ReportType,string>(
+                                     ReportType::INCOME,
+                                     readReportHtmlNameFromRepTag(report)) );
+        }
+        if (!foundBalanceRep && boost::regex_search(
+                reportName, balance_pattern))
+        {
+            foundBalanceRep = true;
+            LOG_INFO << "FOUND BALANCE REPORT MATCH!\n"<< reportName << "\n";
+            reports_map->insert( pair<ReportType,string>(
+                                     ReportType::BALANCE,
+                                     readReportHtmlNameFromRepTag(report)) );
+        }
+
+        if (foundBalanceRep && foundIncomeRep)
+            break;
+    }
+    if(!foundIncomeRep){
+        LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN ------------------\n";
+
+        income_pattern.assign("(consolidated (condensed )?(statements? of )?comprehensive (income|operations|loss)|(and sector )?income statements?)",
+            boost::regex_constants::icase);
+
+        // reset iterator
+        filingReportsIt.resetToStart();
+
+        while( (report = filingReportsIt.nextTag()) != NULL)
+        {
+            XmlElement* nameNode = report->getFirstChild(tagName);
+            reportName = nameNode->mytext();
+
+            LOG_INFO << "\n Handling report named: " << reportName << "\n";
+
+            if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
+            {
+                // continue of treating "Parenthetical"
+
+                foundIncomeRep = true;
+                LOG_INFO << "FOUND INCOME REPORT MATCH!\n"<< reportName << "\n";
+                reports_map->insert( pair<ReportType,string>(
+                                         ReportType::INCOME,
+                                         readReportHtmlNameFromRepTag(report)) );
+                break;
+            }
+        }
+    }
+    if(!foundBalanceRep)
+        LOG_ERROR<<"Could NOT find Balance statement\n";
+    if(!foundCoverRep)
+        LOG_ERROR<<"Could NOT find Cover statement\n";
+}
+
+
 /*
 @fileName - a 10-k dump file from edgar.com
 
@@ -569,10 +744,14 @@ Parser::extract_reports(string& k10,
         LOG_ERROR << "Cannot procede to handle without filing summary";
         return;
     }
-
-    Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
-    filingSummaryTok.getReportDocNames(reports);
+
+    // Parse by xml
+    getReportDocNames(filingSummary,reports);
+
+    // Parse by string tokenizer
+    //Tokenizer filingSummaryTok(filingSummary);
+   // filingSummaryTok.getReportDocNames(reports);
 
     //extract INCOME statement from dump file
     string reportKey;
@@ -633,7 +812,6 @@ Parser::get_report_from_complete_filing(string& page, ReportType reportType )
         LOG_ERROR << "Cannot procede to handle without filing summary";
         return "";
     }
-
 
     Tokenizer filingSummaryTok(filingSummary);
     auto reports = new map<ReportType,string>;
@@ -762,6 +940,28 @@ XmlElement::getNodes(string tagName,
 
     for(auto it = _children.begin() ; it != _children.end() ; ++it)
         (*it)->getNodes(tagName, number, collected);
+}
+
+/* Search sub tree RECURSIVLY and return first node with name == 'tagName'
+ * returns NULL if no such node can be found
+ */
+XmlElement*
+XmlElement::getFirstChild(string tagName)
+{
+    if (_tagName == tagName)
+        return this;
+
+    if (_children.empty())
+        return NULL;
+
+    XmlElement* childres = NULL;
+    for(auto it = _children.begin() ; it != _children.end() ; ++it){
+       childres = (*it)->getFirstChild(tagName);
+       if (childres != NULL)
+           return childres;
+    }
+    // No such child node
+    return NULL;
 }
 
 /* If XnlElemnt is a 'th' element, returns the colspan attribute value (the number of columns it spans)

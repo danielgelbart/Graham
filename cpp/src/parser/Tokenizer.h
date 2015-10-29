@@ -27,6 +27,7 @@ public:
     size_t getNextDocPos();
     string findFilingSummary();
     void getReportDocNames(map<ReportType,string>* reports_map);
+    string extractTag(string& tagName,string& content);
     string extractTagContent(string& tagName,string& content);
     void parseToDocuments();
     string findDoc(string& docName);

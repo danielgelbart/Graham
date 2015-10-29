@@ -107,7 +107,10 @@ CL: 2.334
 CMCSA: 8.568
 CMA: 0.581
 CSC: -0.502
-CAG: ----------Need to swith to parsing filingsummary using xml
+CAG: Fixed! BUT 10q report from 2013 Oct (Q3) contains non utf
+charachters, which mess up string.find() and does not parse document
+corretly, resulting in not finding filingsummary
+
 COP: 5.018
 CNX: 0.126117
 ED: 1.101
@@ -160,7 +163,7 @@ ES: -delisted
 EXC: 2.226
 EXPE: 0.456544
 EXPD: 0.399768
-ESRX: 
+ESRX: --Fixed! double digit column span
 XOM: 28.36
 FFIV: 0.348299
 FDO: 0.232486
@@ -180,11 +183,11 @@ F: 3.122
 BEN: 2.3924
 FCX: -1308002.984
 FTR: 0.042619
-GME: 
-GPS: 
+GME: Fixed!
+GPS: Fixed!
 GD: 2.654
 GE: -1.339
-GGP: 
+GGP: --- NO LONGER REPORTS TO SEC, BUT STILL LISTED!!!!
 GIS: 0.836
 GM: 4.681
 GPC: 0.280892
@@ -207,7 +210,7 @@ HCN: -49.384456
 HP: 0.713546
 HES: 1.542
 HPQ: 4.692
-HD: 
+HD: FIxed!
 HON: 4.338
 HRL: 0.661158
 HSP: 0.3409
@@ -216,11 +219,12 @@ HCBK: 0.121334
 HUM: 1.209
 ------------------HBAN: 632.408711 - FIXED!
 ITW: 2.931
-IR: 
+IR: fixed! 
 INTC: 11.766
 ICE: 1.034
 IP: 0.963
-IPG: 
+IPG: -- Bad filingSummary parsing due to existance of attrs in
+'Reprot' tag
 IFF: 0.436094
 INTU: 0.322
 ISRG: 0.4715
@@ -237,10 +241,10 @@ KEY: 0.891
 KMB: 1.456
 KIM: 0.647343
 KMI: 1.168
-KLAC: 
-KSS: 
+KLAC: Fixed!
+KSS: Fixed!
 KRFT: 0.959
-KR: 
+KR: Fixed!
 LB: 
 LLL: 
 LH: 

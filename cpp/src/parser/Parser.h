@@ -26,7 +26,10 @@ public:
     void addAttr(string& xml);
     void addText(string& text);
     
+    // returns all subtree tect concatenated by ' : '
     string text();
+    // returns _text (member text only)
+    string mytext();
     string attrText();
     void printXmlTree(size_t depth);
 
@@ -36,6 +39,7 @@ public:
     void getNodes(string tagName, //with no leading or trailng whitespace 
                   size_t number, // the number of such xml elements to collect
                   vector<XmlElement*>* collected);
+    XmlElement* getFirstChild(string tagName);
     size_t span_count(string span_type);
     
 public: //members
@@ -83,7 +87,8 @@ public:
 
     void extract_reports(string& k10, 
                          map<ReportType,string>* extract_reports);
-
+    string readReportHtmlNameFromRepTag(XmlElement* report);
+    void getReportDocNames(string& filingSummary,map<ReportType,string>* reports);
     string get_report_from_complete_filing(string& page, ReportType reportType);
     string extractFirstTableStr(string& incomeStr);
     vector<Acn*> getAcnsFromSearchResults(string& page,
