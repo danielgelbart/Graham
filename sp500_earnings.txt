@@ -245,8 +245,8 @@ KLAC: Fixed!
 KSS: Fixed!
 KRFT: 0.959
 KR: Fixed!
-LB: 
-LLL: 
+LB: Fixed!
+LLL: Fixed!
 LH: 
 LM: 0.175364
 LEG: 0.1166

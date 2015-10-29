@@ -195,6 +195,18 @@ mainMain(int argc, char* argv[])
         if (!eData.getSingleYear( stock, year ))
             eData.getSingleYear( stock, year); // try again, if year was updated
     }
+    if (command == string("create_fourth_quarter")){
+        EdgarData eData = EdgarData();
+        O_Stock stock = findStockByTicker( argv[2] );
+        size_t year = stoi( argv[3]);
+        eData.createFourthQuarter( stock, year);
+    }
+    if (command == string("create_ttm_eps")){
+        EdgarData eData = EdgarData();
+        O_Stock stock = findStockByTicker( argv[2] );
+        eData.createTtmEps(stock);
+    }
+
 // should be passed a ticker?
     if (command == string("get_quarters")){
         EdgarData eData = EdgarData();
@@ -202,6 +214,18 @@ mainMain(int argc, char* argv[])
         O_Stock stock = findStockByTicker( argv[2] );
         eData.getQuarters( stock );
     }
+    if (command == string("get_single_quarter")){
+        EdgarData eData = EdgarData();
+
+        O_Stock stock = findStockByTicker( argv[2] );
+        string acn = argv[3];
+        eData.getSingleQarter( stock, acn );
+    }
+
+
+
+
+
     if (command == string("getfyed")){
        // Test test;
        // test.setTestDB();

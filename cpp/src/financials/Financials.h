@@ -28,6 +28,8 @@ public:
 
     bool getAnnuals(O_Stock& stock);
     bool getQuarters(O_Stock& stock);
+    bool getSingleQarter(O_Stock& stock, string acn);
+    bool get_report_year_date_quarter(string cover_rep, Acn* acn_p);
     bool check_report_year_and_date(string cover_rep, Acn* acn_p);
 
     void createFourthQuarter(O_Stock& stock, size_t year);

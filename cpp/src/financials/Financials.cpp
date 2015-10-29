@@ -128,6 +128,70 @@ stock_contains_acn(O_Stock& stock, Acn& acn)
 }
 
 bool
+EdgarData::get_report_year_date_quarter(string cover_rep, Acn* acn_p){
+    // convert cover_rep string to tree
+    string cover_table = _parser.extractFirstTableStr( cover_rep );
+    XmlElement* tree = _parser.buildXmlTree( cover_table );
+
+    if(tree == NULL)
+    {
+        LOG_INFO << "Failed to build tree for cover report from stirng: \n" << cover_rep;
+        return false;
+    }
+    // extract year for - check if matches - set on Acn
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+    string yearStr(""), quarterStr("");
+    int year = -1, quarter = -1;
+    regex yearfor_pattern("Document Fiscal Year Focus", regex::icase);
+    regex quarterfor_pattern("Document Fiscal Period Focus", regex::icase);
+
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+
+        if (regex_search(trtext, yearfor_pattern))
+        {
+            boost::regex year_pattern("\\d\\d\\d\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, year_pattern) )
+            {
+                yearStr = match[0];
+                LOG_INFO << "Report is for year "<< yearStr;
+                year = stoi(yearStr);
+
+            } else
+                LOG_ERROR << "Could not get the year the report is for";
+        }
+
+        if (regex_search(trtext, quarterfor_pattern))
+        {
+            boost::regex quarter_pattern("Q\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, quarter_pattern) )
+            {
+                quarterStr = match[0];
+                LOG_INFO << "Report is for quarter "<< quarterStr;
+                quarter = (quarterStr[1] - '0');
+
+            } else
+                LOG_ERROR << "Could not get the quarter the report is for";
+        }
+    }
+    if (( year > 0) && ( quarter > 0 )){
+        acn_p->_year = year;
+        acn_p->_quarter = quarter;
+        LOG_INFO << "Set acn year and quarter to: "
+                  << to_string(acn_p->_year) <<"/"<<to_string(acn_p->_quarter);
+    } else {
+        LOG_ERROR << "Could not retrieve year and quarter from cover report";
+        return false;
+    }
+    return true;
+}
+
+
+bool
 EdgarData::check_report_year_and_date(string cover_rep, Acn* acn_p){
     // convert cover_rep string to tree
     string cover_table = _parser.extractFirstTableStr( cover_rep );
@@ -292,6 +356,45 @@ EdgarData::getQuarters(O_Stock& stock)
     //createFourthQuarter(stock, 2014);
     return updated;
 }    
+
+bool
+EdgarData::getSingleQarter(O_Stock& stock, string acc_num){
+     _parser.set_stock(stock);
+
+     Acn* acn = new Acn();
+     acn->_acn = acc_num;
+
+     string page = getEdgarFiling( stock, *acn);
+
+     auto extracted_reports = new map<ReportType,string>;
+     _parser.extract_reports(page, extracted_reports);
+     if( extracted_reports->empty() )
+     {
+         LOG_ERROR << "Could not extract individual reports from filing";
+         return false;
+     }
+
+     _reports = *extracted_reports;
+     string cover_rep = _reports[ReportType::COVER];
+     if (cover_rep == ""){
+         LOG_ERROR << "Could not extract cover report for single quarter filing";
+         return false;
+     }
+
+     if (!get_report_year_date_quarter(cover_rep,acn)){
+         return false;
+     }
+
+     string income_rep = _reports[ReportType::INCOME];
+     if (income_rep != ""){
+         addSingleQuarterIncomeStatmentToDB( income_rep, stock, acn->_year, acn->_quarter, cover_rep);
+     } else
+         LOG_ERROR << "NO INCOME REPORT!!!";
+
+     _reports.clear();
+    return true;
+}
+
 
 bool
 EdgarData::addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS)
