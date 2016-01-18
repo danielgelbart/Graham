@@ -995,6 +995,15 @@ adjustForDecimals(string& val, const string& units)
         adjusted_units = units.substr(0,(units.length() - decimals));
         LOG_INFO <<"units are "<<units<<" and I counted "<<to_string(decimals)
                  <<" for value "<<val<<" so shortend units to "<<adjusted_units;
+
+
+    }
+
+    if (val.at(0) == '0'){
+        LOG_INFO << "Removing leading zero from " << val;
+        val = val.substr(1);
+        LOG_INFO << "Now have value of " << val;
+
     }
     return val + adjusted_units;
 }

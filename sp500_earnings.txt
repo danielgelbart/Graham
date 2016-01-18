@@ -1,4 +1,4 @@
-MMM: 4.948
+cMMM: 4.948
 ABT: 4.201
 ACN: 3.016969
 ACE: 2.8
@@ -247,7 +247,7 @@ KRFT: 0.959
 KR: Fixed!
 LB: Fixed!
 LLL: Fixed!
-LH: 
+LH: -fixed!
 LM: 0.175364
 LEG: 0.1166
 LEN: 0.836022
