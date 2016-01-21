@@ -74,6 +74,7 @@ Graham::Application.routes.draw do
   match "cheap_profitables", :to => "stocks#cheap_profitables"
   match ":portfolio_id/new_transaction/:type", :to => "transactions#new"
 
+  match ":data/sppe", :to => "data#sppe"
   #match ":controller(/:action(/:id))"
   #match ":controller(/:action(/:id))(.:format)"
 
