@@ -1,30 +1,6 @@
-class Spdata
-
-  def initinalize(ticker, price, ttm_eps,
-                  earnings, shares)
-    @ticker = ticker
-    @price = price
-    @ttm_eps = ttm_eps
-    @ttm_earnings = earnings
-    @num_shares = shares
-  end
-
-  def market_cap
-    return 1 if @price.nil?
-    return 0 if @num_shares.nil?
-    @price * @num_shares
-  end
-
-  def ttm_earnings
-    return 0.0001 if @ttm_earnings.nil?
-  end
-
-end
-
-
 class DataController < ApplicationController
-  require 'csv'
 
+require 'csv'
   def sppe
     #read file
 
@@ -52,11 +28,12 @@ class DataController < ApplicationController
                        ep.net_income, stock.shares_float)
 
       @total_market_cap += spd.market_cap
-      @total_earnings += spd.ttm_earnings
+      @total_earnings += spd.ttm_earnings.to_i
 
       @comp_data << spd
     end
 
+    @comp_data.sort_by! { |s| -s.market_cap }
   end
 
 

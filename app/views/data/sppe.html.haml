@@ -1,4 +1,68 @@
-%h1
-  =h "Hellos"
+%ul.list-group
+  %li.list-group-item.row.list-group-item-info.bold
+    Market Data
+  %li.list-group-item.row
+    %div.col-md-8
+      Total Market Cap
+    %span.bold.col-md-4
+      = is_to_s @total_market_cap
+  %li.list-group-item.row
+    %div.col-md-8
+      Total Market Earnings
+    %span.bold.col-md-4
+      = is_to_s @total_earnings
+  %li.list-group-item.row
+    %div.col-md-8
+      Market PE
+    %span.bold.col-md-4
+      = short_float @total_market_cap / @total_market_cap.to_f
+
+
+- count = 0
+%table.stock-list
+  %thead
+    %th
+      = "#"
+    %th
+      Ticker
+    %th
+      ttm Earning
+    %th
+      ttm Eps   
+    %th
+      Float
+    %th
+      Price
+    %th
+      Market Cap  
+    %th  
+      MC / TE
+    %th
+      P / E
+  %tbody
+    - @comp_data.each do |d|
+      %tr
+        %td
+          = count += 1 
+        %td
+          = d.ticker
+        %td
+          = is_to_s d.ttm_earnings
+        %td
+          = short_float d.ttm_eps
+        %td
+          = is_to_s d.num_shares
+        %td
+          = "$ " + d.price.to_s
+        %td
+          = is_to_s d.market_cap
+        %td
+          = short_float d.market_pe
+        %td
+          = short_float d.pe
+        %td
+          - if d.pe_match?
+            .red 
+              = "NO"
 
 
