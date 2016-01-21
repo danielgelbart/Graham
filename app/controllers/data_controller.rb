@@ -42,7 +42,7 @@ class DataController < ApplicationController
 
       next if stock.nil?
 
-      price = stock.update_price
+      price = stock.price
 
       ep = stock.ttm_earnings_record
 
