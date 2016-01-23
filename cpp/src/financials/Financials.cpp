@@ -638,7 +638,8 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
     if ( incs.size() != 3 )
     {
         LOG_ERROR << "Cannot create fourth quarter. Missing quarters data for " << stock._ticker()
-                     << " for year " << annual_ep._year();
+                     << " for year " << annual_ep._year() << ", Only have " << to_string(incs.size()) <<
+                       " quarters ";
         return;
     }
 
@@ -696,10 +697,14 @@ EdgarData::createTtmEps(O_Stock& stock)
     string where = "stock_id=" + to_string(stock._id())+" AND quarter=5";
     DBFace::instance()->erase(table,where);
 
+
+    // if latest quarter is annual, create ttm_eps record, but
+    // simply copy all data from annual record
     sort( qrts.begin(), qrts.end(), ep_comp );
 
-    O_Ep latest_annual_ep = t.select( (t._quarter() == 0)
-                                       && (t._year() == getLatestAnnualEpYear(stock)) ).front();
+    O_Ep latest_annual_ep = t.select( (t._stock_id() == stock._id()) &&
+                                      (t._quarter() == 0) &&
+                                      (t._year() == getLatestAnnualEpYear(stock)) ).front();
 
     if ( (qrts[0]._year() == latest_annual_ep._year()) &&
          (qrts[0]._quarter() == 4 ) )
@@ -834,7 +839,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     updated = getQuarters( stock );
 
     // should have:
-    updated = (updated || getAnnuals( stock ));
+    updated = (getAnnuals( stock ) || updated);
 
     /*/ check if last years 10k exists
     T_Ep t;
