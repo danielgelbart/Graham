@@ -683,19 +683,21 @@ struct ep_comp {
 void
 EdgarData::createTtmEps(O_Stock& stock)
 {
+    // delete last ttm
+    string table("eps");
+    string where = "stock_id=" + to_string(stock._id())+" AND quarter=5";
+    DBFace::instance()->erase(table,where);
+
     T_Ep t;
     // get all quarter reports, and SORT - NEWEST FIRST
-    vector<O_Ep> qrts = stock._eps( t._quarter() > 0);
+    vector<O_Ep> qrts = stock._eps( (t._quarter() > 0) &&
+                                    (t._quarter() < 5));
     if ( qrts.size() < 4 )
     {
         LOG_ERROR << " Stock does not have enough quarters."
              << " Cannot procede to calculate ttm eps";
         return;
     }
-    // delete last ttm
-    string table("eps");
-    string where = "stock_id=" + to_string(stock._id())+" AND quarter=5";
-    DBFace::instance()->erase(table,where);
 
 
     // if latest quarter is annual, create ttm_eps record, but
@@ -838,72 +840,10 @@ EdgarData::updateFinancials(O_Stock& stock)
 
     updated = getQuarters( stock );
 
-    // should have:
     updated = (getAnnuals( stock ) || updated);
 
-    /*/ check if last years 10k exists
-    T_Ep t;
-    T_BalanceSheet b;
-    Acn* acn  = getLastYear10KAcn( stock );
-
-    if (stock._eps( t._year() == last_year &&  t._quarter() == 0 ).empty() ||
-            stock._balance_sheets( b._year() == last_year).empty() ||
-            (!stock_contains_acn(stock, *acn))
-            )
-    {
-        cout << "\n Going to get last year 10k" << endl;
-
-        if (acn == NULL){
-            LOG_ERROR << "Could not get last year's acn for annual reports";
-            return;
-        }
-        string k10text = getEdgarFiling( stock, *acn);
-        // try twice in case year is wrong
-        bool got_last_year = extract10kToDisk( k10text, stock, acn->_year);
-        if (!got_last_year)
-            got_last_year = extract10kToDisk( k10text, stock, acn->_year);
-
-        if (got_last_year){
-            createFourthQuarter( stock, acn->_year );
-            updated = true;
-        }
-    }
-    else
-    {
-        cout << "\n No need to download" << endl;
-        if (stock._eps( t._year() == last_year &&
-                        t._quarter() == 4 ).empty() )
-        {
-            createFourthQuarter( stock, last_year );
-            updated = true;
-        }
-    }
-
-    // try to get this year
-    Acn* acn  = getLastYear10KAcn( stock );
-    if (acn == NULL)
-        LOG_ERROR << "Could not get last year's acn for annual reports";
-    else {
-        LOG_INFO << "Latest acn available is for year" << acn->_year;
-
-        // check if need to add
-        if(stock_contains_acn(stock, acn)){
-            // can the following be moved to helper method?
-
-            string k10text = getEdgarFiling( stock, *acn);
-            // try twice in case year is wrong
-            if (!extract10kToDisk( k10text, stock, last_year))
-                extract10kToDisk( k10text, stock, last_year);
-
-            createFourthQuarter( stock, last_year );
-            updated = true;
-        }
-    }
-*/
     if (updated)
         createTtmEps( stock );
-
-    //getAnnuals(stock);
 }
 
 bool
