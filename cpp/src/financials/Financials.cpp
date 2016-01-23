@@ -272,13 +272,16 @@ EdgarData::getAnnuals(O_Stock& stock)
 {
     _parser.set_stock(stock);
     string page = getEdgarSearchResultsPage(stock,StatementType::K10);
-    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 3,/*limit*/
+    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 4,/*limit*/
                                                           StatementType::K10 );
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
     {
-        LOG_INFO << "\n Looking at Acn: " << (*it)->_acn << " date: " <<
-            (*it)->_report_date << " quartr: " << (*it)->_quarter;
+        std::stringstream msg;
+        msg << "\n Looking at Annual Acn dated: " << (*it)->_report_date
+                << " quartr: " << to_string((*it)->_quarter) << " ";
+        LOG_INFO << msg.str();
+        cout << msg.str() << endl;
 
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
@@ -286,7 +289,10 @@ EdgarData::getAnnuals(O_Stock& stock)
                  << " for year "<< (*it)->_year << endl;
             string page = getEdgarFiling( stock, *(*it));
 
-            updated = (updated || extract10kToDisk( page, stock, (*it)->_year ));
+            bool gotAnnual = extract10kToDisk( page, stock, (*it)->_year );
+            if (gotAnnual)
+                createFourthQuarter( stock,(*it)->_year );
+            updated = (updated || gotAnnual);
         } else {
             string message = "Not going to download, since stock already contains this info";
             LOG_INFO << message;
@@ -820,14 +826,17 @@ EdgarData::updateFinancials(O_Stock& stock)
 
     _parser = Parser(stock);
 
-    date today = day_clock::local_day();
-    greg_year last_year = today.year() - 1;
+//    date today = day_clock::local_day();
+//    greg_year last_year = today.year() - 1;
 
     bool updated(false);
 
     updated = getQuarters( stock );
 
-    // check if last years 10k exists
+    // should have:
+    updated = (updated || getAnnuals( stock ));
+
+    /*/ check if last years 10k exists
     T_Ep t;
     T_BalanceSheet b;
     Acn* acn  = getLastYear10KAcn( stock );
@@ -865,7 +874,7 @@ EdgarData::updateFinancials(O_Stock& stock)
         }
     }
 
-    /*/ try to get this year
+    // try to get this year
     Acn* acn  = getLastYear10KAcn( stock );
     if (acn == NULL)
         LOG_ERROR << "Could not get last year's acn for annual reports";
@@ -889,7 +898,7 @@ EdgarData::updateFinancials(O_Stock& stock)
     if (updated)
         createTtmEps( stock );
 
-    getAnnuals(stock);
+    //getAnnuals(stock);
 }
 
 bool

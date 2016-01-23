@@ -47,3 +47,18 @@ $ bundle exec rake dividend:get_data[MSFT]
 
 -------- Quarterly
 
+
+
+----SP500 data and Market PE Calculation----
+Need to check that data is correct, and up to date
+1. What to do with BRK.A ticker
+2. What to do with GOOG/GOOGL
+3. Why are there clear errors on some of the stocks on the list
+(e.g. huge earnings in the trillionis)
+
+4. Run (in cpp) update financials and create ttmeps seperatly, but
+consecutivly
+5. Run (in cpp) cron autoupdate for update financials IFF latest data
+older than 3 months, and write log on run
+
+
