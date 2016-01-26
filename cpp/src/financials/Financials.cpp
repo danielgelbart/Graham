@@ -309,23 +309,20 @@ EdgarData::getQuarters(O_Stock& stock)
     // get back to Q1 LAST year
     _parser.set_stock(stock);
     string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
-    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 7,/*limit*/
+    /* limit number of reports to get
+     * limit == 0 limits to last year
+     * NOTE: staticly set HERE
+     */
+    size_t limit = 7;
+    vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, limit,/*limit*/
                                                           StatementType::Q10 );
+    // Iterate over ALL retrieved ACNs
+    // Try to add, if not already in DB
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
     {
         LOG_INFO << "\n Looking at Acn: " << (*it)->_acn << " date: " <<
             (*it)->_report_date << " quartr: " << (*it)->_quarter;
-        
-        // dont get if older than previous year
-        date today = day_clock::local_day();
-        greg_year last_year = today.year() - 1;
-        if ( (*it)->_year < last_year)
-        {
-            LOG_INFO << "Stopping retrival of quarter reports at report dated "<< (*it)->_report_date
-                        << " As it pertains to year "<< (*it)->_year << " which is far back";
-            break;
-        }
 
         if ( ! stock_contains_acn( stock, *(*it) ) )
         {
@@ -634,7 +631,7 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
     }
     O_Ep annual_ep = epss.front();
 
-    vector<O_Ep> incs = stock._eps( (t._year() == year) && (t._quarter() > 0) );
+    vector<O_Ep> incs = stock._eps( (t._year() == year) && (t._quarter() > 0) && (t._quarter() < 4));
     if ( incs.size() != 3 )
     {
         LOG_ERROR << "Cannot create fourth quarter. Missing quarters data for " << stock._ticker()
@@ -660,6 +657,18 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
         cout << "\nin createFourthQuarter() stol() threw Invalid argument: " << ia.what() << '\n';
         LOG_ERROR << "missing data to calcualte createFourthQuarter() for year "<< year <<". cannot do it";
         return;
+    }
+
+    // if fourth quarter for year already exists, delete it before ading newly calculated one
+    if (! stock._eps( (t._year() == year) && (t._quarter() == 4) ).empty())
+    {
+        LOG_INFO << " Deleting old fourth quarter record for year " << to_string(year)
+                    << " before adding new record to DB";
+
+        string table("eps");
+        string where = "stock_id=" + to_string(stock._id())
+            +" AND year=" + to_string(year) +" AND quarter=4";
+        DBFace::instance()->erase(table,where);
     }
 
     addEarningsRecordToDB( stock, year, 4,/*quarter*/
@@ -786,7 +795,7 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     for(auto it = Acns.begin() ; it != Acns.end(); ++it)
     {
         LOG_INFO << "\n Got Acn: " << (*it)->_acn << " date: " << 
-            (*it)->_report_date << " quartr: " << (*it)->_quarter;
+            (*it)->_report_date << " year: " << (*it)->_year << " quartr: " << (*it)->_quarter;
         
         if ( ((*it)->_quarter == 0) && ( ! stock_contains_acn( stock, *(*it))) )
         {
@@ -802,8 +811,8 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     }  
     if (acn == NULL)
     {
-        LOG_INFO << "Could not get acn for "<<stock._ticker() << " for "
-                 <<" "<<to_string(gyear) << "\n";
+        LOG_INFO << "Either Could not get acn for "<<stock._ticker() << " for "
+                 <<" "<<to_string(gyear) << ", OR stock already has this data in DB\n";
         return false;
     }
 // get Specific one for year to a string

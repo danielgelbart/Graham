@@ -16,13 +16,18 @@ require 'csv'
 
       stock = Stock.find_by_ticker(ticker)
 
-      next if stock.nil?
-
+      if stock.nil?
+        puts"Could not get stock object for ticker#{ticker}"
+        next
+      end
       price = stock.price
 
       ep = stock.ttm_earnings_record
 
-      next if ep.nil?
+      if ep.nil?
+        puts"Could not get latest earnings record for #{ticker}"
+        next
+      end
 
       spd = Spdata.new(stock.ticker, price, stock.ttm_eps,
                        ep.net_income, stock.shares_float)

@@ -114,7 +114,7 @@ tagIterator::tagIterator(XmlElement* node, string start, string tag_name):_i(0){
 XmlElement*
 tagIterator::nextTag()
 {
-    LOG_INFO << "tagIterator: looking at tag named"<< _node->_tagName<< "\n";
+    //LOG_INFO << "tagIterator: In tag named"<< _node->_tagName<< "\n";
 
     size_t num_children = _node->_children.size();
     if ( _i >= num_children )
@@ -122,7 +122,7 @@ tagIterator::nextTag()
 
     while ( _node->_children[_i]->_tagName != _tag_name)
     {
-        LOG_INFO << "tagIterator: looking at tag named"<< _node->_children[_i]->_tagName << "\n";
+        //LOG_INFO << "tagIterator: looking at tag named"<< _node->_children[_i]->_tagName << "\n";
         _i = _i + 1;
         if ( _i >= num_children )
             return NULL;
@@ -1742,6 +1742,15 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
         return foundEps;
     }
 
+    // BRK.A
+    defref.assign("us-gaap_EarningsPerShareBasic'");
+    if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
+                                earnings_data, writeEpsToEarnings )))
+    {
+        LOG_INFO<<" Successfully found EPS using us-gaap_EarningsPerShareBasic (3rd)";
+        return foundEps;
+    }
+
     // ***** handle asset managment that call shares "units"
 
     LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
@@ -2182,7 +2191,7 @@ Parser::findDefref(trIterator& trIt, regex& defref, regex& num_pattern, string& 
         if (stop_pattern.str().length() > 3)
             if (regex_search( attr_text, stop_pattern))
                 break;
-        LOG_INFO<<"attr_text is: "<<attr_text;
+        // LOG_INFO<<"attr_text is: "<<attr_text;
         if(( founddefref = checkTrPattern(attr_text, defref, units, trp,
                           num_pattern, balance_data, func)))
         {
