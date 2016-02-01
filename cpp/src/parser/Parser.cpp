@@ -345,6 +345,9 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
     size_t column_counter = 0;
     *extraction_col = 1;
 
+    // allow to match to a date range 1 day +/- of 'end_date'
+    date_period end_date_range(end_date - days(1), end_date + days(1) );
+
     // For each th encountered in the priouvous loop, remove exxess
     while( (thp = thIt2.nextTag() ) != NULL )
     {
@@ -370,7 +373,7 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
                 string dateStr = (*mit)[0].str();
                 date rep_date = convertFromDocString(dateStr);
 
-                if (rep_date == end_date)
+                if (end_date_range.contains(rep_date))
                 {
                     LOG_INFO << "Date matches the requested report date, col num found is is "<< (column_counter+i) ;
                     *extraction_col = column_counter + i;
@@ -669,15 +672,19 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
         if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
         {
             // continue of treating "Parenthetical"
-
-            foundIncomeRep = true;
             LOG_INFO << "FOUND INCOME REPORT MATCH!\n"<< reportName << "\n";
-            reports_map->insert( pair<ReportType,string>(
-                                     ReportType::INCOME,
-                                     readReportHtmlNameFromRepTag(report)) );
+            boost::regex income_exclution("(Derivative| Impact on)");
+            if (regex_search(reportName, income_exclution)){
+                LOG_INFO << "Report name matched exclution string for income reports - contineu looking";
+            }else{
+                foundIncomeRep = true;
+                reports_map->insert( pair<ReportType,string>(
+                                         ReportType::INCOME,
+                                         readReportHtmlNameFromRepTag(report)) );
+            }
         }
         if (!foundBalanceRep && boost::regex_search(
-                reportName, balance_pattern))
+                    reportName, balance_pattern))
         {
             foundBalanceRep = true;
             LOG_INFO << "FOUND BALANCE REPORT MATCH!\n"<< reportName << "\n";
@@ -1143,6 +1150,13 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
         string tdtext = tdnode->text();
 
         LOG_INFO << "Matching val from text: "<<tdtext;
+
+        regex not_a_value("&#160;");
+        if (regex_search(tdtext,not_a_value)){
+            LOG_INFO << "Matched text to 'not a value' string " << not_a_value.str() << " , so NO GOOD \n";
+            return false;
+        }
+
         if (boost::regex_search(tdtext, match, extract_pattern) )
         {       
             string val = match[0];
@@ -1161,6 +1175,17 @@ Parser::checkTrPattern( string& text, boost::regex& title_pattern,
                 }
                 tiny_digit.assign("\\(?\\d\\.?\\d?\\)?");
             }
+            if (func == writeEpsToEarnings){
+                // allow for no dicimal point
+                tiny_digit.assign("\\(?\\d+\\)?");
+                if (boost::regex_search(tdtext, match, tiny_digit) )
+                {
+                    string val = match[0];
+                    LOG_INFO << "\n extracted val for EPS is"<< val;
+                    func(earnings,val,units);
+                    return true;
+                }
+            } // end special handling for eps
             if (func == writeNsToEarnings )
                 tiny_digit.assign("\\d+(\\.\\d+)?");
             if (regex_match(tdtext,tiny_digit)){
@@ -1734,7 +1759,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
     }
 
     // ALR
-    defref.assign("us-gaap_EarningsPerShareBasicAndDiluted");
+    defref.assign("us-gaap_EarningsPerShareBasicAndDiluted'");
     if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
                                 earnings_data, writeEpsToEarnings )))
     {

@@ -11,13 +11,19 @@ require 'csv'
     @comp_data = []
     #lines = lines.first(10) #test first
 
+    output_file = File.open(Rails.root.join('log','sp_evaluation_out.txt'),"w")
     CSV.foreach(Rails.root.join('utility_scripts','sp500_list_2016-01-18.txt')) do |row|
       ticker = row[0]
+
+      # still havn't diceded what to do with multiple share classes:
+      next if ticker.to_s == "CMCSA"
+      next if ticker.to_s == "COP"
+      next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
 
       stock = Stock.find_by_ticker(ticker)
 
       if stock.nil?
-        puts"Could not get stock object for ticker#{ticker}"
+        output_file.puts"Could not get stock object for ticker#{ticker}"
         next
       end
       price = stock.price
@@ -25,7 +31,7 @@ require 'csv'
       ep = stock.ttm_earnings_record
 
       if ep.nil?
-        puts"Could not get latest earnings record for #{ticker}"
+        output_file.puts"Could not get latest earnings record for #{ticker}"
         next
       end
 
@@ -37,7 +43,7 @@ require 'csv'
 
       @comp_data << spd
     end
-
+    output_file.close
     @comp_data.sort_by! { |s| -s.market_cap }
   end
 

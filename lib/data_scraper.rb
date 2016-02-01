@@ -208,10 +208,10 @@ module DataScraper
 
 
 
-  def get_stock_price
+  def get_stock_price(nyse="")
     price = latest_price
     begin
-      price = get_price_from_google
+      price = get_price_from_google(nyse)
     rescue
       begin
         price = get_price_from_msn
@@ -269,8 +269,8 @@ module DataScraper
 
   # Price scrapers -----------------------------------------------------------
 
-  def get_price_from_google
-    url = "http://www.google.com/finance?q=#{ticker}"
+  def get_price_from_google(nyse="")
+    url = "http://www.google.com/finance?q=#{nyse}#{ticker}"
     doc = open_url_or_nil(url)
 
     begin

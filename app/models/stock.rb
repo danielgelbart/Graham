@@ -226,6 +226,8 @@ class Stock < ActiveRecord::Base
 
   def update_price
     p = get_stock_price
+    p = get_stock_price("NYSE:") if !p.nil? && p < 0.1
+
     if !p.nil?
       update_attributes!(:latest_price => p)
       @price = p

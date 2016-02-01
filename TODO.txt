@@ -51,13 +51,13 @@ $ bundle exec rake dividend:get_data[MSFT]
 
 ----SP500 data and Market PE Calculation----
 Need to check that data is correct, and up to date
-1. What to do with BRK.A ticker
-2. What to do with GOOG/GOOGL
-3. Why are there clear errors on some of the stocks on the list
-(e.g. huge earnings in the trillionis)
+0. WHAT TO DO WITH STOCKS WITH MULTIPLE SHARE CLASSES:
+   0.1. What to do with BRK.A ticker
+   0.2. What to do with GOOG/GOOGL
+   0.3. CMCSA
 
-4. -V
-5. Run (in cpp) cron autoupdate for update financials IFF latest data
+1. Run (in cpp) cron autoupdate for update financials IFF latest data
 older than 3 months, and write log on run
 
+2. Use split data when displaying dilution
 
