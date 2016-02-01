@@ -623,8 +623,9 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
     // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!
     // CAT are unique - they use - "Consolidated Results of Operations"
     // CLF - "condensed statement of operations" - NOT going to get that
+    // LOW last phrase: 'Consolidated Statements of Current and Retained Earnings'
     boost::regex income_pattern(
-        "(consolidated )?(statements? of (consolidated )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|results of operations)",
+        "(consolidated )?(statements? of (consolidated )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|results of operations|Consolidated Statements of Current and Retained Earnings)",
         boost::regex_constants::icase);
 
     boost::regex balance_pattern(
