@@ -270,6 +270,10 @@ module DataScraper
   # Price scrapers -----------------------------------------------------------
 
   def get_price_from_google(nyse="")
+
+    #google redirecets "HP" to the company Hewlett Packard
+    nyse = "NYSE:" if (ticker == "HP")
+
     url = "http://www.google.com/finance?q=#{nyse}#{ticker}"
     doc = open_url_or_nil(url)
 
