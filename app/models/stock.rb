@@ -37,6 +37,8 @@ class Stock < ActiveRecord::Base
 
   validates_presence_of :ticker
   validates_uniqueness_of :ticker
+  validates_presence_of :cik
+  validates_uniqueness_of :cik
 
   include DataScraper
 

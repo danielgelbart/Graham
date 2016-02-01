@@ -1698,4 +1698,7 @@ Stock.create( 'name'=>'KEURIG GREEN MOUNTAIN, INC.','ticker'=>'GMCR','cik'=>9099
 Stock.create( 'name'=>'Kraft Heinz Co','ticker'=>'KHC','cik'=>1637459,'fiscal_year_end'=>'01-03','fy_same_as_ed'=>false)
 Stock.create( 'name'=>'LAM RESEARCH','ticker'=>'LRCX','cik'=>707549,'fiscal_year_end'=>'06-28')
 Stock.create( 'name'=>'LEVEL 3 COMMUNICATIONS INC ','ticker'=>'LVLT','cik'=>794323,'fiscal_year_end'=>'12-31')
+Stock.create( 'name'=>'Mallinckrodt plc','ticker'=>'MNK','cik'=>1567892,'fiscal_year_end'=>'09-30')
+Stock.create( 'name'=>'Marathon Petroleum Corp','ticker'=>'MPC','cik'=>1510295,'fiscal_year_end'=>'12-31')
+Stock.create( 'name'=>'WestRock Co','ticker'=>'WRK','cik'=>1636023,'fiscal_year_end'=>'09-30')
 
