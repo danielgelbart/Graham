@@ -1795,6 +1795,21 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
         }
     } // ASSET_MNGMT
 
+    // e.g. NS
+    if (_stock._company_type() == EnumStockCOMPANY_TYPE::PIPELINE)
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " PIPLINE";
+        defref.assign("us-gaap_NetIncomeLossPerOutstandingLimitedPartnershipUnitBasicNetOfTax");
+        if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
+                                    earnings_data, writeEpsToEarnings )))
+        {
+            LOG_INFO<<" Successfully found EPS (or EPU) using us-gaap_NetIncomeLossPerOutstandingLimitedPartnershipUnitBasicNetOfTax" <<
+                      " (PIPLINE specific)";
+            return foundEps;
+        }
+    } // ASSET_MNGMT
+
+
     LOG_INFO << "defref for EPS failed, using heuristics";
     trIt.resetToStart();
 
@@ -1933,6 +1948,34 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
     } // while defref
 
     trIt.resetToStart();
+
+    // FOR NS
+    defref.assign("us-gaap_WeightedAverageLimitedPartnershipUnitsOutstanding");
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string attr_text = trp->attrText();
+        LOG_INFO << "Attr text is: "<<attr_text;
+        if ( regex_search( attr_text, defref ) )
+        {
+            // check for units in trtext
+            if(nsrUnits == "")
+            {
+                string trtext = trp->text();
+                nsrUnits = checkForShareUnits(trtext);
+            }
+            string bothUnits = nsrUnits+"|"+units;
+            if ((foundNsr = checkTrPattern(attr_text, defref, bothUnits, trp,
+                                           num_pattern, earnings_data, writeNsToEarnings)))
+            {
+                LOG_INFO<<" Found UNITS using defref us-gaap_WeightedAverageLimitedPartnershipUnitsOutstanding";
+                return true;
+            }
+        } // if defref regex match
+    } // while defref #2
+
+    trIt.resetToStart();
+
+
 
     // Block form (only)
     while( (trp = trIt.nextTr()) != NULL )

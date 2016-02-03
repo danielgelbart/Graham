@@ -54,6 +54,7 @@ Need to check that data is correct, and up to date
 0. WHAT TO DO WITH STOCKS WITH MULTIPLE SHARE CLASSES:
    0.1. What to do with BRK.A ticker
    0.2. What to do with GOOG/GOOGL
+   0.25 NWSA - NWS (both on sp500)
    0.3. CMCSA
    0.4. GEN
    0.5. HUBB

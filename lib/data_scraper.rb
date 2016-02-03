@@ -273,6 +273,7 @@ module DataScraper
 
     #google redirecets "HP" to the company Hewlett Packard
     nyse = "NYSE:" if (ticker == "HP")
+    nyse = "NASDAQ:" if (ticker == "NWS")
 
     url = "http://www.google.com/finance?q=#{nyse}#{ticker}"
     doc = open_url_or_nil(url)
