@@ -1707,4 +1707,5 @@ Stock.create( 'name'=>'NETFLIX INC', 'ticker'=>'NFLX','cik'=>1065280,'fiscal_yea
 Stock.create( 'name'=>'TWENTY-FIRST CENTURY FOX, INC.', 'ticker'=>'FOXA','cik'=>1308161,'fiscal_year_end'=>'06-30')
 Stock.create( 'name'=>'PayPal Holdings, Inc.', 'ticker'=>'PYPL','cik'=>1633917,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'PERRIGO Co plc', 'ticker'=>'PRGO','cik'=>1585364,'fiscal_year_end'=>'06-27')
+Stock.create( 'name'=>'Phillips 66', 'ticker'=>'PSX','cik'=>1534701,'fiscal_year_end'=>'12-31')
 
