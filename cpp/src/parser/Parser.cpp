@@ -674,7 +674,7 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
         {
             // continue of treating "Parenthetical"
             LOG_INFO << "FOUND INCOME REPORT MATCH!\n"<< reportName << "\n";
-            boost::regex income_exclution("(Derivative| Impact on)");
+            boost::regex income_exclution("(Derivative| Impact on|income tax)",boost::regex_constants::icase);
             if (regex_search(reportName, income_exclution)){
                 LOG_INFO << "Report name matched exclution string for income reports - contineu looking";
             }else{
@@ -1436,6 +1436,15 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                                 earnings_data, writeRevenueToEarnings )))
     {
         LOG_INFO<<" Successfully found REVENUE using us-gaap_SalesRevenueGoodsNet (3rd)";
+        return foundRev;
+    }
+
+    //For RHI: us-gaap_SalesRevenueServicesNet
+    defref.assign("us-gaap_SalesRevenueServicesNet");
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
+    {
+        LOG_INFO<<" Successfully found REVENUE using us-gaap_SalesRevenueServicesNet (4th)";
         return foundRev;
     }
 
