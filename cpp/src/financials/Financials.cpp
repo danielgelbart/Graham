@@ -915,7 +915,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
             }
         }
         if ( (stock._fy_same_as_ed() == true)
-             && (*focus_year != 0) && (*year_end != 0) && (*date_end != 0)
+             && (*focus_year != 0) && (*year_end != 0) && (*date_end != "")
              && ((*date_end) != "12-31")
              && ((*focus_year) != (*year_end)) )
         {
