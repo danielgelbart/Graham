@@ -308,7 +308,16 @@ EdgarData::getQuarters(O_Stock& stock)
 {
     // get back to Q1 LAST year
     _parser.set_stock(stock);
+
+    // Make sure that fiscal year end date is set for stock
+    if (stock._fiscal_year_end().length() < 4){
+        LOG_ERROR << "NO Fiscal year end set for stock. Cannot procede to evaluate quarters";
+        return false;
+    }
+
+
     string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
+
     /* limit number of reports to get
      * limit == 0 limits to last year
      * NOTE: staticly set HERE
