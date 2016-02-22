@@ -447,6 +447,14 @@ class Stock < ActiveRecord::Base
     ticker.gsub(/\./,"")
   end
 
+  def ttm_is_latest_annual?
+    newest_an = annual_eps_newest_first.first
+    ttm_rec = ttm_earnings_record
+    (newest_an.eps == ttm_rec.eps &&
+     newest_an.revenue == ttm_rec.revenue &&
+     newest_an.net_income == ttm_rec.net_income)
+  end
+
   def ttm_earnings_record
     eps.select{ |e| e.quarter == 5}.first
   end

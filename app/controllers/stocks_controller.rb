@@ -73,14 +73,13 @@ class StocksController < ApplicationController
     @revenue = @earnings.map{|s| s.revenue.to_i }
     @notes = @stock.notes
 
-  #=begin TTM EPS
-    @ttm = @stock.ttm_earnings_record
+    @ttm = @stock.ttm_earnings_record if !@stock.ttm_is_latest_annual?
     if !@ttm.nil?
       @income << @ttm.net_income.to_i
       @revenue << @ttm.revenue.to_i
       @numshare << @ttm.shares.to_i
     end
-  #=end
+
   end
 
   # GET /stocks/new

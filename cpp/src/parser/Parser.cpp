@@ -1448,6 +1448,15 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
         return foundRev;
     }
 
+    //For SCG: us-gaap_RegulatedAndUnregulatedOperatingRevenue
+    defref.assign("us-gaap_RegulatedAndUnregulatedOperatingRevenue");
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
+    {
+        LOG_INFO<<" Successfully found REVENUE using us-gaap_RegulatedAndUnregulatedOperatingRevenue (5th)";
+        return foundRev;
+    }
+
     //**** Special handling for non-company type stocks
      LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
 

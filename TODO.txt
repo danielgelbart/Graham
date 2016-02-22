@@ -38,18 +38,18 @@ dividends can be gotten via the rake (and method from stock scraper)
 $ bundle exec rake dividend:get_data[MSFT]
 ***However, as of Augost 2011, the website dividend.com no longer provids dividends for free, and these methods/commands do not work.
 
-
-
 1) Add search screens for: no earnings deficit, PE, dividend record, good ratios, etc
-2) Add a quarterly update for ongoing quarterly reports
 3) Add logging for failded searches, e.g. if could not get data for a stock
 
 
--------- Quarterly
+-------- SEC filing retrival ---------
 
-
+1. Extract reports with SEC tags (instead of explicit string names)
+2. Follow links for fiings (SCG fails for a single quarterly report on
+this: 2014/Q2 )?
 
 ----SP500 data and Market PE Calculation----
+
 Need to check that data is correct, and up to date
 0. WHAT TO DO WITH STOCKS WITH MULTIPLE SHARE CLASSES:
    0.1. What to do with BRK.A ticker

@@ -1710,4 +1710,6 @@ Stock.create( 'name'=>'PERRIGO Co plc', 'ticker'=>'PRGO','cik'=>1585364,'fiscal_
 Stock.create( 'name'=>'Phillips 66', 'ticker'=>'PSX','cik'=>1534701,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'Qorvo, Inc', 'ticker'=>'QRVO','cik'=>1604778,'fiscal_year_end'=>'04-02')
 Stock.create( 'name'=>'REGENERON PHARMACEUTICALS INC', 'ticker'=>'REGN','cik'=>872589,'fiscal_year_end'=>'12-31')
+Stock.create( 'name'=>'Seagate Technology plc', 'ticker'=>'STX','cik'=>1137789,'fiscal_year_end'=>'06-28')
+Stock.create( 'name'=>'SKYWORKS SOLUTIONS, INC.', 'ticker'=>'SWKS','cik'=>4127,'fiscal_year_end'=>'10-03')
 
