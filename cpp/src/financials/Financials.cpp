@@ -915,8 +915,10 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
             }
         }
         if ( (stock._fy_same_as_ed() == true)
-             && (*focus_year != 0) && (*year_end != 0)
-             && ((*focus_year) != (*year_end)) ){
+             && (*focus_year != 0) && (*year_end != 0) && (*date_end != 0)
+             && ((*date_end) != "12-31")
+             && ((*focus_year) != (*year_end)) )
+        {
             string message = "Setting " + stock._ticker() +
                     " to have focus year not correlat with end of period year fd_same_as_ey = false."
                     + " end date for stock is " + stock._fiscal_year_end();
