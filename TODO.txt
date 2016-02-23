@@ -55,9 +55,11 @@ Need to check that data is correct, and up to date
    0.1. What to do with BRK.A ticker
    0.2. What to do with GOOG/GOOGL
    0.25 NWSA - NWS (both on sp500)
+   0.26 FOX, FOXA   
    0.3. CMCSA
    0.4. GEN
    0.5. HUBB
+   0.6  VIA, VIAB
 
 1. Run (in cpp) cron autoupdate for update financials IFF latest data
 older than 3 months, and write log on run
