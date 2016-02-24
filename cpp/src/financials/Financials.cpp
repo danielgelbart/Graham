@@ -886,7 +886,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
         string* date_end = new string("");
         LOG_INFO << "\n COVER report is "<< cover_report;
         parser.extractFiscalDatesFromReport(cover_report, focus_year, date_end, year_end);
-
+        parser.updateFiscalDates(stock, focus_year, date_end, year_end);
         //LOG_INFO << "Test print UPDATE: focus year: "<< *focus_year
         //       << " fyed: "<< *date_end << " current period end year: "<< *year_end;
 
@@ -1075,6 +1075,7 @@ EdgarData::getFiscalYearEndDate(O_Stock& stock)
     }
     LOG_INFO << "Got filing\n";
     Parser parser;
+    parser.set_stock(stock);
 
     // clear reports
     _reports.clear();
@@ -1088,18 +1089,13 @@ EdgarData::getFiscalYearEndDate(O_Stock& stock)
         return false;
     LOG_INFO << "Got cover report\n";
 
-    string* date = new string("");
-    int* dyear = new int(1000);
-    parser.extractFiscalDatesFromReport(coverReportIt->second, dyear, date);
-    if (date == NULL)
-    {
-        LOG_INFO << "Failed to get fiscal year end date from cover report";
-        return false;
-    }
-    cout << "Adding fyed: "<< *date<<" to "<<stock._ticker()<<endl;
-    stock._fiscal_year_end() = *date;
-    stock.update();
-    return true;
+    string* date_end = new string("");
+    int* focus_year = new int(0), *year_end = new int(0);
+    //string& report, int* focus_year, string* date_end, int* year_end)
+    parser.extractFiscalDatesFromReport(coverReportIt->second, focus_year, date_end, year_end);
+    parser.updateFiscalDates(stock, focus_year, date_end, year_end);
+
+    return (stock._fiscal_year_end() != "");
 }
 
 void

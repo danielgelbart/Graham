@@ -1795,6 +1795,15 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
         return foundEps;
     }
 
+    // ADI
+    defref.assign("us-gaap_IncomeLossFromContinuingOperationsPerDilutedShare");
+    if (( foundEps = findDefref(trIt, defref, digit_pattern, units,
+                                earnings_data, writeEpsToEarnings )))
+    {
+        LOG_INFO<<" Successfully found EPS using us-gaap_IncomeLossFromContinuingOperationsPerDilutedShare (4th)";
+        return foundEps;
+    }
+
     // ***** handle asset managment that call shares "units"
 
     LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
@@ -2948,6 +2957,40 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
         }
     }
 }
+
+void
+Parser::updateFiscalDates(O_Stock& stock, int* focus_year, string* date_end, int* year_end)
+{
+    if (*date_end != "") {
+        if( stock._fiscal_year_end() == ""){
+            LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
+            stock._fiscal_year_end() = *date_end;
+            stock.update();
+        } else {
+            if ( withinAweek(*date_end, stock._fiscal_year_end())){
+                LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
+                // Note that the following is will update even if there is no need to
+                stock._fiscal_year_end() = *date_end;
+                stock.update();
+            }
+        }
+    }
+    if ( (stock._fy_same_as_ed() == true)
+         && (*focus_year != 0) && (*year_end != 0) && (*date_end != "")
+         && ((*date_end) != "12-31")
+         && ((*focus_year) != (*year_end)) )
+    {
+        string message = "Setting " + stock._ticker() +
+                " to have focus year not correlat with end of period year fd_same_as_ey = false."
+                + " end date for stock is " + stock._fiscal_year_end();
+        LOG_INFO << "NOTE " << message;
+        cout << "! "<< message;
+        stock._fy_same_as_ed() = false;
+        stock.update();
+    }
+
+}
+
 
 double
 Parser::getQarterEps(XmlElement* tree)

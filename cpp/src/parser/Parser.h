@@ -108,6 +108,7 @@ public:
     bool getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
     void extractFiscalDatesFromReport(string& report, int* focus_year = NULL,
                                       string* date_end = NULL, int* year_end = NULL);
+    void updateFiscalDates(DMMM::O_Stock& stock, int* focus_year, string* date_end, int* year_end);
 
     void set_stock(DMMM::O_Stock& stock);
     XmlElement* convertReportToTree(string& report);
