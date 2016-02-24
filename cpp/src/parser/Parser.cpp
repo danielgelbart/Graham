@@ -1950,6 +1950,27 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
     regex nsunits_pattern("(millions|thousands|billions)",regex::icase);
     regex date_pattern("(\\w\\w\\w). (\\d+)?, (\\d+)?");
 
+
+    // Look for share units IN table - in "abstract" title line
+    if(nsrUnits == "")
+    {
+        //Based on COP
+        regex shares_title("us-gaap_WeightedAverageNumberOfSharesOutstandingAbstract");
+        while( (trp = trIt.nextTr()) != NULL )
+        {
+            string attr_text = trp->attrText();
+            LOG_INFO << "Attr text is: "<<attr_text;
+            if ( regex_search( attr_text, shares_title ) )
+            {
+                string tr_text = trp->text();
+                nsrUnits = get_units_from_text(tr_text, true);
+                LOG_INFO << "Found share units IN table, in abstract heading: "
+                            << tr_text << " \n Setting share units to: "
+                            << nsrUnits << " \n";
+            }
+        }
+    }
+
     LOG_INFO << "extractNumShares() called";
     regex defref("WeightedAverageNumberOfDilutedSharesOutstanding");
     while( (trp = trIt.nextTr()) != NULL )
