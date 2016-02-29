@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150604111920) do
+ActiveRecord::Schema.define(:version => 20160229142042) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -91,6 +91,23 @@ ActiveRecord::Schema.define(:version => 20150604111920) do
     t.string   "market_cap"
     t.string   "sort_by"
   end
+
+  create_table "share_classes", :force => true do |t|
+    t.integer  "stock_id"
+    t.string   "ticker",     :limit => 8
+    t.string   "sclass",     :limit => 3
+    t.integer  "votes"
+    t.string   "nshares"
+    t.date     "float_date"
+    t.integer  "mul_factor", :limit => 3, :default => 1
+    t.string   "note"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "share_classes", ["sclass"], :name => "index_share_classes_on_sclass"
+  add_index "share_classes", ["stock_id"], :name => "index_share_classes_on_stock_id"
+  add_index "share_classes", ["ticker"], :name => "index_share_classes_on_ticker"
 
   create_table "splits", :force => true do |t|
     t.integer  "stock_id"

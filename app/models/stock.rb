@@ -31,6 +31,7 @@ class Stock < ActiveRecord::Base
   has_many :numshares, :dependent => :destroy
   has_many :balance_sheets, :dependent => :destroy
   has_many :splits
+  has_many :share_classes, foreign_key: "stock_id", class_name: "ShareClass"
 
   accepts_nested_attributes_for :balance_sheets, :allow_destroy => true
   accepts_nested_attributes_for :eps, :allow_destroy => true
@@ -503,6 +504,12 @@ class Stock < ActiveRecord::Base
     dhash[:equity] = b.equity.to_i
     dhash[:total_debt] = b.debt.to_i
     dhash
+  end
+
+  # ----------------- For handling multiple ticker/ share classes ----
+
+  def has_multiple_share_classes?
+    !share_classes.empty?
   end
 
 

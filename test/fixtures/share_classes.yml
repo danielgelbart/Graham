@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  stock: 
+  ticker: MyString
+  sclass: MyString
+  votes: 1
+  nshares: MyString
+  float_date: 2016-02-29
+  mul_factor: 1
+  note: MyString
+
+two:
+  stock: 
+  ticker: MyString
+  sclass: MyString
+  votes: 1
+  nshares: MyString
+  float_date: 2016-02-29
+  mul_factor: 1
+  note: MyString
