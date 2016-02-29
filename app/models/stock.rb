@@ -377,7 +377,13 @@ class Stock < ActiveRecord::Base
   end
 
   def shares_float
-    newest_earnings_record.shares.to_i
+    return newest_earnings_record.shares.to_i unless has_multiple_share_classes?
+    # Stock has multiple share classes
+    total_float = 0
+    share_classes.each do |sc|
+      total_float += sc.nshares.to_i * sc.mul_factor
+    end
+    total_float
   end
 
   def market_cap
