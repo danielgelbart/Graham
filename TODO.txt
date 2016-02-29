@@ -66,6 +66,8 @@ older than 3 months, and write log on run
 
 2. Use split data when displaying dilution
 
+0.0) IMPLEMTATION
+- Add automatic correct getting of multiple share classes by CPP GRAHAM
 The following 68 stocks have multiple share classes:
 
 mysql> select ticker,name from stocks where id in (select distinct stock_id from notes where pertains_to='SHARES_OUTSTANDING' and note="There are MULTIPLE classes of shares for thes stock");
