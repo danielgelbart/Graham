@@ -30,7 +30,8 @@ Test.o Test.d : utils/Test.cpp utils/Logger.h utils/Utils.hpp utils/Identifier.h
  dmmm/O_Stock.hpp dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp dmmm/T_Note.hpp \
  dmmm/O_Note.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp dmmm/T_Numshare.hpp \
  dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp dmmm/O_BalanceSheet.hpp \
- dmmm/T_Split.hpp dmmm/O_Split.hpp include/../parser/types.h \
+ dmmm/T_Split.hpp dmmm/O_Split.hpp dmmm/T_ShareClass.hpp \
+ dmmm/O_ShareClass.hpp include/../parser/types.h \
  include/../parser/Tokenizer.h include/Financials.h \
  include/../financials/Financials.h include/HttpClient.h \
  include/../utils/HttpClient.h include/Url.h include/../html/Url.h \

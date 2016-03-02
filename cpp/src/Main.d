@@ -30,11 +30,12 @@ Main.o Main.d : main/Main.cpp utils/Identifier.h utils/Config.h utils/Utils.hpp 
  dmmm/T_Note.hpp dmmm/O_Note.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp \
  dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp \
  dmmm/O_BalanceSheet.hpp dmmm/T_Split.hpp dmmm/O_Split.hpp \
- include/Financials.h include/../financials/Financials.h \
- include/HttpClient.h include/../utils/HttpClient.h include/Url.h \
- include/../html/Url.h dmmm/O_Stock.hpp include/info.h \
- include/../financials/Info.h utils/Dates.hpp include/types.h \
- include/../parser/types.h include/Parser.h include/../parser/Parser.h \
- dmmm/O_Ep.hpp include/../parser/types.h include/../parser/Tokenizer.h \
- include/Test.h include/../utils/Test.h include/Tokenizer.h \
+ dmmm/T_ShareClass.hpp dmmm/O_ShareClass.hpp include/Financials.h \
+ include/../financials/Financials.h include/HttpClient.h \
+ include/../utils/HttpClient.h include/Url.h include/../html/Url.h \
+ dmmm/O_Stock.hpp include/info.h include/../financials/Info.h \
+ utils/Dates.hpp include/types.h include/../parser/types.h \
+ include/Parser.h include/../parser/Parser.h dmmm/O_Ep.hpp \
+ include/../parser/types.h include/../parser/Tokenizer.h include/Test.h \
+ include/../utils/Test.h include/Tokenizer.h \
  include/../parser/Tokenizer.h

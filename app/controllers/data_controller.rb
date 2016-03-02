@@ -14,6 +14,7 @@ require 'csv'
     output_file = File.open(Rails.root.join('log','sp_evaluation_out.txt'),"w")
     CSV.foreach(Rails.root.join('utility_scripts','sp500_list_2016-01-18.txt')) do |row|
       ticker = row[0]
+      ticker = "BRK.A" if ticker == "BRK-B"
 
       # still havn't diceded what to do with multiple share classes:
       next if ticker.to_s == "CMCSA"
@@ -21,6 +22,10 @@ require 'csv'
       next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
 
       stock = Stock.find_by_ticker(ticker)
+      if (stock.nil? && ticker)
+        ticker = ticker.gsub("-","")
+        stock = Stock.joins(:share_classes).where( share_classes: {ticker: ticker}).first
+      end
 
       if stock.nil?
         output_file.puts"Could not get stock object for ticker#{ticker}"

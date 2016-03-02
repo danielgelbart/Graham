@@ -14,6 +14,7 @@
 #include "T_Numshare.hpp"
 #include "T_BalanceSheet.hpp"
 #include "T_Split.hpp"
+#include "T_ShareClass.hpp"
 
 enum EnumStockCOMPANY_TYPE { COMPANY = 1, ROYALTY_TRUST = 2, REIT = 3, ASSET_MNGMT = 4, FINANCE = 5, PARTNERSHIP = 6, PIPELINE = 7, FOREIGN = 8, HOLDING = 9, INDUSTRY = 10, TECH = 11, PHARMA = 12, RETAIL = 13 };
 
@@ -98,6 +99,18 @@ O_Stock(const I_Stock& id)
         _splits(const T_Split::Condition& c) const
     {
         T_Split table(c);
+        return table.select(table._stock_id() == _id());   
+    }
+
+    std::vector<O_ShareClass> _share_classes() const
+    {
+        T_ShareClass table;
+        return table.select(table._stock_id() == _id());   
+    }
+    std::vector<O_ShareClass> 
+        _share_classes(const T_ShareClass::Condition& c) const
+    {
+        T_ShareClass table(c);
         return table.select(table._stock_id() == _id());   
     }
 

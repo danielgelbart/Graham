@@ -30,9 +30,10 @@ Financials.o Financials.d : financials/Financials.cpp utils/Config.h utils/Utils
  dmmm/dmmm_comparators.hpp dmmm/T_Dividend.hpp dmmm/O_Dividend.hpp \
  dmmm/T_Note.hpp dmmm/O_Note.hpp dmmm/T_Ep.hpp dmmm/O_Ep.hpp \
  dmmm/T_Numshare.hpp dmmm/O_Numshare.hpp dmmm/T_BalanceSheet.hpp \
- dmmm/O_BalanceSheet.hpp dmmm/T_Split.hpp dmmm/O_Split.hpp dmmm/T_Ep.hpp \
- dmmm/T_Note.hpp financials/Financials.h include/HttpClient.h \
- include/../utils/HttpClient.h dmmm/O_Stock.hpp include/info.h \
- include/../financials/Info.h utils/Dates.hpp include/Parser.h \
- include/../parser/Parser.h dmmm/O_Ep.hpp include/../parser/types.h \
- include/../parser/Tokenizer.h
+ dmmm/O_BalanceSheet.hpp dmmm/T_Split.hpp dmmm/O_Split.hpp \
+ dmmm/T_ShareClass.hpp dmmm/O_ShareClass.hpp dmmm/T_Ep.hpp \
+ dmmm/T_Note.hpp dmmm/O_ShareClass.hpp financials/Financials.h \
+ include/HttpClient.h include/../utils/HttpClient.h dmmm/O_Stock.hpp \
+ include/info.h include/../financials/Info.h utils/Dates.hpp \
+ include/Parser.h include/../parser/Parser.h dmmm/O_Ep.hpp \
+ include/../parser/types.h include/../parser/Tokenizer.h

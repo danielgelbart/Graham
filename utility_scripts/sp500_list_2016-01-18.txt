@@ -22,7 +22,6 @@ ALLE , Allegion , 0001579241
 ADS , Alliance Data Systems , 0001101215
 ALL , Allstate Corp , 0000899051
 GOOGL , Alphabet Inc Class A , 0001288776
-GOOG , Alphabet Inc Class C , 0001288776
 MO , Altria Group Inc , 0000764180
 AMZN , Amazon.com Inc , 0001018724
 AEE , Ameren Corp , 0001002910
@@ -63,7 +62,7 @@ BAX , Baxter International Inc. , 0000010456
 BBT , BB&T Corporation , 0000092230
 BDX , Becton Dickinson , 0000010795
 BBBY , Bed Bath & Beyond , 0000886158
-BRK-B , Berkshire Hathaway , 0001067983
+BRK.A , Berkshire Hathaway , 0001067983
 BBY , Best Buy Co. Inc. , 0000764478
 BIIB , BIOGEN IDEC Inc. , 0000875045
 BLK , BlackRock , 0001364742
@@ -321,7 +320,6 @@ NWL , Newell Rubbermaid Co. , 0000814453
 NFX , Newfield Exploration Co , 0000912750
 NEM , Newmont Mining Corp. (Hldg. Co.) , 0001164727
 NWSA , News Corp. Class A , 0001564708
-NWS , News Corp. Class B , 0001564708
 NEE , NextEra Energy , 0000753308
 NLSN , Nielsen Holdings , 0001492633
 NKE , Nike , 0000320187
@@ -448,7 +446,6 @@ TSCO , Tractor Supply Company , 0000916365
 RIG , Transocean , 0001451505
 TRIP , TripAdvisor , 0001526520
 FOXA , Twenty-First Century Fox Class A , 0001308161
-FOX , Twenty-First Century Fox Class B , 0001308161
 TSN , Tyson Foods , 0000100493
 TYC , Tyco International , 0000833444
 USB , U.S. Bancorp , 0000036104

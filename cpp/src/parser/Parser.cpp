@@ -1065,6 +1065,28 @@ writeEpsToEarnings(O_Ep& ep, string& val, string& units)
     ep._eps() = stod( val ) * sign;
 }
 
+string
+adjustValToUnits(string& val, string& units)
+{
+    size_t decimals = countDecimals( val );
+    string cleanMatch = removeNonDigit( val );
+
+    LOG_INFO << "\n Clean match for value with dec point is "<<cleanMatch
+             << "which has "<<to_string(decimals) << " decimals";
+
+    if ( units == "")
+        units = "1";
+
+    long ns = stol(cleanMatch) * unitsToInt( units);
+
+    if( decimals > 0)
+        ns = ns / pow(10,decimals);
+
+    cleanMatch = to_string( ns );
+    LOG_INFO <<"Evaluated value of: "<< val << " with units of: "<< units << " To be: " << cleanMatch<<"\n";
+    return  cleanMatch ;
+}
+
 void
 writeNsToEarnings(O_Ep& ep, string& val, string& units)
 {
@@ -2140,10 +2162,38 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     XmlElement* trp = tree;
     string numshares("");
     regex shares_pattern("Entity Common Stock,? Shares Outstanding", regex::icase);
+    string sclass = "";
+    size_t num_sclasses = _stock._share_classes().size();
+    size_t class_counter = 0;
     size_t counter = 0;
+    bool has_multiple_classes = (num_sclasses > 0);
+    bool stop_searching = false;
+
+    date report_date = Date.today();
+    if(has_multiple_classes){
+        int* focus_year = new int(0), *year_end = new int(0);
+        string* date_end = new string("");
+        extractFiscalDatesFromReport(report, focus_year, date_end, year_end);
+    }
+
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
+        string attrs = trp->attrText();
+
+        // get class of shares
+        if (has_multiple_classes){
+
+            regex class_title_pattern("gaap_StatementClassOfStockAxis", regex::icase);
+            if ( regex_search( attrs, class_title_pattern) ){
+                regex sclass_pattern("gaap_StatementClassOfStockAxis=us-gaap_CommonClass(\\w)Member'", regex::icase);
+                boost::smatch matchc;
+                boost::regex_search( td->text(), matchc, sclass_pattern);
+                sclass = matchc.str(1);
+                LOG_INFO << "Found class for shares: CLASS " << sclass << " \n";
+                continue;
+            }
+        }
 
         if (regex_search(trtext,shares_pattern))
         {
@@ -2157,7 +2207,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
             // Some stocks (e.g. Google) have multiple classes of stock, only taking data for the first one
             // Some cover reports (e.g. AEE) include sub units, stop searching if this is the case
             while( ( (td = tdIt.nextTag() ) != NULL ) &&
-                   (numshares == "") )
+                   (!stop_searching) )
             {
                 if (boost::regex_search(td->text(), exclude_pattern) )
                     continue;
@@ -2165,28 +2215,60 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                 //initialzie, since this object has itererators that become invlaid otherwise
                 boost::smatch match;
                 if (boost::regex_search(td->text(), match, pattern) ){
-                    numshares = match.str(0);
+                    string extracted_value = match.str(0);
+                    if (has_multiple_classes){
+                        for(auto it = _stock._share_classes().begin(); it != _stock._share_classes().end(); ++it)
+                            if (it->_sclass() == sclass){
+                                LOG_INFO << "Found numshares for shares of class " << sclass
+                                            << " there are";
+                                //TODO convert numshares with units;
+                                string nshares = adjustValToUnits(extracted_value, units);
+                                it->_nshares() = nshares;
 
-                    LOG_INFO << "Got num shares from cover report text "<< td->text() << " \n"
+                                numshares = to_string( stoi( numshares ) + (it->_mul_factor()*stoi( nshares )) );
+
+                                //TODO get date for cover report
+                                string* ped("");
+                                extractPeriodEndDateFromCoverReport(report, ped);
+                                //it->_float_date = *ped // convert to date?;
+
+                                it->update();
+                                ++class_counter;
+                            }
+                    } else{
+                        numshares = extracted_value;
+
+                        LOG_INFO << "Got num shares from cover report text "<< td->text() << " \n"
                              << "matche[0] is: "<< match.str(0) << " \n"
                              << "Saved to string as " << numshares << " \n";
-                }
+                    }
+                } // found numshares
 
             }// itereration over tds
             ++counter;
+            if((has_multiple_classes) && (class_counter == num_sclasses))
+                break;
         }
     } // iteration over trs
 
-    if (counter > 1)
+    if ((!has_multiple_classes) && (counter > 1))
     {
         cout << "! There are multiple classes of shares\n";
-        O_Note note;
-        note._stock_id() = _stock._id();
-        note._year() = ep._year();
-        note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING ;
-        note._note() = "There are MULTIPLE classes of shares for thes stock";
-        note.insert();
-
+        // Only add note, if does not already exist for stock
+        string mul_message = "There are MULTIPLE classes of shares for thes stock";
+        bool add_note = true;
+        for( auto it = _stock._notes().begin(); it != _stock._notes().end(); ++it)
+            if ((it->_pertains_to() == EnumNotePERTAINS_TO::SHARES_OUTSTANDING) &&
+                    (it->_note() == mul_message))
+                add_note = false;
+        if(add_note){
+            O_Note note;
+            note._stock_id() = _stock._id();
+            note._year() = ep._year();
+            note._pertains_to() = EnumNotePERTAINS_TO::SHARES_OUTSTANDING ;
+            note._note() = mul_message;
+            note.insert();
+        }
     }
 
     if (numshares == "")
@@ -2914,6 +2996,44 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
     if (!has_bv && has_ta && has_tl)
         calculate_book_value(balance_data);
 }
+
+void
+Parser::extractPeriodEndDateFromCoverReport(string& report, string* ped)
+{
+    LOG_INFO << "going to extract from cover report: (1) period and date\n";
+    XmlElement* tree = NULL;
+    try{
+        tree = convertReportToTree(report);
+    }  catch (std::exception& e) {
+        LOG_ERROR << "Could not parse cover report into tree. Cannot extract fiscal dates";
+        return;
+    }
+    trIterator trIt(tree);
+    XmlElement* trp = tree;
+
+    string fiscal_end_date("");
+    regex end_pattern("Document Period End Date", regex::icase);
+
+    while( (trp = trIt.nextTr()) != NULL )
+    {
+        string trtext = trp->text();
+        if (regex_search(trtext, end_pattern))
+        {
+            boost::regex ed_pattern("\\w\\w\\w\\. \\d\\d, \\d\\d\\d\\d");
+            boost::smatch match;
+            if (boost::regex_search(trtext, match, ed_pattern) )
+            {
+                fiscal_end_date = match.str(0);
+                LOG_INFO << "fiscal year ends on "<< fiscal_end_date;
+                //boost::shared_ptr<string> f(new Foo);
+                *date_end = fiscal_end_date;
+                LOG_INFO << "date_end is now" << *date_end;
+            } else
+                LOG_ERROR << "Could not get fiscal year end date (mm/dd)";
+        }
+    }
+}
+
 
 void
 Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* date_end, int* year_end)

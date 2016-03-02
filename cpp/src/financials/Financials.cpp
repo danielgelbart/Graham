@@ -14,6 +14,7 @@
 #include "T_Stock.hpp"
 #include "T_Ep.hpp"
 #include "T_Note.hpp"
+#include "O_ShareClass.hpp"
 #include "Financials.h"
 #include "Dates.hpp"
 #include <cmath>
@@ -716,8 +717,6 @@ EdgarData::createTtmEps(O_Stock& stock)
              << " Cannot procede to calculate ttm eps";
         return;
     }
-
-
     // if latest quarter is annual, create ttm_eps record, but
     // simply copy all data from annual record
     sort( qrts.begin(), qrts.end(), ep_comp );
@@ -762,6 +761,20 @@ EdgarData::createTtmEps(O_Stock& stock)
         return;
     }
     long numshares = stol( qrts[0]._shares() );
+
+    //calculate numshares from multple classes
+
+    vector<O_ShareClass> share_classes = stock._share_classes();
+    if (!share_classes.empty()){
+        // TODO: check that float_date is the same, and within 3 months of qrts[0].date
+
+
+        numshares = 0;
+        for(auto scit = share_classes.begin(); scit != share_classes.end(); ++scit){
+            numshares += stol( scit->_nshares() ) * scit->_mul_factor();
+        }
+    }
+
 
     LOG_INFO << "Finishe doint ttm earnings. Got quarters: " << qrts[0]._year() << " Q"<< qrts[0]._quarter() << "\n"
                  << qrts[1]._year() << " Q"<< qrts[1]._quarter() << "\n"

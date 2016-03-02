@@ -106,6 +106,7 @@ public:
     double getQarterEps(XmlElement* tree);
 
     bool getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
+    void extractPeriodEndDateFromCoverReport(string& report, string* ped);
     void extractFiscalDatesFromReport(string& report, int* focus_year = NULL,
                                       string* date_end = NULL, int* year_end = NULL);
     void updateFiscalDates(DMMM::O_Stock& stock, int* focus_year, string* date_end, int* year_end);
@@ -145,6 +146,8 @@ private:
     bool extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                           string& units);
     bool extractEps(XmlElement* tree, DMMM::O_Ep& earnigs_data,string& units);
+    string adjustValToUnits(string& val, string& units);
+
     bool extractNumShares(XmlElement* tree, DMMM::O_Ep& earnigs_data,
                           string& units, string& nsrUnits);
 
