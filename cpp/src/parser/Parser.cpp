@@ -1,10 +1,15 @@
 #include <fstream>
 #include <streambuf>
 #include <iostream>
+#include <sstream>
 #include <map>
 #include <math.h>
 //#include <limits>
 #include <exception>
+
+#include <boost/date_time/gregorian/gregorian.hpp>
+#include <boost/algorithm/string.hpp>
+
 #include "Utils.hpp"
 #include "Logger.h"
 #include "Tokenizer.h"
@@ -1066,7 +1071,7 @@ writeEpsToEarnings(O_Ep& ep, string& val, string& units)
 }
 
 string
-adjustValToUnits(string& val, string& units)
+Parser::adjustValToUnits(string& val, string& units)
 {
     size_t decimals = countDecimals( val );
     string cleanMatch = removeNonDigit( val );
@@ -2169,29 +2174,26 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     bool has_multiple_classes = (num_sclasses > 0);
     bool stop_searching = false;
 
-    date report_date = Date.today();
-    if(has_multiple_classes){
-        int* focus_year = new int(0), *year_end = new int(0);
-        string* date_end = new string("");
-        extractFiscalDatesFromReport(report, focus_year, date_end, year_end);
-    }
-
     while( (trp = trIt.nextTr()) != NULL )
     {
         string trtext = trp->text();
         string attrs = trp->attrText();
+        LOG_INFO << "Inspecting line trtext "<< trtext
+                    << " attrs: " << attrs << "\n";
 
         // get class of shares
         if (has_multiple_classes){
 
             regex class_title_pattern("gaap_StatementClassOfStockAxis", regex::icase);
             if ( regex_search( attrs, class_title_pattern) ){
-                regex sclass_pattern("gaap_StatementClassOfStockAxis=us-gaap_CommonClass(\\w)Member'", regex::icase);
+                regex sclass_pattern("us-gaap_CommonClass(\\w)Member", regex::icase);
                 boost::smatch matchc;
-                boost::regex_search( td->text(), matchc, sclass_pattern);
-                sclass = matchc.str(1);
-                LOG_INFO << "Found class for shares: CLASS " << sclass << " \n";
-                continue;
+                if(boost::regex_search( attrs, matchc, sclass_pattern)){
+                    sclass = matchc.str(1);
+                    LOG_INFO << "Found class for shares: CLASS " << sclass << " \n";
+                    continue;
+                }else
+                    LOG_DEBUG << "Found share class title, but could not extract CLASS \n";
             }
         }
 
@@ -2217,23 +2219,27 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                 if (boost::regex_search(td->text(), match, pattern) ){
                     string extracted_value = match.str(0);
                     if (has_multiple_classes){
-                        for(auto it = _stock._share_classes().begin(); it != _stock._share_classes().end(); ++it)
+                        auto share_classes = _stock._share_classes();
+                        for(auto it = share_classes.begin(); it != share_classes.end(); ++it)
                             if (it->_sclass() == sclass){
-                                LOG_INFO << "Found numshares for shares of class " << sclass
-                                            << " there are";
-                                //TODO convert numshares with units;
+
                                 string nshares = adjustValToUnits(extracted_value, units);
+                                LOG_INFO << "Found numshares for shares of class " << sclass
+                                         << " there are " << nshares;
+                                int old_share_total =  (numshares == "")? 0 : stoi( numshares );
+                                LOG_INFO << " Old share total is " << to_string(old_share_total);
+                                double new_share_val = stod( nshares );
+                                LOG_INFO << " New share val is " << to_string(new_share_val);
+                                int mul_factor_for = it->_mul_factor();
+                                int new_total = (new_share_val / mul_factor_for) + old_share_total;
+                                numshares = to_string( new_total);
+                                LOG_INFO << " Updating total numshares for stocks to (temp): "<< numshares;
+
+                                it->_float_date() = extractPeriodEndDateFromCoverReport(report);
                                 it->_nshares() = nshares;
-
-                                numshares = to_string( stoi( numshares ) + (it->_mul_factor()*stoi( nshares )) );
-
-                                //TODO get date for cover report
-                                string* ped("");
-                                extractPeriodEndDateFromCoverReport(report, ped);
-                                //it->_float_date = *ped // convert to date?;
-
                                 it->update();
                                 ++class_counter;
+                                break;
                             }
                     } else{
                         numshares = extracted_value;
@@ -2997,8 +3003,8 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
         calculate_book_value(balance_data);
 }
 
-void
-Parser::extractPeriodEndDateFromCoverReport(string& report, string* ped)
+string
+Parser::extractPeriodEndDateFromCoverReport(string& report)
 {
     LOG_INFO << "going to extract from cover report: (1) period and date\n";
     XmlElement* tree = NULL;
@@ -3006,7 +3012,7 @@ Parser::extractPeriodEndDateFromCoverReport(string& report, string* ped)
         tree = convertReportToTree(report);
     }  catch (std::exception& e) {
         LOG_ERROR << "Could not parse cover report into tree. Cannot extract fiscal dates";
-        return;
+        return "";
     }
     trIterator trIt(tree);
     XmlElement* trp = tree;
@@ -3019,19 +3025,23 @@ Parser::extractPeriodEndDateFromCoverReport(string& report, string* ped)
         string trtext = trp->text();
         if (regex_search(trtext, end_pattern))
         {
-            boost::regex ed_pattern("\\w\\w\\w\\. \\d\\d, \\d\\d\\d\\d");
+            boost::regex ed_pattern("(\\w\\w\\w)\\. (\\d\\d), (\\d\\d\\d\\d)");
             boost::smatch match;
             if (boost::regex_search(trtext, match, ed_pattern) )
             {
                 fiscal_end_date = match.str(0);
-                LOG_INFO << "fiscal year ends on "<< fiscal_end_date;
-                //boost::shared_ptr<string> f(new Foo);
-                *date_end = fiscal_end_date;
-                LOG_INFO << "date_end is now" << *date_end;
+                LOG_INFO << "fiscal year end date for cover report (extracted) is "<< fiscal_end_date;
+
+                date d(greg_year(stoi(match.str(3))),
+                      greg_month(date_time::month_str_to_ushort<greg_month>(match.str(2))),
+                      greg_day(stoi(match.str(1))));
+                fiscal_end_date = to_simple_string(d);
+                LOG_INFO << "date returned (converted to mysql format) is " << fiscal_end_date;
             } else
                 LOG_ERROR << "Could not get fiscal year end date (mm/dd)";
         }
     }
+    return fiscal_end_date;
 }
 
 

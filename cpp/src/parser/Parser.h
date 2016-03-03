@@ -106,7 +106,7 @@ public:
     double getQarterEps(XmlElement* tree);
 
     bool getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
-    void extractPeriodEndDateFromCoverReport(string& report, string* ped);
+    string extractPeriodEndDateFromCoverReport(string& report);
     void extractFiscalDatesFromReport(string& report, int* focus_year = NULL,
                                       string* date_end = NULL, int* year_end = NULL);
     void updateFiscalDates(DMMM::O_Stock& stock, int* focus_year, string* date_end, int* year_end);
