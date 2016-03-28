@@ -79,4 +79,89 @@ ShareClass.create( stock_id:stock.id,
                    mul_factor:1 )
 
 stock = Stock.find_by_ticker("NWSA")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'NWSA',
+                   sclass:"A",
+                   votes:0,
+                   nshares: "380790614",
+                   float_date: "2016-01-16" )
+ShareClass.create( stock_id:stock.id,
+                   ticker:'NWS',
+                   sclass:"B",
+                   votes:1,
+                   nshares: "199630240",
+                   float_date: "2016-01-16")
+
 stock = Stock.find_by_ticker("FOXA")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'FOXA',
+                   sclass:"A",
+                   votes:0,
+                   nshares: "1220939959",
+                   float_date: "2015-08-07")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'FOX',
+                   sclass:"B",
+                   votes:1,
+                   nshares: "798520953",
+                   float_date: "2015-08-07")
+
+stock = Stock.find_by_ticker("AOS")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"A",
+                   votes:10,
+                   nshares: "13121508",
+                   float_date: "2016-02-10")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'AOS',
+                   sclass:"B",
+                   votes:1,
+                   nshares: "74677900",
+                   float_date: "2016-02-10",
+                   note: "Class B share (the public float) are limited as a class to elect 1/3 of the board")
+
+stock = Stock.find_by_ticker("SAM")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'SAM',
+                   sclass:"A",
+                   votes:0,
+                   nshares: "9465306",
+                   float_date: "2016-02-12",
+                   note: "Class A holders can only elect a minority of board members")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"B",
+                   votes:1,
+                   nshares: "3367355",
+                   float_date: "2016-02-12",
+                   note: "All class B shares are owned by the infamous Mr. C. James Koch")
+
+
+stock = Stock.find_by_ticker("BAH")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'BAH',
+                   sclass:"A",
+                   votes:1)
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"B",
+                   votes:0,
+                   note: "convertable to class A")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-(1)',
+                   sclass:"C",
+                   votes:1,
+                   note: "convertable to class A")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-(2)',
+                   sclass:"E",
+                   votes:1,
+                   note: "convertable to class A-Derived from options")
+
+stock = Stock.find_by_ticker("CCL")
+stock = Stock.find_by_ticker("CATO")
+stock = Stock.find_by_ticker("CDI")
+stock = Stock.find_by_ticker("ACMP")
+stock = Stock.find_by_ticker("CIA")
+stock = Stock.find_by_ticker("CMS")

@@ -24,5 +24,5 @@ class ShareClass < ActiveRecord::Base
 
   validates :stock, presence: true
   validates :ticker, presence: true, :uniqueness => {:scope => :stock_id}
-
+  validates :sclass, presence: true, :uniqueness => {:scope => :stock_id}
 end

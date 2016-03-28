@@ -2261,7 +2261,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     {
         cout << "! There are multiple classes of shares\n";
         // Only add note, if does not already exist for stock
-        string mul_message = "There are MULTIPLE classes of shares for thes stock";
+        string mul_message = "Found MULTIPLE classes of shares for this stock, but do NOT have multiple classes in DB";
         bool add_note = true;
         for( auto it = _stock._notes().begin(); it != _stock._notes().end(); ++it)
             if ((it->_pertains_to() == EnumNotePERTAINS_TO::SHARES_OUTSTANDING) &&
@@ -2275,6 +2275,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
             note._note() = mul_message;
             note.insert();
         }
+        LOG_ERROR << mul_message;
     }
 
     if (numshares == "")
@@ -3025,7 +3026,7 @@ Parser::extractPeriodEndDateFromCoverReport(string& report)
         string trtext = trp->text();
         if (regex_search(trtext, end_pattern))
         {
-            boost::regex ed_pattern("(\\w\\w\\w)\\. (\\d\\d), (\\d\\d\\d\\d)");
+            boost::regex ed_pattern("(\\w\\w\\w)\\.\\s+(\\d\\d),\\s+(\\d\\d\\d\\d)");
             boost::smatch match;
             if (boost::regex_search(trtext, match, ed_pattern) )
             {
@@ -3033,12 +3034,12 @@ Parser::extractPeriodEndDateFromCoverReport(string& report)
                 LOG_INFO << "fiscal year end date for cover report (extracted) is "<< fiscal_end_date;
 
                 date d(greg_year(stoi(match.str(3))),
-                      greg_month(date_time::month_str_to_ushort<greg_month>(match.str(2))),
-                      greg_day(stoi(match.str(1))));
+                      greg_month(date_time::month_str_to_ushort<greg_month>(match.str(1))),
+                      greg_day(stoi(match.str(2))));
                 fiscal_end_date = to_simple_string(d);
                 LOG_INFO << "date returned (converted to mysql format) is " << fiscal_end_date;
             } else
-                LOG_ERROR << "Could not get fiscal year end date (mm/dd)";
+                LOG_ERROR << "Could not get fiscal year end date (mmm/dd/YYYY)";
         }
     }
     return fiscal_end_date;
