@@ -159,8 +159,19 @@ ShareClass.create( stock_id:stock.id,
                    votes:1,
                    note: "convertable to class A-Derived from options")
 
-stock = Stock.find_by_ticker("CCL")
 stock = Stock.find_by_ticker("CATO")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'CATO',
+                   sclass:"A",
+                   votes:1,
+                   nshares: "26129692",
+                   float_date: "2016-01-30")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"B",
+                   votes:10,
+                   nshares:"1743525",
+                   float_date: "2016-01-30")
 stock = Stock.find_by_ticker("CDI")
 stock = Stock.find_by_ticker("ACMP")
 stock = Stock.find_by_ticker("CIA")

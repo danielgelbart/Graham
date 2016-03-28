@@ -2197,6 +2197,8 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
             }
         }
 
+        // TODO Stop searching Cover Report if we find it goes to [member] data
+
         if (regex_search(trtext,shares_pattern))
         {
             //iterate over tds
@@ -2241,12 +2243,13 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                                 ++class_counter;
                                 break;
                             }
-                    } else{
+                    } else{ // No (known) multiple share classes
                         numshares = extracted_value;
 
                         LOG_INFO << "Got num shares from cover report text "<< td->text() << " \n"
                              << "matche[0] is: "<< match.str(0) << " \n"
                              << "Saved to string as " << numshares << " \n";
+                        stop_searching = true;
                     }
                 } // found numshares
 
@@ -2263,11 +2266,13 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
         // Only add note, if does not already exist for stock
         string mul_message = "Found MULTIPLE classes of shares for this stock, but do NOT have multiple classes in DB";
         bool add_note = true;
-        for( auto it = _stock._notes().begin(); it != _stock._notes().end(); ++it)
+        /*for( auto it = _stock._notes().begin(); it != _stock._notes().end(); ++it){
             if ((it->_pertains_to() == EnumNotePERTAINS_TO::SHARES_OUTSTANDING) &&
                     (it->_note() == mul_message))
                 add_note = false;
+        }*/
         if(add_note){
+            LOG_INFO << "Going to add note in DB regarding possible existance of multiple share classes";
             O_Note note;
             note._stock_id() = _stock._id();
             note._year() = ep._year();
