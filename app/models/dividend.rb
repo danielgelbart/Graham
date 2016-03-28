@@ -4,11 +4,12 @@
 #
 #  id         :integer(4)      not null, primary key
 #  stock_id   :integer(4)
-#  date       :date
+#  ex_date    :date
 #  amount     :decimal(12, 8)
 #  source     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  pay_date   :date
 #
 
 class Dividend < ActiveRecord::Base

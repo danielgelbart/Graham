@@ -383,7 +383,7 @@ class Stock < ActiveRecord::Base
     share_classes.each do |sc|
       total_float += sc.nshares.to_i * sc.mul_factor
     end
-    total_float
+    total_float.to_i
   end
 
   def market_cap
