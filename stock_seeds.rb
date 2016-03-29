@@ -289,7 +289,7 @@ Stock.create( 'name'=>'Chemed Corporation','ticker'=>'CHE','cik'=>19584,'fyed'=>
 Stock.create( 'name'=>'Chemtura Corporation','ticker'=>'CHMT','cik'=>1091862,'fyed'=>'12-31')
 Stock.create( 'name'=>'Chesapeake Energy Corporation','ticker'=>'CHK','cik'=>895126,'fyed'=>'12-31')
 Stock.create( 'name'=>'Chesapeake Lodging Trust','ticker'=>'CHSP','cik'=>1473078,'fyed'=>'12-31')
-Stock.create( 'name'=>'Williams Partners L.P.','ticker'=>'ACMP','cik'=>1483096,'fyed'=>'12-31')
+Stock.create( 'name'=>'Williams Partners L.P.','ticker'=>'WPZ','cik'=>1483096,'fyed'=>'12-31')
 Stock.create( 'name'=>'Chesapeake Utilities Corporation','ticker'=>'CPK','cik'=>19745,'fyed'=>'12-31')
 Stock.create( 'name'=>'Chevron Corporation','ticker'=>'CVX','cik'=>93410,'fyed'=>'12-31')
 Stock.create( 'name'=>'Chicago Bridge & Iron Company','ticker'=>'CBI','cik'=>1027884,'fyed'=>'12-31')

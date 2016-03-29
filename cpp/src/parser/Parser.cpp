@@ -2151,7 +2151,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
             units = get_units_from_text( additional, true );
     }
 
-    // get GENERAL units from title block
+    /*  // get GENERAL units from title block
     if (units == "")
     {
         regex u_pattern("(millions|thousands|billions)", regex::icase);
@@ -2162,6 +2162,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
             LOG_INFO << "Found units in title, they are "<< units;
         }
     }
+    */
 
     trIterator trIt(tree);
     XmlElement* trp = tree;
@@ -2228,12 +2229,12 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                                 string nshares = adjustValToUnits(extracted_value, units);
                                 LOG_INFO << "Found numshares for shares of class " << sclass
                                          << " there are " << nshares;
-                                int old_share_total =  (numshares == "")? 0 : stoi( numshares );
+                                long old_share_total =  (numshares == "")? 0 : stol( numshares );
                                 LOG_INFO << " Old share total is " << to_string(old_share_total);
                                 double new_share_val = stod( nshares );
                                 LOG_INFO << " New share val is " << to_string(new_share_val);
-                                int mul_factor_for = it->_mul_factor();
-                                int new_total = (new_share_val / mul_factor_for) + old_share_total;
+                                double mul_factor_for = it->_mul_factor();
+                                long new_total = (new_share_val * mul_factor_for) + old_share_total;
                                 numshares = to_string( new_total);
                                 LOG_INFO << " Updating total numshares for stocks to (temp): "<< numshares;
 

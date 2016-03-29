@@ -129,7 +129,7 @@ public:
         }
         std::string _field;
         typedef T_ShareClass::Condition ConditionType;
-        typedef F_Fixnum::Base ComparerType;
+        typedef F_BigDecimal::Base ComparerType;
     };
 
     static E_mul_factor _mul_factor(){ 
@@ -220,7 +220,7 @@ public:
             ret[i]._f_float_date._base =
                 UTILS::fromString<F_Date::Base>(res[i]["float_date"]);
             ret[i]._f_mul_factor._base =
-                UTILS::fromString<F_Fixnum::Base>(res[i]["mul_factor"]);
+                UTILS::fromString<F_BigDecimal::Base>(res[i]["mul_factor"]);
             ret[i]._f_note._base =
                 UTILS::fromString<F_String::Base>(res[i]["note"]);
             ret[i]._f_created_at._base =

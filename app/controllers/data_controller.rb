@@ -17,7 +17,7 @@ require 'csv'
       ticker = "BRK.A" if ticker == "BRK-B"
 
       # still havn't diceded what to do with multiple share classes:
-      next if ticker.to_s == "CMCSA"
+      #next if ticker.to_s == "CMCSA"
       next if ticker.to_s == "COP"
       next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
 

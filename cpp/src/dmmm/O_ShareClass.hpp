@@ -75,10 +75,10 @@ O_ShareClass(const I_ShareClass& id)
         _f_float_date._dirty = true; 
         return _f_float_date._base; 
     }
-    const F_Fixnum::Base& _mul_factor() const { 
+    const F_BigDecimal::Base& _mul_factor() const { 
         return _f_mul_factor._base; 
     }
-    F_Fixnum::Base& _mul_factor() { 
+    F_BigDecimal::Base& _mul_factor() { 
         _f_mul_factor._dirty = true; 
         return _f_mul_factor._base; 
     }
@@ -227,7 +227,7 @@ private:
     F_Fixnum _f_votes;
     F_String _f_nshares;
     F_Date _f_float_date;
-    F_Fixnum _f_mul_factor;
+    F_BigDecimal _f_mul_factor;
     F_String _f_note;
     F_Time _f_created_at;
     F_Time _f_updated_at;

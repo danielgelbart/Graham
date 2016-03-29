@@ -172,7 +172,88 @@ ShareClass.create( stock_id:stock.id,
                    votes:10,
                    nshares:"1743525",
                    float_date: "2016-01-30")
-stock = Stock.find_by_ticker("CDI")
-stock = Stock.find_by_ticker("ACMP")
+stock = Stock.find_by_ticker("CDI") #?
+
 stock = Stock.find_by_ticker("CIA")
-stock = Stock.find_by_ticker("CMS")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'CIA',
+                   sclass:"A",
+                   votes:0,
+                   nshares: "49080114",
+                   float_date: "2016-03-07",
+                   note: "Recieve twice the dividend of class B - BUT there is no div!")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"B",
+                   votes:1,
+                   nshares: "1001714",
+                   float_date: "2016-03-07",
+                   note: "Vote on a board majority. All class B shares are owned by Harold E. Riley")
+
+stock = Stock.find_by_ticker("CIX")
+stock = Stock.find_by_ticker("D")
+stock = Stock.find_by_ticker("DDI")
+stock = Stock.find_by_ticker("DVD")
+stock = Stock.find_by_ticker("SSP")
+stock = Stock.find_by_ticker("EXL")
+stock = Stock.find_by_ticker("FFG")
+stock = Stock.find_by_ticker("AGM")
+stock = Stock.find_by_ticker("FII")
+stock = Stock.find_by_ticker("FGP")
+stock = Stock.find_by_ticker("FXCM")
+stock = Stock.find_by_ticker("GEN")
+stock = Stock.find_by_ticker("GEF")
+stock = Stock.find_by_ticker("HVT")
+stock = Stock.find_by_ticker("HSY")
+stock = Stock.find_by_ticker("H")
+stock = Stock.find_by_ticker("IEP")
+stock = Stock.find_by_ticker("IVC")
+stock = Stock.find_by_ticker("LF")
+stock = Stock.find_by_ticker("LEN")
+stock = Stock.find_by_ticker("MCS")
+stock = Stock.find_by_ticker("MWE")
+stock = Stock.find_by_ticker("MSO")
+stock = Stock.find_by_ticker("MKC")
+stock = Stock.find_by_ticker("MOS")
+stock = Stock.find_by_ticker("NC")
+stock = Stock.find_by_ticker("NNI")
+stock = Stock.find_by_ticker("NKE")
+stock = Stock.find_by_ticker("NE")
+stock = Stock.find_by_ticker("OB")
+stock = Stock.find_by_ticker("OEH")
+stock = Stock.find_by_ticker("PNM")
+stock = Stock.find_by_ticker("PRU")
+stock = Stock.find_by_ticker("SAI")
+stock = Stock.find_by_ticker("SCG")
+stock = Stock.find_by_ticker("SEMG")
+stock = Stock.find_by_ticker("SPG")
+stock = Stock.find_by_ticker("SKH")
+stock = Stock.find_by_ticker("SPR")
+stock = Stock.find_by_ticker("SR")
+stock = Stock.find_by_ticker("SCS")
+stock = Stock.find_by_ticker("TR")
+stock = Stock.find_by_ticker("GTS")
+stock = Stock.find_by_ticker("UNF")
+stock = Stock.find_by_ticker("UAL")
+stock = Stock.find_by_ticker("UPS")
+stock = Stock.find_by_ticker("UBA")
+stock = Stock.find_by_ticker("WSO")
+stock = Stock.find_by_ticker("CUK")
+
+stock = Stock.find_by_ticker("CMCSA")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'CMCSA',
+                   sclass:"A",
+                   votes:1,
+                   nshares: "2432953988",
+                   float_date: "2015-12-31" )
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"B",
+                   votes:129,
+                   nshares: "9444375",
+                   float_date: "2015-12-31",
+                   note: "Class B, as a whole, has 1/3 the voting rights of combined classes A+B. Class B held by 3 people")
+stock = Stock.find_by_ticker("DISCA")
+
+stock = Stock.find_by_ticker("WIN")
