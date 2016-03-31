@@ -72,76 +72,10 @@ The following 68 stocks have multiple share classes:
 
 mysql> select ticker,name from stocks where id in (select distinct stock_id from notes where pertains_to='SHARES_OUTSTANDING' and note="There are MULTIPLE classes of shares for thes stock");
 
-+--------+-------------------------------------------+
-| ticker | name                                      |
-+--------+-------------------------------------------+
-| AOS    | A. O. Smith Corporation                   |
-| LNT    | Alliant Energy Corporation                |
-| AEE    | Ameren Corporation                        |
-| AIV    | Apartment Investment & Management Company |
-| BRK.A  | Berkshire Hathaway Inc                    |
-| BAH    | Booz Allen Hamilton Holding Corporation   |
-| SAM    | Boston Beer Co.                           |
-| CCL    | Carnival Corporation                      |
-| CATO   | The Cato Corporation                      |
-| CDI    | CDI Corporation                           |
-| ACMP   | Williams Partners L.P.                    |
-| CIA    | Citizens, Inc.                            |
-| CMS    | CMS Energy Corporation                    |
-| CIX    | CompX International Inc.                  |
-| D      | Dominion Resources, Inc.                  |
-| DDE    | Dover Downs Gaming & Entertainment, Inc.  |
-| DVD    | Dover Motorsports, Inc.                   |
-| SSP    | The E.W. Scripps Company                  |
-| EXL    | Excel Trust, Inc.                         |
-| FFG    | FBL Financial Group Inc.                  |
-| AGM    | Federal Agricultural Mortgage Corporation |
-| FII    | Federated Investors Inc.                  |
-| FGP    | Ferrellgas Partners L.P                   |
-| F      | Ford Motor Company                        |
-| FXCM   | FXCM Inc.                                 |
-| GEN    | Genon Energy, Inc.                        |
-| GEF    | Greif, Inc.                               |
-| HVT    | Haverty Furniture Companies Inc.          |
-| HSY    | The Hershey Company                       |
-| H      | Hyatt Hotels Corporation                  |
-| IEP    | Icahn Enterprises L.P.                    |
-| IVC    | Invacare Corporation                      |
-| LF     | LeapFrog Enterprises Inc.                 |
-| LEN    | Lennar Corporation                        |
-| MCS    | Marcus Corporation                        |
-| MWE    | MarkWest Energy Partners, L.P.            |
-| MSO    | Martha Stewart Living Omnimedia, Inc.     |
-| MKC    | McCormick & Company, Inc.                 |
-| MOS    | The Mosaic Company                        |
-| NC     | NACCO Industries Inc.                     |
-| NNI    | Nelnet, Inc.                              |
-| NKE    | Nike Inc.                                 |
-| NE     | Noble Corporation                         |
-| OB     | OneBeacon Insurance Group, LTD            |
-| OEH    | Orient-Express Hotels Ltd.                |
-| PNM    | PNM Resources, Inc.                       |
-| PRU    | Prudential Financial, Inc.                |
-| SAI    | SAIC, Inc.                                |
-| SCG    | SCANA Corporation                         |
-| SEMG   | SemGroup Corporation                      |
-| SPG    | Simon Property Group, Inc.                |
-| SKH    | Skilled Healthcare Group, Inc.            |
-| SPR    | Spirit AeroSystems Holdings, Inc.         |
-| SR     | Standard Register                         |
-| SCS    | Steelcase Inc.                            |
-| TR     | Tootsie Roll Industries Inc.              |
-| GTS    | Triple-S Management Corporation           |
-| UNF    | Unifirst Corporation                      |
-| UAL    | United Continental Holdings, Inc          |
-| UPS    | United Parcel Service, Inc.               |
-| UBA    | Urstadt Biddle Properties Inc.            |
-| WSO    | Watsco, Inc.                              |
-| CUK    | Carnival plc	                             |
-| GOOG   | Google                                    |
-| CMCSA  | Comcast Corp A                            |
-| DISCA  | Discovery Communications Inc              |
-| NWSA   | News Corporation A                        |
-| WIN    | Windstream Corp                           |
-+--------+-------------------------------------------+
-68 rows in set (5.71 sec)
+- Correctly handle stocks with multiple publicly traded classes:
+1. GEF and GEF.B
+2. GOOG and GOOGL
+
+*multiple traded classes means multiple prices. Market Cap for GEF is:
+
+GEF float * GEF price + GEF.B float * GEF.B price

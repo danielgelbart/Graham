@@ -17,6 +17,9 @@
 
 # NOTE: If a share class has the ticker '-' then it is NOT publicly traded
 
+# NOTE: mul_factor - If different for different publicly tradded classes,
+#       market cap must be calculated using two seperate prices
+
 # NOTE: 'nshares' indicates most recent share count (from date 'float_date')
 # Historic values are shares at an annual basses in Ep table
 class ShareClass < ActiveRecord::Base
@@ -24,5 +27,5 @@ class ShareClass < ActiveRecord::Base
 
   validates :stock, presence: true
   validates :ticker, presence: true, :uniqueness => {:scope => :stock_id}
-  validates :sclass, presence: true, :uniqueness => {:scope => :stock_id}
+  validates :sclass, :uniqueness => {:scope => :stock_id}
 end

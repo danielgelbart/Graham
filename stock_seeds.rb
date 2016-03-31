@@ -1020,7 +1020,7 @@ Stock.create( 'name'=>'ONEOK, Inc.','ticker'=>'OKE','cik'=>1039684,'fyed'=>'12-3
 Stock.create( 'name'=>'Oppenheimer Holdings Inc.','ticker'=>'OPY','cik'=>791963,'fyed'=>'12-31')
 Stock.create( 'name'=>'Orbital Sciences Corporation','ticker'=>'ORB','cik'=>820736,'fyed'=>'12-31')
 Stock.create( 'name'=>'Orbitz Worldwide, Inc.','ticker'=>'OWW','cik'=>1394159,'fyed'=>'12-31')
-Stock.create( 'name'=>'Orient-Express Hotels Ltd.','ticker'=>'OEH','cik'=>1115836,'fyed'=>'12-31')
+Stock.create( 'name'=>'Belmond Ltd.','ticker'=>'BEL','cik'=>1115836,'fyed'=>'12-31')
 Stock.create( 'name'=>'Oriental Financial Group, Inc.','ticker'=>'OFG','cik'=>1030469,'fyed'=>'12-31')
 Stock.create( 'name'=>'Orion Marine Group, Inc.','ticker'=>'ORN','cik'=>1402829,'fyed'=>'12-31')
 Stock.create( 'name'=>'Ormat Technologies, Inc.','ticker'=>'ORA','cik'=>1296445,'fyed'=>'12-31')

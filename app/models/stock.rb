@@ -387,6 +387,19 @@ class Stock < ActiveRecord::Base
   end
 
   def market_cap
+    # E.g. GEF, GOOG, BRK
+    if has_multiple_share_classes? && has_multiple_public_classes?
+      mar_cap = 0
+      public_share_classes.each do |sc|
+        mar_cap += sc.nshares.to_i * get_price_from_google("",sc.ticker)
+      end
+      non_public_share_classes.each do |sc|
+        mar_cap += sc.nshares.to_i * sc.mul_factor * price
+      end
+
+      return mar_cap
+    end
+
     shares_float * price
   end
 
@@ -517,6 +530,19 @@ class Stock < ActiveRecord::Base
   def has_multiple_share_classes?
     !share_classes.empty?
   end
+
+  def has_multiple_public_classes?
+    public_share_classes.size > 1
+  end
+
+  def public_share_classes
+    share_classes.select{ |sc| sc.ticker.first != '-'}
+  end
+
+  def non_public_share_classes
+    share_classes.select{ |sc| sc.ticker.first == '-'}
+  end
+
 
 
   # Math module
