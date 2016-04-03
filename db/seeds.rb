@@ -340,7 +340,7 @@ puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
 stock = Stock.find_by_ticker("HSY")
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'HSY',
-                        sclass:"A",
+                        sclass:"",
                         votes:1,
                         note:"Can elect, as a class, up to 1/6 of the board. Get divs 10% higher than class B")
 puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
@@ -503,24 +503,158 @@ sc = ShareClass.create( stock_id:stock.id,
                         note: "")
 puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
 
-stock = Stock.find_by_ticker("PNM")
-stock = Stock.find_by_ticker("PRU")
-stock = Stock.find_by_ticker("SAI")
-stock = Stock.find_by_ticker("SCG")
-stock = Stock.find_by_ticker("SEMG")
 stock = Stock.find_by_ticker("SPG")
-stock = Stock.find_by_ticker("SKH")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'SPG',
+                        sclass:"A",
+                        votes:0,
+                        note:"")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"B",
+                        votes:2,
+                        note: "This class votes on directors. Same div as class A")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
+stock = Stock.find_by_ticker("GEN")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'GEN',
+                        sclass:"A",
+                        votes:1,
+                        note: "")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"B",
+                        votes:1,
+                        note: "Voting is controled by non-marketable sub-group")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-(2)',
+                        sclass:"C",
+                        votes:1,
+                        note: "Voting is controled by non-marketable sub-group")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("SPR")
-stock = Stock.find_by_ticker("SR")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'SPR',
+                        sclass:"A",
+                        votes:1,
+                        note:"")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"B",
+                        votes:1,
+                        note: "Not clear what the nature of this class is")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("SCS")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'SCS',
+                        sclass:"A",
+                        votes:1,
+                        note:"")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"B",
+                        votes:10,
+                        note: "Same div as class A")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("TR")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'TR',
+                        sclass:"",
+                        votes:1,
+                        note:"")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"B",
+                        votes:10,
+                        note: "")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("GTS")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"A",
+                        votes:1,
+                        note:"")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'GTS',
+                        sclass:"B",
+                        votes:1,
+                        note: "Not clear why the class A exist")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("UNF")
-stock = Stock.find_by_ticker("UAL")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'UNF',
+                        sclass:"A",
+                        votes:1,
+                        note:"Gets a larger div than class B")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"B",
+                        votes:10,
+                        note: "75% controlled by one family.")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("UPS")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'-',
+                        sclass:"A",
+                        votes:10,
+                        note:"")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'UPS',
+                        sclass:"B",
+                        votes:1,
+                        note: "")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("UBA")
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'UBA',
+                        sclass:"A",
+                        votes:1,
+                        nshares: "26465544",
+                        float_date: "2016-01-05",
+                        note:"has 110% claim to div (and earnings) ovr common class")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+sc = ShareClass.create( stock_id:stock.id,
+                        ticker:'UBP',
+                        sclass:"",
+                        votes:20,
+                        nshares: "9504378",
+                        float_date: "2016-01-05",
+                        note: "")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+
 stock = Stock.find_by_ticker("WSO")
-stock = Stock.find_by_ticker("CUK")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'WSO',
+                   sclass:"",
+                   votes:1,
+                   nshares: "30298038",
+                   float_date: "2016-02-23")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'WSOB',
+                   sclass:"B",
+                   votes:10,
+                   nshares: "5035653",
+                   float_date: "2016-02-23",
+                   note: "divs equal between classes, class B elect 75% of board")
+
+
 
 stock = Stock.find_by_ticker("CMCSA")
 ShareClass.create( stock_id:stock.id,
@@ -558,4 +692,34 @@ ShareClass.create( stock_id:stock.id,
                    nshares: "253176880",
                    float_date: "2016-02-12" )
 
+stock = Stock.find_by_ticker("BF.B")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'BF.A',
+                   sclass:"A",
+                   votes:1,
+                   nshares: "84528000",
+                   float_date: "2015-06-30" )
+ShareClass.create( stock_id:stock.id,
+                   ticker:'BF.B',
+                   sclass:"B",
+                   votes:0,
+                   nshares: "122483629",
+                   float_date: "2015-06-30",
+                   note: "")
 
+stock = Stock.find_by_ticker("VIA")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'VIA',
+                   sclass:"A",
+                   votes:1,
+                   nshares: "49476685",
+                   float_date: "2015-11-04" )
+ShareClass.create( stock_id:stock.id,
+                   ticker:'VIAB',
+                   sclass:"B",
+                   votes:0,
+                   nshares: "347166576",
+                   float_date: "2015-11-04",
+                   note: "divs the same")
+# There are two listings for CARNIVAL - CCL, and CUK
+#stock = Stock.find_by_ticker("CUK")

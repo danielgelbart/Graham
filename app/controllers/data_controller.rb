@@ -16,12 +16,10 @@ require 'csv'
       ticker = row[0]
       ticker = "BRK.A" if ticker == "BRK-B"
 
-      # still havn't diceded what to do with multiple share classes:
-      #next if ticker.to_s == "CMCSA"
-      next if ticker.to_s == "COP"
       next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
 
-      stock = Stock.find_by_ticker(ticker)
+      stock = Stock.get_from_ticker(ticker)
+
       if (stock.nil? && ticker)
         ticker = ticker.gsub("-","")
         stock = Stock.joins(:share_classes).where( share_classes: {ticker: ticker}).first

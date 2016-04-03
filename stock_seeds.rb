@@ -1184,7 +1184,7 @@ Stock.create( 'name'=>'Sabine Royalty Trust','ticker'=>'SBR','cik'=>710752,'fyed
 Stock.create( 'name'=>'Safe Bulkers Inc.','ticker'=>'SB','cik'=>1434754,'fyed'=>'')
 Stock.create( 'name'=>'Safeguard Scientifics, Inc.','ticker'=>'SFE','cik'=>86115,'fyed'=>'12-31')
 Stock.create( 'name'=>'Safeway Inc.','ticker'=>'SWY','cik'=>86144,'fyed'=>'12-28')
-Stock.create( 'name'=>'SAIC, Inc.','ticker'=>'SAI','cik'=>1336920,'fyed'=>'01-31')
+Stock.create( 'name'=>'Leidos Holdings, Inc.','ticker'=>'LDOS','cik'=>1336920,'fyed'=>'01-31')
 Stock.create( 'name'=>'Saks Incorporated','ticker'=>'SKS','cik'=>812900,'fyed'=>'02-02')
 Stock.create( 'name'=>'salesforce.com, inc.','ticker'=>'CRM','cik'=>1108524,'fyed'=>'01-31')
 Stock.create( 'name'=>'Sally Beauty Holdings, Inc.','ticker'=>'SBH','cik'=>1368458,'fyed'=>'09-30')
@@ -1223,7 +1223,7 @@ Stock.create( 'name'=>'Simpson Manufacturing Co., Inc.','ticker'=>'SSD','cik'=>9
 Stock.create( 'name'=>'Six Flags Entertainment Corporation','ticker'=>'SIX','cik'=>701374,'fyed'=>'12-31')
 Stock.create( 'name'=>'SJW Corp.','ticker'=>'SJW','cik'=>766829,'fyed'=>'12-31')
 Stock.create( 'name'=>'SKECHERS USA, Inc.','ticker'=>'SKX','cik'=>1065837,'fyed'=>'12-31')
-Stock.create( 'name'=>'Skilled Healthcare Group, Inc.','ticker'=>'SKH','cik'=>1351051,'fyed'=>'12-31')
+Stock.create( 'name'=>'Genesis Healthcare, Inc.','ticker'=>'GEN','cik'=>1351051,'fyed'=>'12-31')
 Stock.create( 'name'=>'Skyline Corporation','ticker'=>'SKY','cik'=>90896,'fyed'=>'05-31')
 Stock.create( 'name'=>'SL Green Realty Corporation','ticker'=>'SLG','cik'=>1040971,'fyed'=>'12-31')
 Stock.create( 'name'=>'SLM Corporation','ticker'=>'SLM','cik'=>1032033,'fyed'=>'12-31')
@@ -1717,7 +1717,7 @@ Stock.create( 'name'=>'TRACTOR SUPPLY CO', 'ticker'=>'TSCO','cik'=>916365,'fisca
 Stock.create( 'name'=>'TripAdvisor, Inc', 'ticker'=>'TRIP','cik'=>1526520,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'Verisk Analytics, Inc.', 'ticker'=>'VRSK','cik'=>1442145,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'VERTEX PHARMACEUTICALS INC', 'ticker'=>'VRTX','cik'=>875320,'fiscal_year_end'=>'12-31')
-Stock.create( 'name'=>'Xylem Inc.','ticker'=>'XLY','cik'=>1524472,'fiscal_year_end'=>'12-31')
+Stock.create( 'name'=>'Xylem Inc.','ticker'=>'XYL','cik'=>1524472,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'Zoetis Inc.','ticker'=>'ZTS','cik'=>1555280,'fiscal_year_end'=>'12-31')
-
-
+Stock.create( 'name'=>'American Airlines Group Inc.','ticker'=>'AAL','cik'=>6201,'fiscal_year_end'=>'12-31')
+Stock.create( 'name'=>'BROWN FORMAN CORP','ticker'=>'BF.B','cik'=>14693,'fiscal_year_end'=>'04-30')

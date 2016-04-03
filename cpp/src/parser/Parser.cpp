@@ -2151,18 +2151,17 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
             units = get_units_from_text( additional, true );
     }
 
-    /*  // get GENERAL units from title block
+    // get share units, 2nd attmpt, e.g. T 2015
     if (units == "")
     {
-        regex u_pattern("(millions|thousands|billions)", regex::icase);
+        regex u_pattern("shares in (millions|thousands|billions)", regex::icase);
         boost::smatch match1;
         if ( boost::regex_search(titleText, match1, u_pattern) )
         {
-            units =  match1[0].str();
+            units =  match1.str(1);
             LOG_INFO << "Found units in title, they are "<< units;
         }
     }
-    */
 
     trIterator trIt(tree);
     XmlElement* trp = tree;
@@ -2193,8 +2192,10 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                     sclass = matchc.str(1);
                     LOG_INFO << "Found class for shares: CLASS " << sclass << " \n";
                     continue;
-                }else
-                    LOG_DEBUG << "Found share class title, but could not extract CLASS \n";
+                }else{
+                    LOG_INFO << "Found share class title, but could not extract CLASS \n";
+
+                }
             }
         }
 

@@ -67,6 +67,12 @@ class Stock < ActiveRecord::Base
 # end of enum methods code
 #--------------------------------------------
 
+  def self.get_from_ticker(ticker)
+    stock = find_by_ticker(ticker)
+    stock = ShareClass.find_by_ticker(ticker).stock if stock.nil?
+    stock
+  end
+
 
   #include MinMAx # adds min and max methods
 

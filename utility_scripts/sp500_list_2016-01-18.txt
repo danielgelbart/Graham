@@ -73,7 +73,7 @@ BXP , Boston Properties , 0001037540
 BSX , Boston Scientific , 0000885725
 BMY , Bristol-Myers Squibb , 0000014272
 BRCM , Broadcom Corporation , 0001054374
-BF-B , Brown-Forman Corporation , 0000014693
+BF.B , Brown-Forman Corporation , 0000014693
 CHRW , C. H. Robinson Worldwide , 0001043277
 CA , CA, Inc. , 0000356028
 CVC , Cablevision Systems Corp. , 0001053112
