@@ -1337,16 +1337,23 @@ writeBookValueBalance(O_BalanceSheet& bs, string& val, string& units)
 }
 
 size_t 
-Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
+Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter, date rep_end_date)
 {
     string titleText = get_title_text(tree);
     regex date_pattern("(\\w\\w\\w).? (\\d+)?, (\\d+)?");
 
-// calculate relavent end date from - stock.fye, ep.year, ep.quarter
-    date end_date = calculateEndDate(_stock._fiscal_year_end(), _stock._fy_same_as_ed(), year, quarter);
-    LOG_INFO << " End date calucualted for year " << year << " Q| " << quarter << " from fyend of "
+    date end_date = rep_end_date;
+
+   // date_period end_date_range(rep_end_date - days(3), rep_end_date + days(3) );
+
+    // if failed to retieve end date from cover report, calculate it
+    if(rep_end_date < from_undelimited_string("20020101"))
+            end_date = calculateEndDate(_stock._fiscal_year_end(), _stock._fy_same_as_ed(), year, quarter);
+
+    LOG_INFO << "Report is for period ending: " << to_iso_extended_string(rep_end_date)
+             <<   " End date Used for year " << year << " Q| " << quarter << " from fyend of "
              << _stock._fiscal_year_end() << " and fd_same_as_ed of " <<_stock._fy_same_as_ed()
-             << " is: " << end_date;
+             << " is: " << to_iso_extended_string(end_date);
 
     // new addition
     size_t* col_to_ex = new size_t(1);
@@ -1354,48 +1361,6 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter)
     find_data_column(tree,end_date,col_to_ex, &_exact_col_match, (quarter > 0) );
     return *col_to_ex;
 
-/* Below is deprecated
-    size_t* col_range_start = new size_t(1), *col_range_end = new size_t(1);
-    bool found_col_range(false);
-    if (quarter > 0)
-        found_col_range = find_columns_range(tree, col_range_start, col_range_end);
-
-    sregex_iterator mit(titleText.begin(), titleText.end(), date_pattern);
-    sregex_iterator mEnd;
-    size_t col_num = 1;
-    bool foundDate = false;
-    for(size_t i = 0; mit != mEnd; ++mit)
-    {
-        ++i;
-        string dateStr = (*mit)[0].str();
-        date rep_date = convertFromDocString(dateStr);
-        // cout << "\n Examining date: "<< to_simple_string(rep_date)<<endl;
-        if (foundDate)
-        {
-            if ( found_col_range && (i > *col_range_end) ){
-                LOG_ERROR << " Still searching for column to extract, but reached end of found range"
-                             << ". col_num is set as " << col_num;
-                return col_num;
-            }
-            if ( ( rep_date == (end_date - years(1)) ) &&
-                 ( col_num == i-1 ) )
-            {
-                if ( found_col_range && (col_num < *col_range_start) ){
-                    LOG_INFO << " Found column for correct date, but it is not in the range found for time period";
-                    continue;
-                }
-                LOG_INFO<<"Setting column index to "<<to_string(col_num);
-                break;
-            }
-        }
-        if (rep_date == end_date)
-        {
-            LOG_INFO << "Date matches the requested report date, col num is "<< i ;
-            col_num = i;
-            foundDate = true;
-        }
-    }
-    return col_num; */
 }
 
 bool
@@ -2239,7 +2204,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                                 numshares = to_string( new_total);
                                 LOG_INFO << " Updating total numshares for stocks to (temp): "<< numshares;
 
-                                it->_float_date() = extractPeriodEndDateFromCoverReport(report);
+                                it->_float_date() = to_iso_extended_string(extractPeriodEndDateFromCoverReport(report));
                                 it->_nshares() = nshares;
                                 it->update();
                                 ++class_counter;
@@ -2298,7 +2263,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
 }
 
 void 
-Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
+Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data, date rep_end_date)
 {
     bool foundRev(false);
     bool foundInc(false);
@@ -2320,7 +2285,7 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data)
     nsrUnits = checkForShareUnitsInTitle(titleText);
 //LOG_INFO<<"Share units are currently "<<nsrUnits<<" going to parse table...";
   
-    _col_num = findColumnToExtract(tree, earnings_data._year(), earnings_data._quarter());
+    _col_num = findColumnToExtract(tree, earnings_data._year(), earnings_data._quarter(), rep_end_date);
     if (_col_num < 0)
         return;
 
@@ -2963,7 +2928,7 @@ calculate_total_liabilities(DMMM::O_BalanceSheet& balance_data)
 
 
 void
-Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
+Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, date rep_end_date)
 {
     // #  current_assets      :string(255)
     //#  total_assets        :string(255)
@@ -2985,7 +2950,7 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
         return;
     }
 
-    _col_num = findColumnToExtract(tree, balance_data._year(), balance_data._quarter() );
+    _col_num = findColumnToExtract(tree, balance_data._year(), balance_data._quarter(),rep_end_date);
     if(_col_num < 0)
         return;
     LOG_INFO << "Extractino col num for balance sheets is " << _col_num;
@@ -3011,21 +2976,23 @@ Parser::parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data)
         calculate_book_value(balance_data);
 }
 
-string
+date
 Parser::extractPeriodEndDateFromCoverReport(string& report)
 {
     LOG_INFO << "going to extract from cover report: (1) period and date\n";
+    date end_date = from_undelimited_string("20000101");
     XmlElement* tree = NULL;
     try{
         tree = convertReportToTree(report);
     }  catch (std::exception& e) {
         LOG_ERROR << "Could not parse cover report into tree. Cannot extract fiscal dates";
-        return "";
+        return end_date;
     }
     trIterator trIt(tree);
     XmlElement* trp = tree;
 
     string fiscal_end_date("");
+
     regex end_pattern("Document Period End Date", regex::icase);
 
     while( (trp = trIt.nextTr()) != NULL )
@@ -3044,12 +3011,13 @@ Parser::extractPeriodEndDateFromCoverReport(string& report)
                       greg_month(date_time::month_str_to_ushort<greg_month>(match.str(1))),
                       greg_day(stoi(match.str(2))));
                 fiscal_end_date = to_simple_string(d);
+                end_date = d;
                 LOG_INFO << "date returned (converted to mysql format) is " << fiscal_end_date;
             } else
                 LOG_ERROR << "Could not get fiscal year end date (mmm/dd/YYYY)";
         }
     }
-    return fiscal_end_date;
+    return end_date;
 }
 
 

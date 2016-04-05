@@ -98,15 +98,15 @@ public:
 
     string getUnitsAndCurrency(XmlElement* tree,
                              string& units, string& currency);
-    void parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnigs_data);
-    void parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data);
+    void parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnigs_data, boost::gregorian::date rep_end_date);
+    void parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, boost::gregorian::date rep_end_date);
 
     vector<size_t> titleInfo(XmlElement* tree, string& units, 
                              string& currency, bool singleYear);
     double getQarterEps(XmlElement* tree);
 
     bool getNumSharesFromCoverReport(string& report, DMMM::O_Ep& ep);
-    string extractPeriodEndDateFromCoverReport(string& report);
+    boost::gregorian::date extractPeriodEndDateFromCoverReport(string& report);
     void extractFiscalDatesFromReport(string& report, int* focus_year = NULL,
                                       string* date_end = NULL, int* year_end = NULL);
     void updateFiscalDates(DMMM::O_Stock& stock, int* focus_year, string* date_end, int* year_end);
@@ -121,7 +121,7 @@ private:
         bool singleYear);
     XmlElement* edgarResultsTableToTree(string& page);
 
-    size_t findColumnToExtract(XmlElement* tree, size_t year, size_t quarter);
+    size_t findColumnToExtract(XmlElement* tree, size_t year, size_t quarter, boost::gregorian::date rep_end_date);
 
     // Could use template for these methods
     bool checkTrPattern( string& text, boost::regex& title_pattern, 

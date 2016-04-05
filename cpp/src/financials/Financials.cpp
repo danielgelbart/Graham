@@ -956,14 +956,17 @@ EdgarData::addIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
         return;
     }
 
+    // get end date from cover report
+
+    date rep_end_date = _parser.extractPeriodEndDateFromCoverReport(cover_report);
+
     O_Ep ep;
     ep._stock_id() = stock._id();
     ep._year() = year;
     ep._quarter() = quarter;
     ep._source() = string("edgar.com");
-    _parser.parseIncomeTree(tree, ep);
+    _parser.parseIncomeTree(tree, ep, rep_end_date);
     postParseEarningsFix( stock, ep);
-
 }
 
 void
@@ -1188,7 +1191,11 @@ EdgarData::addBalanceStatmentToDB(string& balanceFileStr,
     bs._year() = year;
     bs._quarter() = 0; // Anual record
 
-    parser.parseBalanceTree(tree, bs);
+    // construct from year end of stock
+    date rep_end_date(greg_year(year),
+                      greg_month(stoi(stock._fiscal_year_end().substr(0,2))),
+                      greg_day(stoi(stock._fiscal_year_end().substr(3,2))));
+    parser.parseBalanceTree(tree, bs, rep_end_date);
 
     addBalanceRecordToDB ( stock, bs);
     //_bs = bs;
