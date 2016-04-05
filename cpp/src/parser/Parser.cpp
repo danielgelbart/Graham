@@ -350,8 +350,8 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
     size_t column_counter = 0;
     *extraction_col = 1;
 
-    // allow to match to a date range 1 day +/- of 'end_date'
-    date_period end_date_range(end_date - days(1), end_date + days(1) );
+    // allow to match to a date range 3 day +/- of 'end_date' (total a week)
+    date_period end_date_range(end_date - days(3), end_date + days(3) );
 
     // For each th encountered in the priouvous loop, remove exxess
     while( (thp = thIt2.nextTag() ) != NULL )

@@ -610,7 +610,7 @@ Test::runSingleQarterTest(TestResults& tResults)
     string cover_rep = parser.get_report_from_complete_filing(filing,ReportType::COVER);
     //check_report_year_and_date(cover_rep, *it);
     string income_rep = parser.get_report_from_complete_filing(filing,ReportType::INCOME);
-    edgar.addSingleQuarterIncomeStatmentToDB( income_rep, stock, acn._year, acn._quarter, cover_rep);
+    edgar.addIncomeStatmentToDB( income_rep, stock, acn._year, acn._quarter, cover_rep);
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() &&

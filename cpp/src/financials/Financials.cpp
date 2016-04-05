@@ -354,7 +354,7 @@ EdgarData::getQuarters(O_Stock& stock)
                 LOG_ERROR << "NO COVER REPORT";
             string income_rep = _reports[ReportType::INCOME];
             if (income_rep != ""){
-                addSingleQuarterIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
+                addIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
                 updated = true;
             } else
                 LOG_ERROR << "NO INCOME REPORT!!!";
@@ -400,7 +400,7 @@ EdgarData::getSingleQarter(O_Stock& stock, string acc_num){
 
      string income_rep = _reports[ReportType::INCOME];
      if (income_rep != ""){
-         addSingleQuarterIncomeStatmentToDB( income_rep, stock, acn->_year, acn->_quarter, cover_rep);
+         addIncomeStatmentToDB( income_rep, stock, acn->_year, acn->_quarter, cover_rep);
      } else
          LOG_ERROR << "NO INCOME REPORT!!!";
 
@@ -934,7 +934,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     if (income_report == "")
         LOG_ERROR << "MISING INCOME REPORT";
     else
-        addSingleAnualIncomeStatmentToDB(income_report, stock, year);
+        addIncomeStatmentToDB(income_report, stock, year, 0 /*annual*/, cover_report);
     string balance_report = _reports[ReportType::BALANCE];
     if (balance_report == "")
         LOG_ERROR << "MISING BALANCE REPORT";
@@ -943,29 +943,27 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     return true;
 }
 
-
-
-void 
-EdgarData::addSingleAnualIncomeStatmentToDB(string& incomeFileStr, 
-                                            O_Stock& stock, size_t year)
+void
+EdgarData::addIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
+                                              size_t year, size_t quarter, string& cover_report)
 {
-    _parser.set_stock(stock);
-
-    XmlElement* tree = _parser.convertReportToTree(incomeFileStr);
+     _parser.set_stock(stock);
+     XmlElement* tree = _parser.convertReportToTree(incomeStr);
 
     if(tree == NULL)
     {
         LOG_INFO << "No income statement to parse to DB for "<<stock._ticker();
         return;
     }
+
     O_Ep ep;
     ep._stock_id() = stock._id();
     ep._year() = year;
-    ep._quarter() = 0; // Anual record
+    ep._quarter() = quarter;
     ep._source() = string("edgar.com");
-
     _parser.parseIncomeTree(tree, ep);
     postParseEarningsFix( stock, ep);
+
 }
 
 void
@@ -1029,31 +1027,6 @@ EdgarData::postParseEarningsFix( O_Stock& stock, O_Ep& ep)
     // for testing
     _ep = ep;
 }
-
-// Can probably unite this method with annual verstion, only differende is quarter parameter
-void
-EdgarData::addSingleQuarterIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
-                                              size_t year, size_t quarter, string& cover_report)
-{
-     _parser.set_stock(stock);
-     XmlElement* tree = _parser.convertReportToTree(incomeStr);
-
-    if(tree == NULL)
-    {
-        LOG_INFO << "No income statement to parse to DB for "<<stock._ticker();
-        return;
-    }
-
-    O_Ep ep;
-    ep._stock_id() = stock._id();
-    ep._year() = year;
-    ep._quarter() = quarter;
-    ep._source() = string("edgar.com");
-    _parser.parseIncomeTree(tree, ep);
-    postParseEarningsFix( stock, ep);
-
-}
-
 
 bool 
 EdgarData::getFiscalYearEndDate(O_Stock& stock)
