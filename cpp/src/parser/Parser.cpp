@@ -377,6 +377,7 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
 
                 string dateStr = (*mit)[0].str();
                 date rep_date = convertFromDocString(dateStr);
+                LOG_INFO << "column date retrived and converted to string is " << to_simple_string(rep_date);
 
                 if (end_date_range.contains(rep_date))
                 {
@@ -395,7 +396,9 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
 
     } //while - second row iteration
 
-    LOG_ERROR << "Itereated over all title columns buth could not find extraction column:( ";
+    LOG_ERROR << "Itereated over all title columns buth could not find extraction column:( "
+                 << "Setting column to get to "<< to_string(start_of_range);
+    *extraction_col = start_of_range;
     return false;
 }
 

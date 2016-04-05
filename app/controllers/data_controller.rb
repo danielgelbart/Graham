@@ -33,6 +33,8 @@ require 'csv'
 
       ep = stock.ttm_earnings_record
 
+      ep = annual_eps_newest_first.first if ticker == "BXLT"
+
       if ep.nil?
         output_file.puts"Could not get latest earnings record for #{ticker}"
         next
