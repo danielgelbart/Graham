@@ -89,6 +89,10 @@ public:
                          map<ReportType,string>* extract_reports);
     string readReportHtmlNameFromRepTag(XmlElement* report);
     void getReportDocNames(string& filingSummary,map<ReportType,string>* reports);
+    void reportsIterationExtraction(tagIterator& filingReportsIt, map<ReportType,string>* reports_map,
+                                       boost::regex& cover_pattern,
+                                       boost::regex& income_pattern,
+                                       boost::regex& balance_pattern);
     string get_report_from_complete_filing(string& page, ReportType reportType);
     string extractFirstTableStr(string& incomeStr);
     vector<Acn*> getAcnsFromSearchResults(string& page,

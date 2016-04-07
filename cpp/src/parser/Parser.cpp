@@ -602,22 +602,7 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
     string startTagName("MyReports"), tagStrItName("Report");
     XmlElement* filingRepTree = filtree->getFirstChild(startTagName);
     tagIterator filingReportsIt(filingRepTree, startTagName, tagStrItName);
-  //  filingRepTree->printXmlTree(0);
-
-    bool foundIncomeRep(false);
-    bool foundBalanceRep(false);
-    bool foundCoverRep(false);
-
-//    string delimiter("<Report>");
-    string tagName("ShortName");
-    string tagCatName("MenuCategory");
-    XmlElement* report;
-    string reportName = "";
-
-    /* TODO SEC do NOT use report names to find them
-     * Cover and financial reports are parsed out based on meta information
-     * Use this information instead of report name
-     */
+    //  filingRepTree->printXmlTree(0);
 
     //NOTE - ARG call their cover report "DEI Document"
     // Not sure if to adjust regex for this single weirdo
@@ -625,13 +610,14 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
     // BKH - call it "Document Information Document"
     // BUT - Edgar finds it OK. SO - maybe there is some additional markup used to find the cover document!!!
     boost::regex cover_pattern(
-        "(Document (and )?Entity (Supplemental )?Information|DEI )(Information )?(Document )?",
-        boost::regex_constants::icase);
+                "(Document (and )?Entity (Supplemental )?Information|DEI )(Information )?(Document )?",
+                boost::regex_constants::icase);
 
     // CALX - call their statment: "Consolidated statments of comprehensive Loss"!!!
     // CAT are unique - they use - "Consolidated Results of Operations"
     // CLF - "condensed statement of operations" - NOT going to get that
     // LOW last phrase: 'Consolidated Statements of Current and Retained Earnings'
+
     boost::regex income_pattern(
         "(consolidated )?(statements? of (consolidated )?(\\(loss\\) )?(earnings|(net )?income|operations|loss)|results of operations|Consolidated Statements of Current and Retained Earnings)",
         boost::regex_constants::icase);
@@ -640,37 +626,107 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
         "(consolidated )?(and sector )?((statements? of)? financial (position|condition)|balance sheets?)",
         boost::regex_constants::icase);
 
+
+    reportsIterationExtraction(filingReportsIt, reports_map, cover_pattern, income_pattern, balance_pattern);
+
+    bool foundCoverRep = ( (reports_map->find(ReportType::COVER)) != reports_map->end() ) ? true : false;
+    bool foundIncomeRep = ( (reports_map->find(ReportType::INCOME)) != reports_map->end() ) ? true : false;
+    bool foundBalanceRep = ( (reports_map->find(ReportType::BALANCE)) != reports_map->end() ) ? true : false;
+
+    if(!foundBalanceRep)
+        LOG_ERROR<<"Could NOT find Balance statement\n";
+    else
+        balance_pattern.assign("");
+
+    if(!foundCoverRep)
+        LOG_ERROR<<"Could NOT find Cover statement\n";
+    else
+        cover_pattern.assign("");
+
+
+    if(!foundIncomeRep){
+        LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN ------------------\n";
+
+        // DLTR
+        income_pattern.assign("consolidated income statements",
+                              boost::regex_constants::icase);
+
+        filingReportsIt.resetToStart();
+        reportsIterationExtraction(filingReportsIt, reports_map, cover_pattern, income_pattern, balance_pattern);
+
+        if( (reports_map->find(ReportType::INCOME)) == reports_map->end() ){
+            LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN (2)----------------\n";
+
+            income_pattern.assign("consolidated (condensed )?(statements? of )?comprehensive (income|operations|loss)",
+                                  boost::regex_constants::icase);
+
+            filingReportsIt.resetToStart();
+            reportsIterationExtraction(filingReportsIt, reports_map, cover_pattern, income_pattern, balance_pattern);
+        }
+
+        if( (reports_map->find(ReportType::INCOME)) == reports_map->end() ){
+            LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN (3)------------\n";
+            filingReportsIt.resetToStart();
+            // For CPGX
+            income_pattern.assign("(Statements of Consolidated and Combined Operations|(and sector )?income statements?)",
+                                  regex_constants::icase);
+            reportsIterationExtraction(filingReportsIt, reports_map, cover_pattern, income_pattern, balance_pattern);
+        }
+    }
+
+}
+
+/* Iterates over the filing summary via an initialized iterator passed to it
+ * If regexes match empty pattern "" then search for that document will be skipped
+ */
+void
+Parser::reportsIterationExtraction(tagIterator& filingReportsIt, map<ReportType,string>* reports_map,
+                                   regex& cover_pattern,
+                                   regex& income_pattern,
+                                   regex& balance_pattern){
+    bool foundCoverRep = cover_pattern.str() == "" ? true : false;
+    bool foundIncomeRep = income_pattern.str() == "" ? true : false;
+    bool foundBalanceRep = balance_pattern.str() == "" ? true : false;
+
+    LOG_INFO << "Iterating over reports";
+    string tagName("ShortName");
+    string tagCatName("MenuCategory");
+    XmlElement* report;
+    string reportName = "";
     bool hasStatementsCat(false);
 
-//TODO - hits seg fault, needs to iterate correctly, possibly searching for start incorrectly
+
     while( (report = filingReportsIt.nextTag()) != NULL)
     {
         XmlElement* nameNode = report->getFirstChild(tagName);
         reportName = nameNode->mytext();
         LOG_INFO << "Examing report named: "<< reportName << "\n";
+
         //The follwoing segment checks if in the filingsummary, reprots are market as 'Statments'
         // If they are, we want to search only within these marked reports
         XmlElement* catNode = report->getFirstChild(tagCatName);
         string category = "";
+
         if(catNode != NULL){
-        category = catNode->mytext();
-        string catName = "Statements";
+            category = catNode->mytext();
+            string catName = "Statements";
 
-        if ( !hasStatementsCat && (category == catName)){
-            LOG_INFO << "Entering report listings for Statments in Filingsummarg\n";
-            hasStatementsCat = true;
+            if ( !hasStatementsCat && (category == catName)){
+                LOG_INFO << "Entering report listings for Statments in Filingsummarg\n";
+                hasStatementsCat = true;
+            }
+
+            if ( hasStatementsCat &&  (category != catName)){
+                LOG_INFO << "Previously found reports for Statments, next reports are NOT for stamtnest, so stopping search\n";
+                break;
+            }
         }
 
-        if ( hasStatementsCat &&  (category != catName)){
-            LOG_INFO << "Previously found reports for Statments, next reports are NOT for stamtnest, so stopping search\n";
-            break;
-        }
-        }
         // TODOcheck that name does NOT inclue (Parenthetical)
         //LOG_INFO << "\n Handling report named: " << reportName << "\n";
 
         if ((!foundCoverRep && (category == "Cover")) ||
-            (!foundCoverRep && boost::regex_search(reportName, cover_pattern)))
+                (!foundCoverRep && boost::regex_search(reportName, cover_pattern)))
         {
             foundCoverRep = true;
             LOG_INFO << "FOUND COVER REPORT\n"<< reportName << "\n";
@@ -678,6 +734,7 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
                                      ReportType::COVER,
                                      readReportHtmlNameFromRepTag(report)) );
         }
+
         if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
         {
             // continue of treating "Parenthetical"
@@ -692,6 +749,7 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
                                          readReportHtmlNameFromRepTag(report)) );
             }
         }
+
         if (!foundBalanceRep && boost::regex_search(
                     reportName, balance_pattern))
         {
@@ -704,41 +762,10 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
 
         if (foundBalanceRep && foundIncomeRep)
             break;
-    }
-    if(!foundIncomeRep){
-        LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN ------------------\n";
+    } // iteration over reports
 
-        income_pattern.assign("(consolidated (condensed )?(statements? of )?comprehensive (income|operations|loss)|(and sector )?income statements?)",
-            boost::regex_constants::icase);
-
-        // reset iterator
-        filingReportsIt.resetToStart();
-
-        while( (report = filingReportsIt.nextTag()) != NULL)
-        {
-            XmlElement* nameNode = report->getFirstChild(tagName);
-            reportName = nameNode->mytext();
-
-            LOG_INFO << "\n Handling report named: " << reportName << "\n";
-
-            if (!foundIncomeRep && boost::regex_search(reportName, income_pattern))
-            {
-                // continue of treating "Parenthetical"
-
-                foundIncomeRep = true;
-                LOG_INFO << "FOUND INCOME REPORT MATCH!\n"<< reportName << "\n";
-                reports_map->insert( pair<ReportType,string>(
-                                         ReportType::INCOME,
-                                         readReportHtmlNameFromRepTag(report)) );
-                break;
-            }
-        }
-    }
-    if(!foundBalanceRep)
-        LOG_ERROR<<"Could NOT find Balance statement\n";
-    if(!foundCoverRep)
-        LOG_ERROR<<"Could NOT find Cover statement\n";
 }
+
 
 
 /*
@@ -2134,7 +2161,8 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     trIterator trIt(tree);
     XmlElement* trp = tree;
     string numshares("");
-    regex shares_pattern("Entity Common Stock,? Shares Outstanding", regex::icase);
+    //CPGX" Entity Units Outstanding"
+    regex shares_pattern("Entity (Common Stock,? Shares|units) Outstanding", regex::icase);
     string sclass = "";
     size_t num_sclasses = _stock._share_classes().size();
     size_t class_counter = 0;
@@ -3003,7 +3031,7 @@ Parser::extractPeriodEndDateFromCoverReport(string& report)
         string trtext = trp->text();
         if (regex_search(trtext, end_pattern))
         {
-            boost::regex ed_pattern("(\\w\\w\\w)\\.\\s+(\\d\\d),\\s+(\\d\\d\\d\\d)");
+            boost::regex ed_pattern("(\\w\\w\\w)\\.?\\s+(\\d\\d),\\s+(\\d\\d\\d\\d)");
             boost::smatch match;
             if (boost::regex_search(trtext, match, ed_pattern) )
             {

@@ -17,6 +17,7 @@ require 'csv'
       ticker = "BRK.A" if ticker == "BRK-B"
 
       next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
+      next if ticker.to_s == "CSRA" # NO annual data yet
 
       stock = Stock.get_from_ticker(ticker)
 
@@ -33,7 +34,7 @@ require 'csv'
 
       ep = stock.ttm_earnings_record
 
-      ep = annual_eps_newest_first.first if ticker == "BXLT"
+      ep = stock.annual_eps_newest_first.first if stock.ticker == "BXLT" || "CPGX"
 
       if ep.nil?
         output_file.puts"Could not get latest earnings record for #{ticker}"
