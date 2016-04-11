@@ -1691,7 +1691,7 @@ Stock.create( 'name'=>'Ensco plc','ticker'=>'ESV','cik'=>314808,'fiscal_year_end
 Stock.create( 'name'=>'EQUINIX INC','ticker'=>'EQIX','cik'=>1101239,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'Facebook Inc','ticker'=>'FB','cik'=>1326801,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'GARMIN LTD','ticker'=>'GRMN','cik'=>1121788,'fiscal_year_end'=>'12-30')
-Stock.create( 'name'=>'Hewlett Packard Enterprise Co','ticker'=>'HPE','cik'=>1645589,'fiscal_year_end'=>'10-31')
+Stock.create( 'name'=>'Hewlett Packard Enterprise Co','ticker'=>'HPE','cik'=>1645590,'fiscal_year_end'=>'10-31')
 Stock.create( 'name'=>'ILLUMINA INC','ticker'=>'ILMN','cik'=>1110803,'fiscal_year_end'=>'12-28')
 Stock.create( 'name'=>'HUNT J B TRANSPORT SERVICES INC','ticker'=>'JBHT','cik'=>728535,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'KEURIG GREEN MOUNTAIN, INC.','ticker'=>'GMCR','cik'=>909954,'fiscal_year_end'=>'09-29')

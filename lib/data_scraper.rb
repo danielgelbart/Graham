@@ -274,6 +274,7 @@ module DataScraper
     #google redirecets "HP" to the company Hewlett Packard
     nyse = "NYSE:" if (ticker == "HP")
     nyse = "NASDAQ:" if (ticker == "NWS")
+    nyse = "NASDAQ:" if (ticker == "AAL")
 
     sticker = ticker
     sticker = subticker if subticker != ""

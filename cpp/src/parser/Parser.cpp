@@ -146,12 +146,15 @@ tagIterator::at(size_t i, bool exact_match)
     if ( i >= num_children )
         return NULL;
 
-    if (exact_match)
-        return _node->_children[i];
+    regex blank_pattern("\\s:\\s(\\[\\d\\]|&#160;)|\\s*");
+    if (exact_match){
+        if( ! regex_match(_node->_children[i]->text(),blank_pattern) )
+            return _node->_children[i];
+    }
 
     // iterate over children
     // advance counter only if text!=""
-    regex blank_pattern("\\s:\\s(\\[\\d\\]|&#160;)|\\s*");
+
     size_t counter = 0;
     for( auto it = _node->_children.begin(); it != _node->_children.end(); ++it )
     {
@@ -383,6 +386,8 @@ find_data_column(XmlElement* tree, date end_date, size_t* extraction_col, bool* 
                 {
                     LOG_INFO << "Date matches the requested report date, col num found is is "<< (column_counter+i) ;
                     *extraction_col = column_counter + i;
+                    if(*extraction_col > 1)
+                        *exact_match = true;
                     return true;
                 }
                  ++i; // if there are more dates in the string
@@ -656,8 +661,8 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
 
         if( (reports_map->find(ReportType::INCOME)) == reports_map->end() ){
             LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN (2)----------------\n";
-
-            income_pattern.assign("consolidated (condensed )?(statements? of )?comprehensive (income|operations|loss)",
+            // F: and sector income statements?
+            income_pattern.assign("consolidated (condensed )?(statements? of )?(comprehensive (income|operations|loss)|and sector income statement)",
                                   boost::regex_constants::icase);
 
             filingReportsIt.resetToStart();
@@ -668,7 +673,7 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
             LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN (3)------------\n";
             filingReportsIt.resetToStart();
             // For CPGX
-            income_pattern.assign("(Statements of Consolidated and Combined Operations|(and sector )?income statements?)",
+            income_pattern.assign("Statements of Consolidated and Combined Operations",
                                   regex_constants::icase);
             reportsIterationExtraction(filingReportsIt, reports_map, cover_pattern, income_pattern, balance_pattern);
         }
@@ -3140,9 +3145,10 @@ Parser::updateFiscalDates(O_Stock& stock, int* focus_year, string* date_end, int
     {
         string message = "Setting " + stock._ticker() +
                 " to have focus year not correlat with end of period year fd_same_as_ey = false."
-                + " end date for stock is " + stock._fiscal_year_end();
+                + " and end date for stock is " + stock._fiscal_year_end();
         LOG_INFO << "NOTE " << message;
         cout << "! "<< message;
+        stock._fiscal_year_end() = *date_end;
         stock._fy_same_as_ed() = false;
         stock.update();
     }
