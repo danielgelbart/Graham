@@ -721,5 +721,19 @@ ShareClass.create( stock_id:stock.id,
                    nshares: "347166576",
                    float_date: "2015-11-04",
                    note: "divs the same")
+
+stock = Stock.find_by_ticker("REGN")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"A",
+                   votes:10)
+ShareClass.create( stock_id:stock.id,
+                   ticker:'REGN',
+                   sclass:"",
+                   votes:1,
+                   note: "no divs for either class")
+
+
+
 # There are two listings for CARNIVAL - CCL, and CUK
 #stock = Stock.find_by_ticker("CUK")

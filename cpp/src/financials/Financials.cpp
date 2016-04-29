@@ -838,6 +838,44 @@ EdgarData::getSingleYear(O_Stock& stock, size_t year)
     return retVal;
 }
 
+/* Retrieves all years avaliable (usualy 3) from a single income statment
+ *
+ */
+void
+EdgarData::getAllYearsFromIncome(O_Stock& stock, string acc_num)
+{
+    _parser.set_stock(stock);
+
+    Acn* acn = new Acn();
+    acn->_acn = acc_num;
+
+    //raw filing
+    string page = getEdgarFiling( stock, *acn);
+
+    auto extracted_reports = new map<ReportType,string>;
+    _parser.extract_reports(page, extracted_reports);
+    _reports = *extracted_reports;
+
+    string income_rep = _reports[ReportType::INCOME];
+    XmlElement* tree = _parser.convertReportToTree(income_rep);
+
+    if (tree != NULL){
+
+        years_list* ylist = _parser.findAllAnnualColumnsToExtract(tree);
+
+        _parser.extractMultipleYearsIncomeData(tree,ylist);
+
+        //add to DB
+        for(auto ep_it = ylist->begin(); ep_it != ylist->end(); ++ep_it)
+            addEarningsRecordToDB( stock, *((*ep_it)->second) );
+
+    } else
+        LOG_ERROR << "NO INCOME REPORT!!!";
+
+    _reports.clear();
+}
+
+
 /*
 Download the latest available 10-k for a specific ticker
 save only the extracted financial statments to disk

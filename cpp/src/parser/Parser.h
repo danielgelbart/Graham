@@ -14,6 +14,8 @@ using namespace std;
 
 enum class XmlTokenType {OPEN, CLOSE, TEXT, IGNORE };
 
+typedef std::list<std::pair<size_t, DMMM::O_Ep*>*> years_list;
+
 class XmlElement {
 public:
     XmlElement(string& tagName)
@@ -102,6 +104,8 @@ public:
 
     string getUnitsAndCurrency(XmlElement* tree,
                              string& units, string& currency);
+    years_list* findAllAnnualColumnsToExtract(XmlElement* tree);
+    void extractMultipleYearsIncomeData(XmlElement* tree, years_list* ylist);
     void parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnigs_data, boost::gregorian::date rep_end_date);
     void parseBalanceTree(XmlElement* tree, DMMM::O_BalanceSheet& balance_data, boost::gregorian::date rep_end_date);
 

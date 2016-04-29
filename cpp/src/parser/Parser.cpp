@@ -1398,6 +1398,121 @@ Parser::findColumnToExtract(XmlElement* tree, size_t year, size_t quarter, date 
 
 }
 
+years_list*
+Parser::findAllAnnualColumnsToExtract(XmlElement* tree)
+{
+    LOG_INFO << "Going to find all columns for ending 12 months";
+    vector<XmlElement*>* elements = new vector<XmlElement*>;
+    string tagName("tr");
+    tree->getNodes(tagName, 2, elements);
+
+    tagIterator thIt((*elements)[0], string("tr"), string("th"));
+    XmlElement* thp;
+
+    size_t number_of_cols = 0, start_of_range = 1, end_of_range = 1;
+    size_t ths_examined = 0;
+
+    regex months_pattern("(12|twelve) Months Ended", regex::icase);
+
+    // iteration over first row of 'th' titles
+    while( (thp = thIt.nextTag() ) != NULL )
+    {
+        LOG_INFO << "Examining 'th' with ATtributes are| "<< thp->attrText() << " Text is| " << thp->text() << "\n";
+
+        // add th to second row, if this th spans it
+        if (thp->span_count(string("row")) > 1){
+            LOG_INFO << "'th' number "<< ths_examined << " has a rowspan into next row. Adding the in row 2";
+            XmlElement* new_th = new XmlElement(thp->_tagName);
+
+            string new_attr_str = string("colspan=\"") + thp->_attributes["colspan"] + "\"";
+            new_th->addAttr( new_attr_str );
+            auto it = (*elements)[1]->_children.begin();
+            (*elements)[1]->_children.insert(it + ths_examined,new_th);
+        }
+
+        ths_examined++;
+
+        string th_text = thp->text();
+        size_t colspan = 1; // here?
+        colspan = thp->span_count(string("col"));
+
+        if(regex_search( th_text, months_pattern)){
+            start_of_range = number_of_cols;
+            end_of_range = number_of_cols + colspan - 1;
+            LOG_INFO << "FOUND RANGE! '"<< months_pattern.str() << "' matheces text: "
+                     << th_text <<  " and covers colums starting at col "
+                     << start_of_range << " and ending at col" << end_of_range;
+            break;
+        }
+        number_of_cols += colspan;
+    }
+
+    // get every column with a date at the top of it within found range
+
+    tagIterator thIt2((*elements)[1], string("tr"), string("th"));
+    regex date_pattern("(\\w\\w\\w).? (\\d+)?, (\\d+)?");
+
+    size_t column_counter = 0;
+    size_t extraction_col = 1;
+
+    years_list* ylist = new years_list;
+
+    // For each th encountered in the priouvous loop, remove exxess
+    while( (thp = thIt2.nextTag() ) != NULL )
+    {
+        LOG_INFO << "iterating over second row. th counter is: " << column_counter << " th text is: "<< thp->text();
+
+        size_t th_col_span = thp->span_count(string("col"));
+
+        // not in range yet
+        if (column_counter < start_of_range){
+            column_counter += th_col_span;
+            continue;
+        }
+
+        if (column_counter > end_of_range)
+            break;
+
+        if ((column_counter >= start_of_range) && (column_counter <= end_of_range)){
+            LOG_INFO << "Current Examind th is in found ragne for date";
+            string th_text = thp->text();
+            sregex_iterator mit(th_text.begin(), th_text.end(), date_pattern);
+            sregex_iterator mEnd;
+
+            for(size_t i = 0; mit != mEnd; ++mit){
+
+                string dateStr = (*mit)[0].str();
+                date rep_date = convertFromDocString(dateStr);
+                LOG_INFO << "column date retrived and converted to string is " << to_simple_string(rep_date);
+
+                // if we have a date, any date -
+                if (dateStr.size() > 0)
+                {
+                    extraction_col = column_counter + i;
+                    LOG_INFO << "Found a year to extract data for in column "<< extraction_col ;
+
+                    // create pair<colum number, Ep.year > and add to list
+                    auto new_rec = new DMMM::O_Ep;
+                    new_rec->_stock_id() = _stock._id();
+                    new_rec->_year() = rep_date.year();
+                    new_rec->_quarter() = 0;
+                    ylist->push_back(new pair<size_t,DMMM::O_Ep*>(extraction_col,new_rec));
+
+                }
+                ++i; // if there are more dates in the string
+            }
+            column_counter += th_col_span;
+        }// end of in range column handling
+    } //end of while - second row iteration
+
+    if (ylist->empty())
+        LOG_ERROR << "Could not find extraction data column number in table within range of columns";
+
+    return ylist;
+}
+
+
+
 bool
 Parser::findDefref(trIterator& trIt, regex& defref, regex& num_pattern, string& units,
            DMMM::O_Ep& earnings_data, void(*func)(O_Ep&,string&,string&), string stop_search)
@@ -2347,6 +2462,64 @@ Parser::parseIncomeTree(XmlElement* tree, DMMM::O_Ep& earnings_data, date rep_en
     foundNsr = extractNumShares(tree, earnings_data, units, nsrUnits);
     if (foundNsr)
         LOG_INFO << "Succesfully shares outstanding";
+}
+
+void
+Parser::extractMultipleYearsIncomeData(XmlElement* tree, years_list* ylist)
+{
+    if (ylist->empty())
+        return;
+
+    bool foundRev(false);
+    bool foundInc(false);
+    bool foundEps(false);
+    bool foundNsr(false);
+
+    string nsrUnits = "";
+    string units = "";
+    string currency = "";
+
+    // get units from title
+    string titleText = getUnitsAndCurrency( tree, units, currency);
+    if(titleText == "")
+    {
+        LOG_ERROR<<"Malformed income table, or at least title is malformed";
+        return;
+    }
+    // check for share units in title
+    nsrUnits = checkForShareUnitsInTitle(titleText);
+    //LOG_INFO<<"Share units are currently "<<nsrUnits<<" going to parse table...";
+
+    LOG_INFO << "found data for "<< ylist->size() << " years in income statement";
+
+    // Iterate over data_yeasr
+    // For each one set extraction column
+    // pass earnings data
+    for(auto cur_year = ylist->begin(); cur_year != ylist->end(); ++cur_year){
+
+        _col_num = (*cur_year)->first;
+        DMMM::O_Ep* earnings_data = (*cur_year)->second;
+
+        foundRev = extractTotalRevenue(tree, *earnings_data, units);
+        if (foundRev)
+            LOG_INFO << "Succesfully found revenue";
+
+        foundInc = extractNetIncome(tree, *earnings_data, units);
+        if (foundInc)
+            LOG_INFO << "Succesfully found Net Income";
+
+        foundEps = extractEps(tree, *earnings_data, units);
+        if (foundEps)
+            LOG_INFO << "Succesfully found eps";
+
+        foundNsr = extractNumShares(tree, *earnings_data, units, nsrUnits);
+        if (foundNsr)
+            LOG_INFO << "Succesfully shares outstanding";
+
+        foundRev = foundInc = foundEps = foundNsr = false;
+    } // end itaration over given years
+
+
 }
 
 bool
