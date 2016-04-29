@@ -3,6 +3,11 @@
     Market Data
   %li.list-group-item.row
     %div.col-md-8
+      Companies 
+    %span.bold.col-md-4
+      = @comp_data.size
+  %li.list-group-item.row
+    %div.col-md-8
       Total Market Cap
     %span.bold.col-md-4
       = is_to_s @total_market_cap

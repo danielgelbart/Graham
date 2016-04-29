@@ -30,6 +30,9 @@ require 'csv'
         output_file.puts"Could not get stock object for ticker#{ticker}"
         next
       end
+
+      stock.update_price if(stock.updated_at < 1.days.ago)
+
       price = stock.price
 
       ep = stock.ttm_earnings_record

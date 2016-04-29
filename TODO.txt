@@ -79,3 +79,9 @@ mysql> select ticker,name from stocks where id in (select distinct stock_id from
 *multiple traded classes means multiple prices. Market Cap for GEF is:
 
 GEF float * GEF price + GEF.B float * GEF.B price
+
+TODO:
+1. Look over top 10 SP500 data
+2. Add split to viewing screen
+3. Update divs and splits
+3. Write update script
