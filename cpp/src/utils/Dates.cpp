@@ -20,9 +20,11 @@ convertFromDocString(string& docStr)
 }
 
 bool
-withinAweek(string fd1, string fd2){
-    date d1 = convertFyedStringToDate(2015,fd1);
-    date d2 = convertFyedStringToDate(2015,fd2);
+withinAweek(string fd1, string fd2, size_t yyear){
+    if (yyear == 0)
+        yyear = 2015;
+    date d1 = convertFyedStringToDate(yyear,fd1);
+    date d2 = convertFyedStringToDate(yyear,fd2);
     date_duration dd = d2 - d1;
     return abs(dd.days()) < 8;
 }

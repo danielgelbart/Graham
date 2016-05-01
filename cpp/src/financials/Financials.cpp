@@ -933,7 +933,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
                 stock._fiscal_year_end() = *date_end;
                 stock.update();
             } else {
-                if ( withinAweek(*date_end, stock._fiscal_year_end())){
+                if ( withinAweek(*date_end, stock._fiscal_year_end(),*focus_year)){
                     LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
                     // Note that the following is will update even if there is no need to
                     stock._fiscal_year_end() = *date_end;

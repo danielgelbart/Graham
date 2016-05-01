@@ -652,8 +652,8 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
     if(!foundIncomeRep){
         LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN ------------------\n";
 
-        // DLTR
-        income_pattern.assign("consolidated income statements",
+        // DLTR, KMB
+        income_pattern.assign("consolidated income statements?",
                               boost::regex_constants::icase);
 
         filingReportsIt.resetToStart();
@@ -718,6 +718,7 @@ Parser::reportsIterationExtraction(tagIterator& filingReportsIt, map<ReportType,
 
             if ( !hasStatementsCat && (category == catName)){
                 LOG_INFO << "Entering report listings for Statments in Filingsummarg\n";
+                LOG_INFO << "First Report in 'statements' section is: "<< reportName ;
                 hasStatementsCat = true;
             }
 
@@ -1599,6 +1600,15 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
         return foundRev;
     }
 
+    //For ETR:  	us-gaap_UtilityRevenue
+    defref.assign("us-gaap_UtilityRevenue'");
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
+    {
+        LOG_INFO<<" Successfully found REVENUE using  	us-gaap_UtilityRevenue (6th)";
+        return foundRev;
+    }
+
     //**** Special handling for non-company type stocks
      LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
 
@@ -1663,6 +1673,22 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
             return foundRev;
         }
     } // REIT
+
+    // If compnay is a OIL/PIPLINE - they report interest income
+    // e.g. NLY, ANH
+    if ( _stock._company_type() == EnumStockCOMPANY_TYPE::PIPELINE)
+    {
+        LOG_INFO << "Handling "<<_stock._ticker()<< " as a PIPELINE";
+
+        //EQT
+        defref.assign("us-gaap_OilAndGasRevenue'");
+        if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                    earnings_data, writeRevenueToEarnings )))
+        {
+            LOG_INFO<<" Successfully found REVENUE using  	us-gaap_OilAndGasRevenue - PIPELINE specific)";
+            return foundRev;
+        }
+    } // PIPELINE
 
 
 
@@ -3286,7 +3312,7 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
             if (boost::regex_search(trtext, match, year_pattern) )
             {
                 fiscal_year_for = match[0];
-                LOG_INFO << "Report period end date is YEAR only"<< fiscal_year_for;
+                LOG_INFO << "Report period end date is YEAR only "<< fiscal_year_for;
                 *year_end = stoi(fiscal_year_for);
             } else
                 LOG_ERROR << "Could not get report period end date";
@@ -3297,13 +3323,13 @@ Parser::extractFiscalDatesFromReport(string& report, int* focus_year, string* da
 void
 Parser::updateFiscalDates(O_Stock& stock, int* focus_year, string* date_end, int* year_end)
 {
-    if (*date_end != "") {
+    if ( (*date_end != "") && (*date_end != "02-29")) {
         if( stock._fiscal_year_end() == ""){
             LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
             stock._fiscal_year_end() = *date_end;
             stock.update();
         } else {
-            if ( withinAweek(*date_end, stock._fiscal_year_end())){
+            if ( withinAweek(*date_end, stock._fiscal_year_end(), *focus_year)){
                 LOG_INFO << "Updating "<<stock._ticker() <<"'s fiscal year end date to "<<*date_end;
                 // Note that the following is will update even if there is no need to
                 stock._fiscal_year_end() = *date_end;

@@ -16,8 +16,12 @@ require 'csv'
       ticker = row[0]
       ticker = "BRK.A" if ticker == "BRK-B"
 
-      next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
+      #next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
       next if ticker.to_s == "CSRA" # NO annual data yet
+
+      # Acquired - no longer listed:
+      next if ticker.to_s == "PCP" # Acquired - no longer listed
+      next if ticker.to_s == "BRCM" # Acquired - no longer listed
 
       stock = Stock.get_from_ticker(ticker)
 
@@ -37,7 +41,8 @@ require 'csv'
 
       ep = stock.ttm_earnings_record
 
-      ep = stock.annual_eps_newest_first.first if stock.ticker == "BXLT" || "CPGX" || "HPE"
+      #first filing for HPE is annual for 2015
+      ep = stock.annual_eps_newest_first.first if stock.ticker == "HPE"
 
       if ep.nil?
         output_file.puts"Could not get latest earnings record for #{ticker}"
