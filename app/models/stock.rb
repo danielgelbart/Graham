@@ -440,9 +440,7 @@ class Stock < ActiveRecord::Base
     if has_multiple_share_classes?
       mar_cap = 0
       public_share_classes.each do |sc|
-        num_shares = sc.nshares.to_i
-        sc_price =  get_price_from_google("",sc.ticker)
-        mar_cap += num_shares * sc_price
+        mar_cap += get_price_from_google("",sc.ticker) * sc.nshares.to_i
       end
       return mar_cap
     end

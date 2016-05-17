@@ -271,18 +271,20 @@ module DataScraper
 
   def get_price_from_google(nyse="",subticker="")
 
-    #google redirecets "HP" to the company Hewlett Packard
-    nyse = "NYSE:" if (ticker == "HP")
-    nyse = "NYSE:" if (ticker == "PNR")
-    nyse = "NASDAQ:" if (ticker == "NWS")
-    nyse = "NASDAQ:" if (ticker == "AAL")
-
     sticker = ticker
     sticker = subticker if subticker != ""
 
+    #google redirecets "HP" to the company Hewlett Packard
+    nyse = "NYSE:" if (ticker == "HP")
+    nyse = "NYSE:" if (ticker == "H")
+    nyse = "NYSE:" if (ticker == "PNR")
+    nyse = "NYSE:" if (subticker == "UBP")
+    nyse = "NASDAQ:" if (ticker == "NWSA")
+    nyse = "NASDAQ:" if (ticker == "FOXA")
+    nyse = "NASDAQ:" if (ticker == "AAL")
+
     url = "http://www.google.com/finance?q=#{nyse}#{sticker}"
     doc = open_url_or_nil(url)
-
     begin
       price = doc.css('#price-panel').xpath('./div/span').first.text if doc
       price = clean_string(price).to_f
