@@ -1721,3 +1721,7 @@ Stock.create( 'name'=>'Xylem Inc.','ticker'=>'XYL','cik'=>1524472,'fiscal_year_e
 Stock.create( 'name'=>'Zoetis Inc.','ticker'=>'ZTS','cik'=>1555280,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'American Airlines Group Inc.','ticker'=>'AAL','cik'=>6201,'fiscal_year_end'=>'12-31')
 Stock.create( 'name'=>'BROWN FORMAN CORP','ticker'=>'BF.B','cik'=>14693,'fiscal_year_end'=>'04-30')
+Stock.create( 'name'=>'Ulta Salon, Cosmetics & Fragrance, Inc.','ticker'=>'ULTA','cik'=>1403568,'fiscal_year_end'=>'02-03', 'fy_same_as_ed' => false)
+Stock.create( 'name'=>'DITIZENS FINANCIAL GROUP INC/RI','ticker'=>'CFG','cik'=>759944,'fiscal_year_end'=>'12-31', 'company_type'=>5)
+Stock.create( 'name'=>'HOLOGIC INC','ticker'=>'HOLX','cik'=>859737,'fiscal_year_end'=>'09-24')
+

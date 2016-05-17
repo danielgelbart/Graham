@@ -18,15 +18,15 @@ class Spdata
   end
 
   def market_pe
-    market_cap / @ttm_earnings.to_f
+    (market_cap / @ttm_earnings.to_f).round(2)
   end
 
   def pe
-    @price / @ttm_eps
+    (@price / @ttm_eps.to_f).round(2)
   end
 
   def pe_match?
-    pe == market_pe
+    pe.round == market_pe
   end
 
 end

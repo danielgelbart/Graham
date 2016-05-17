@@ -3,11 +3,31 @@
 %h2
   Ticker:
   =h @stock.ticker
-  = link_to "on_google", "http://www.google.com/finance?q=#{@stock.ticker}"
-%p
-  = "last price: #{@stock.price}"
-  = button_to("Update price", {:price => @stock.update_price },
-  :method => :put )
+  = link_to "on_google",
+  "http://www.google.com/finance?q=#{@stock.ticker}"
+- if @stock.has_multiple_share_classes?
+  = "Has multiple stock classes: #{@stock.share_classes.map{ |sc| sc.ticker } }"
+%div.container
+  %div.row
+    %div.col-md-2
+      Market cap: 
+    %div.bold.col-md-2
+      = is_to_s @stock.market_cap
+  - if @stock.has_multiple_share_classes?
+    %div.row
+      %div.col-md-2
+        Publicly traded cap: 
+      %div.bold.col-md-2
+        = is_to_s @stock.public_market_cap
+  %div.row
+    %div.col-md-2
+      last price
+    %div.bold.col-md-1
+      = "$#{@stock.price}"
+    %div.col-md-1
+      = button_to("Update price", {:price => @stock.update_price }, :method => :put )
+
+
 - if !@ttm.nil?
   .red
     Showing TTM data in last column of chart   

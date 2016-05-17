@@ -1609,6 +1609,15 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
         return foundRev;
     }
 
+    //For NEM: us-gaap_RevenueMineralSales
+    defref.assign("us-gaap_RevenueMineralSales'");
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
+    {
+        LOG_INFO<<" Successfully found REVENUE using us-gaap_RevenueMineralSales (7th Mining)";
+        return foundRev;
+    }
+
     //**** Special handling for non-company type stocks
      LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
 
@@ -1630,6 +1639,7 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
          {
              LOG_INFO<<" Successfully found REVENUE using us-gaap_Interest(\\w*)IncomeOperating (BANK specific)";
          }
+
          if ( _stock._company_type() == EnumStockCOMPANY_TYPE::FINANCE ){
              if (foundRev)
              {
@@ -1707,12 +1717,13 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                          num_pattern, earnings_data, writeRevenueToEarnings);
             break;
         }
-        // INTC, CAR
-        rev_pattern.assign("Net revenue",boost::regex::icase);
+        // INTC, CAR, Somtimes TROW
+        rev_pattern.assign("Net (operating )?revenue",boost::regex::icase);
         if (regex_search( trtext, rev_pattern)){
             foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                          num_pattern, earnings_data, writeRevenueToEarnings);
-            break;
+            if (foundRev)
+                break;
         }
 
     } // while loop over table
@@ -1845,25 +1856,29 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     //Parent company should appear first, subdivitions are marked as "[Member]" and used to stop search
     string stop_string("\\[Member\\]");
 
-    // this defref include cases of 'attributable to'
-    // Note - that there is a ' terminating the string.
-    // However, there may be multiple such lines in the document
-    regex defref("defref_us-gaap_NetIncomeLoss'");
-    if (( foundInc = findDefref(trIt, defref, num_pattern, units,
-                                earnings_data, writeIncomeToEarnings, stop_string )))
-    {
-        LOG_INFO<<" Successfully found NET INCOME using defref defref_us-gaap_NetIncomeLoss' (1st)";
-        return foundInc;
-    }
-
-    // CAT
-    defref.assign("us-gaap_NetIncomeLossAvailableToCommonStockholders");
+    // This defref is less common, but should be first, so in case there are two net income lines
+    // CAT, CFG
+    regex defref("us-gaap_NetIncomeLossAvailableToCommonStockholders");
     if (( foundInc = findDefref(trIt, defref, num_pattern, units,
                                 earnings_data, writeIncomeToEarnings, stop_string  )))
     {
-        LOG_INFO<<" Successfully found NET INCOME using defref defref_NetIncomeLossAvailableToCommonStockholders (2nd)";
+        LOG_INFO<<" Successfully found NET INCOME using defref defref_NetIncomeLossAvailableToCommonStockholders (1st)";
         return foundInc;
     }
+
+
+    // this defref include cases of 'attributable to'
+    // Note - that there is a ' terminating the string.
+    // However, there may be multiple such lines in the document
+    defref.assign("defref_us-gaap_NetIncomeLoss'");
+    if (( foundInc = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeIncomeToEarnings, stop_string )))
+    {
+        LOG_INFO<<" Successfully found NET INCOME using defref defref_us-gaap_NetIncomeLoss' (2nd)";
+        return foundInc;
+    }
+
+
 
     // CAR
     defref.assign("us-gaap_ComprehensiveIncomeNetOfTax");
@@ -2372,6 +2387,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                                 string nshares = adjustValToUnits(extracted_value, units);
                                 LOG_INFO << "Found numshares for shares of class " << sclass
                                          << " there are " << nshares;
+
                                 long old_share_total =  (numshares == "")? 0 : stol( numshares );
                                 LOG_INFO << " Old share total is " << to_string(old_share_total);
                                 double new_share_val = stod( nshares );

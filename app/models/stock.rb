@@ -69,7 +69,10 @@ class Stock < ActiveRecord::Base
 
   def self.get_from_ticker(ticker)
     stock = find_by_ticker(ticker)
-    stock = ShareClass.find_by_ticker(ticker).stock if stock.nil?
+    if stock.nil?
+      tk = ShareClass.find_by_ticker(ticker)
+      stock = tk.stock if !tk.nil?
+    end
     stock
   end
 
@@ -165,7 +168,7 @@ class Stock < ActiveRecord::Base
 # || historic_eps(7).to_i == 0
 
     lim = min( historic_eps(7).to_f*25, ttm_eps*20 )
-    min( historic_eps(3) * 15, lim ) # second criteria from page 182
+    min( historic_eps(3).to_f * 15, lim ) # second criteria from page 182
   end
 
   # 7) Moderate price (to book)
@@ -272,14 +275,14 @@ class Stock < ActiveRecord::Base
   def inflation_ratio_for(year)
 
     #please UPDATE!
-    #Last updated: DEC 2015
+    #Last updated: March 2015
     # uses inflation from every year, so that I don't need to update
     # Calculated as change in CPI, from jan 1 to jan 1, durring the given year,
     # i.e data for 2013 is for change ending jan 1 2014.
     # using "ALL Urban Consumers LESS Food & Energy (i.e. CORE inflation)
     # Source: https://research.stlouisfed.org/fred2/release?rid=10
     # Saved to file localy
-    # *2015 data my not be exact, as it is not for Dec31, but Dec 1st/Nov 31st
+    #
     ir = {
       2000 => 1.02581,
       2001 => 1.02735,
@@ -296,7 +299,7 @@ class Stock < ActiveRecord::Base
       2012 => 1.01893,
       2013 => 1.01717,
       2014 => 1.01606,
-      2015 => 1.01907,
+      2015 => 1.02216,
     }
 
 
@@ -382,6 +385,24 @@ class Stock < ActiveRecord::Base
     latest_balance_sheet.book_val
   end
 
+# Shares float and market cap ---------------------------------------------
+
+  def has_multiple_share_classes?
+    !share_classes.empty?
+  end
+
+  def has_multiple_public_classes?
+    public_share_classes.size > 1
+  end
+
+  def public_share_classes
+    share_classes.select{ |sc| sc.ticker.first != '-'}
+  end
+
+  def non_public_share_classes
+    share_classes.select{ |sc| sc.ticker.first == '-'}
+  end
+
   def shares_float
     return newest_earnings_record.shares.to_i unless has_multiple_share_classes?
     # Stock has multiple share classes
@@ -392,9 +413,17 @@ class Stock < ActiveRecord::Base
     total_float.to_i
   end
 
+  def public_shares_float
+    total_float = 0
+    public_share_classes.each do |sc|
+      total_float += sc.nshares.to_i * sc.mul_factor
+    end
+    total_float.to_i
+  end
+
   def market_cap
     # E.g. GEF, GOOG, BRK
-    if has_multiple_share_classes? && has_multiple_public_classes?
+    if has_multiple_share_classes?
       mar_cap = 0
       public_share_classes.each do |sc|
         mar_cap += sc.nshares.to_i * get_price_from_google("",sc.ticker)
@@ -402,12 +431,23 @@ class Stock < ActiveRecord::Base
       non_public_share_classes.each do |sc|
         mar_cap += sc.nshares.to_i * sc.mul_factor * price
       end
-
       return mar_cap
     end
-
     shares_float * price
   end
+
+  def public_market_cap
+    if has_multiple_share_classes?
+      mar_cap = 0
+      public_share_classes.each do |sc|
+        mar_cap += sc.nshares.to_i * get_price_from_google("",sc.ticker)
+      end
+      return mar_cap
+    end
+    shares_float * price
+  end
+
+ # END shares float and market cap ------------------------------------------
 
   # Gets most recent earnings, regardles if updated
   def newest_earnings_record
@@ -475,7 +515,9 @@ class Stock < ActiveRecord::Base
 
   def ttm_is_latest_annual?
     newest_an = annual_eps_newest_first.first
+    return false if newest_an.nil?
     ttm_rec = ttm_earnings_record
+    return false if ttm_rec.nil?
     (newest_an.eps == ttm_rec.eps &&
      newest_an.revenue == ttm_rec.revenue &&
      newest_an.net_income == ttm_rec.net_income)
@@ -532,23 +574,6 @@ class Stock < ActiveRecord::Base
   end
 
   # ----------------- For handling multiple ticker/ share classes ----
-
-  def has_multiple_share_classes?
-    !share_classes.empty?
-  end
-
-  def has_multiple_public_classes?
-    public_share_classes.size > 1
-  end
-
-  def public_share_classes
-    share_classes.select{ |sc| sc.ticker.first != '-'}
-  end
-
-  def non_public_share_classes
-    share_classes.select{ |sc| sc.ticker.first == '-'}
-  end
-
 
 
   # Math module

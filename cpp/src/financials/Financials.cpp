@@ -687,6 +687,9 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
                             ((double)incp) / numshares, /* EPS */
                             to_string(numshares),  
                             "calculated"/*source*/);
+
+    createTtmEps(stock);
+
 }
 
 struct ep_comp {

@@ -75,10 +75,13 @@ mysql> select ticker,name from stocks where id in (select distinct stock_id from
 - Correctly handle stocks with multiple publicly traded classes:
 1. GEF and GEF.B
 2. GOOG and GOOGL
-
-*multiple traded classes means multiple prices. Market Cap for GEF is:
+-> save share number to share_class in DB
+   It will be needed to calculate the  float if prices for each differ
+**multiple traded classes means multiple prices. Market Cap for GEF is:
 
 GEF float * GEF price + GEF.B float * GEF.B price
+
+** Get xml from 2009 requires an xml parser
 
 TODO:
 1. Look over top 10 SP500 data

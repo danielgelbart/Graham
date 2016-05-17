@@ -273,6 +273,7 @@ module DataScraper
 
     #google redirecets "HP" to the company Hewlett Packard
     nyse = "NYSE:" if (ticker == "HP")
+    nyse = "NYSE:" if (ticker == "PNR")
     nyse = "NASDAQ:" if (ticker == "NWS")
     nyse = "NASDAQ:" if (ticker == "AAL")
 

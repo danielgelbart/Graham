@@ -2,8 +2,10 @@
   %li.list-group-item.row.list-group-item-info.bold
     Market Data
   %li.list-group-item.row
-    %div.col-md-8
+    %div.col-md-2
       Companies 
+    %span.col-md-6
+      = "Excluding dup classes for #{@exclude_list.to_s}"
     %span.bold.col-md-4
       = @comp_data.size
   %li.list-group-item.row
@@ -21,6 +23,13 @@
       Market PE
     %span.bold.col-md-4
       = short_float @total_market_cap / @total_earnings.to_f
+  %li.list-group-item.row
+    %div.col-md-4
+      = "S&P 500 data using divisor #{@divisor}"
+    %span.bold.col-md-4
+      = "Price #{short_float @total_market_cap/@divisor}"
+    %span.bold.col-md-4
+      = "Earnings #{ short_float @total_earnings.to_f/@divisor}"
 
 
 - count = 0
@@ -66,7 +75,7 @@
         %td
           = short_float d.pe
         %td
-          - if d.pe_match?
+          - if !d.pe_match?
             .red 
               = "NO"
 
