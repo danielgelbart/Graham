@@ -79,3 +79,5 @@ src/utils/Thread.cpp
 src/utils/Thread.h
 src/utils/Utils.cpp
 src/utils/Utils.hpp
+src/dbobjects/stockhelper.h
+src/dbobjects/stockhelper.cpp

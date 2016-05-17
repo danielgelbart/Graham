@@ -8,6 +8,7 @@ require 'csv'
 
     #makret cap and earnings for entire stock list, in Billions
     @total_market_cap = 0
+    @pub_market_cap = 0
     @total_earnings = 0
     @index = 0 #get from google?
     @comp_data = []
@@ -62,9 +63,14 @@ require 'csv'
         next
       end
 
-      spd = Spdata.new(stock.ticker, price, stock.ttm_eps,
-                       ep.net_income, stock.shares_float)
+      @comp
 
+      spd = Spdata.new(stock.ticker,
+                       price,
+                       stock.ttm_eps,
+                       ep.net_income,
+                       stock.shares_float)
+      @pub_market_cap += stock.public_market_cap
       @total_market_cap += spd.market_cap
       @total_earnings += spd.ttm_earnings.to_i
 

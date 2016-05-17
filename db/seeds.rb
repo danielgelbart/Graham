@@ -211,7 +211,7 @@ ShareClass.create( stock_id:stock.id,
                    votes:10 )
 ShareClass.create( stock_id:stock.id,
                    ticker:'DVD',
-                   sclass:"B",
+                   sclass:"",
                    votes:1 )
 
 stock = Stock.find_by_ticker("SSP")

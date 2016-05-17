@@ -15,7 +15,7 @@
 #include "Tokenizer.h"
 #include "T_Stock.hpp"
 #include "Parser.h"
-
+//#include "stockhelper.h"
 
 using namespace DMMM;
 using namespace boost;
@@ -2329,7 +2329,9 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     size_t class_counter = 0;
     size_t counter = 0;
     bool has_multiple_classes = (num_sclasses > 0);
+    bool update_share_classes = false;
     bool stop_searching = false;
+   // StockHelper stockH(_stock);
 
     while( (trp = trIt.nextTr()) != NULL )
     {
@@ -2351,7 +2353,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                     continue;
                 }else{
                     LOG_INFO << "Found share class title, but could not extract CLASS \n";
-
+                    // sclass is set from inception to "", some stocks have share classes as 'common' (no specified class)
                 }
             }
         }
@@ -2379,6 +2381,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                 boost::smatch match;
                 if (boost::regex_search(td->text(), match, pattern) ){
                     string extracted_value = match.str(0);
+                    LOG_INFO << "Found number of shares: "<< extracted_value;
                     if (has_multiple_classes){
                         auto share_classes = _stock._share_classes();
                         for(auto it = share_classes.begin(); it != share_classes.end(); ++it)
@@ -2397,9 +2400,25 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                                 numshares = to_string( new_total);
                                 LOG_INFO << " Updating total numshares for stocks to (temp): "<< numshares;
 
-                                it->_float_date() = to_iso_extended_string(extractPeriodEndDateFromCoverReport(report));
-                                it->_nshares() = nshares;
-                                it->update();
+                                date report_date = extractPeriodEndDateFromCoverReport(report);
+
+                                date latest_float_date = from_string(it->_float_date() );
+
+                                LOG_INFO << "Report is for " << to_iso_extended_string(report_date)
+                                         << " latest float date is " << to_iso_extended_string(latest_float_date);
+
+                                if( ( !update_share_classes) &&
+                                        ( (it->_nshares() == "") ||
+                                          (report_date > latest_float_date) ) )
+                                    update_share_classes = true;
+
+                                if (update_share_classes){
+                                    LOG_INFO << "Updating float for class: " << it->_sclass()
+                                             << " To: " << nshares;
+                                    it->_float_date() = to_iso_extended_string(report_date);
+                                    it->_nshares() = nshares;
+                                    it->update();
+                                }
                                 ++class_counter;
                                 break;
                             }
