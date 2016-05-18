@@ -19,6 +19,7 @@
 #include "Dates.hpp"
 #include <cmath>
 #include <boost/regex.hpp>
+//#inclue "stockhelper.h"
 
 using namespace std;
 using namespace DMMM;
@@ -316,6 +317,9 @@ EdgarData::getQuarters(O_Stock& stock)
         return false;
     }
 
+    //StockHelper stockH(stock);
+    //if (stockH.quartersUpToDate())
+    //    return true;
 
     string page = getEdgarSearchResultsPage(stock,StatementType::Q10);
 
@@ -354,7 +358,8 @@ EdgarData::getQuarters(O_Stock& stock)
                 LOG_ERROR << "NO COVER REPORT";
             string income_rep = _reports[ReportType::INCOME];
             if (income_rep != ""){
-                addIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter, cover_rep);
+                addIncomeStatmentToDB( income_rep, stock, (*it)->_year, (*it)->_quarter,
+                                       cover_rep, to_iso_extended_string((*it)->_report_date) );
                 updated = true;
             } else
                 LOG_ERROR << "NO INCOME REPORT!!!";
@@ -365,8 +370,6 @@ EdgarData::getQuarters(O_Stock& stock)
         }
         _reports.clear();
     }  
-    // just to test
-    //createFourthQuarter(stock, 2014);
     return updated;
 }    
 
@@ -400,7 +403,7 @@ EdgarData::getSingleQarter(O_Stock& stock, string acc_num){
 
      string income_rep = _reports[ReportType::INCOME];
      if (income_rep != ""){
-         addIncomeStatmentToDB( income_rep, stock, acn->_year, acn->_quarter, cover_rep);
+         addIncomeStatmentToDB( income_rep, stock, acn->_year, acn->_quarter, cover_rep, "0"/*date of filing missing*/);
      } else
          LOG_ERROR << "NO INCOME REPORT!!!";
 
@@ -891,6 +894,8 @@ EdgarData::updateFinancials(O_Stock& stock)
 
     _parser = Parser(stock);
 
+
+
 //    date today = day_clock::local_day();
 //    greg_year last_year = today.year() - 1;
 
@@ -975,7 +980,7 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
     if (income_report == "")
         LOG_ERROR << "MISING INCOME REPORT";
     else
-        addIncomeStatmentToDB(income_report, stock, year, 0 /*annual*/, cover_report);
+        addIncomeStatmentToDB(income_report, stock, year, 0 /*annual*/, cover_report, "0" /*lost date of report*/);
     string balance_report = _reports[ReportType::BALANCE];
     if (balance_report == "")
         LOG_ERROR << "MISING BALANCE REPORT";
@@ -986,7 +991,8 @@ EdgarData::extract10kToDisk(string& k10, O_Stock& stock, size_t year){
 
 void
 EdgarData::addIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
-                                              size_t year, size_t quarter, string& cover_report)
+                                              size_t year, size_t quarter,
+                                              string& cover_report, string report_date)
 {
      _parser.set_stock(stock);
      XmlElement* tree = _parser.convertReportToTree(incomeStr);
@@ -996,16 +1002,16 @@ EdgarData::addIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
         LOG_INFO << "No income statement to parse to DB for "<<stock._ticker();
         return;
     }
-
-    // get end date from cover report
-
     date rep_end_date = _parser.extractPeriodEndDateFromCoverReport(cover_report);
+    if (report_date == "0")
+        report_date = to_iso_extended_string(rep_end_date);
 
     O_Ep ep;
     ep._stock_id() = stock._id();
     ep._year() = year;
     ep._quarter() = quarter;
     ep._source() = string("edgar.com");
+    ep._report_date() = report_date;
     _parser.parseIncomeTree(tree, ep, rep_end_date);
     postParseEarningsFix( stock, ep);
 }

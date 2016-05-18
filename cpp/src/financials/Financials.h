@@ -40,7 +40,8 @@ public:
 
     bool extract10kToDisk(string& k10, O_Stock& stock, size_t year);
     void addIncomeStatmentToDB(string& incomeFileStr, O_Stock& stock,
-                                            size_t year, size_t quarter, string& cover_report);
+                                            size_t year, size_t quarter,
+                                            string& cover_report, string report_date);
     void postParseEarningsFix( O_Stock& stock, O_Ep& ep);
 
     void addBalanceStatmentToDB(string& incomeFileStr,O_Stock& stock, size_t year);

@@ -25,7 +25,6 @@ gem 'pry'
 #gem 'pry_debug'
 gem 'dm-metamapper', path: "../dm-metamapper", require: false
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -45,3 +44,5 @@ gem 'jquery-rails'
 gem 'selenium-webdriver', '~> 2.45.0'
 
 gem 'chartkick'
+
+gem 'whenever', :require => false

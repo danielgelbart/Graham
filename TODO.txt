@@ -61,10 +61,6 @@ Need to check that data is correct, and up to date
    0.5. HUBB
    0.6  VIA, VIAB(non voting)
 
-1. Run (in cpp) cron autoupdate for update financials IFF latest data
-older than 3 months, and write log on run
-
-2. Use split data when displaying dilution
 
 0.0) IMPLEMTATION
 - Add automatic correct getting of multiple share classes by CPP GRAHAM
@@ -72,19 +68,19 @@ The following 68 stocks have multiple share classes:
 
 mysql> select ticker,name from stocks where id in (select distinct stock_id from notes where pertains_to='SHARES_OUTSTANDING' and note="There are MULTIPLE classes of shares for thes stock");
 
-- Correctly handle stocks with multiple publicly traded classes:
-1. GEF and GEF.B
-2. GOOG and GOOGL
--> save share number to share_class in DB
-   It will be needed to calculate the  float if prices for each differ
-**multiple traded classes means multiple prices. Market Cap for GEF is:
-
-GEF float * GEF price + GEF.B float * GEF.B price
-
 ** Get xml from 2009 requires an xml parser
 
 TODO:
-1. Look over top 10 SP500 data
-2. Add split to viewing screen
-3. Update divs and splits
-3. Write update script
+
+1. Update divs and splits auto getting
+
+2. Create cron autoupdate:
+   General:
+   - Run (in cpp) cron autoupdate for update financials IFF latest data
+older than 3 months, and write log on run
+   - Update divs and splits
+   - Update prices
+   S&P 500
+   - Get new list from wiki
+   - Get index price
+   - Run calculations and save results to file

@@ -23,14 +23,14 @@ namespace :dividends do
     html = Nokogiri::HTML(element.attribute('innerHTML'))
 
     parse_dividends(stock,html)
-    stock.update_attributes( mark: "div-ok")
+    stock.update_attributes( mark: "div-ok1")
 
   end # end rake task
 
   task :get_all => :environment do
     Rails.application.eager_load!
  #   ss = Stock.where( listed: true, mark: "0")
-    ss = Stock.where(Stock.arel_table[:mark].not_eq("div-ok"))
+    ss = Stock.where(Stock.arel_table[:mark].not_eq("div-ok1"))
     ss.select!{ |s| s.listed == true }
     # go to that page
     driver = Selenium::WebDriver.for :firefox
@@ -134,7 +134,7 @@ namespace :dividends do
   end
 
   def mark_stock_as_updated(stock)
-    stock.update_attributes( mark: "div-ok")
+    stock.update_attributes( mark: "div-ok1")
   end
 
 end

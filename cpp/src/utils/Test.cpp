@@ -601,6 +601,7 @@ Test::runSingleQarterTest(TestResults& tResults)
     EdgarData edgar;
     Acn acn( string("0000093410-14-000024"), date(2014,May,2), 1 );
     acn._year = 2014;
+
     //string cover_rep_mok = "";
 
     //string page = filing;
@@ -610,7 +611,7 @@ Test::runSingleQarterTest(TestResults& tResults)
     string cover_rep = parser.get_report_from_complete_filing(filing,ReportType::COVER);
     //check_report_year_and_date(cover_rep, *it);
     string income_rep = parser.get_report_from_complete_filing(filing,ReportType::INCOME);
-    edgar.addIncomeStatmentToDB( income_rep, stock, acn._year, acn._quarter, cover_rep);
+    edgar.addIncomeStatmentToDB( income_rep, stock, acn._year, acn._quarter, cover_rep, to_iso_extended_string( acn._report_date) );
 
     //Test results writen to DB
     if (te.select( te._stock_id() == stock._id() &&

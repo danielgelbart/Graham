@@ -5,7 +5,7 @@
 #include "boost/algorithm/string/split.hpp"
 #include "boost/algorithm/string.hpp"
 #include <iostream>
-
+#include <cctype>
 #include "Identifier.h"
 #include "Config.h"
 #include "Logger.h"
@@ -167,10 +167,10 @@ mainMain(int argc, char* argv[])
 // find rigt command to execute and call relavent comand methods
     if (command == string("update_financials")){
 
-        if (argc <= 2){
+        if (std::isdigit( string(argv[2]).at(0) ) ){
             T_Stock ts;
             vector<O_Stock> stocks;
-            string markStr = "updated_5_17";
+            string markStr = "updated_" + string(argv[2]);
 
             stocks = ts.select(ts._listed() == true && ts._mark() != markStr);
 
@@ -178,9 +178,15 @@ mainMain(int argc, char* argv[])
             {
                 EdgarData eData = EdgarData();
                 cout << "\n\nUpdating financials for "<< it->_ticker() <<endl;
-                eData.updateFinancials(*it );
-                it->_mark() = markStr;
-                it->update();
+
+                try {
+                    eData.updateFinancials(*it );
+                    it->_mark() = markStr;
+                    it->update();}
+                catch(exception& e){
+                    LOG_ERROR << "EXCEPTION CAUGHT - Updating " << it->_ticker() << "Caught exception " << e.what() ;
+                }
+
             }
         } else {
             EdgarData eData = EdgarData();
