@@ -370,10 +370,19 @@ class Stock < ActiveRecord::Base
 # Stock dilution
   def dilution(num)
     return 0 if annual_eps_newest_first[num-1].nil?
-    latest = annual_eps_newest_first[0]
-    first = annual_eps_newest_first[num-1]
-    return 0 if first.shares.to_i == 0 || latest.shares.to_i == 0
-    dil_rate =  latest.shares.to_i.to_f / first.shares.to_i.to_f
+    split_adjusted = annual_eps_newest_first.map{ |e| [e.year,e.shares.to_i] }
+    splits.each do |sp|
+      split_adjusted.each do |ns|
+        if sp.date.year > ns.first
+          ns[1] = ( (sp.into.to_f / sp.base)*ns.last ).to_i
+        end
+      end
+    end
+    split_adjusted = split_adjusted.map{ |ns| ns.last }
+    latest = split_adjusted[0]
+    first = split_adjusted[num-1]
+    return 0 if first == 0 || latest == 0
+    dil_rate =  latest.to_f / first.to_f
   end
 
   # Gets most recent balance sheet, regardles if updated
@@ -437,7 +446,7 @@ class Stock < ActiveRecord::Base
   end
 
   def public_market_cap
-    if has_multiple_share_classes?
+    if has_multiple_share_classes? && (public_share_classes.size > 1)
       mar_cap = 0
       public_share_classes.each do |sc|
         mar_cap += get_price_from_google("",sc.ticker) * sc.nshares.to_i

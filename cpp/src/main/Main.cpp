@@ -170,7 +170,7 @@ mainMain(int argc, char* argv[])
         if (argc <= 2){
             T_Stock ts;
             vector<O_Stock> stocks;
-            string markStr = "updated_4_29";
+            string markStr = "updated_5_17";
 
             stocks = ts.select(ts._listed() == true && ts._mark() != markStr);
 

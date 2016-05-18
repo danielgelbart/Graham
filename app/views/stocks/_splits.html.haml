@@ -1,0 +1,10 @@
+- @splits = @stock.splits.sort{ |b,a| a.date <=> b.date }
+%li.list-group-item.row.list-group-item-info
+  Splits
+  - @splits.each do |sp|
+    %li.list-group-item.row
+      %div.col-xs-8
+        = sp.date
+      %div.col-xs-2
+        = "#{sp.base}:#{sp.into}" 
+

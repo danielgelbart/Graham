@@ -744,10 +744,14 @@ stock = Stock.find_by_ticker("REGN")
 ShareClass.create( stock_id:stock.id,
                    ticker:'-',
                    sclass:"A",
+                   nshares: "1913136",
+                   float_date: "2016-04-14",
                    votes:10)
 ShareClass.create( stock_id:stock.id,
                    ticker:'REGN',
                    sclass:"",
+                   nshares: "103165457",
+                   float_date: "2016-04-14",
                    votes:1,
                    note: "no divs for either class")
 

@@ -17,6 +17,7 @@ class Split < ActiveRecord::Base
   validates :stock, presence: true
   validates :base, presence: true
   validates :into, presence: true
-
+  validates :date, presence: true
+  validates_uniqueness_of :date, :scope => [:stock_id]
 
 end

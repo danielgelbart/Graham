@@ -68,7 +68,17 @@ class StocksController < ApplicationController
     @earnings = @stock.annual_eps_oldest_first
 
     # 1) copy all numshare data into eps table in dev environment
-    @numshare = @earnings.map{|s| s.shares.to_i }
+    @numshare = @earnings.map{|s| [s.year,s.shares.to_i] }
+
+    #adjust earnings.numshares for splits
+    @stock.splits.each do |sp|
+      @numshare.each do |ns|
+        if sp.date.year > ns.first
+          ns[1] = ( (sp.into.to_f / sp.base)*ns.last ).to_i
+        end
+      end
+    end
+    @numshare = @numshare.map{ |ns| ns.last }
     @income = @earnings.map{|s| s.net_income.to_i }
     @revenue = @earnings.map{|s| s.revenue.to_i }
     @notes = @stock.notes

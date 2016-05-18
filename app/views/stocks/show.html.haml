@@ -37,7 +37,14 @@
 - if !@notes.empty?
   .blue
     Stock has notes (displayed at bottom)
-= render "stocks/earnings_chart"
+%div.container
+  %div.row
+    %div.col-md-10
+      = render "stocks/earnings_chart"
+    - if @stock.splits.size > 0
+      %div.col-md-2
+        = render "stocks/splits"
+
 %div.container
   %div.row
     %div.col-md-5
