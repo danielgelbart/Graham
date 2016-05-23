@@ -81,6 +81,6 @@ older than 3 months, and write log on run - added script
    - Update divs and splits - update firefox/selenium
    - Update prices - added class method
    S&P 500
-   - Get new list from wiki
+   - Get new list from wiki 
    - Get index price
    - Run calculations and save results to file

@@ -17,7 +17,10 @@ require 'csv'
     @exclude_list = []
 
     output_file = File.open(Rails.root.join('log','sp_evaluation_out.txt'),"w")
-    CSV.foreach(Rails.root.join('utility_scripts','sp500_list_2016-05-01.txt')) do |row|
+
+    # search for latest list instead...
+
+    CSV.foreach(Rails.root.join('text_files','sp500_list_2016-05-01.txt')) do |row|
       ticker = row[0].strip
       ticker = "BRK.A" if ticker == "BRK-B"
       ticker = "BF.B" if ticker == "BF-B"
@@ -80,5 +83,20 @@ require 'csv'
     @comp_data.sort_by! { |s| -s.market_cap }
   end
 
+  def get_latest_list( date = "")
+    file_regex = /^sp500_list_\d\d.*\.txt$/
+    date_regex = /(\d\d\d\d-\d\d-\d\d)/
+    sp_lists = Dir.entries("utility_scripts/").select{ |f| f =~ file_regex }
+
+    return "" if sp_lists.empty?
+
+    latest = "1980-01-01"
+    sp_lists.each do |fs|
+      fs_date = fs[date_regex,1].to_date
+      latest = fs if latest[date_regex,1] < fs_date
+    end
+
+    return latest
+  end
 
 end

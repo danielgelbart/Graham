@@ -584,6 +584,16 @@ class Stock < ActiveRecord::Base
 
   # ----------------- For handling multiple ticker/ share classes ----
 
+  # class methods ----------------------------------------------------
+
+  def self.update_prices
+    ss = where( listed:true)
+    ss.each do |s|
+      s.update_price if s.updated_at < 2.days.ago
+    end
+  end
+
+  # END class methods ----------------------------------------------------
 
   # Math module
 

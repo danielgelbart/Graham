@@ -27,7 +27,7 @@
 
  end
 
- file = File.open("sp500_list_#{Date.today.to_s}.txt","w")
+ file = File.open("../text_files/sp500_list_#{Date.today.to_s}.txt","w")
  url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
  doc = open_url_or_nil(url)
  write_to_file(file, doc) if doc
