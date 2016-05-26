@@ -1,0 +1,49 @@
+= form_for @sp_earning do |f|
+  - if @sp_earning.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@sp_earning.errors.count, "error")} prohibited this sp_earning from being saved:"
+      %ul
+        - @sp_earning.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :calc_date
+    = f.date_select :calc_date
+  .field
+    = f.label :list_file
+    = f.text_field :list_file
+  .field
+    = f.label :num_included
+    = f.number_field :num_included
+  .field
+    = f.label :excluded_list
+    = f.text_field :excluded_list
+  .field
+    = f.label :total_market_cap
+    = f.text_field :total_market_cap
+  .field
+    = f.label :public_market_cap
+    = f.text_field :public_market_cap
+  .field
+    = f.label :total_earnings
+    = f.text_field :total_earnings
+  .field
+    = f.label :market_pe
+    = f.text_field :market_pe
+  .field
+    = f.label :index_price
+    = f.text_field :index_price
+  .field
+    = f.label :inferred_divisor
+    = f.text_field :inferred_divisor
+  .field
+    = f.label :divisor_earnings
+    = f.text_field :divisor_earnings
+  .field
+    = f.label :divisor_pe
+    = f.text_field :divisor_pe
+  .field
+    = f.label :notes
+    = f.text_field :notes
+  .actions
+    = f.submit 'Save'

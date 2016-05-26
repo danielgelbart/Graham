@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  calc_date: 2016-05-26
+  list_file: MyString
+  size: 1
+  excluded_list: MyString
+  total_market_cap: MyString
+  public_market_cap: MyString
+  total_earnings: MyString
+  market_pe: 9.99
+  index_price: 9.99
+  inferred_divisor: 9.99
+  divisor_earnings: 9.99
+  divisor_pe: 9.99
+  notes: MyString
+
+two:
+  calc_date: 2016-05-26
+  list_file: MyString
+  size: 1
+  excluded_list: MyString
+  total_market_cap: MyString
+  public_market_cap: MyString
+  total_earnings: MyString
+  market_pe: 9.99
+  index_price: 9.99
+  inferred_divisor: 9.99
+  divisor_earnings: 9.99
+  divisor_pe: 9.99
+  notes: MyString

@@ -77,10 +77,13 @@ TODO:
 2. Create cron autoupdate:
    General:
    - Run (in cpp) cron autoupdate for update financials IFF latest data
-older than 3 months, and write log on run - added script
+older than 3 months, and write log on run -VVV
    - Update divs and splits - update firefox/selenium
-   - Update prices - added class method
+   - Update prices - added class method -VVV
    S&P 500
-   - Get new list from wiki
-   - Get index price
-   - Run calculations and save results to file
+   - Get new list from wiki -VVV
+   - Get index price -VVV
+   - Run calculations and save results to file ->
+                    -> Move calculation into SpEarnings class
+                      -> Update data/ and price only if needed
+                     

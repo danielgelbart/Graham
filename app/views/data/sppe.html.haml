@@ -5,7 +5,7 @@
     %div.col-md-2
       Companies 
     %span.col-md-6
-      = "Excluding dup classes for #{@exclude_list.to_s}"
+      = "Failed to include #{@failed_tickers.to_s}"
     %span.bold.col-md-4
       = @comp_data.size
   %li.list-group-item.row
@@ -27,13 +27,22 @@
       = short_float @total_market_cap / @total_earnings.to_f
   %li.list-group-item.row
     %div.col-md-3
-      = "S&P 500 data using divisor #{@divisor}"
+      = "Using filed divisor #{@divisor}"
     %span.bold.col-md-3
       = "Price #{short_float @pub_market_cap/@divisor}"
     %span.bold.col-md-3
       = "Earnings #{ short_float @total_earnings.to_f/@divisor}"
     %span.bold.col-md-3
       = "PE #{ short_float @pub_market_cap / @total_earnings.to_f }"
+  %li.list-group-item.row
+    %div.col-md-3
+      = "Using inferred divisor #{@inferred_divisor.to_i}"
+    %span.bold.col-md-3
+      = "Price #{ @index_price}"
+    %span.bold.col-md-3
+      = "Earnings #{ short_float @divisor_earnings}"
+    %span.bold.col-md-3
+      = "PE #{ short_float @index_price / @divisor_earnings.to_f }"
 
 
 - count = 0

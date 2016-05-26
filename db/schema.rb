@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160328115746) do
+ActiveRecord::Schema.define(:version => 20160526100102) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -108,6 +108,24 @@ ActiveRecord::Schema.define(:version => 20160328115746) do
   add_index "share_classes", ["sclass"], :name => "index_share_classes_on_sclass"
   add_index "share_classes", ["stock_id"], :name => "index_share_classes_on_stock_id"
   add_index "share_classes", ["ticker"], :name => "index_share_classes_on_ticker"
+
+  create_table "sp_earnings", :force => true do |t|
+    t.date     "calc_date"
+    t.string   "list_file"
+    t.integer  "num_included"
+    t.string   "excluded_list"
+    t.string   "total_market_cap"
+    t.string   "public_market_cap"
+    t.string   "total_earnings"
+    t.decimal  "market_pe",         :precision => 15, :scale => 2
+    t.float    "index_price"
+    t.decimal  "inferred_divisor",  :precision => 10, :scale => 0
+    t.decimal  "divisor_earnings",  :precision => 15, :scale => 2
+    t.decimal  "divisor_pe",        :precision => 15, :scale => 2
+    t.string   "notes"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
 
   create_table "splits", :force => true do |t|
     t.integer  "stock_id"

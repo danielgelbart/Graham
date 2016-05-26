@@ -15,12 +15,13 @@ require 'csv'
     #lines = lines.first(10) #test first
 
     @exclude_list = []
+    @failed_tickers = []
 
     output_file = File.open(Rails.root.join('log','sp_evaluation_out.txt'),"w")
 
     # search for latest list instead...
 
-    CSV.foreach(Rails.root.join('text_files','sp500_list_2016-05-01.txt')) do |row|
+    CSV.foreach(Rails.root.join('sp500',get_latest_list)) do |row|
       ticker = row[0].strip
       ticker = "BRK.A" if ticker == "BRK-B"
       ticker = "BF.B" if ticker == "BF-B"
@@ -28,6 +29,7 @@ require 'csv'
       #next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
       if ticker.to_s == "CSRA" # NO annual data yet
         output_file.puts"Not enough data yet to include #{ticker}"
+        @failed_tickers << ticker
         next
       end
 
@@ -44,6 +46,7 @@ require 'csv'
 
       if stock.nil?
         output_file.puts"Could not get stock object for ticker#{ticker}"
+        @failed_tickers << ticker
         next
       end
 
@@ -63,6 +66,7 @@ require 'csv'
 
       if ep.nil?
         output_file.puts"Could not get latest earnings record for #{ticker}"
+        @failed_tickers << ticker
         next
       end
 
@@ -80,23 +84,57 @@ require 'csv'
       @comp_data << spd
     end
     output_file.close
+
+
+    #create DB entry to save calculations
+
+    #create DB entry each time???
+    @index_price = SpEarning.get_index_price
+    @inferred_divisor = (@pub_market_cap.to_f / @index_price)
+    @divisor_earnings = (@total_earnings.to_f / @inferred_divisor)
+    @spe = SpEarning.new( calc_date: Date.today,
+                          list_file: get_latest_list,
+                          num_included: @comp_data.size,
+                          excluded_list: ar_to_s(@failed_tickers),
+                          total_market_cap: @total_market_cap.to_i.to_s,
+                          public_market_cap: @pub_market_cap.to_i.to_s,
+                          total_earnings: @total_earnings.to_i.to_s,
+                          market_pe: (@total_market_cap / @total_earnings.to_f),
+                          index_price: @index_price,
+                          inferred_divisor: @inferred_divisor,
+                          divisor_earnings: @divisor_earnings,
+                          divisor_pe: (@index_price / @divisor_earnings),
+                          notes: "created from data_controller#sppe")
+
+    @spe.save if (params[:save] == "true")
+
+
     @comp_data.sort_by! { |s| -s.market_cap }
   end
 
   def get_latest_list( date = "")
     file_regex = /^sp500_list_\d\d.*\.txt$/
     date_regex = /(\d\d\d\d-\d\d-\d\d)/
-    sp_lists = Dir.entries("utility_scripts/").select{ |f| f =~ file_regex }
+    sp_lists = Dir.entries("sp500/").select{ |f| f =~ file_regex }
 
     return "" if sp_lists.empty?
 
     latest = "1980-01-01"
     sp_lists.each do |fs|
       fs_date = fs[date_regex,1].to_date
-      latest = fs if latest[date_regex,1] < fs_date
+      l_date = latest[date_regex,1].to_date
+      latest = fs if  l_date < fs_date
     end
 
     return latest
   end
+
+  def ar_to_s(arr)
+    str = arr.shift.to_s
+    arr.each do |ar|
+      str += " , " + ar.to_s
+    end
+  end
+
 
 end

@@ -1,0 +1,2 @@
+module SpEarningsHelper
+end

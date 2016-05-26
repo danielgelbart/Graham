@@ -1,4 +1,6 @@
 Graham::Application.routes.draw do
+  resources :sp_earnings
+
   resources :notes
 
   # The priority is based upon order of creation:

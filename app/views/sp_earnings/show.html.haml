@@ -1,0 +1,45 @@
+%p#notice= notice
+
+%p
+  %b Calc date:
+  = @sp_earning.calc_date
+%p
+  %b List file:
+  = @sp_earning.list_file
+%p
+  %b Size:
+  = @sp_earning.size
+%p
+  %b Excluded list:
+  = @sp_earning.excluded_list
+%p
+  %b Total market cap:
+  = @sp_earning.total_market_cap
+%p
+  %b Public market cap:
+  = @sp_earning.public_market_cap
+%p
+  %b Total earnings:
+  = @sp_earning.total_earnings
+%p
+  %b Market pe:
+  = @sp_earning.market_pe
+%p
+  %b Index price:
+  = @sp_earning.index_price
+%p
+  %b Inferred divisor:
+  = @sp_earning.inferred_divisor
+%p
+  %b Divisor earnings:
+  = @sp_earning.divisor_earnings
+%p
+  %b Divisor pe:
+  = @sp_earning.divisor_pe
+%p
+  %b Notes:
+  = @sp_earning.notes
+
+= link_to 'Edit', edit_sp_earning_path(@sp_earning)
+\|
+= link_to 'Back', sp_earnings_path

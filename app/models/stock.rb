@@ -458,6 +458,7 @@ class Stock < ActiveRecord::Base
 
  # END shares float and market cap ------------------------------------------
 
+ # Chek when latest earnings record was -----------------------------------
   # Gets most recent earnings, regardles if updated
   def newest_earnings_record
     eps.sort_by{ |e| [e.year,e.quarter] }.last
@@ -487,6 +488,22 @@ class Stock < ActiveRecord::Base
   def ep_for_year(year)
     eps.select{ |e| (e.year == year) && (e.quarter == 0) }.first
   end
+
+  def quarters
+    qrts = eps.select{ |e| (e.quarter > 0) && (e.quarter < 5) }
+    qrts.sort_by{ |q| [-q.year, -q.quarter] }
+  end
+
+  def newest_quarter
+    quarters.first
+  end
+
+  def earnings_up_to_date?
+    newest_quarter.date_of > 3.months.ago.to_date
+  end
+
+
+# END getting newest Earnings record -----------------------------------------
 
   def book_value_per_share
     book_value / latest_eps.shares.to_f
@@ -583,6 +600,8 @@ class Stock < ActiveRecord::Base
   end
 
   # ----------------- For handling multiple ticker/ share classes ----
+
+
 
   # class methods ----------------------------------------------------
 

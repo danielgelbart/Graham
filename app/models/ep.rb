@@ -25,6 +25,21 @@ class Ep < ActiveRecord::Base
   validates_uniqueness_of :year, :scope => [:stock_id, :quarter]
   validates_presence_of :stock_id
 
+  def date_of
+  # report_date unless report_date.nil?
+    end_date = (year.to_s + "-" + stock.fiscal_year_end).to_date
+
+    end_date += 1.years unless stock.fy_same_as_ed
+
+    if quarter > 0
+      return stock.newest_quarter.date_of if quarter == 5
+      end_date -= (92*(4-quarter)).days
+    end
+    end_date
+  end
+
+
+
   def margin
     if net_income && revenue
      net_income.to_f / revenue.to_f
