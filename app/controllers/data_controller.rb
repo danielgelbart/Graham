@@ -57,6 +57,9 @@ require 'csv'
 
       stock.update_price if(stock.updated_at < 1.days.ago)
 
+      # Get more recent data if needed!
+      stock.update_earnings if !stock.earnings_up_to_date?
+
       price = stock.price
 
       ep = stock.ttm_earnings_record
