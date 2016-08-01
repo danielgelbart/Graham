@@ -4,7 +4,7 @@ require 'csv'
   def sppe
     #read file
 
-    @divisor = 8718720000 # Latest divisor 8718.72from 3/31/2016 - retrieved may 2016
+    # @divisor = 8718720000 # Latest divisor 8718.72from 3/31/2016 - retrieved may 2016
 
     #makret cap and earnings for entire stock list, in Billions
     @total_market_cap = 0
@@ -27,11 +27,12 @@ require 'csv'
       ticker = "BF.B" if ticker == "BF-B"
 
       #next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
-      if ticker.to_s == "CSRA" # NO annual data yet
+=begin      if ticker.to_s == "CSRA" # NO annual data yet
         output_file.puts"Not enough data yet to include #{ticker}"
         @failed_tickers << ticker
         next
-      end
+     end
+=end
 
       # Acquired - no longer listed:
       next if ticker.to_s == "PCP" # Acquired - no longer listed
@@ -55,10 +56,18 @@ require 'csv'
         @exclude_list << stock.ticker
       end
 
-      stock.update_price if(stock.updated_at < 1.days.ago)
+      if params[:price] == "Y"
+        stock.update_price
+      else
+        stock.update_price if(stock.updated_at < 1.days.ago)
+      end
 
       # Get more recent data if needed!
-      stock.update_earnings if !stock.earnings_up_to_date?
+      if params[:update] == "Y"
+        if ticker != "PRGO"
+          stock.update_financials if !stock.earnings_up_to_date?
+        end
+      end
 
       price = stock.price
 
@@ -72,8 +81,6 @@ require 'csv'
         @failed_tickers << ticker
         next
       end
-
-      @comp
 
       spd = Spdata.new(stock.ticker,
                        price,
@@ -109,7 +116,7 @@ require 'csv'
                           divisor_pe: (@index_price / @divisor_earnings),
                           notes: "created from data_controller#sppe")
 
-    @spe.save if (params[:save] == "true")
+    @spe.save if (params[:save] == "Y")
 
 
     @comp_data.sort_by! { |s| -s.market_cap }

@@ -601,7 +601,7 @@ class Stock < ActiveRecord::Base
 
   # ----------------- For handling multiple ticker/ share classes ----
 
-  def update_earnings
+  def update_financials
     # call Graham cpp update_financials
     cmd = "~/rails/Graham/cpp/bin/graham update_financials #{ticker}"
     ok = system( cmd )

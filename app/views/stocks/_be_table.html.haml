@@ -8,6 +8,8 @@
     %th
       Current Ratio
     %th
+      Debt Ratio
+    %th
       Book Value   
     %th
       Earnings
@@ -27,6 +29,8 @@
         %td
           - bs = (@stock.balance_sheets.select{ |b| b.year == e.year } ).first
           = short_float(bs.current_ratio) if bs 
+        %td
+          = short_float(bs.debt_ratio) if bs 
         %td
           - if bs
             = sprintf("%.1f", bs.equity.to_f / 1000000000) + " Bil"

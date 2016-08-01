@@ -25,9 +25,13 @@ class Spdata
     (@price / @ttm_eps.to_f).round(2)
   end
 
-  def pe_match?
-    pe.round == market_pe
+  def sanity_check
+    (@ttm_eps.to_f * @ttm_earnings.to_f < 0) ||
+    (@price <= 0) ||
+    (@num_shares.to_i <= 0 ) ||
+    (pe.round - market_pe > 1)
   end
+
 
 end
 

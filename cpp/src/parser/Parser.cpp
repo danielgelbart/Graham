@@ -1618,6 +1618,16 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
         return foundRev;
     }
 
+    //us-gaap_OilAndGasRevenue
+    //For CXO: us-gaap_OilAndGasRevenue
+    defref.assign("us-gaap_OilAndGasRevenue'");
+    if (( foundRev = findDefref(trIt, defref, num_pattern, units,
+                                earnings_data, writeRevenueToEarnings )))
+    {
+        LOG_INFO<<" Successfully found REVENUE using us-gaap_OilAndGasRevenue (8th Oil exploratio)";
+        return foundRev;
+    }
+
     //**** Special handling for non-company type stocks
      LOG_INFO << "Stock "<<_stock._ticker()<< " is a : "<< _stock._company_type();
 
@@ -1658,6 +1668,8 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
              return true;
          }
      }// Banks
+
+
 
 
     // If compnay is a REIT - they report interest income

@@ -58,7 +58,7 @@ EdgarData::getEdgarSearchResultsPage(O_Stock& stock, StatementType st)
     if ( st == StatementType::Q10 )
         statType = "10-q";
 
-    string uri = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=" + statType + "&dateb=&owner=exclude&count=40";
+    string uri = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + cik + "&type=" + statType + "&dateb=&owner=exclude&count=40";
 
     Url url = Url(uri);
     string page;
@@ -71,7 +71,7 @@ EdgarData::getEdgarFiling( O_Stock& stock, Acn& acn)
 {
     LOG_INFO << "Called getEdgarFiling()\n";
     string cik( to_string(stock._cik()) );
-    string uri("http://www.sec.gov/Archives/edgar/data/");
+    string uri("https://www.sec.gov/Archives/edgar/data/");
     uri += cik + "/" + acn._acn + ".txt";
     Url url = Url(uri);
     string page("");

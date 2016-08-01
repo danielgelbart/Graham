@@ -61,6 +61,8 @@ class BalanceSheet < ActiveRecord::Base
     quarter > 0
   end
 
+
+
   # rewrite this as a method that combines the attribute name and 'translate' method
   def assets_c
    translate_to_int(self.current_assets)
@@ -93,6 +95,11 @@ class BalanceSheet < ActiveRecord::Base
   def current_ratio
     return nil if assets_c.nil? || liabilities_c.nil?
     assets_c.to_f / liabilities_c.to_f
+  end
+
+  def debt_ratio
+    return 0 if assets_t == 0
+    liabilities_t.to_f / assets_t
   end
 
   private

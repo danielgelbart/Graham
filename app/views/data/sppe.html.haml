@@ -27,15 +27,6 @@
       = short_float @total_market_cap / @total_earnings.to_f
   %li.list-group-item.row
     %div.col-md-3
-      = "Using filed divisor #{@divisor}"
-    %span.bold.col-md-3
-      = "Price #{short_float @pub_market_cap/@divisor}"
-    %span.bold.col-md-3
-      = "Earnings #{ short_float @total_earnings.to_f/@divisor}"
-    %span.bold.col-md-3
-      = "PE #{ short_float @pub_market_cap / @total_earnings.to_f }"
-  %li.list-group-item.row
-    %div.col-md-3
       = "Using inferred divisor #{@inferred_divisor.to_i}"
     %span.bold.col-md-3
       = "Price #{ @index_price}"
@@ -88,7 +79,8 @@
         %td
           = short_float d.pe
         %td
-          .red 
-            = "NO"
+          -if d.sanity_check
+            .red 
+              = "Check"
 
 
