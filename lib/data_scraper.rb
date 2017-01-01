@@ -283,6 +283,7 @@ module DataScraper
     nyse = "NASDAQ:" if (ticker == "NWSA")
     nyse = "NASDAQ:" if (ticker == "FOXA")
     nyse = "NASDAQ:" if (ticker == "AAL")
+    nyse = "NASDAQ:" if (ticker == "CHTR")
     #Google currently (Dec 2016) incorectly supplies UAA value for UA
     # These are two diff share classes. UA is class 'C'. (UAA is class 'A')
     nyse = "NYSE:" if (ticker == "UA")

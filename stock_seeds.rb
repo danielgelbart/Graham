@@ -1726,3 +1726,6 @@ Stock.create( 'name'=>'DITIZENS FINANCIAL GROUP INC/RI','ticker'=>'CFG','cik'=>7
 Stock.create( 'name'=>'HOLOGIC INC','ticker'=>'HOLX','cik'=>859737,'fiscal_year_end'=>'09-24')
 Stock.create('name'=>'LKQ CORP','ticker'=>'LKQ','cik'=>1065696,'fiscal_year_end'=>'12-31')
 Stock.create('name'=>'COTY INC.','ticker'=>'COTY','cik'=>1024305,'fiscal_year_end'=>'06-30')
+Stock.create('name'=>'CHARTER COMMUNICATIONS, INC.','ticker'=>'CHTR','cik'=>1091667,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'Envision Healthcare Holdings, INC.','ticker'=>'EVHC','cik'=>1578318,'fiscal_year_end'=>'12-31')
+
