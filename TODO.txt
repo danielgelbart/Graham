@@ -87,3 +87,7 @@ older than 3 months, and write log on run -VVV
                     -> Move calculation into SpEarnings class
                       -> Update data/ and price only if needed
                      
+3. (Dec 2016)
+Run sppe like S&P 500 by issue. that is, allow each line to be of a
+class of stock, so that GOOG and GOOGL appear as seperate lines:
+earnings per share = (total earnings)/ratio of stock of total equity

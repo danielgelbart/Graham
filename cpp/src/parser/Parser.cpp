@@ -662,7 +662,7 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
         if( (reports_map->find(ReportType::INCOME)) == reports_map->end() ){
             LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN (2)----------------\n";
             // F: and sector income statements?
-            income_pattern.assign("consolidated (condensed )?(statements? of )?(comprehensive (income|operations|loss)|and sector income statement)",
+            income_pattern.assign("consolidated (condensed )?(statements? of )?(comprehensive (income|operations|\\(?loss\\)?)|and sector income statement)",
                                   boost::regex_constants::icase);
 
             filingReportsIt.resetToStart();

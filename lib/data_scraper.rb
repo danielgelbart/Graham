@@ -279,9 +279,13 @@ module DataScraper
     nyse = "NYSE:" if (ticker == "H")
     nyse = "NYSE:" if (ticker == "PNR")
     nyse = "NYSE:" if (subticker == "UBP")
+    nyse = "NYSE:" if (ticker == "D")
     nyse = "NASDAQ:" if (ticker == "NWSA")
     nyse = "NASDAQ:" if (ticker == "FOXA")
     nyse = "NASDAQ:" if (ticker == "AAL")
+    #Google currently (Dec 2016) incorectly supplies UAA value for UA
+    # These are two diff share classes. UA is class 'C'. (UAA is class 'A')
+    nyse = "NYSE:" if (ticker == "UA")
 
     url = "http://www.google.com/finance?q=#{nyse}#{sticker}"
     doc = open_url_or_nil(url)

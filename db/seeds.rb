@@ -371,14 +371,14 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"",
                         votes:1,
                         nshares: "31752836",
-                        float_date:"2016-05-04"
+                        float_date:"2016-05-04",
                         note:"")
 puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         nshares: "733309",
-                        float_date:"2016-05-04"
+                        float_date:"2016-05-04",
                         votes:10,
                         note: "slightly reduced divs compared to other class")
 puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
@@ -580,7 +580,7 @@ puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
 stock = Stock.find_by_ticker("TR")
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'TR',
-                        sclass:"A"
+                        sclass:"A",
                         float_date:"2016-03-31",
                         nshares:"38282506",
                         votes:1,
@@ -755,6 +755,26 @@ ShareClass.create( stock_id:stock.id,
                    votes:1,
                    note: "no divs for either class")
 
+stock = Stock.find_by_ticker("UA")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'UAA',
+                   sclass:"A",
+                   nshares: "183388910",
+                   float_date: "2016-06-30",
+                   votes:1)
+ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"B",
+                   nshares: "34450000",
+                   float_date: "2016-06-30",
+                   votes:10,
+                   note: "all owned by Chairman Plank")
+ShareClass.create( stock_id:stock.id,
+                   ticker:'UA',
+                   sclass:"C",
+                   nshares: "219454106",
+                   float_date: "2016-06-30",
+                   votes:0)
 
 
 # There are two listings for CARNIVAL - CCL, and CUK

@@ -1580,7 +1580,7 @@ Stock.create( 'name'=>'Rio Tinto plc   ','ticker'=>'RIO','cik'=>915754,'fyed'=>'
 Stock.create( 'name'=>'The Royal Bank of Scotland Group plc  ','ticker'=>'RBS','cik'=>844150,'fyed'=>'')
 Stock.create( 'name'=>'Smith & Nephew plc  ','ticker'=>'SNN','cik'=>845982,'fyed'=>'')
 Stock.create( 'name'=>'Unilever Plc  ','ticker'=>'UL','cik'=>217410,'fyed'=>'')
-Stock.create( 'name'=>'Google','ticker'=>'GOOG','cik'=>1288776,'fyed'=>'12-31')
+Stock.create( 'name'=>'Alphabet Inc.','ticker'=>'GOOG','cik'=>1652044,'fyed'=>'12-31')
 Stock.create( 'name'=>'Adobe Systems Inc','ticker'=>'ADBE','cik'=>796343,'fyed'=>'11-29')
 Stock.create( 'name'=>'Akamai Technologies Inc','ticker'=>'AKAM','cik'=>1086222,'fyed'=>'12-31')
 Stock.create( 'name'=>'Altera Corp','ticker'=>'ALTR','cik'=>768251,'fyed'=>'12-31')
@@ -1725,4 +1725,4 @@ Stock.create( 'name'=>'Ulta Salon, Cosmetics & Fragrance, Inc.','ticker'=>'ULTA'
 Stock.create( 'name'=>'DITIZENS FINANCIAL GROUP INC/RI','ticker'=>'CFG','cik'=>759944,'fiscal_year_end'=>'12-31', 'company_type'=>5)
 Stock.create( 'name'=>'HOLOGIC INC','ticker'=>'HOLX','cik'=>859737,'fiscal_year_end'=>'09-24')
 Stock.create('name'=>'LKQ CORP','ticker'=>'LKQ','cik'=>1065696,'fiscal_year_end'=>'12-31')
-
+Stock.create('name'=>'COTY INC.','ticker'=>'COTY','cik'=>1024305,'fiscal_year_end'=>'06-30')
