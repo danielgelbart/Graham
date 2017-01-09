@@ -1728,4 +1728,5 @@ Stock.create('name'=>'LKQ CORP','ticker'=>'LKQ','cik'=>1065696,'fiscal_year_end'
 Stock.create('name'=>'COTY INC.','ticker'=>'COTY','cik'=>1024305,'fiscal_year_end'=>'06-30')
 Stock.create('name'=>'CHARTER COMMUNICATIONS, INC.','ticker'=>'CHTR','cik'=>1091667,'fiscal_year_end'=>'12-31')
 Stock.create('name'=>'Envision Healthcare Holdings, INC.','ticker'=>'EVHC','cik'=>1578318,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'Fortive Corp','ticker'=>'FTV','cik'=>1659166,'fiscal_year_end'=>'12-31')
 

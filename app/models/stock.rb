@@ -66,6 +66,9 @@ class Stock < ActiveRecord::Base
   end
 # end of enum methods code
 #--------------------------------------------
+  def self.get_stock_class_by_ticker(ticker)
+    ShareClass.find_by_ticker(ticker)
+  end
 
   def self.get_from_ticker(ticker)
     stock = find_by_ticker(ticker)
@@ -436,7 +439,7 @@ class Stock < ActiveRecord::Base
     if has_multiple_share_classes?
       mar_cap = 0
       public_share_classes.each do |sc|
-        mar_cap += sc.nshares.to_i * get_price_from_google("",sc.ticker)
+        mar_cap += sc.market_cap
       end
       non_public_share_classes.each do |sc|
         mar_cap += sc.nshares.to_i * sc.mul_factor * price
@@ -450,7 +453,7 @@ class Stock < ActiveRecord::Base
     if has_multiple_share_classes? && (public_share_classes.size > 1)
       mar_cap = 0
       public_share_classes.each do |sc|
-        mar_cap += get_price_from_google("",sc.ticker) * sc.nshares.to_i
+        mar_cap += sc.market_cap
       end
       return mar_cap
     end
@@ -556,8 +559,8 @@ class Stock < ActiveRecord::Base
 
   def ttm_eps
     ttm_record = ttm_earnings_record
-    ttm = ttm_record.eps if !ttm_record.nil?
-    ttm ||= latest_eps.eps
+    return ttm_record.eps if !ttm_record.nil?
+    latest_eps.eps
   end
 
   def pe

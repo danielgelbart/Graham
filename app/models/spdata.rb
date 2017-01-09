@@ -14,7 +14,7 @@ class Spdata
   def market_cap
     return 1 if @price.nil?
     return 0 if @num_shares.nil?
-    @price * @num_shares
+    Stock.get_from_ticker(@ticker).market_cap
   end
 
   def market_pe

@@ -14,7 +14,7 @@ require 'csv'
     @comp_data = []
     #lines = lines.first(10) #test first
 
-    @exclude_list = []
+    @multiticker_list = []
     @failed_tickers = []
 
     output_file = File.open(Rails.root.join('log','sp_evaluation_out.txt'),"w")
@@ -51,9 +51,8 @@ require 'csv'
         next
       end
 
-      if stock.has_multiple_share_classes?
-        next if @exclude_list.include?(stock.ticker)
-        @exclude_list << stock.ticker
+      if stock.has_multiple_public_classes?
+        sc = Stock.get_stock_class_by_ticker(ticker)
       end
 
       if params[:price] == "Y"
@@ -69,7 +68,7 @@ require 'csv'
         end
       end
 
-      price = stock.price
+      price = sc.nil? ? stock.price : stock.get_price_from_google("",sc.ticker)
 
       ep = stock.ttm_earnings_record
 
@@ -82,23 +81,38 @@ require 'csv'
         next
       end
 
-      spd = Spdata.new(stock.ticker,
+      #new
+      net_income = ep.net_income.to_i
+      ttm_eps = stock.ttm_eps
+
+      #make sure share_of_float does as you think
+      if !sc.nil?
+        # net_income = net_income * sc.share_of_float
+        # ttm_eps = (net_income * sc.share_of_float)/ sc.nshares.to_i
+      end
+
+      num_shares = sc.nil? ? stock.shares_float : sc.nshares.to_i
+      ticker = sc.ticker if !sc.nil?
+      spd = Spdata.new(ticker,
                        price,
-                       stock.ttm_eps,
-                       ep.net_income,
-                       stock.shares_float)
-      @pub_market_cap += stock.public_market_cap
-      @total_market_cap += spd.market_cap
-      @total_earnings += spd.ttm_earnings.to_i
+                       ttm_eps,
+                       net_income,
+                       num_shares)
+
+      @pub_market_cap += sc.nil? ? stock.public_market_cap : sc.market_cap
+
+      if !@multiticker_list.include?(stock.ticker)
+        @total_market_cap += stock.market_cap.to_i
+        @total_earnings += ep.net_income.to_i
+      end
+
+      @multiticker_list << stock.ticker if !sc.nil?
 
       @comp_data << spd
     end
     output_file.close
 
-
     #create DB entry to save calculations
-
-    #create DB entry each time???
     @index_price = SpEarning.get_index_price
     @inferred_divisor = (@pub_market_cap.to_f / @index_price)
     @divisor_earnings = (@total_earnings.to_f / @inferred_divisor)
@@ -118,8 +132,8 @@ require 'csv'
 
     @spe.save if (params[:save] == "Y")
 
-
     @comp_data.sort_by! { |s| -s.market_cap }
+
   end
 
   def get_latest_list( date = "")

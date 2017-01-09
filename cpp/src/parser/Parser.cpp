@@ -2334,6 +2334,7 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
     trIterator trIt(tree);
     XmlElement* trp = tree;
     string numshares("");
+    string sc_numshares_total("");
     //CPGX" Entity Units Outstanding"
     regex shares_pattern("Entity (Common Stock,? Shares|units) Outstanding", regex::icase);
     string sclass = "";
@@ -2358,9 +2359,14 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
 
             regex class_title_pattern("gaap_StatementClassOfStockAxis", regex::icase);
             if ( regex_search( attrs, class_title_pattern) ){
-                regex sclass_pattern("us-gaap_CommonClass(\\w)Member", regex::icase);
+                //us-gaap_StatementClassOfStockAxis=us-gaap_CommonClassBMember // USUAL
+                //us-gaap_StatementClassOfStockAxis=goog_CapitalClassCMember // Google (SOMETIMES
+                regex sclass_pattern_1("us-gaap_CommonClass(\\w)Member", regex::icase);
+                regex sclass_pattern_2("us-gaap_StatementClassOfStock[\\w\\=]{1,30}Class(\\w)Member", regex::icase);
                 boost::smatch matchc;
-                if(boost::regex_search( attrs, matchc, sclass_pattern)){
+                if( boost::regex_search( attrs, matchc, sclass_pattern_1 ) ||
+                    boost::regex_search( attrs, matchc, sclass_pattern_2 ) )
+                {
                     sclass = matchc.str(1);
                     LOG_INFO << "Found class for shares: CLASS " << sclass << " \n";
                     continue;
@@ -2405,14 +2411,14 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                                 LOG_INFO << "Found numshares for shares of class " << sclass
                                          << " there are " << nshares;
 
-                                long old_share_total =  (numshares == "")? 0 : stol( numshares );
+                                long old_share_total =  (sc_numshares_total == "")? 0 : stol( sc_numshares_total );
                                 LOG_INFO << " Old share total is " << to_string(old_share_total);
                                 double new_share_val = stod( nshares );
                                 LOG_INFO << " New share val is " << to_string(new_share_val);
                                 double mul_factor_for = it->_mul_factor();
                                 long new_total = (new_share_val * mul_factor_for) + old_share_total;
-                                numshares = to_string( new_total);
-                                LOG_INFO << " Updating total numshares for stocks to (temp): "<< numshares;
+                                sc_numshares_total = to_string( new_total);
+                                LOG_INFO << " Updating total numshares over share classes to (temp): "<< sc_numshares_total;
 
                                 if( !update_share_classes){
                                     if ( (it->_nshares() == "") ||
@@ -2452,6 +2458,27 @@ Parser::getNumSharesFromCoverReport(string& report, O_Ep& ep)
                 break;
         }
     } // iteration over trs
+
+    //only update numshares if succesfully got nshares for ALL known share classes
+    if (has_multiple_classes)
+    {
+        bool all_classes_updated = true;
+        auto share_classes = _stock._share_classes();
+        string nsclass_date = share_classes.back()._float_date();
+        if(nsclass_date == to_iso_extended_string(report_date)){
+            for(auto it = share_classes.begin(); it != share_classes.end(); ++it)
+                if (it->_float_date() != nsclass_date)
+                    all_classes_updated = false;
+        } else {
+            all_classes_updated = false;
+        }
+        if(all_classes_updated){
+            numshares = sc_numshares_total;
+            LOG_INFO << "Successfully got numshares for ALL share classes. Updating total numshares for stocks to: "<< numshares;
+        } else {
+            LOG_INFO << "Stock has multiple share classes, but could not retrieve numshares for all of them";
+        }
+    } // end update for 'numshares' if sumation of nshares over classes successfull
 
     if ((!has_multiple_classes) && (counter > 1))
     {

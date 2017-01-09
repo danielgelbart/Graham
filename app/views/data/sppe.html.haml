@@ -56,14 +56,14 @@
     %th  
       MC / TE
     %th
-      P / E
+      P / Eps
   %tbody
     - @comp_data.each do |d|
       %tr
         %td
           = count += 1 
         %td
-          = link_to d.ticker, stock_path(Stock.find_by_ticker(d.ticker))
+          = link_to d.ticker, stock_path(Stock.get_from_ticker(d.ticker))
         %td
           = is_to_s d.ttm_earnings
         %td

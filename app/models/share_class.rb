@@ -28,4 +28,30 @@ class ShareClass < ActiveRecord::Base
   validates :stock, presence: true
   validates :ticker, presence: true, :uniqueness => {:scope => :stock_id}
   validates :sclass, :uniqueness => {:scope => :stock_id}
+
+  def share_of_float
+    nshares.to_f / stock.shares_float
+  end
+
+  def price
+    update_price if updated_at < 1.days.ago
+    latest_price
+  end
+
+  def market_cap
+    nshares.to_i * price * mul_factor
+  end
+
+  def update_price
+    return if !is_public_class?
+    p = stock.get_price_from_google("",ticker)
+    update_attributes!(:latest_price => p) if !p.nil?
+  end
+
+  def is_public_class?
+    ticker[0] != '-'
+  end
+
+
 end
+

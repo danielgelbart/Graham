@@ -88,6 +88,11 @@ older than 3 months, and write log on run -VVV
                       -> Update data/ and price only if needed
                      
 3. (Dec 2016)
-Run sppe like S&P 500 by issue. that is, allow each line to be of a
-class of stock, so that GOOG and GOOGL appear as seperate lines:
-earnings per share = (total earnings)/ratio of stock of total equity
+BUG: FIX - Getting numshare data for stock with mulitiple share
+classes:
+STOCK value for numshares is radomly one of the share classes
+*should* be total += sc.nshares * mul_factor
+e.g. GOOG, GOOGL, A, B C classes.
+1. Where is this handeled (incorrectly) now?
+2. Should be in cover report handling, since that is the only place
+where the data exists. 
