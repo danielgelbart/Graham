@@ -442,7 +442,7 @@ class Stock < ActiveRecord::Base
         mar_cap += sc.market_cap
       end
       non_public_share_classes.each do |sc|
-        mar_cap += sc.nshares.to_i * sc.mul_factor * price
+        mar_cap += sc.market_cap
       end
       return mar_cap
     end

@@ -23,7 +23,7 @@ require 'csv'
 
     CSV.foreach(Rails.root.join('sp500',get_latest_list)) do |row|
       ticker = row[0].strip
-      ticker = "BRK.A" if ticker == "BRK-B"
+      ticker = "BRK.B" if ticker == "BRK-B"
       ticker = "BF.B" if ticker == "BF-B"
 
       #next if ticker.to_s == "GGP" # SCE site is missing the filings!!!

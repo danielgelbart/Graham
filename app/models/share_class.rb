@@ -39,7 +39,7 @@ class ShareClass < ActiveRecord::Base
   end
 
   def market_cap
-    nshares.to_i * price * mul_factor
+    nshares.to_i * price
   end
 
   def update_price
