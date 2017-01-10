@@ -316,9 +316,10 @@ sc = ShareClass.create( stock_id:stock.id,
                         ticker:'GEF.B',
                         sclass:"B",
                         votes:1,
+                        primary_class: true,
                         nshares: "22119966",
                         float_date: "2015-12-16",
-                        note: "divs, and claam on earnings are 1.5 times HIGHER for class B")
+                        note: "divs, and clame on earnings are 1.5 times HIGHER for class B")
 puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
 
 stock = Stock.find_by_ticker("HVT")

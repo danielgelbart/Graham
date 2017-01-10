@@ -44,7 +44,9 @@ class ShareClass < ActiveRecord::Base
     if is_public_class?
       nshares.to_i * price
     else
-      nshares.to_i * mul_factor * stock.primary_class.price
+      sc_price = stock.primary_class.nil? ? stock.price :
+        stock.primary_class.price
+      nshares.to_i * mul_factor * sc_price
     end
   end
 
