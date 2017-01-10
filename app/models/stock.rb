@@ -438,10 +438,7 @@ class Stock < ActiveRecord::Base
     # E.g. GEF, GOOG, BRK
     if has_multiple_share_classes?
       mar_cap = 0
-      public_share_classes.each do |sc|
-        mar_cap += sc.market_cap
-      end
-      non_public_share_classes.each do |sc|
+      share_classes.each do |sc|
         mar_cap += sc.market_cap
       end
       return mar_cap
@@ -450,7 +447,7 @@ class Stock < ActiveRecord::Base
   end
 
   def public_market_cap
-    if has_multiple_share_classes? && (public_share_classes.size > 1)
+    if has_multiple_share_classes?
       mar_cap = 0
       public_share_classes.each do |sc|
         mar_cap += sc.market_cap
@@ -459,6 +456,11 @@ class Stock < ActiveRecord::Base
     end
     shares_float * price
   end
+
+  def primary_class
+    share_classes.select{ |sc| sc.primary_class }.first
+  end
+
 
  # END shares float and market cap ------------------------------------------
 

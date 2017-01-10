@@ -6,7 +6,8 @@
   = link_to "on_google",
   "http://www.google.com/finance?q=#{@stock.ticker}"
 - if @stock.has_multiple_share_classes?
-  = "Has multiple stock classes: #{@stock.share_classes.map{ |sc| sc.ticker } }"
+  = "Has #{@stock.share_classes.size} share classes: #{@stock.share_classes.map{ |sc| [sc.sclass,sc.ticker] } }"
+  = "Of which #{@stock.public_share_classes.size} are public"
 %div.container
   %div.row
     %div.col-md-2

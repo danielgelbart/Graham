@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170103135700) do
+ActiveRecord::Schema.define(:version => 20170110130611) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -94,16 +94,17 @@ ActiveRecord::Schema.define(:version => 20170103135700) do
 
   create_table "share_classes", :force => true do |t|
     t.integer  "stock_id"
-    t.string   "ticker",       :limit => 8
-    t.string   "sclass",       :limit => 3
+    t.string   "ticker",        :limit => 8
+    t.string   "sclass",        :limit => 3
     t.integer  "votes"
     t.string   "nshares"
     t.date     "float_date"
-    t.decimal  "mul_factor",                :precision => 20, :scale => 10, :default => 1.0
+    t.decimal  "mul_factor",                 :precision => 20, :scale => 10, :default => 1.0
     t.string   "note"
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
-    t.decimal  "latest_price",              :precision => 12, :scale => 6,  :default => 0.0
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
+    t.decimal  "latest_price",               :precision => 12, :scale => 6,  :default => 0.0
+    t.boolean  "primary_class",                                              :default => false
   end
 
   add_index "share_classes", ["sclass"], :name => "index_share_classes_on_sclass"
