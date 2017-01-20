@@ -37,6 +37,7 @@ class Search < ActiveRecord::Base
         @stocks = @stocks.select{ |s| s.market_cap.to_i > market_cap.to_i }
       end
 
+
       if no_losses
         @stocks = @stocks.select{ |s| s.no_earnings_deficit? }
       end
@@ -72,6 +73,32 @@ class Search < ActiveRecord::Base
 
       if earning_growth
         @stocks = @stocks.select{ |s| s.eps_growth? }
+      end
+
+      has_nil_recs = true
+
+      if !revenue.nil?
+        @stocks.select!{ |s| ! s.ttm_earnings_record.nil? } if has_nil_recs
+        has_nil_recs = false
+        @stocks.select!{ |s| s.ttm_earnings_record.revenue.to_i > revenue.to_i }
+      end
+
+      if !net_income.nil?
+        @stocks.select!{ |s| ! s.ttm_earnings_record.nil? } if has_nil_recs
+        has_nil_recs = false
+        @stocks.select!{ |s| s.ttm_earnings_record.net_income.to_i > net_income.to_i }
+      end
+
+      if !margin.nil?
+        @stocks.select!{ |s| ! s.ttm_earnings_record.nil? } if has_nil_recs
+        has_nil_recs = false
+        @stocks.select!{ |s| s.ttm_earnings_record.net_income.to_f / s.ttm_earnings_record.revenue.to_i > (margin.to_f / 100) }
+      end
+
+      if !roe.nil?
+        @stocks.select!{ |s| ! s.ttm_earnings_record.nil? } if has_nil_recs
+        has_nil_recs = false
+        @stocks.select!{ |s| s.ttm_earnings_record.net_income.to_f / s.book_value.to_i > (roe.to_f/100) }
       end
 
        @retrieved = 1

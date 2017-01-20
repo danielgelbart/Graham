@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170110130611) do
+ActiveRecord::Schema.define(:version => 20170112153346) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -90,6 +90,10 @@ ActiveRecord::Schema.define(:version => 20170110130611) do
     t.boolean  "big_enough"
     t.string   "market_cap"
     t.string   "sort_by"
+    t.string   "revenue"
+    t.string   "net_income"
+    t.integer  "margin"
+    t.integer  "roe"
   end
 
   create_table "share_classes", :force => true do |t|

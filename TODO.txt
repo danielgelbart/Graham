@@ -80,19 +80,13 @@ TODO:
 older than 3 months, and write log on run -VVV
    - Update divs and splits - update firefox/selenium
    - Update prices - added class method -VVV
-   S&P 500
-   - Get new list from wiki -VVV
-   - Get index price -VVV
    - Run calculations and save results to file ->
                     -> Move calculation into SpEarnings class
-                      -> Update data/ and price only if needed
+
                      
-3. (Dec 2016)
-BUG: FIX - Getting numshare data for stock with mulitiple share
-classes:
-STOCK value for numshares is radomly one of the share classes
-*should* be total += sc.nshares * mul_factor
-e.g. GOOG, GOOGL, A, B C classes.
-1. Where is this handeled (incorrectly) now?
-2. Should be in cover report handling, since that is the only place
-where the data exists. 
+3. (Jan 2016)
+Multiple share classes:
+Add share classes (AUtomate?) for the following 47 stock id:
+
+ 49, 67, 78, 80, 84, 122, 178, 285, 299, 326, 359, 478, 480, 489, 507, 552, 556, 562, 566, 606, 633, 640, 763, 790, 902, 923, 1055, 1125, 1142, 1162, 1170, 1234, 1270, 1350, 1359, 1375, 1446, 1483, 1574, 1581, 1590, 1774, 1808, 1818, 1949, 1965
+

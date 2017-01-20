@@ -259,28 +259,31 @@ sc = ShareClass.create( stock_id:stock.id,
                    sclass:"A",
                    votes:1,
                    note: "ALL voting rights, Helf by 1 entity (family)")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                    ticker:'FII',
                    sclass:"B",
                    votes:0,
                    note: "Very limited vote on extreme scenario. FFI is a 'controled' company")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("FXCM")
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'FXCM',
                         sclass:"A",
                         votes:1)
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:1,
                         mul_factor:0,
                         note: "Do not share in the earnings. And have the following undeciferable voting writes: Class B common stock held by such holder, to one vote for each Holdings Unit in Holdings held by such holder.")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("GEN")
 sc = ShareClass.create( stock_id:stock.id,
@@ -288,20 +291,22 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:1,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-(2)',
                         sclass:"C",
                         votes:1,
                         note: "This company has a bizzare stock class systme, along with highly suspicuous accounting policies")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("GEF")
 sc = ShareClass.create( stock_id:stock.id,
@@ -311,7 +316,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "25693564",
                         float_date: "2015-12-16",
                         votes:0)
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'GEF.B',
                         sclass:"B",
@@ -320,8 +326,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "22119966",
                         float_date: "2015-12-16",
                         note: "divs, and clame on earnings are 1.5 times HIGHER for class B")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 stock = Stock.find_by_ticker("HVT")
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'HVT.A',
@@ -330,7 +336,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "2031349",
                         float_date: "2016-02-16",
                         note:"vote as a class to elect 75% of board")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'HVT',
                         sclass:"",
@@ -338,7 +345,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "20124844",
                         float_date: "2016-02-16",
                         note: "get divs tiny bit higher than class A")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("HSY")
 sc = ShareClass.create( stock_id:stock.id,
@@ -346,27 +354,31 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"",
                         votes:1,
                         note:"Can elect, as a class, up to 1/6 of the board. Get divs 10% higher than class B")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10)
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 
 stock = Stock.find_by_ticker("H")
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'H',
                         sclass:"A",
                         votes:1,
                         note:"All shareholders must vote in unicen with the chairman(!)")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10)
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 
 stock = Stock.find_by_ticker("IVC")
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'IVC',
                         sclass:"",
@@ -374,7 +386,7 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "31752836",
                         float_date:"2016-05-04",
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
@@ -382,8 +394,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         float_date:"2016-05-04",
                         votes:10,
                         note: "slightly reduced divs compared to other class")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 =begin ###Delisted!!!
 stock = Stock.find_by_ticker("LF")
 sc = ShareClass.create( stock_id:stock.id,
@@ -391,13 +403,13 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 =end
 
 stock = Stock.find_by_ticker("LEN")
@@ -408,7 +420,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "180111931",
                         float_date: "2015-12-31",
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'LEN.B',
                         sclass:"B",
@@ -416,7 +429,7 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "31303195",
                         float_date: "2015-12-31",
                         note: "Interestingly, class B trades for a LOWER price than class A")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 
 stock = Stock.find_by_ticker("MCS")
 sc = ShareClass.create( stock_id:stock.id,
@@ -424,14 +437,15 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10,
                         note: "slightly reduced divs compared to other class")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 stock = Stock.find_by_ticker("MKC")
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'MKC.V',
@@ -440,7 +454,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "11741812",
                         float_date: "2015-12-31",
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'MKC',
                         sclass:"non-voting",
@@ -448,8 +463,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "115366241",
                         float_date: "2015-12-31",
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 #No longer has share classes
 stock = Stock.find_by_ticker("MOS")
 
@@ -461,7 +476,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         float_date: "2016-04-29",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
@@ -469,7 +485,7 @@ sc = ShareClass.create( stock_id:stock.id,
                         float_date: "2016-04-29",
                         votes:10,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 
 stock = Stock.find_by_ticker("NNI")
 sc = ShareClass.create( stock_id:stock.id,
@@ -477,16 +493,15 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10,
                         note: "Equal dividends given to share classes")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
-#has a second share class, but not worth splitting
-stock = Stock.find_by_ticker("NKE")
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("OB")
 sc = ShareClass.create( stock_id:stock.id,
@@ -494,13 +509,16 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
+
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:96,
                         note: "This class accounts for 96% of the voting power")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("BEL")
 sc = ShareClass.create( stock_id:stock.id,
@@ -508,13 +526,16 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
+
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("SPG")
 sc = ShareClass.create( stock_id:stock.id,
@@ -522,13 +543,16 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:0,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
+
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:2,
                         note: "This class votes on directors. Same div as class A")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("GEN")
 sc = ShareClass.create( stock_id:stock.id,
@@ -536,19 +560,23 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
+
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:1,
                         note: "Voting is controled by non-marketable sub-group")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
+
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-(2)',
                         sclass:"C",
                         votes:1,
                         note: "Voting is controled by non-marketable sub-group")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
 
 stock = Stock.find_by_ticker("SPR")
 sc = ShareClass.create( stock_id:stock.id,
@@ -556,27 +584,31 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
+
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:1,
                         note: "Not clear what the nature of this class is")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 stock = Stock.find_by_ticker("SCS")
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'SCS',
                         sclass:"A",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10,
                         note: "Same div as class A")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("TR")
 sc = ShareClass.create( stock_id:stock.id,
@@ -586,13 +618,15 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares:"38282506",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
                         votes:10,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("GTS")
 sc = ShareClass.create( stock_id:stock.id,
@@ -600,13 +634,15 @@ sc = ShareClass.create( stock_id:stock.id,
                         sclass:"A",
                         votes:1,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'GTS',
                         sclass:"B",
                         votes:1,
                         note: "Not clear why the class A exist")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("UNF")
 sc = ShareClass.create( stock_id:stock.id,
@@ -616,7 +652,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         float_date:"2016-04-01",
                         votes:1,
                         note:"Gets a larger div than class B")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"B",
@@ -624,21 +661,23 @@ sc = ShareClass.create( stock_id:stock.id,
                         float_date:"2016-04-01",
                         votes:10,
                         note: "75% controlled by one family.")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 stock = Stock.find_by_ticker("UPS")
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'-',
                         sclass:"A",
                         votes:10,
                         note:"")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'UPS',
                         sclass:"B",
                         votes:1,
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 
 stock = Stock.find_by_ticker("UBA")
 sc = ShareClass.create( stock_id:stock.id,
@@ -648,7 +687,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "26465544",
                         float_date: "2016-01-05",
                         note:"has 110% claim to div (and earnings) ovr common class")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 sc = ShareClass.create( stock_id:stock.id,
                         ticker:'UBP',
                         sclass:"",
@@ -656,8 +696,8 @@ sc = ShareClass.create( stock_id:stock.id,
                         nshares: "9504378",
                         float_date: "2016-01-05",
                         note: "")
-puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if !sc.nil?
-
+puts "#{stock.name}: Added SC #{sc.sclass}, ticker: #{sc.ticker} " if sc.persisted?
+sc = nil
 stock = Stock.find_by_ticker("WSO")
 ShareClass.create( stock_id:stock.id,
                    ticker:'WSO',
@@ -780,3 +820,62 @@ ShareClass.create( stock_id:stock.id,
 
 # There are two listings for CARNIVAL - CCL, and CUK
 #stock = Stock.find_by_ticker("CUK")
+
+stock = Stock.find_by_ticker("NKE")
+sca = ShareClass.create( stock_id:stock.id,
+                   ticker:'-',
+                   sclass:"A",
+                   nshares: "329251752",
+                   float_date: "2017-01-03",
+                   votes:1,
+                   note:"Elect 3/4 of the board. Convertable to class B on 1:1 basis")
+puts "Added share class #{sca.sclass} for #{stock.ticker}" if sca.persisted?
+scb = ShareClass.create( stock_id:stock.id,
+                   ticker:'NKE',
+                   sclass:"B",
+                   nshares: "1325225378",
+                   float_date: "2017-01-03",
+                   votes:1,
+                   note: "Only elect 1/4 of board. Equal claim to div and earnings and liquidation rights as Class A")
+puts "Addes share class #{scb.sclass} for #{stock.ticker}" if scb.persisted?
+sca = scb = nil
+
+stock = Stock.find_by_ticker("ACN")
+sca = ShareClass.create( stock_id:stock.id,
+                         ticker:'ACN',
+                         sclass:"A",
+                         primary_class:true,
+                         nshares: "659108604",
+                         float_date: "2016-12-12",
+                         votes:1,
+                         note:"")
+puts "#{stock.ticker}: Added share class #{sca.sclass}" if sca.persisted?
+scb = ShareClass.create( stock_id:stock.id,
+                         ticker:'-',
+                         sclass:"X",
+                         nshares: "21320949",
+                         float_date: "2016-12-12",
+                         votes:1,
+                         note: "NO claim to earnings, or dividends or liquidation!!!")
+puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
+sca = scb = nil
+
+stock = Stock.find_by_ticker("AIN")
+sca = ShareClass.create( stock_id:stock.id,
+                         ticker:'',
+                         sclass:"A",
+                         primary_class:,
+                         nshares: "",
+                         float_date: "2016-10-16",
+                         votes:,
+                         note:"")
+puts "#{stock.ticker}: Added share class #{sca.sclass}" if sca.persisted?
+scb = ShareClass.create( stock_id:stock.id,
+                         ticker:'',
+                         sclass:"B",
+                         nshares: "",
+                         float_date: "2016-10-16",
+                         votes:,
+                         note: "")
+puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
+sca = scb = nil

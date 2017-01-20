@@ -306,7 +306,6 @@ class Stock < ActiveRecord::Base
       2016 => 1.02 # Updated with data up to Nov 1st 2016
     }
 
-
     # Now muliply the earnings from a given year, by all the years AFTER it
     mul = 1
     last_year = YEAR - 1
@@ -435,6 +434,13 @@ class Stock < ActiveRecord::Base
   end
 
   def market_cap
+    # if we have DILUTED float data, use it
+    if !ttm_earnings_record.nil?
+      if ttm_earnings_record.shares_diluted
+        return price * ttm_earnings_record.shares_to_i
+      end
+    end
+
     # E.g. GEF, GOOG, BRK
     if has_multiple_share_classes?
       mar_cap = 0
@@ -454,12 +460,22 @@ class Stock < ActiveRecord::Base
       end
       return mar_cap
     end
-    shares_float * price
+    market_cap
   end
 
   def primary_class
     share_classes.select{ |sc| sc.primary_class }.first
   end
+
+  def uneq_vote
+    votes = share_classes[0].votes
+    uneq = false
+    share_classes.each do |sc|
+      uneq = true if sc.votes != votes
+    end
+    uneq
+  end
+
 
 
  # END shares float and market cap ------------------------------------------

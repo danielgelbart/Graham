@@ -2218,8 +2218,6 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
 
     trIt.resetToStart();
 
-
-
     // Block form (only)
     while( (trp = trIt.nextTr()) != NULL )
     {

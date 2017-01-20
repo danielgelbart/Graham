@@ -16,6 +16,27 @@
     %strong #{crit}. MARKET CAP > #{ @search.market_cap.to_s }
     - crit = crit + 1
 
+- if !@search.revenue.nil?
+  %p
+    %strong #{crit}. REVENUE > #{ @search.revenue }
+    - crit = crit + 1
+
+- if !@search.net_income.nil?
+  %p
+    %strong #{crit}. EARNINGS > #{ @search.net_income }
+    - crit = crit + 1
+
+- if !@search.margin.nil?
+  %p
+    %strong #{crit}. MARGIN > #{ @search.margin.to_s }
+    - crit = crit + 1
+
+- if !@search.roe.nil?
+  %p
+    %strong #{crit}. ROE > #{ @search.roe.to_s }
+    - crit = crit + 1
+
+
 - if @search.good_balance
   %p
     %strong #{crit}. (G2) BALANCE ratios are good
