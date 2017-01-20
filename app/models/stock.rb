@@ -416,13 +416,18 @@ class Stock < ActiveRecord::Base
   end
 
   def shares_float
-    return newest_earnings_record.shares.to_i unless has_multiple_share_classes?
-    # Stock has multiple share classes
-    total_float = 0
-    share_classes.each do |sc|
-      total_float += sc.nshares.to_i * sc.mul_factor
+    return latest_earnings_data.shares.to_i if latest_earnings_data.shares_diluted
+
+    if has_multiple_share_classes?
+      # Stock has multiple share classes
+      total_float = 0
+      share_classes.each do |sc|
+        total_float += sc.nshares.to_i * sc.mul_factor
+      end
+      total_float.to_i
+    else
+      latest_earnings_data.shares.to_i
     end
-    total_float.to_i
   end
 
   def public_shares_float
@@ -435,10 +440,8 @@ class Stock < ActiveRecord::Base
 
   def market_cap
     # if we have DILUTED float data, use it
-    if !ttm_earnings_record.nil?
-      if ttm_earnings_record.shares_diluted
-        return price * ttm_earnings_record.shares_to_i
-      end
+    if !latest_earnings_data.nil? && latest_earnings_data.shares_diluted
+      return price * ttm_earnings_record.shares.to_i
     end
 
     # E.g. GEF, GOOG, BRK
@@ -522,6 +525,12 @@ class Stock < ActiveRecord::Base
 
   def earnings_up_to_date?
     newest_quarter.date_of > 3.months.ago.to_date
+  end
+
+  def latest_earnings_data
+    led = ttm_earnings_record
+    led = newest_earnings_record if led.nil?
+    led
   end
 
 
