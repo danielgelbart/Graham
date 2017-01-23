@@ -420,7 +420,8 @@ EdgarData::addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS)
     message << "Record to DB for " << stock._ticker()
             <<". YEAR: "<< incomeS._year() << " Q: "<< incomeS._quarter()
             <<" REV: "<<incomeS._revenue()<<" INC: "<<incomeS._net_income()
-            <<" SHARES: "<<incomeS._shares()<<" EPS: "<<incomeS._eps() <<"\n";
+            <<" SHARES: "<<incomeS._shares()<<"SHARES_DILUTED: "<<incomeS._shares_diluted()
+            <<" EPS: "<<incomeS._eps() <<"\n";
        
     if ( (inserted = insertEp(incomeS)) )
     {
