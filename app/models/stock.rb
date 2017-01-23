@@ -441,7 +441,7 @@ class Stock < ActiveRecord::Base
   def market_cap
     # if we have DILUTED float data, use it
     if !latest_earnings_data.nil? && latest_earnings_data.shares_diluted
-      return price * ttm_earnings_record.shares.to_i
+      return price * latest_earnings_data.shares.to_i
     end
 
     # E.g. GEF, GOOG, BRK

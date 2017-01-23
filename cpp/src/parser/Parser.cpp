@@ -2149,6 +2149,7 @@ bool
 Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
                          string& units, string& nsrUnits)
 {
+    LOG_INFO << "extractNumShares() called";
     trIterator trIt(tree);
     XmlElement* trp = tree;
 
@@ -2167,7 +2168,7 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
         while( (trp = trIt.nextTr()) != NULL )
         {
             string attr_text = trp->attrText();
-            LOG_INFO << "Attr text is: "<<attr_text;
+            LOG_INFO << "Searching for numshare units: Attr text is: "<<attr_text;
             if ( regex_search( attr_text, shares_title ) )
             {
                 string tr_text = trp->text();
@@ -2179,14 +2180,17 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
         }
     }
 
-    LOG_INFO << "extractNumShares() called";
+    //after search for units, restart iterator
+    trIt.resetToStart();
+
     regex defref("WeightedAverageNumberOfDilutedSharesOutstanding");
     while( (trp = trIt.nextTr()) != NULL )
     {
         string attr_text = trp->attrText();
-        LOG_INFO << "Attr text is: "<<attr_text;
+        LOG_INFO << "Searching numshare value: Attr text is: "<<attr_text;
         if ( regex_search( attr_text, defref ) )
         {
+            LOG_INFO << "Found match for defref" << defref.str() ;
             // check for units in trtext
             if(nsrUnits == "")
             {
@@ -2194,6 +2198,7 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
                 nsrUnits = checkForShareUnits(trtext);
             }
             string bothUnits = nsrUnits+"|"+units;
+
             if ((foundNsr = checkTrPattern(attr_text, defref, bothUnits, trp,
                                            num_pattern, earnings_data, writeNsToEarnings)))
             {
