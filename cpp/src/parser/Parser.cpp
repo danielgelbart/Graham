@@ -1947,6 +1947,11 @@ Parser::extractNetIncome(XmlElement* tree, DMMM::O_Ep& earnings_data,
     return foundInc;
 }
 
+/* Eps data precedence:
+ * 1) Diluted reported figure -> use this number
+ * 2) If first option NOT found, recreated from 'num-shares'+'earnings'
+ *
+*/
 bool
 Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
 {
@@ -2132,6 +2137,14 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
     return foundEps;    
 }
 
+
+/*
+Order of precedence for Shares float data:
+1) DILUTED reported value
+-> If successfule, indicate that figure is 'diluted'
+2) From cover report, including mulit-share classes static_unsigned_max
+-> Indicate That it is NOT diluted
+*/
 bool
 Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
                          string& units, string& nsrUnits)
@@ -2185,6 +2198,7 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
                                            num_pattern, earnings_data, writeNsToEarnings)))
             {
                 LOG_INFO<<" Successfully found DILUTED SHARES using defref";
+                earnings_data._shares_diluted() = true;
                 return true;
             }
         } // if defref regex match
@@ -2211,6 +2225,7 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
                                            num_pattern, earnings_data, writeNsToEarnings)))
             {
                 LOG_INFO<<" Found UNITS using defref us-gaap_WeightedAverageLimitedPartnershipUnitsOutstanding";
+                earnings_data._shares_diluted() = true;
                 return true;
             }
         } // if defref regex match
@@ -2252,6 +2267,7 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
                 string bothUnits = nsrUnits+"|"+units;
                 foundNsr = checkTrPattern(trtext, ds_pattern, bothUnits, trp,
                                           num_pattern, earnings_data, writeNsToEarnings);
+                earnings_data._shares_diluted() = true;
                 continue;
             }
         } // find line
@@ -2275,8 +2291,10 @@ Parser::extractNumShares(XmlElement* tree, DMMM::O_Ep& earnings_data,
                 nsrUnits = checkForShareUnits(trtext);
                 string bothUnits = nsrUnits+"|"+units;
                 if((foundNsr = checkTrPattern(trtext, nsr_pattern, bothUnits,
-                          trp, num_pattern, earnings_data, writeNsToEarnings)))
+                                              trp, num_pattern, earnings_data, writeNsToEarnings))){
+                    earnings_data._shares_diluted() = true;
                     break;
+                }
             }
         }//while
     } // if no nsr

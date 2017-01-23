@@ -862,20 +862,19 @@ sca = scb = nil
 
 stock = Stock.find_by_ticker("AIN")
 sca = ShareClass.create( stock_id:stock.id,
-                         ticker:'',
+                         ticker:'AIN',
                          sclass:"A",
-                         primary_class:,
-                         nshares: "",
-                         float_date: "2016-10-16",
-                         votes:,
-                         note:"")
+                         nshares: "28900000",
+                         float_date: "2016-10-24",
+                         votes:1,
+                         note:"Equal rights to both Dividends and liquidation")
 puts "#{stock.ticker}: Added share class #{sca.sclass}" if sca.persisted?
 scb = ShareClass.create( stock_id:stock.id,
-                         ticker:'',
+                         ticker:'-',
                          sclass:"B",
-                         nshares: "",
-                         float_date: "2016-10-16",
-                         votes:,
-                         note: "")
+                         nshares: "3200000",
+                         float_date: "2016-10-24",
+                         votes:10,
+                         note: "Non public, owned by 7 individuals")
 puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
 sca = scb = nil
