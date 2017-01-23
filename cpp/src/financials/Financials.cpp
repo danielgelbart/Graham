@@ -436,7 +436,7 @@ EdgarData::addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS)
 bool
 EdgarData::addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
                                    string revenue, string income, float eps,
-                                   string shares, const string& source)
+                                   string shares, bool shares_diluted, const string& source)
 {
     LOG_INFO << "\nGoing to try to insert earnings record to DB for "
              << stock._ticker() << " for year " << to_string(year) 
@@ -448,6 +448,7 @@ EdgarData::addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
     incomeS._net_income() = income;
     incomeS._eps() = eps;
     incomeS._shares() = shares;
+    incomeS._shares_diluted() = shares_diluted;
     incomeS._source() = source;
         
     return addEarningsRecordToDB(stock, incomeS);
@@ -689,6 +690,7 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
                             to_string( incp ),/*income*/
                             ((double)incp) / numshares, /* EPS */
                             to_string(numshares),  
+                            annual_ep._shares_diluted(),
                             "calculated"/*source*/);
 
     createTtmEps(stock);
@@ -738,7 +740,8 @@ EdgarData::createTtmEps(O_Stock& stock)
                     << " So setting ttm record (quarter 5) to be identical";
         addEarningsRecordToDB( stock, qrts[0]._year(), 5,/*quarter*/
                                 latest_annual_ep._revenue(), latest_annual_ep._net_income(),
-                                latest_annual_ep._eps(), latest_annual_ep._shares(),"calculated");
+                                latest_annual_ep._eps(), latest_annual_ep._shares(),
+                                latest_annual_ep._shares_diluted(), "calculated");
         return;
     }
 
@@ -779,6 +782,7 @@ EdgarData::createTtmEps(O_Stock& stock)
                             to_string(revp), to_string(incp),
                             ((double)incp) / numshares, /*EPS*/
                             to_string(numshares),
+                            qrts.front()._shares_diluted(),
                             "calculated");
 }
 
