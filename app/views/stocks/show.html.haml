@@ -1,5 +1,8 @@
 %h1
   =h @stock.name
+- if !@stock.listed
+  .red
+    #{@stock.ticker} is no longer listed for trade
 %h2
   Ticker:
   =h @stock.ticker

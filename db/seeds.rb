@@ -878,3 +878,60 @@ scb = ShareClass.create( stock_id:stock.id,
                          note: "Non public, owned by 7 individuals")
 puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
 sca = scb = nil
+
+stock = Stock.find_by_ticker("APO")
+sca = ShareClass.create( stock_id:stock.id,
+                         ticker:'APO',
+                         sclass:"A",
+                         nshares: "185479663",
+                         float_date: "2016-11-3",
+                         votes:1,
+                         note:"There are both voting, and non voting class A shares. Non voting A are ~1/3 of A float. Not shore if any of the traded shares are voting.")
+puts "#{stock.ticker}: Added share class #{sca.sclass}" if sca.persisted?
+scb = ShareClass.create( stock_id:stock.id,
+                         ticker:'-',
+                         sclass:"B",
+                         nshares: "1",
+                         float_date: "2016-11-3",
+                         votes:2,
+                         note: "Controls 60% of voting rights. BUT hold NO economic intrest, in either distrubutions or liquidation")
+puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
+sca = scb = nil
+
+stock = Stock.find_by_ticker("DDS")
+sca = ShareClass.create( stock_id:stock.id,
+                         ticker:'DDS',
+                         sclass:"A",
+                         nshares: "29386967",
+                         float_date: "2016-11-26",
+                         votes:1,
+                         note:"Elect 1/3 of board")
+puts "#{stock.ticker}: Added share class #{sca.sclass}" if sca.persisted?
+scb = ShareClass.create( stock_id:stock.id,
+                         ticker:'-',
+                         sclass:"B",
+                         nshares: "4010401",
+                         float_date: "2016-11-26",
+                         votes:2,
+                         note: "Elect 2/3 of board. Convertable 1:1 to class A. Equal div rights. ")
+puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
+sca = scb = nil
+
+stock = Stock.find_by_ticker("ETM")
+sca = ShareClass.create( stock_id:stock.id,
+                         ticker:'ETM',
+                         sclass:"A",
+                         nshares: "33412985",
+                         float_date: "2016-10-24",
+                         votes:1,
+                         note:"")
+puts "#{stock.ticker}: Added share class #{sca.sclass}" if sca.persisted?
+scb = ShareClass.create( stock_id:stock.id,
+                         ticker:'-',
+                         sclass:"B",
+                         nshares: "7197532",
+                         float_date: "2016-10-24",
+                         votes:10,
+                         note: "Only legaly owned by Joseph Field and his decendents. No divs on either class. Net income allocation 'rights' considered equal between classes. Voting rights DIFFER ")
+puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
+sca = scb = nil
