@@ -206,6 +206,58 @@ public:
     static E_sort_by _sort_by(){ 
         return E_sort_by();
     }
+    struct E_revenue{
+        E_revenue() 
+        {  
+            _field = "searches.revenue";
+        }
+        std::string _field;
+        typedef T_Search::Condition ConditionType;
+        typedef F_String::Base ComparerType;
+    };
+
+    static E_revenue _revenue(){ 
+        return E_revenue();
+    }
+    struct E_net_income{
+        E_net_income() 
+        {  
+            _field = "searches.net_income";
+        }
+        std::string _field;
+        typedef T_Search::Condition ConditionType;
+        typedef F_String::Base ComparerType;
+    };
+
+    static E_net_income _net_income(){ 
+        return E_net_income();
+    }
+    struct E_margin{
+        E_margin() 
+        {  
+            _field = "searches.margin";
+        }
+        std::string _field;
+        typedef T_Search::Condition ConditionType;
+        typedef F_Fixnum::Base ComparerType;
+    };
+
+    static E_margin _margin(){ 
+        return E_margin();
+    }
+    struct E_roe{
+        E_roe() 
+        {  
+            _field = "searches.roe";
+        }
+        std::string _field;
+        typedef T_Search::Condition ConditionType;
+        typedef F_Fixnum::Base ComparerType;
+    };
+
+    static E_roe _roe(){ 
+        return E_roe();
+    }
     
 
     std::vector<std::string> getFields()
@@ -226,6 +278,10 @@ public:
         ret.push_back("big_enough");
         ret.push_back("market_cap");
         ret.push_back("sort_by");
+        ret.push_back("revenue");
+        ret.push_back("net_income");
+        ret.push_back("margin");
+        ret.push_back("roe");
         return ret;
     }
 
@@ -268,6 +324,14 @@ public:
                 UTILS::fromString<F_String::Base>(res[i]["market_cap"]);
             ret[i]._f_sort_by._base =
                 UTILS::fromString<F_String::Base>(res[i]["sort_by"]);
+            ret[i]._f_revenue._base =
+                UTILS::fromString<F_String::Base>(res[i]["revenue"]);
+            ret[i]._f_net_income._base =
+                UTILS::fromString<F_String::Base>(res[i]["net_income"]);
+            ret[i]._f_margin._base =
+                UTILS::fromString<F_Fixnum::Base>(res[i]["margin"]);
+            ret[i]._f_roe._base =
+                UTILS::fromString<F_Fixnum::Base>(res[i]["roe"]);
         }
         return ret;
     }
@@ -368,6 +432,18 @@ public:
         
 
         fields.push_back(std::string("sort_by"));
+        
+
+        fields.push_back(std::string("revenue"));
+        
+
+        fields.push_back(std::string("net_income"));
+        
+
+        fields.push_back(std::string("margin"));
+        
+
+        fields.push_back(std::string("roe"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Search& r = *begin;
@@ -398,6 +474,14 @@ public:
             row.push_back(toSQLString(r._market_cap()));
             
             row.push_back(toSQLString(r._sort_by()));
+            
+            row.push_back(toSQLString(r._revenue()));
+            
+            row.push_back(toSQLString(r._net_income()));
+            
+            row.push_back(toSQLString(r._margin()));
+            
+            row.push_back(toSQLString(r._roe()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("searches",
@@ -492,6 +576,30 @@ public:
             if (it->_f_sort_by._dirty){
                 fields.push_back(std::string("sort_by"));
                 row.push_back(toSQLString(it->_sort_by()));
+            }
+            
+
+            if (it->_f_revenue._dirty){
+                fields.push_back(std::string("revenue"));
+                row.push_back(toSQLString(it->_revenue()));
+            }
+            
+
+            if (it->_f_net_income._dirty){
+                fields.push_back(std::string("net_income"));
+                row.push_back(toSQLString(it->_net_income()));
+            }
+            
+
+            if (it->_f_margin._dirty){
+                fields.push_back(std::string("margin"));
+                row.push_back(toSQLString(it->_margin()));
+            }
+            
+
+            if (it->_f_roe._dirty){
+                fields.push_back(std::string("roe"));
+                row.push_back(toSQLString(it->_roe()));
             }
             fields2Rows[fields].push_back(row);
 	}

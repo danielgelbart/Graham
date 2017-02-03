@@ -2,18 +2,21 @@
 #
 # Table name: share_classes
 #
-#  id         :integer(4)      not null, primary key
-#  stock_id   :integer(4)
-#  ticker     :string(8)      # value of '-' == NOT pubicly traded
-#  sclass     :string(3)
-#  votes      :integer(4)
-#  nshares    :string(255)
-#  float_date :date
-#  mul_factor :integer(3)      default(1)
-#  note       :string(255)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id            :integer(4)      not null, primary key
+#  stock_id      :integer(4)
+#  ticker        :string(8)
+#  sclass        :string(3)
+#  votes         :integer(4)
+#  nshares       :string(255)
+#  float_date    :date
+#  mul_factor    :decimal(20, 10) default(1.0)
+#  note          :string(255)
+#  created_at    :datetime        not null
+#  updated_at    :datetime        not null
+#  latest_price  :decimal(12, 6)  default(0.0)
+#  primary_class :boolean(1)      default(FALSE)
 #
+
 
 # NOTE: If a share class has the ticker '-' then it is NOT publicly traded
 

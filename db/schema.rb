@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170112153346) do
+ActiveRecord::Schema.define(:version => 20170203142307) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -56,7 +56,8 @@ ActiveRecord::Schema.define(:version => 20170112153346) do
     t.integer  "quarter",                                       :default => 0
     t.datetime "report_date"
     t.string   "shares"
-    t.boolean  "shares_diluted",                                :default => true
+    t.boolean  "shares_diluted",                                :default => false
+    t.boolean  "eps_diluted",                                   :default => false
   end
 
   create_table "notes", :force => true do |t|

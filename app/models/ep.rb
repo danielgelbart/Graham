@@ -14,7 +14,8 @@
 #  quarter        :integer(4)      default(0)
 #  report_date    :datetime
 #  shares         :string(255)
-#  shares_diluted :boolean(1)      default(TRUE)
+#  shares_diluted :boolean(1)      default(FALSE)
+#  eps_diluted    :boolean(1)      default(FALSE)
 #
 
 class Ep < ActiveRecord::Base
@@ -59,5 +60,8 @@ class Ep < ActiveRecord::Base
   end
 
 end
+
+
+
 
 

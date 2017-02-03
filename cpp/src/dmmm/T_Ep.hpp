@@ -200,6 +200,19 @@ public:
     static E_shares_diluted _shares_diluted(){ 
         return E_shares_diluted();
     }
+    struct E_eps_diluted{
+        E_eps_diluted() 
+        {  
+            _field = "eps.eps_diluted";
+        }
+        std::string _field;
+        typedef T_Ep::Condition ConditionType;
+        typedef F_Object::Base ComparerType;
+    };
+
+    static E_eps_diluted _eps_diluted(){ 
+        return E_eps_diluted();
+    }
     
 
     std::vector<std::string> getFields()
@@ -219,6 +232,7 @@ public:
         ret.push_back("report_date");
         ret.push_back("shares");
         ret.push_back("shares_diluted");
+        ret.push_back("eps_diluted");
         return ret;
     }
 
@@ -259,6 +273,8 @@ public:
                 UTILS::fromString<F_String::Base>(res[i]["shares"]);
             ret[i]._f_shares_diluted._base =
                 UTILS::fromString<F_Object::Base>(res[i]["shares_diluted"]);
+            ret[i]._f_eps_diluted._base =
+                UTILS::fromString<F_Object::Base>(res[i]["eps_diluted"]);
         }
         return ret;
     }
@@ -356,6 +372,9 @@ public:
         
 
         fields.push_back(std::string("shares_diluted"));
+        
+
+        fields.push_back(std::string("eps_diluted"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Ep& r = *begin;
@@ -384,6 +403,8 @@ public:
             row.push_back(toSQLString(r._shares()));
             
             row.push_back(toSQLString(r._shares_diluted()));
+            
+            row.push_back(toSQLString(r._eps_diluted()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("eps",
@@ -472,6 +493,12 @@ public:
             if (it->_f_shares_diluted._dirty){
                 fields.push_back(std::string("shares_diluted"));
                 row.push_back(toSQLString(it->_shares_diluted()));
+            }
+            
+
+            if (it->_f_eps_diluted._dirty){
+                fields.push_back(std::string("eps_diluted"));
+                row.push_back(toSQLString(it->_eps_diluted()));
             }
             fields2Rows[fields].push_back(row);
 	}

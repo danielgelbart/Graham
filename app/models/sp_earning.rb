@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: sp_earnings
+#
+#  id                :integer(4)      not null, primary key
+#  calc_date         :date
+#  list_file         :string(255)
+#  num_included      :integer(4)
+#  excluded_list     :string(255)
+#  total_market_cap  :string(255)
+#  public_market_cap :string(255)
+#  total_earnings    :string(255)
+#  market_pe         :decimal(15, 2)
+#  index_price       :float
+#  inferred_divisor  :integer(10)
+#  divisor_earnings  :decimal(15, 2)
+#  divisor_pe        :decimal(15, 2)
+#  notes             :string(255)
+#  created_at        :datetime        not null
+#  updated_at        :datetime        not null
+#
+
 class SpEarning < ActiveRecord::Base
 
   validates :calc_date, presence: true
@@ -143,3 +165,4 @@ class SpEarning < ActiveRecord::Base
   end
 
 end
+

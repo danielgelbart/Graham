@@ -133,7 +133,7 @@ require 'csv'
     @spe.save if (params[:save] == "Y")
 
     @comp_data.sort_by! { |s| -s.market_cap }
-
+    @time = Time.now.ctime
   end
 
   def get_latest_list( date = "")

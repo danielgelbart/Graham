@@ -88,7 +88,7 @@ older than 3 months, and write log on run -VVV
 Multiple share classes:
 Add share classes (AUtomate?) for the following 47 stock id:
 
- 606, 633, 640, 763, 790, 902, 923, 1055, 1125, 1142, 1162, 1170, 1234, 1270, 1350, 1359, 1375, 1446, 1483, 1574, 1581, 1590, 1774, 1808, 1818, 1949, 1965
+ 633, 640, 763, 790, 902, 923, 1055, 1125, 1142, 1162, 1170, 1234, 1270, 1350, 1359, 1375, 1446, 1483, 1574, 1581, 1590, 1774, 1808, 1818, 1949, 1965
 
 4. (Jan 2016)
 Selenium webcrawler seems to not work.

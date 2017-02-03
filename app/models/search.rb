@@ -16,6 +16,10 @@
 #  big_enough      :boolean(1)
 #  market_cap      :string(255)
 #  sort_by         :string(255)
+#  revenue         :string(255)
+#  net_income      :string(255)
+#  margin          :integer(4)
+#  roe             :integer(4)
 #
 
 class Search < ActiveRecord::Base
@@ -123,5 +127,6 @@ class Search < ActiveRecord::Base
   end #method stocks
 
 end #class search
+
 
 

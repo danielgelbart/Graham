@@ -121,6 +121,34 @@ O_Search(const I_Search& id)
         _f_sort_by._dirty = true; 
         return _f_sort_by._base; 
     }
+    const F_String::Base& _revenue() const { 
+        return _f_revenue._base; 
+    }
+    F_String::Base& _revenue() { 
+        _f_revenue._dirty = true; 
+        return _f_revenue._base; 
+    }
+    const F_String::Base& _net_income() const { 
+        return _f_net_income._base; 
+    }
+    F_String::Base& _net_income() { 
+        _f_net_income._dirty = true; 
+        return _f_net_income._base; 
+    }
+    const F_Fixnum::Base& _margin() const { 
+        return _f_margin._base; 
+    }
+    F_Fixnum::Base& _margin() { 
+        _f_margin._dirty = true; 
+        return _f_margin._base; 
+    }
+    const F_Fixnum::Base& _roe() const { 
+        return _f_roe._base; 
+    }
+    F_Fixnum::Base& _roe() { 
+        _f_roe._dirty = true; 
+        return _f_roe._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -166,6 +194,18 @@ O_Search(const I_Search& id)
         if (_f_sort_by._dirty)
             field2Val["sort_by"] = 
                 toSQLString(_f_sort_by._base);
+        if (_f_revenue._dirty)
+            field2Val["revenue"] = 
+                toSQLString(_f_revenue._base);
+        if (_f_net_income._dirty)
+            field2Val["net_income"] = 
+                toSQLString(_f_net_income._base);
+        if (_f_margin._dirty)
+            field2Val["margin"] = 
+                toSQLString(_f_margin._base);
+        if (_f_roe._dirty)
+            field2Val["roe"] = 
+                toSQLString(_f_roe._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("searches", 
@@ -185,6 +225,10 @@ O_Search(const I_Search& id)
             _f_big_enough._dirty = false;
             _f_market_cap._dirty = false;
             _f_sort_by._dirty = false;
+            _f_revenue._dirty = false;
+            _f_net_income._dirty = false;
+            _f_margin._dirty = false;
+            _f_roe._dirty = false;
             return true;
         }
         else
@@ -235,6 +279,18 @@ O_Search(const I_Search& id)
         if (_f_sort_by._dirty)
             field2Val["sort_by"] = 
                 toSQLString(_f_sort_by._base);
+        if (_f_revenue._dirty)
+            field2Val["revenue"] = 
+                toSQLString(_f_revenue._base);
+        if (_f_net_income._dirty)
+            field2Val["net_income"] = 
+                toSQLString(_f_net_income._base);
+        if (_f_margin._dirty)
+            field2Val["margin"] = 
+                toSQLString(_f_margin._base);
+        if (_f_roe._dirty)
+            field2Val["roe"] = 
+                toSQLString(_f_roe._base);
 
         
         if (DBFace::instance()->
@@ -255,6 +311,10 @@ O_Search(const I_Search& id)
             _f_big_enough._dirty = false;
             _f_market_cap._dirty = false;
             _f_sort_by._dirty = false;
+            _f_revenue._dirty = false;
+            _f_net_income._dirty = false;
+            _f_margin._dirty = false;
+            _f_roe._dirty = false;
             return true;
         }
         else
@@ -276,6 +336,10 @@ private:
     F_Object _f_big_enough;
     F_String _f_market_cap;
     F_String _f_sort_by;
+    F_String _f_revenue;
+    F_String _f_net_income;
+    F_Fixnum _f_margin;
+    F_Fixnum _f_roe;
 
     friend class T_Search;
 };

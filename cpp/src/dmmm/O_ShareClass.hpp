@@ -103,6 +103,20 @@ O_ShareClass(const I_ShareClass& id)
         _f_updated_at._dirty = true; 
         return _f_updated_at._base; 
     }
+    const F_BigDecimal::Base& _latest_price() const { 
+        return _f_latest_price._base; 
+    }
+    F_BigDecimal::Base& _latest_price() { 
+        _f_latest_price._dirty = true; 
+        return _f_latest_price._base; 
+    }
+    const F_Object::Base& _primary_class() const { 
+        return _f_primary_class._base; 
+    }
+    F_Object::Base& _primary_class() { 
+        _f_primary_class._dirty = true; 
+        return _f_primary_class._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -139,6 +153,12 @@ O_ShareClass(const I_ShareClass& id)
 
         field2Val["updated_at"] = "NOW()";
 
+        if (_f_latest_price._dirty)
+            field2Val["latest_price"] = 
+                toSQLString(_f_latest_price._base);
+        if (_f_primary_class._dirty)
+            field2Val["primary_class"] = 
+                toSQLString(_f_primary_class._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("share_classes", 
@@ -155,6 +175,8 @@ O_ShareClass(const I_ShareClass& id)
             _f_note._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
+            _f_latest_price._dirty = false;
+            _f_primary_class._dirty = false;
             return true;
         }
         else
@@ -196,6 +218,12 @@ O_ShareClass(const I_ShareClass& id)
         if (_f_updated_at._dirty)
             field2Val["updated_at"] = 
                 toSQLString(_f_updated_at._base);
+        if (_f_latest_price._dirty)
+            field2Val["latest_price"] = 
+                toSQLString(_f_latest_price._base);
+        if (_f_primary_class._dirty)
+            field2Val["primary_class"] = 
+                toSQLString(_f_primary_class._base);
 
         
         if (DBFace::instance()->
@@ -213,6 +241,8 @@ O_ShareClass(const I_ShareClass& id)
             _f_note._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
+            _f_latest_price._dirty = false;
+            _f_primary_class._dirty = false;
             return true;
         }
         else
@@ -231,6 +261,8 @@ private:
     F_String _f_note;
     F_Time _f_created_at;
     F_Time _f_updated_at;
+    F_BigDecimal _f_latest_price;
+    F_Object _f_primary_class;
 
     friend class T_ShareClass;
 };

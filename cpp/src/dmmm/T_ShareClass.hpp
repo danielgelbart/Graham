@@ -174,6 +174,32 @@ public:
     static E_updated_at _updated_at(){ 
         return E_updated_at();
     }
+    struct E_latest_price{
+        E_latest_price() 
+        {  
+            _field = "share_classes.latest_price";
+        }
+        std::string _field;
+        typedef T_ShareClass::Condition ConditionType;
+        typedef F_BigDecimal::Base ComparerType;
+    };
+
+    static E_latest_price _latest_price(){ 
+        return E_latest_price();
+    }
+    struct E_primary_class{
+        E_primary_class() 
+        {  
+            _field = "share_classes.primary_class";
+        }
+        std::string _field;
+        typedef T_ShareClass::Condition ConditionType;
+        typedef F_Object::Base ComparerType;
+    };
+
+    static E_primary_class _primary_class(){ 
+        return E_primary_class();
+    }
     
 
     std::vector<std::string> getFields()
@@ -191,6 +217,8 @@ public:
         ret.push_back("note");
         ret.push_back("created_at");
         ret.push_back("updated_at");
+        ret.push_back("latest_price");
+        ret.push_back("primary_class");
         return ret;
     }
 
@@ -227,6 +255,10 @@ public:
                 UTILS::fromString<F_Time::Base>(res[i]["created_at"]);
             ret[i]._f_updated_at._base =
                 UTILS::fromString<F_Time::Base>(res[i]["updated_at"]);
+            ret[i]._f_latest_price._base =
+                UTILS::fromString<F_BigDecimal::Base>(res[i]["latest_price"]);
+            ret[i]._f_primary_class._base =
+                UTILS::fromString<F_Object::Base>(res[i]["primary_class"]);
         }
         return ret;
     }
@@ -318,6 +350,12 @@ public:
         
 
         fields.push_back(std::string("updated_at"));
+        
+
+        fields.push_back(std::string("latest_price"));
+        
+
+        fields.push_back(std::string("primary_class"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_ShareClass& r = *begin;
@@ -342,6 +380,10 @@ public:
             row.push_back(toSQLString(r._created_at()));
             
             row.push_back(toSQLString(r._updated_at()));
+            
+            row.push_back(toSQLString(r._latest_price()));
+            
+            row.push_back(toSQLString(r._primary_class()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("share_classes",
@@ -418,6 +460,18 @@ public:
             if (it->_f_updated_at._dirty){
                 fields.push_back(std::string("updated_at"));
                 row.push_back(toSQLString(it->_updated_at()));
+            }
+            
+
+            if (it->_f_latest_price._dirty){
+                fields.push_back(std::string("latest_price"));
+                row.push_back(toSQLString(it->_latest_price()));
+            }
+            
+
+            if (it->_f_primary_class._dirty){
+                fields.push_back(std::string("primary_class"));
+                row.push_back(toSQLString(it->_primary_class()));
             }
             fields2Rows[fields].push_back(row);
 	}
