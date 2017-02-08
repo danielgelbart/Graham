@@ -1974,6 +1974,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
                                 earnings_data, writeEpsToEarnings )))
     {
         LOG_INFO<<" Successfully found EPS using defref_us_EarningsPerShareDiluted (1st)";
+        earnings_data._eps_diluted() = true;
         return foundEps;
     }
 
@@ -1983,6 +1984,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
                                 earnings_data, writeEpsToEarnings )))
     {
         LOG_INFO<<" Successfully found EPS using us-gaap_EarningsPerShareBasicAndDiluted (2nd)";
+        earnings_data._eps_diluted() = true;
         return foundEps;
     }
 
@@ -2001,6 +2003,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
                                 earnings_data, writeEpsToEarnings )))
     {
         LOG_INFO<<" Successfully found EPS using us-gaap_IncomeLossFromContinuingOperationsPerDilutedShare (4th)";
+        earnings_data._eps_diluted() = true;
         return foundEps;
     }
 
@@ -2018,6 +2021,7 @@ Parser::extractEps(XmlElement* tree, DMMM::O_Ep& earnings_data,string& units)
         {
             LOG_INFO<<" Successfully found EPS using " <<
                       "NetIncomeLossPerOutstandingLimitedPartnershipUnitDiluted (ASSET_MNGMT specific)";
+            earnings_data._eps_diluted() = true;
             return foundEps;
         }
     } // ASSET_MNGMT

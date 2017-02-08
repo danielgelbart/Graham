@@ -91,6 +91,9 @@ Test::runSingleYearTest(TestResults& tResults)
     T_Stock ts;
     O_Stock stock = ts.select( ts._ticker() == string("IBM")).front();
     T_Ep te;
+    T_BalanceSheet tb;
+    // Make sure test balance sheet DB is empty
+    tb.erase( tb._stock_id() == stock._id());
 
     tResults.setStockTickerName( stock._ticker() );
     // extract to DB
@@ -108,6 +111,8 @@ Test::runSingleYearTest(TestResults& tResults)
     edgar.extract10kToDisk( filing, stock, year);
 
     //Test results writen to DB
+    auto epss = te.select( te._stock_id() == stock._id() && te._quarter() == 0 );
+
     if (te.select( te._stock_id() == stock._id() 
                    && te._quarter() == 0 ).empty())
     {
@@ -139,7 +144,6 @@ Test::runSingleYearTest(TestResults& tResults)
     te.erase( te._id() == ibm2013._id());
 
     //BALANCE extraction test
-    T_BalanceSheet tb;
     string balanceTestName = "BalanceTest";
     O_BalanceSheet b_ibm2013 = tb.select( tb._stock_id() == stock._id()
                               && tb._year() == year ).front();
@@ -1068,7 +1072,7 @@ Test::compareTest(const O_Stock& rStock, const O_Ep rEarnings,
     if (te.select( te._stock_id() == stock._id() 
                    && te._quarter() == 0 ).empty())
     {
-        tResults.addFailure(string("No record was added to DB"));       
+        tResults.addFailure(string("No record was added to DB"));
         return tResults.getResultsSummary();
     }
 
