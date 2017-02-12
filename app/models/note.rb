@@ -16,6 +16,7 @@
 
 class Note < ActiveRecord::Base
   belongs_to :stock
+  validates_presence_of :stock_id
 
   # for handling enums
   def self.enum_columns

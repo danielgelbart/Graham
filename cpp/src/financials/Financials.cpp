@@ -1011,12 +1011,15 @@ EdgarData::addIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
     if (report_date == "0")
         report_date = to_iso_extended_string(rep_end_date);
 
+    // O_Ep 'init'
     O_Ep ep;
     ep._stock_id() = stock._id();
     ep._year() = year;
     ep._quarter() = quarter;
     ep._source() = string("edgar.com");
     ep._report_date() = report_date;
+    ep._shares_diluted() = false;
+    ep._eps_diluted() = false;
     _parser.parseIncomeTree(tree, ep, rep_end_date);
     postParseEarningsFix( stock, ep);
 }
@@ -1037,6 +1040,7 @@ EdgarData::postParseEarningsFix( O_Stock& stock, O_Ep& ep)
                 int shares_int = (int)(shares_f + 0.5);
                 LOG_INFO << " Got numshares from calculating EPS and Net Income: "<< shares_int;
                 ep._shares() = to_string(shares_int);
+                ep._shares_diluted() = ep._eps_diluted();
             }
         } else
             shares_outstanding = true;
@@ -1052,6 +1056,7 @@ EdgarData::postParseEarningsFix( O_Stock& stock, O_Ep& ep)
 
         double eps = (double)income/shares;
         ep._eps() = eps;
+        ep._eps_diluted() = ep._shares_diluted();
 
         O_Note note;
         note._stock_id() = stock._id();
