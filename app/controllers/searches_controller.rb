@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   # GET /searches
   # GET /searches.xml
   def index
@@ -15,7 +17,7 @@ class SearchesController < ApplicationController
   def show
     @search = Search.find(params[:id])
 
-    @stocks = @search.stocks(params[:sort])
+    @stocks = @search.stocks( sort_column, sort_direction )
 
     respond_to do |format|
       format.html # show.html.erb
@@ -83,4 +85,20 @@ class SearchesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+private
+  def sortable_columns
+    ["pe", "pe10", "Market Cap", "max_pe", "price_to_book", "price_to_limit"]
+  end
+
+  def sort_column
+    @sort_col = params[:column]
+    sortable_columns.include?(params[:column]) ? params[:column] : "Market Cap"
+  end
+
+  def sort_direction
+    @sort_dirc = params[:direction]
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "disc"
+  end
+
 end

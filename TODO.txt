@@ -88,7 +88,6 @@ older than 3 months, and write log on run -VVV
 Multiple share classes:
 Add share classes (AUtomate?) for the following 47 stock id:
 
- 1965
 - Fixed, but a few ~5 stocks with multiple classe do not automaticly
 update float of classes due to class name descrepencies in report. 
 Consider adding 'report class name' field for classes?
@@ -101,3 +100,7 @@ FIX getting of dividends and splits
 
 Bootstrap seems to help. Best totu I found:
 https://richonrails.com/articles/sortable-table-columns
+
+6. Add company type
+
+7. Track record of earning misses

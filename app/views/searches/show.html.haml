@@ -85,24 +85,30 @@
   = "Found total of #{@stocks.size} stocks, ordered by #{"10 year PE"}"
 
 - num = 1
-%table.stock-list
+%table.stock-list.table-bordered.table-striped
   %thead
     %th
       number
     %th
       ticker
     %th
-      Market Cap
+      = sort_link "Market Cap", "Market Cap", "desc"
     %th
       Price
     %th
       Price limit
     %th
-      = link_to "Price/Limit", :sort => "price_to_limit"
+      = sort_link "Price limit", "price_to_limit", "asc"
     %th
-      = link_to "Price/Book", :sort => "price_to_book"
+      = sort_link "Price/Book", "price_to_book", "asc"
     %th
-      = link_to "10 year P/E", :sort => "pe_10"
+      = sort_link "10 year PE", "pe10", "asc"
+    %th
+      = sort_link "PE", "pe", "asc" 
+    %th
+      = sort_link "Max years PE", "max_pe", "asc"
+    %th
+      = "#Years of Earnings"
   %tbody
     - @stocks.each do |stock|
       %tr
@@ -124,3 +130,10 @@
           = short_float(stock.price_to_book_ratio) #.to_f / stock.book_value_per_share.to_f)
         %td
           = short_float(stock.ten_year_eps)
+        %td
+          = short_float(stock.pe)
+        %td
+          = short_float(stock.max_year_eps)
+        %td
+          = stock.max_eps_years
+     

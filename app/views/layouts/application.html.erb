@@ -4,10 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Graham <%= h(yield(:title) || controller.action_name) %></title>
-    <%= stylesheet_link_tag 'application' %>
+  <title>Graham <%= h(yield(:title) || controller.action_name)  %></title>
+    <%= stylesheet_link_tag    '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag 'scaffold' %>
-    <%= javascript_include_tag 'jquery-1.7.2', 'application', 'highcharts' %>
+    <%= javascript_include_tag 'jquery-1.7.2', 'application', 'highcharts','data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
     <%= yield(:head) %>
 </head>
 

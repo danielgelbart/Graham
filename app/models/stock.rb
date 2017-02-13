@@ -353,6 +353,17 @@ class Stock < ActiveRecord::Base
     0.0
   end
 
+  def max_eps_years
+    annual_eps_newest_first.size
+  end
+
+  def max_year_eps
+    years = max_eps_years
+    return  price / historic_eps(years) if !price.nil?
+    0.0
+  end
+
+
   def return_on_equity(income,equity)
     ( income.to_i / equity.to_f ) * 100
   end
