@@ -96,10 +96,12 @@ Consider adding 'report class name' field for classes?
 Selenium webcrawler seems to not work.
 FIX getting of dividends and splits
 
-5. Add sortable html tables
+5. Add sortable html tables -V
 
-Bootstrap seems to help. Best totu I found:
+Bootstrap adds only icons. totu I found:
 https://richonrails.com/articles/sortable-table-columns
+Makes a total call. Wuold be nicer with ajax. Also, make sure only
+resorting. NOT going back to DB
 
 6. Add company type
 

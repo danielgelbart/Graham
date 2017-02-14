@@ -23,6 +23,13 @@ public:
         _tables.push_back("stocks");
     }
 
+ 
+    T_Stock(const I_SubSector& parentId)
+    {
+        _tables.push_back("stocks");
+        
+        _constraint._cond = "(stocks.sub_sector_id = " + parentId.to_s() + ")";
+    } 
     
     struct E_id{
         E_id() 
@@ -245,6 +252,32 @@ public:
     static E_fy_same_as_ed _fy_same_as_ed(){ 
         return E_fy_same_as_ed();
     }
+    struct E_sub_sector_id{
+        E_sub_sector_id() 
+        {  
+            _field = "stocks.sub_sector_id";
+        }
+        std::string _field;
+        typedef T_Stock::Condition ConditionType;
+        typedef F_Fixnum::Base ComparerType;
+    };
+
+    static E_sub_sector_id _sub_sector_id(){ 
+        return E_sub_sector_id();
+    }
+    struct E_ipo_year{
+        E_ipo_year() 
+        {  
+            _field = "stocks.ipo_year";
+        }
+        std::string _field;
+        typedef T_Stock::Condition ConditionType;
+        typedef F_Fixnum::Base ComparerType;
+    };
+
+    static E_ipo_year _ipo_year(){ 
+        return E_ipo_year();
+    }
     
 
     std::vector<std::string> getFields()
@@ -268,6 +301,8 @@ public:
         ret.push_back("company_type+0");
         ret.push_back("country");
         ret.push_back("fy_same_as_ed");
+        ret.push_back("sub_sector_id");
+        ret.push_back("ipo_year");
         return ret;
     }
 
@@ -316,6 +351,10 @@ public:
                 UTILS::fromString<F_String::Base>(res[i]["country"]);
             ret[i]._f_fy_same_as_ed._base =
                 UTILS::fromString<F_Object::Base>(res[i]["fy_same_as_ed"]);
+            ret[i]._f_sub_sector_id._base =
+                UTILS::fromString<F_Fixnum::Base>(res[i]["sub_sector_id"]);
+            ret[i]._f_ipo_year._base =
+                UTILS::fromString<F_Fixnum::Base>(res[i]["ipo_year"]);
         }
         return ret;
     }
@@ -425,6 +464,12 @@ public:
         
 
         fields.push_back(std::string("fy_same_as_ed"));
+        
+
+        fields.push_back(std::string("sub_sector_id"));
+        
+
+        fields.push_back(std::string("ipo_year"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_Stock& r = *begin;
@@ -461,6 +506,10 @@ public:
             row.push_back(toSQLString(r._country()));
             
             row.push_back(toSQLString(r._fy_same_as_ed()));
+            
+            row.push_back(toSQLString(r._sub_sector_id()));
+            
+            row.push_back(toSQLString(r._ipo_year()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("stocks",
@@ -573,6 +622,18 @@ public:
             if (it->_f_fy_same_as_ed._dirty){
                 fields.push_back(std::string("fy_same_as_ed"));
                 row.push_back(toSQLString(it->_fy_same_as_ed()));
+            }
+            
+
+            if (it->_f_sub_sector_id._dirty){
+                fields.push_back(std::string("sub_sector_id"));
+                row.push_back(toSQLString(it->_sub_sector_id()));
+            }
+            
+
+            if (it->_f_ipo_year._dirty){
+                fields.push_back(std::string("ipo_year"));
+                row.push_back(toSQLString(it->_ipo_year()));
             }
             fields2Rows[fields].push_back(row);
 	}

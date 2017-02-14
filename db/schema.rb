@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170203142307) do
+ActiveRecord::Schema.define(:version => 20170214195019) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -97,6 +97,12 @@ ActiveRecord::Schema.define(:version => 20170203142307) do
     t.integer  "roe"
   end
 
+  create_table "sectors", :force => true do |t|
+    t.string "name"
+  end
+
+  add_index "sectors", ["name"], :name => "index_sectors_on_name"
+
   create_table "share_classes", :force => true do |t|
     t.integer  "stock_id"
     t.string   "ticker",        :limit => 8
@@ -163,7 +169,21 @@ ActiveRecord::Schema.define(:version => 20170203142307) do
     t.enum     "company_type",       :limit => [:COMPANY, :ROYALTY_TRUST, :REIT, :ASSET_MNGMT, :FINANCE, :PARTNERSHIP, :PIPELINE, :FOREIGN, :HOLDING, :INDUSTRY, :TECH, :PHARMA, :RETAIL],                                :default => :COMPANY
     t.string   "country"
     t.boolean  "fy_same_as_ed",                                                                                                                                                                                           :default => true
+    t.integer  "sub_sector_id"
+    t.integer  "ipo_year"
   end
+
+  add_index "stocks", ["sub_sector_id"], :name => "index_stocks_on_sub_sector_id"
+  add_index "stocks", ["ticker"], :name => "index_stocks_on_ticker"
+
+  create_table "sub_sectors", :force => true do |t|
+    t.string   "name"
+    t.integer  "sector_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sub_sectors", ["name"], :name => "index_sub_sectors_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "name"

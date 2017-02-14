@@ -19,6 +19,8 @@
 #  company_type       :enum([:COMPANY, default(:COMPANY)
 #  country            :string(255)
 #  fy_same_as_ed      :boolean(1)      default(TRUE)
+#  sub_sector_id      :integer(4)
+#  ipo_year           :integer(4)
 #
 
 #enum EnumStockCOMPANY_TYPE { :COMPANY, :ROYALTY_TRUST, :REIT, :ASSET_MNGMT, :FINANCE, :PARTNERSHIP, :PIPELINE, :FOREIGN, :HOLDING, :INDUSTRY, :TECH, :PHARMA, :RETAIL ], :default => :COMPANY
@@ -32,6 +34,7 @@ class Stock < ActiveRecord::Base
   has_many :balance_sheets, :dependent => :destroy
   has_many :splits
   has_many :share_classes, foreign_key: "stock_id", class_name: "ShareClass"
+  belongs_to :sub_sector
 
   accepts_nested_attributes_for :balance_sheets, :allow_destroy => true
   accepts_nested_attributes_for :eps, :allow_destroy => true
@@ -544,6 +547,9 @@ class Stock < ActiveRecord::Base
     led
   end
 
+  def sector
+    sub_sector.sector
+  end
 
 # END getting newest Earnings record -----------------------------------------
 

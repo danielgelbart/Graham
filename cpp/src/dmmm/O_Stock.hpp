@@ -24,6 +24,9 @@ class O_Stock{
 public:
 
     O_Stock() {}
+    O_Stock(const I_SubSector& parent_id) 
+        : _f_sub_sector_id(parent_id)
+        {}
 
 O_Stock(const I_Stock& id) 
         : _f_id(id)
@@ -234,6 +237,20 @@ O_Stock(const I_Stock& id)
         _f_fy_same_as_ed._dirty = true; 
         return _f_fy_same_as_ed._base; 
     }
+    const F_Fixnum::Base& _sub_sector_id() const { 
+        return _f_sub_sector_id._base; 
+    }
+    F_Fixnum::Base& _sub_sector_id() { 
+        _f_sub_sector_id._dirty = true; 
+        return _f_sub_sector_id._base; 
+    }
+    const F_Fixnum::Base& _ipo_year() const { 
+        return _f_ipo_year._base; 
+    }
+    F_Fixnum::Base& _ipo_year() { 
+        _f_ipo_year._dirty = true; 
+        return _f_ipo_year._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -288,6 +305,12 @@ O_Stock(const I_Stock& id)
         if (_f_fy_same_as_ed._dirty)
             field2Val["fy_same_as_ed"] = 
                 toSQLString(_f_fy_same_as_ed._base);
+        if (_f_sub_sector_id._dirty)
+            field2Val["sub_sector_id"] = 
+                toSQLString(_f_sub_sector_id._base);
+        if (_f_ipo_year._dirty)
+            field2Val["ipo_year"] = 
+                toSQLString(_f_ipo_year._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("stocks", 
@@ -310,6 +333,8 @@ O_Stock(const I_Stock& id)
             _f_company_type._dirty = false;
             _f_country._dirty = false;
             _f_fy_same_as_ed._dirty = false;
+            _f_sub_sector_id._dirty = false;
+            _f_ipo_year._dirty = false;
             return true;
         }
         else
@@ -369,6 +394,12 @@ O_Stock(const I_Stock& id)
         if (_f_fy_same_as_ed._dirty)
             field2Val["fy_same_as_ed"] = 
                 toSQLString(_f_fy_same_as_ed._base);
+        if (_f_sub_sector_id._dirty)
+            field2Val["sub_sector_id"] = 
+                toSQLString(_f_sub_sector_id._base);
+        if (_f_ipo_year._dirty)
+            field2Val["ipo_year"] = 
+                toSQLString(_f_ipo_year._base);
 
         
         if (DBFace::instance()->
@@ -392,6 +423,8 @@ O_Stock(const I_Stock& id)
             _f_company_type._dirty = false;
             _f_country._dirty = false;
             _f_fy_same_as_ed._dirty = false;
+            _f_sub_sector_id._dirty = false;
+            _f_ipo_year._dirty = false;
             return true;
         }
         else
@@ -416,6 +449,8 @@ private:
     Field<EnumStockCOMPANY_TYPE> _f_company_type;
     F_String _f_country;
     F_Object _f_fy_same_as_ed;
+    F_Fixnum _f_sub_sector_id;
+    F_Fixnum _f_ipo_year;
 
     friend class T_Stock;
 };
