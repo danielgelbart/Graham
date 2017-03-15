@@ -2728,7 +2728,7 @@ Parser::extractCurrentAssets(XmlElement* tree, DMMM::O_BalanceSheet& balance_dat
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
 
     // **** Search for CA using 'defref' html attribute
-    regex defref("us-gaap_AssetsCurrent");
+    regex defref("us-gaap_AssetsCurrent'");
     string stop_search = "us-gaap_Liabilities'";
     if (( foundCA = findDefref(trIt, defref, num_pattern, units,
                                balance_data, writeCurrentAssetsToBalance,
@@ -2904,7 +2904,7 @@ Parser::extractCurrentLiabilities(XmlElement* tree, DMMM::O_BalanceSheet& balanc
     regex num_pattern("\\d+[,\\d]+(.\\d+)?");
     string stop_search = "us-gaap_Liabilities'";
     // **** Search for CL using 'defref' html attribute
-    regex defref("us-gaap_LiabilitiesCurrent");
+    regex defref("us-gaap_LiabilitiesCurrent'");
     if (( foundCL = findDefref(trIt, defref, num_pattern, units,
                                balance_data, writeCurrentLiabilitiesToBalance,
                                stop_search)))

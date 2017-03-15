@@ -115,7 +115,6 @@ class Stock < ActiveRecord::Base
   # current assets > current liabilaties * 2   # For industrial
   # long term debt < current assets
   # debt < 2 * stock equity (at book value) # for public utilities
-
   def financialy_strong?
     bs = latest_balance_sheet
     if bs
@@ -132,7 +131,6 @@ class Stock < ActiveRecord::Base
   # No loses in past 10 years
   def no_earnings_deficit?
     epss = annual_eps_newest_first.first(10)
-
     earning_deficit = epss.select{ |e| e.eps < 0 }
     earning_deficit.empty?
   end
@@ -140,8 +138,7 @@ class Stock < ActiveRecord::Base
   # 4) Continuos dividend record
   # This is pushed as the most important
   # Shold have uninterupted dividends over past 20 years
-
-  # Beware! does not include current year
+  # **Beware! does not include current year
   def continous_dividend_record?(years = 20)
     current_year = YEAR
     dg = dividends.group_by{ |d| d.date.year }
@@ -156,16 +153,23 @@ class Stock < ActiveRecord::Base
   # This needs to be adjusted for stock splits/new offers/float ?
   # If every succeeding 3 year period is better than the previous
   def eps_growth?
-    epss = annual_eps_oldest_first
-
-    eps_avg(epss.first(max(epss.size / 2,3))) * 1.3 <= eps_avg(epss.last(3))
+    epss = annual_eps_newest_first
+    if epss.size < 9
+      epss = annual_eps_oldest_first
+      growth = eps_avg(epss.first(max(epss.size / 2,3))) * 1.3 <= eps_avg(epss.last(3))
+    else
+      growth = eps_avg(epss[0..2]) > eps_avg(epss[3..5]) && eps_avg(epss[3..5]) > eps_avg(epss[6..8])
+      if(epss.size >= 12 )
+        growth = growth && (eps_avg(epss[6..8]) > eps_avg(epss[9..11]))
+      end
+    end
+    growth
   end
 
   # 6) Moderate price (to earnings)
   # Upper price limit should be no more than:
   # 25 times average earnings over past 7 years, and
   # 20 times arerage earnings over past 1 year.
-
   # second criteria from page 182
   def price_limit
     # earning records do not go back far enough to compute price limit

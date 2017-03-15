@@ -3,6 +3,9 @@
 - if !@stock.listed
   .red
     #{@stock.ticker} is no longer listed for trade
+- if ! @stock.sub_sector.nil?
+  %h2
+    = "#{@stock.sector.name} ||: #{@stock.sub_sector.name}"
 %h2
   Ticker:
   =h @stock.ticker
@@ -31,16 +34,16 @@
     %div.col-md-1
       = button_to("Update price", {:price => @stock.update_price }, :method => :put )
 
-
-- if !@ttm.nil?
+- if ! @stock.ttm_is_latest_annual?
   .red
-    Showing TTM data in last column of chart   
-- else
-  .red
-    TTM is latest annual record
+    TTM data in last column   
+  %div.row
+    = "Year end is #{@stock.fiscal_year_end}"
 - if !@notes.empty?
   .blue
     Stock has notes (displayed at bottom)
+
+
 %div.container
   %div.row
     %div.col-md-10

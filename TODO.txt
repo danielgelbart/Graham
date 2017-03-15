@@ -72,7 +72,7 @@ mysql> select ticker,name from stocks where id in (select distinct stock_id from
 
 TODO:
 
-1. Update divs and splits auto getting
+1. FIX divs and splits auto getting
 
 2. Create cron autoupdate:
    General:
@@ -83,9 +83,7 @@ older than 3 months, and write log on run -VVV
    - Run calculations and save results to file ->
                     -> Move calculation into SpEarnings class
 
-                     
-3. (Jan 2016)
-Multiple share classes:
+3. (Jan 2016) Multiple share classes: -V
 Add share classes (AUtomate?) for the following 47 stock id:
 
 - Fixed, but a few ~5 stocks with multiple classe do not automaticly
@@ -103,6 +101,17 @@ https://richonrails.com/articles/sortable-table-columns
 Makes a total call. Wuold be nicer with ajax. Also, make sure only
 resorting. NOT going back to DB
 
-6. Add company type
+6. Add company type -V
 
-7. Track record of earning misses
+7. Add trendline to earnings:
+   to highcharts:
+   https://github.com/virtualstaticvoid/highcharts_trendline
+   How to get slope value:
+
+8. Track record of earning misses
+
+9. Current assets/liabilites scraper (cpp) does not work.
+Example: AAPL (and many others) ca and cl are (incorrectly) 160000000
+for both 2015 and 2016. Clearly a scraping error of the correct either
+line or column in the table. Most likly line, since total values are
+Correct. 
