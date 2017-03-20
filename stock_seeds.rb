@@ -1730,3 +1730,7 @@ Stock.create('name'=>'CHARTER COMMUNICATIONS, INC.','ticker'=>'CHTR','cik'=>1091
 Stock.create('name'=>'Envision Healthcare Holdings, INC.','ticker'=>'EVHC','cik'=>1578318,'fiscal_year_end'=>'12-31')
 Stock.create('name'=>'Fortive Corp','ticker'=>'FTV','cik'=>1659166,'fiscal_year_end'=>'12-31')
 Stock.create('name'=>'IDEXX LABORATORIES INC/DE','ticker'=>'IDXX','cik'=>874716,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'CBOE Holdings, Inc.','ticker'=>'CBOE','cik'=>1374310,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'DISH Network CORP','ticker'=>'DISH','cik'=>1001082,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'INCYTE CORP','ticker'=>'INCY','cik'=>879169,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'SYNOPSYS INC','ticker'=>'SNPS','cik'=>883241,'fiscal_year_end'=>'10-31')

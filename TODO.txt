@@ -110,8 +110,4 @@ resorting. NOT going back to DB
 
 8. Track record of earning misses
 
-9. Current assets/liabilites scraper (cpp) does not work.
-Example: AAPL (and many others) ca and cl are (incorrectly) 160000000
-for both 2015 and 2016. Clearly a scraping error of the correct either
-line or column in the table. Most likly line, since total values are
-Correct. 
+9. addEarningRecordToDB() does not take 'diluted_eps' parameter - Fix

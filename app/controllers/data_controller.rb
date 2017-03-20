@@ -72,6 +72,9 @@ require 'csv'
 
       ep = stock.ttm_earnings_record
 
+      # currently only being used for FTV
+      #ep = stock.latest_eps if ep.nil?
+
       #first filing for HPE is annual for 2015
       ep = stock.annual_eps_newest_first.first if stock.ticker == "HPE"
 

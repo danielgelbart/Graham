@@ -1036,10 +1036,10 @@ EdgarData::postParseEarningsFix( O_Stock& stock, O_Ep& ep)
             if ( (ep._net_income() != "") && ( abs(ep._eps()) > 0.01) )
             {
                 long income = stol(ep._net_income());
-                double shares_f = income / ep._eps() ;
-                int shares_int = (int)(shares_f + 0.5);
-                LOG_INFO << " Got numshares from calculating EPS and Net Income: "<< shares_int;
-                ep._shares() = to_string(shares_int);
+                double shares_f = (income / ep._eps());
+                long shares_long = (long)round(shares_f);
+                LOG_INFO << " Got numshares from calculating EPS and Net Income: "<< shares_long;
+                ep._shares() = to_string(shares_long);
                 ep._shares_diluted() = ep._eps_diluted();
             }
         } else
