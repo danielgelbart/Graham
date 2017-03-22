@@ -5,7 +5,7 @@
     %th Calc date
     %th List file
     %th Size
-    %th Excluded list
+    %th Excluded
     %th Total market cap
     %th Public market cap
     %th Total earnings
@@ -16,15 +16,14 @@
     %th Divisor pe
     %th Notes
     %th
-    %th
-    %th
+
 
   - @sp_earnings.each do |sp_earning|
     %tr
       %td= sp_earning.calc_date
       %td= sp_earning.list_file
       %td= sp_earning.num_included
-      %td= sp_earning.excluded_list
+      %td= sp_earning.excluded_list.size
       %td= sp_earning.total_market_cap
       %td= sp_earning.public_market_cap
       %td= sp_earning.total_earnings
@@ -35,9 +34,8 @@
       %td= sp_earning.divisor_pe
       %td= sp_earning.notes
       %td= link_to 'Show', sp_earning
-      %td= link_to 'Edit', edit_sp_earning_path(sp_earning)
-      %td= link_to 'Destroy', sp_earning, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
 
 %br
 
-= link_to 'New Sp earning', new_sp_earning_path
+

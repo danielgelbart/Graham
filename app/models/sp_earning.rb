@@ -38,7 +38,14 @@ class SpEarning < ActiveRecord::Base
   validates :divisor_pe, presence: true
 
 
+  def excluded
+    # TODO: return a ruby array instead of a string
+    excluded_list
+  end
+
+
   def self.calc_earnings(list, save_to_db = false)
+    # This method is not used in Graham application, so might be outdated
 
     #makret cap and earnings for entire stock list, in Billions
     total_market_cap = 0
@@ -66,9 +73,7 @@ class SpEarning < ActiveRecord::Base
         next
       end
 
-      # Acquired - no longer listed:
-      next if ticker.to_s == "PCP" # Acquired - no longer listed
-      next if ticker.to_s == "BRCM" # Acquired - no longer listed
+
 
       stock = Stock.get_from_ticker(ticker)
 
@@ -161,7 +166,7 @@ class SpEarning < ActiveRecord::Base
 
   def self.get_index_price
     s = Stock.new
-    s.get_price_from_google("INDEXSP%3A.INX")
+    s.get_price("INDEXSP%3A.INX")
   end
 
 end
