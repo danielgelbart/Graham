@@ -26,6 +26,7 @@
 # NOTE: 'nshares' indicates most recent share count (from date 'float_date')
 # Historic values are shares at an annual basses in Ep table
 class ShareClass < ActiveRecord::Base
+
   belongs_to :stock
 
   validates :stock, presence: true
@@ -33,6 +34,8 @@ class ShareClass < ActiveRecord::Base
   validates :sclass, :uniqueness => {:scope => :stock_id}
 
   before_save :check_primary, if: :primary_class_changed?
+
+  include IConnection
 
   def share_of_float
     nshares.to_f / stock.shares_float
@@ -54,7 +57,8 @@ class ShareClass < ActiveRecord::Base
 
   def update_price
     return if !is_public_class?
-    p = stock.get_price_from_google("",ticker)
+    puts "Going to update price for #{ticker}"
+    p = get_price("",ticker)
     update_attributes!(:latest_price => p) if !p.nil?
   end
 

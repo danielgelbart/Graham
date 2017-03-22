@@ -208,18 +208,6 @@ module DataScraper
 
 
 
-  def get_stock_price(nyse="")
-    price = latest_price
-    begin
-      price = get_price_from_google(nyse)
-    rescue
-      begin
-        price = get_price_from_msn
-      rescue
-      end
-    end
-    price                                                                         end
-
   def get_eps
     ttm_eps = get_eps_from_msn
     ttm_eps = get_eps_from_yahoo if ttm_eps.nil?
@@ -269,37 +257,7 @@ module DataScraper
 
   # Price scrapers -----------------------------------------------------------
 
-  def get_price_from_google(nyse="",subticker="")
-
-    sticker = ticker
-    sticker = subticker if subticker != ""
-
-    #google redirecets "HP" to the company Hewlett Packard
-    nyse = "NYSE:" if (ticker == "HP")
-    nyse = "NYSE:" if (ticker == "H")
-    nyse = "NYSE:" if (ticker == "PNR")
-    nyse = "NYSE:" if (subticker == "UBP")
-    nyse = "NYSE:" if (ticker == "D")
-    nyse = "NASDAQ:" if (ticker == "NWSA")
-    nyse = "NASDAQ:" if (ticker == "FOXA")
-    nyse = "NASDAQ:" if (ticker == "AAL")
-    nyse = "NASDAQ:" if (ticker == "CHTR")
-    nyse = "NASDAQ:" if (ticker == "SNPS")
-    #Google currently (Dec 2016) incorectly supplies UAA value for UA
-    # These are two diff share classes. UA is class 'C'. (UAA is class 'A')
-    nyse = "NYSE:" if (ticker == "UA")
-
-    url = "http://www.google.com/finance?q=#{nyse}#{sticker}"
-    doc = open_url_or_nil(url)
-    begin
-      price = doc.css('#price-panel').xpath('./div/span').first.text if doc
-      price = clean_string(price).to_f
-    rescue
-    end
-    price
-  end
-
-  def get_price_from_msn
+  def get_price_from_msn(ticker)
     url = "http://www.msn.com/en-us/money/stockdetails/fi-126.1.#{ticker}"
 
     doc = open_url_or_nil(url)
@@ -1000,8 +958,6 @@ end # method
   def clean_string(string)
     string.gsub(/\302|\240|,/,"").strip
   end
-
-
 
   def get_div_and_yield
      url = "http://finance.yahoo.com/q?s=#{ticker}"

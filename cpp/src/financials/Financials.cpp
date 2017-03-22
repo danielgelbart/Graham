@@ -437,7 +437,8 @@ EdgarData::addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS)
 bool
 EdgarData::addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
                                    string revenue, string income, float eps,
-                                   string shares, bool shares_diluted, const string& source)
+                                   string shares, bool shares_diluted,
+                                   bool eps_diluted, const string& source)
 {
     LOG_INFO << "\nGoing to try to insert earnings record to DB for "
              << stock._ticker() << " for year " << to_string(year) 
@@ -692,6 +693,7 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
                             ((double)incp) / numshares, /* EPS */
                             to_string(numshares),  
                             annual_ep._shares_diluted(),
+                            annual_ep._eps_diluted(),
                             "calculated"/*source*/);
 
     createTtmEps(stock);
@@ -720,12 +722,7 @@ EdgarData::createTtmEps(O_Stock& stock)
     // get all quarter reports, and SORT - NEWEST FIRST
     vector<O_Ep> qrts = stock._eps( (t._quarter() > 0) &&
                                     (t._quarter() < 5));
-    if ( qrts.size() < 4 )
-    {
-        LOG_ERROR << " Stock does not have enough quarters."
-             << " Cannot procede to calculate ttm eps";
-        return;
-    }
+
     // if latest quarter is annual, create ttm_eps record, but
     // simply copy all data from annual record
     sort( qrts.begin(), qrts.end(), ep_comp );
@@ -742,7 +739,15 @@ EdgarData::createTtmEps(O_Stock& stock)
         addEarningsRecordToDB( stock, qrts[0]._year(), 5,/*quarter*/
                                 latest_annual_ep._revenue(), latest_annual_ep._net_income(),
                                 latest_annual_ep._eps(), latest_annual_ep._shares(),
-                                latest_annual_ep._shares_diluted(), "calculated");
+                                latest_annual_ep._shares_diluted(),
+                                latest_annual_ep._eps_diluted(), "calculated");
+        return;
+    }
+
+    if ( qrts.size() < 4 )
+    {
+        LOG_ERROR << " Stock does not have enough quarters."
+             << " Cannot procede to calculate ttm eps";
         return;
     }
 
@@ -784,6 +789,7 @@ EdgarData::createTtmEps(O_Stock& stock)
                             ((double)incp) / numshares, /*EPS*/
                             to_string(numshares),
                             qrts.front()._shares_diluted(),
+                            qrts.front()._eps_diluted(),
                             "calculated");
 }
 

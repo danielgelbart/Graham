@@ -26,17 +26,9 @@ require 'csv'
       ticker = "BRK.B" if ticker == "BRK-B"
       ticker = "BF.B" if ticker == "BF-B"
 
-      #next if ticker.to_s == "GGP" # SCE site is missing the filings!!!
-=begin      if ticker.to_s == "CSRA" # NO annual data yet
-        output_file.puts"Not enough data yet to include #{ticker}"
-        @failed_tickers << ticker
-        next
-     end
-=end
-
       # Acquired - no longer listed:
-      next if ticker.to_s == "PCP" # Acquired - no longer listed
-      next if ticker.to_s == "BRCM" # Acquired - no longer listed
+#      next if ticker.to_s == "PCP" # Acquired - no longer listed
+#      next if ticker.to_s == "BRCM" # Acquired - no longer listed
 
       stock = Stock.get_from_ticker(ticker)
 
@@ -51,14 +43,19 @@ require 'csv'
         next
       end
 
+      sc = nil
       if stock.has_multiple_public_classes?
         sc = Stock.get_stock_class_by_ticker(ticker)
       end
 
       if params[:price] == "Y"
-        stock.update_price
+        sc.nil? ? stock.update_price : sc.update_price
       else
-        stock.update_price if(stock.updated_at < 1.days.ago)
+        if sc.nil?
+          stock.update_price if stock.updated_at < 1.day.ago
+        else
+          sc.update_price if sc.updated_at < 1.day.ago
+        end
       end
 
       # Get more recent data if needed!
@@ -68,12 +65,9 @@ require 'csv'
         end
       end
 
-      price = sc.nil? ? stock.price : stock.get_price_from_google("",sc.ticker)
+      price = sc.nil? ? stock.price : sc.price
 
       ep = stock.ttm_earnings_record
-
-      # currently only being used for FTV
-      #ep = stock.latest_eps if ep.nil?
 
       #first filing for HPE is annual for 2015
       ep = stock.annual_eps_newest_first.first if stock.ticker == "HPE"

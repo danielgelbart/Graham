@@ -45,6 +45,7 @@ class Stock < ActiveRecord::Base
   validates_uniqueness_of :cik
 
   include DataScraper
+  include IConnection
 
   # for handling enums ------------------------------------------
   def self.enum_columns
@@ -247,8 +248,8 @@ class Stock < ActiveRecord::Base
   end
 
   def update_price
-    p = get_stock_price
-    p = get_stock_price("NYSE:") if !p.nil? && p < 0.1
+    p = get_price("",ticker)
+    p = get_price("NYSE:",ticker) if !p.nil? && p < 0.1
 
     if !p.nil?
       update_attributes!(:latest_price => p)

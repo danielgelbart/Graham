@@ -62,7 +62,8 @@ private:
 
     bool addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
                             string revenue, string income, float eps,
-                            string shares, bool shares_diluted, const string& source);
+                            string shares, bool shares_diluted,
+                            bool eps_diluted, const string& source);
     bool addEarningsRecordToDB( O_Stock& stock, O_Ep& incomeS);
     bool insertEp( O_Ep& ep );
     bool addBalanceRecordToDB( O_Stock& stock, O_BalanceSheet& bs);
