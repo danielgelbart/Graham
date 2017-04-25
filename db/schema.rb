@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170214195019) do
+ActiveRecord::Schema.define(:version => 20170425194134) do
 
   create_table "balance_sheets", :force => true do |t|
     t.integer  "stock_id"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20170214195019) do
     t.string   "notes"
     t.datetime "created_at",                                       :null => false
     t.datetime "updated_at",                                       :null => false
+    t.string   "index_market_cap"
   end
 
   create_table "splits", :force => true do |t|

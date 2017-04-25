@@ -18,6 +18,7 @@
 #  notes             :string(255)
 #  created_at        :datetime        not null
 #  updated_at        :datetime        not null
+#  index_market_cap  :string(255)
 #
 
 class SpEarning < ActiveRecord::Base
@@ -53,7 +54,6 @@ class SpEarning < ActiveRecord::Base
     total_earnings = 0
 
     comp_data = []
-
 
     failed_tickers = []
 

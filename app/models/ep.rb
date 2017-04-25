@@ -28,7 +28,9 @@ class Ep < ActiveRecord::Base
 
   def date_of
   # report_date unless report_date.nil?
-    end_date = (year.to_s + "-" + stock.fiscal_year_end).to_date
+    fye = stock.fiscal_year_end
+    fye = "02-28" if fye == "02-29"
+    end_date = (year.to_s + "-" + fye).to_date
 
     end_date += 1.years unless stock.fy_same_as_ed
 

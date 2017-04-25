@@ -11,22 +11,46 @@
     %span.bold.col-md-4
       = @comp_data.size
   %li.list-group-item.row
-    %div.col-md-8
-      Total / Public Market Cap
-    %span.bold.col-md-2
-      = is_to_s @total_market_cap
-    %span.bold.col-md-2
-      = is_to_s @pub_market_cap
+    %span.bold
+      Market Cap
+    %div.row
+      %div.col-md-8
+        Total 
+      %span.bold.col-md-4
+        = is_to_s @total_market_cap
+    %div.row
+      %div.col-md-8
+        Public
+      %span.bold.col-md-4
+        = is_to_s @pub_market_cap
+    %div.row
+      %div.col-md-8
+        Index
+      %span.bold.col-md-4
+        = is_to_s @index_market_cap
   %li.list-group-item.row
     %div.col-md-8
       Total Market Earnings
     %span.bold.col-md-4
       = is_to_s @total_earnings
   %li.list-group-item.row
-    %div.col-md-8
-      Market PE
-    %span.bold.col-md-4
-      = short_float @total_market_cap / @total_earnings.to_f
+    %span.bold
+      PE
+    %div.row
+      %div.col-md-8
+        Market 
+      %span.bold.col-md-4
+        = short_float @total_market_cap / @total_earnings.to_f
+    %div.row
+      %div.col-md-8
+        Public 
+      %span.bold.col-md-4
+        = short_float @pub_market_cap / @total_earnings.to_f
+    %div.row
+      %div.col-md-8
+        Index 
+      %span.bold.col-md-4
+        = short_float @index_market_cap / @total_earnings.to_f
   %li.list-group-item.row
     %div.col-md-3
       = "Using inferred divisor #{@inferred_divisor.to_i}"
@@ -35,7 +59,7 @@
     %span.bold.col-md-3
       = "Earnings #{ short_float @divisor_earnings}"
     %span.bold.col-md-3
-      = "PE #{ short_float @index_price / @divisor_earnings.to_f }"
+      = "index PE #{ short_float @index_price / @divisor_earnings.to_f }"
 
 
 - count = 0

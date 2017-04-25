@@ -28,7 +28,8 @@ To update a gem (as I needed to do for 'rake' to version 9, to get 'annotate mod
 $ bundle update rake
 
 ----------------------------------------
-annotate
+annotate:
+$ annotate -p before --exclude tests,fixtures,factories,serializers
 
 ----------------------------------------
 mysqlsump for DB
@@ -42,4 +43,10 @@ open mysql
 $ mysql 
 
 ----------------------------------------
-backup: 'regular'+ssh1
+backup: 
+        'regular'+ssh1
+----------------------------------------
+restart local host rails/pasenger:
+        touch tmp/restart.txt file
+
+

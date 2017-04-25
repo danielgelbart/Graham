@@ -1,6 +1,18 @@
 class DataController < ApplicationController
 
 require 'csv'
+
+  def itos(int)
+    str = int.to_s
+    size = str.size - 3
+    while (size>0)
+      str.insert(size,',')
+      size -= 3
+    end
+    str
+  end
+
+
   def sppe
     #read file
 
@@ -9,6 +21,7 @@ require 'csv'
     #makret cap and earnings for entire stock list, in Billions
     @total_market_cap = 0
     @pub_market_cap = 0
+    @index_market_cap = 0
     @total_earnings = 0
     @index = 0 #get from google?
     @comp_data = []
@@ -96,11 +109,17 @@ require 'csv'
                        net_income,
                        num_shares)
 
-      @pub_market_cap += sc.nil? ? stock.public_market_cap : sc.market_cap
+      @index_market_cap += sc.nil? ? stock.public_market_cap : sc.market_cap
 
       if !@multiticker_list.include?(stock.ticker)
-        @total_market_cap += stock.market_cap.to_i
+        @pub_market_cap += stock.public_market_cap
+        @total_market_cap += stock.market_cap
         @total_earnings += ep.net_income.to_i
+
+        output_file.puts "Total cap: #{itos(@total_market_cap.to_i)}"
+        output_file.puts "PuMar cap: #{itos(@pub_market_cap.to_i)} After adding #{stock.ticker} to total"
+        output_file.puts "           #{itos (@total_market_cap - @pub_market_cap).to_i}"
+        output_file.puts "==================================================="
       end
 
       @multiticker_list << stock.ticker if !sc.nil?
@@ -111,7 +130,7 @@ require 'csv'
 
     #create DB entry to save calculations
     @index_price = SpEarning.get_index_price
-    @inferred_divisor = (@pub_market_cap.to_f / @index_price)
+    @inferred_divisor = (@index_market_cap.to_f / @index_price)
     @divisor_earnings = (@total_earnings.to_f / @inferred_divisor)
     @spe = SpEarning.new( calc_date: Date.today,
                           list_file: get_latest_list,
@@ -119,8 +138,9 @@ require 'csv'
                           excluded_list: ar_to_s(@failed_tickers),
                           total_market_cap: @total_market_cap.to_i.to_s,
                           public_market_cap: @pub_market_cap.to_i.to_s,
+                          index_market_cap: @index_market_cap.to_i.to_s,
                           total_earnings: @total_earnings.to_i.to_s,
-                          market_pe: (@total_market_cap / @total_earnings.to_f),
+                          market_pe: (@total_market_cap / @total_earnings).to_f,
                           index_price: @index_price,
                           inferred_divisor: @inferred_divisor,
                           divisor_earnings: @divisor_earnings,

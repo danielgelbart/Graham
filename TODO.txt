@@ -83,31 +83,18 @@ older than 3 months, and write log on run -VVV
    - Run calculations and save results to file ->
                     -> Move calculation into SpEarnings class
 
-3. (Jan 2016) Multiple share classes: -V
-Add share classes (AUtomate?) for the following 47 stock id:
-
-- Fixed, but a few ~5 stocks with multiple classe do not automaticly
-update float of classes due to class name descrepencies in report. 
-Consider adding 'report class name' field for classes?
-
-4. (Jan 2016)
+3. (Jan 2016)
 Selenium webcrawler seems to not work.
 FIX getting of dividends and splits
 
-5. Add sortable html tables -V
 
-Bootstrap adds only icons. totu I found:
-https://richonrails.com/articles/sortable-table-columns
-Makes a total call. Wuold be nicer with ajax. Also, make sure only
-resorting. NOT going back to DB
-
-6. Add company type -V
-
-7. Add trendline to earnings:
+4. Add trendline to earnings:
    to highcharts:
    https://github.com/virtualstaticvoid/highcharts_trendline
    How to get slope value:
 
-8. Track record of earning misses
+5. Track record of earning misses
 
-9. addEarningRecordToDB() does not take 'diluted_eps' parameter - Fix
+6. -Add html talbe sort to data/sppe results table.
+   -Make nicer display for sp/index
+   

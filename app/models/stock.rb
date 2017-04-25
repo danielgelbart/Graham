@@ -457,11 +457,6 @@ class Stock < ActiveRecord::Base
   end
 
   def market_cap
-    # if we have DILUTED float data, use it
-    if !latest_earnings_data.nil? && latest_earnings_data.shares_diluted
-      return price * latest_earnings_data.shares.to_i
-    end
-
     # E.g. GEF, GOOG, BRK
     if has_multiple_share_classes?
       mar_cap = 0
@@ -469,8 +464,13 @@ class Stock < ActiveRecord::Base
         mar_cap += sc.market_cap
       end
       return mar_cap
+    else
+      # if we have DILUTED float data, use it
+      if !latest_earnings_data.nil? && latest_earnings_data.shares_diluted
+        return price * latest_earnings_data.shares.to_i
+      end
+      shares_float * price
     end
-    shares_float * price
   end
 
   def public_market_cap
