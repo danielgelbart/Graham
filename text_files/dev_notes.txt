@@ -52,9 +52,6 @@ restart local host rails/pasenger:
 
 Adding sorttable javascript
 -----------------------------------------------
-Followed instruction from here:
-http://stackoverflow.com/questions/31483823/sort-table-data-by-columns-in-rails-with-bootstrap
-
 Added javascript file:
-app/assest/javascripts/sorttable.js
+app/assest/javascripts/sorttable.js - But did nothing with it
 

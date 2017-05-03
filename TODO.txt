@@ -98,3 +98,7 @@ FIX getting of dividends and splits
 6. -Add html talbe sort to data/sppe results table.
    -Make nicer display for sp/index
    
+7. Add data of report filed, so that can backtrack ttm from the past
+8. Refactor sp500 list, as a query on Stock, 
+   Move sppe method to stocks controller
+   Use Stock objects instead of SpData in sppe results

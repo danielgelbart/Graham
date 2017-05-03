@@ -154,6 +154,7 @@ require 'csv'
       @comp_data.sort_by! { |s| -s.ttm_earnings }
     when "R"
     when "PE"
+      @comp_data.sort_by! { |s| s.market_pe }
     else
       @comp_data.sort_by! { |s| -s.market_cap }
     end
