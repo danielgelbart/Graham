@@ -532,6 +532,7 @@ class Stock < ActiveRecord::Base
     eps.select{ |e| (e.year == year) && (e.quarter == 0) }.first
   end
 
+  # returns all Quarters, NEWESt First
   def quarters
     qrts = eps.select{ |e| (e.quarter > 0) && (e.quarter < 5) }
     qrts.sort_by{ |q| [-q.year, -q.quarter] }
@@ -610,6 +611,14 @@ class Stock < ActiveRecord::Base
     return ttm_record.eps if !ttm_record.nil?
     latest_eps.eps
   end
+
+  # Retruns 4 quarters most recent BEFORE
+
+  def ttm_to_date(date)
+
+
+  end
+
 
   def pe
     price / ttm_eps.to_f

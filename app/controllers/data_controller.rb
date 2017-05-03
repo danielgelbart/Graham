@@ -149,7 +149,14 @@ require 'csv'
 
     @spe.save if (params[:save] == "Y")
 
-    @comp_data.sort_by! { |s| -s.market_cap }
+    case params[:sort]
+    when "E"
+      @comp_data.sort_by! { |s| -s.ttm_earnings }
+    when "R"
+    when "PE"
+    else
+      @comp_data.sort_by! { |s| -s.market_cap }
+    end
     @time = Time.now.ctime
   end
 

@@ -50,3 +50,11 @@ restart local host rails/pasenger:
         touch tmp/restart.txt file
 
 
+Adding sorttable javascript
+-----------------------------------------------
+Followed instruction from here:
+http://stackoverflow.com/questions/31483823/sort-table-data-by-columns-in-rails-with-bootstrap
+
+Added javascript file:
+app/assest/javascripts/sorttable.js
+

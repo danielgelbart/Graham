@@ -1,0 +1,505 @@
+MMM , 3M Company , 0000066740
+ABT , Abbott Laboratories , 0000001800
+ABBV , AbbVie Inc. , 0001551152
+ACN , Accenture plc , 0001467373
+ATVI , Activision Blizzard , 0000718877
+AYI , Acuity Brands Inc , 0001144215
+ADBE , Adobe Systems Inc , 0000796343
+AMD , Advanced Micro Devices Inc , 0000002488
+AAP , Advance Auto Parts , 0001158449
+AES , AES Corp , 0000874761
+AET , Aetna Inc , 0001122304
+AMG , Affiliated Managers Group Inc , 0001004434
+AFL , AFLAC Inc , 0000004977
+A , Agilent Technologies Inc , 0001090872
+APD , Air Products & Chemicals Inc , 0000002969
+AKAM , Akamai Technologies Inc , 0001086222
+ALK , Alaska Air Group Inc , 0000766421
+ALB , Albemarle Corp , 0000915913
+ARE , Alexandria Real Estate Equities Inc , 0001035443
+AGN , Allergan, Plc , 0000884629
+LNT , Alliant Energy Corp , 0000352541
+ALXN , Alexion Pharmaceuticals , 0000899866
+ALLE , Allegion , 0001579241
+ADS , Alliance Data Systems , 0001101215
+ALL , Allstate Corp , 0000899051
+GOOGL , Alphabet Inc Class A , 0001652044
+GOOG , Alphabet Inc Class C , 0001652044
+MO , Altria Group Inc , 0000764180
+AMZN , Amazon.com Inc , 0001018724
+AEE , Ameren Corp , 0001002910
+AAL , American Airlines Group , 0000006201
+AEP , American Electric Power , 0000004904
+AXP , American Express Co , 0000004962
+AIG , American International Group, Inc. , 0000005272
+AMT , American Tower Corp A , 0001053507
+AWK , American Water Works Company Inc , 0001410636
+AMP , Ameriprise Financial , 0000820027
+ABC , AmerisourceBergen Corp , 0001140859
+AME , AMETEK Inc , 0001037868
+AMGN , Amgen Inc , 0000318154
+APH , Amphenol Corp , 0000820313
+APC , Anadarko Petroleum Corp , 0000773910
+ADI , Analog Devices, Inc. , 0000006281
+ANTM , Anthem Inc. , 0001156039
+AON , Aon plc , 0000315293
+APA , Apache Corporation , 0000006769
+AIV , Apartment Investment & Management , 0000922864
+AAPL , Apple Inc. , 0000320193
+AMAT , Applied Materials Inc , 0000006951
+ADM , Archer-Daniels-Midland Co , 0000007084
+ARNC , Arconic Inc , 0000004281
+AJG , Arthur J. Gallagher & Co. , 0000354190
+AIZ , Assurant Inc , 0001267238
+T , AT&T Inc , 0000732717
+ADSK , Autodesk Inc , 0000769397
+ADP , Automatic Data Processing , 0000008670
+AN , AutoNation Inc , 0000350698
+AZO , AutoZone Inc , 0000866787
+AVB , AvalonBay Communities, Inc. , 0000915912
+AVY , Avery Dennison Corp , 0000008818
+BHI , Baker Hughes Inc , 0000808362
+BLL , Ball Corp , 0000009389
+BAC , Bank of America Corp , 0000070858
+BK , The Bank of New York Mellon Corp. , 0001390777
+BCR , Bard (C.R.) Inc. , 0000009892
+BAX , Baxter International Inc. , 0000010456
+BBT , BB&T Corporation , 0000092230
+BDX , Becton Dickinson , 0000010795
+BBBY , Bed Bath & Beyond , 0000886158
+BRK.B , Berkshire Hathaway , 0001067983
+BBY , Best Buy Co. Inc. , 0000764478
+BIIB , Biogen Inc. , 0000875045
+BLK , BlackRock , 0001364742
+HRB , Block H&R , 0000012659
+BA , Boeing Company , 0000012927
+BWA , BorgWarner , 0000908255
+BXP , Boston Properties , 0001037540
+BSX , Boston Scientific , 0000885725
+BMY , Bristol-Myers Squibb , 0000014272
+AVGO , Broadcom , 0001441634
+BF.B , Brown-Forman Corp. , 0000014693
+CHRW , C. H. Robinson Worldwide , 0001043277
+CA , CA, Inc. , 0000356028
+COG , Cabot Oil & Gas , 0000858470
+CPB , Campbell Soup , 0000016732
+COF , Capital One Financial , 0000927628
+CAH , Cardinal Health Inc. , 0000721371
+CBOE , CBOE Holdings , 0001374310
+KMX , Carmax Inc , 0001170010
+CCL , Carnival Corp. , 0000815097
+CAT , Caterpillar Inc. , 0000018230
+CBG , CBRE Group , 0001138118
+CBS , CBS Corp. , 0000813828
+CELG , Celgene Corp. , 0000816284
+CNC , Centene Corporation , 0001071739
+CNP , CenterPoint Energy , 0001130310
+CTL , CenturyLink Inc , 0000018926
+CERN , Cerner , 0000804753
+CF , CF Industries Holdings Inc , 0001324404
+SCHW , Charles Schwab Corporation , 0000316709
+CHTR , Charter Communications , 0001091667
+CHK , Chesapeake Energy , 0000895126
+CVX , Chevron Corp. , 0000093410
+CMG , Chipotle Mexican Grill , 0001058090
+CB , Chubb Limited , 0000896159
+CHD , Church & Dwight , 0000313927
+CI , CIGNA Corp. , 0000701221
+XEC , Cimarex Energy , 0001168054
+CINF , Cincinnati Financial , 0000020286
+CTAS , Cintas Corporation , 0000723254
+CSCO , Cisco Systems , 0000858877
+C , Citigroup Inc. , 0000831001
+CFG , Citizens Financial Group , 0000759944
+CTXS , Citrix Systems , 0000877890
+CLX , The Clorox Company , 0000021076
+CME , CME Group Inc. , 0001156375
+CMS , CMS Energy , 0000811156
+COH , Coach Inc. , 0001116132
+KO , Coca-Cola Company (The) , 0000021344
+CTSH , Cognizant Technology Solutions , 0001058290
+CL , Colgate-Palmolive , 0000021665
+CMCSA , Comcast Corp. , 0001166691
+CMA , Comerica Inc. , 0000028412
+CAG , Conagra Brands , 0000023217
+CXO , Concho Resources , 0001358071
+COP , ConocoPhillips , 0001163165
+ED , Consolidated Edison , 0001047862
+STZ , Constellation Brands , 0000016918
+COO , The Cooper Companies , 0000711404
+GLW , Corning Inc. , 0000024741
+COST , Costco Wholesale Corp. , 0000909832
+COTY , Coty, Inc , 0001024305
+CCI , Crown Castle International Corp. , 0001051470
+CSRA , CSRA Inc. , 0001646383
+CSX , CSX Corp. , 0000277948
+CMI , Cummins Inc. , 0000026172
+CVS , CVS Health , 0000064803
+DHI , D. R. Horton , 0000882184
+DHR , Danaher Corp. , 0000313616
+DRI , Darden Restaurants , 0000940944
+DVA , DaVita Inc. , 0000927066
+DE , Deere & Co. , 0000315189
+DLPH , Delphi Automotive PLC , 0001521332
+DAL , Delta Air Lines Inc. , 0000027904
+XRAY , Dentsply Sirona , 0000818479
+DVN , Devon Energy Corp. , 0001090012
+DLR , Digital Realty Trust Inc , 0001297996
+DFS , Discover Financial Services , 0001393612
+DISCA , Discovery Communications-A , 0001437107
+DISCK , Discovery Communications-C , 0001437107
+DISH , Dish Network , 0001001082
+DG , Dollar General , 0000029534
+DLTR , Dollar Tree , 0000935703
+D , Dominion Resources , 0000715957
+DOV , Dover Corp. , 0000029905
+DOW , Dow Chemical , 0000029915
+DPS , Dr Pepper Snapple Group , 0001418135
+DTE , DTE Energy Co. , 0000936340
+DD , Du Pont (E.I.) , 0000030554
+DUK , Duke Energy , 0001326160
+DXC , DXC Technology , 0001688568
+ETFC , E*Trade , 0001015780
+EMN , Eastman Chemical , 0000915389
+ETN , Eaton Corporation , 0001551182
+EBAY , eBay Inc. , 0001065088
+ECL , Ecolab Inc. , 0000031462
+EIX , Edison Int'l , 0000827052
+EW , Edwards Lifesciences , 0001099800
+EA , Electronic Arts , 0000712515
+EMR , Emerson Electric Company , 0000032604
+ETR , Entergy Corp. , 0000065984
+EVHC , Envision Healthcare , 0000895930
+EOG , EOG Resources , 0000821189
+EQT , EQT Corporation , 0000033213
+EFX , Equifax Inc. , 0000033185
+EQIX , Equinix , 0001101239
+EQR , Equity Residential , 0000906107
+ESS , Essex Property Trust, Inc. , 0000920522
+EL , Estee Lauder Cos. , 0001001250
+ES , Eversource Energy , 0000072741
+EXC , Exelon Corp. , 0001109357
+EXPE , Expedia Inc. , 0001324424
+EXPD , Expeditors International , 0000746515
+ESRX , Express Scripts , 0001532063
+EXR , Extra Space Storage , 0001289490
+XOM , Exxon Mobil Corp. , 0000034088
+FFIV , F5 Networks , 0001048695
+FB , Facebook, Inc. , 0001326801
+FAST , Fastenal Co , 0000815556
+FRT , Federal Realty Investment Trust , 0000034903
+FDX , FedEx Corporation , 0001048911
+FIS , Fidelity National Information Services , 0001136893
+FITB , Fifth Third Bancorp , 0000035527
+FE , FirstEnergy Corp , 0001031296
+FISV , Fiserv Inc , 0000798354
+FLIR , FLIR Systems , 0000354908
+FLS , Flowserve Corporation , 0000030625
+FLR , Fluor Corp. , 0001124198
+FMC , FMC Corporation , 0000037785
+FL , Foot Locker Inc , 0000850209
+F , Ford Motor , 0000037996
+FTV , Fortive Corp , 0001659166
+FBHS , Fortune Brands Home & Security , 0001519751
+BEN , Franklin Resources , 0000038777
+FCX , Freeport-McMoRan Inc. , 0000831259
+GPS , Gap Inc. , 0000039911
+GRMN , Garmin Ltd. , 0001121788
+IT , Gartner Inc , 0000749251
+GD , General Dynamics , 0000040533
+GE , General Electric , 0000040545
+GGP , General Growth Properties Inc. , 0000895648
+GIS , General Mills , 0000040704
+GM , General Motors , 0001467858
+GPC , Genuine Parts , 0000040987
+GILD , Gilead Sciences , 0000882095
+GPN , Global Payments Inc , 0001123360
+GS , Goldman Sachs Group , 0000886982
+GT , Goodyear Tire & Rubber , 0000042582
+GWW , Grainger (W.W.) Inc. , 0000277135
+HAL , Halliburton Co. , 0000045012
+HBI , Hanesbrands Inc , 0001359841
+HOG , Harley-Davidson , 0000793952
+HRS , Harris Corporation , 0000202058
+HIG , Hartford Financial Svc.Gp. , 0000874766
+HAS , Hasbro Inc. , 0000046080
+HCA , HCA Holdings , 0000860730
+HCP , HCP Inc. , 0000765880
+HP , Helmerich & Payne , 0000046765
+HSIC , Henry Schein , 0001000228
+HSY , The Hershey Company , 0000047111
+HES , Hess Corporation , 0000004447
+HPE , Hewlett Packard Enterprise , 0001645590
+HOLX , Hologic , 0000859737
+HD , Home Depot , 0000354950
+HON , Honeywell Int'l Inc. , 0000773840
+HRL , Hormel Foods Corp. , 0000048465
+HST , Host Hotels & Resorts , 0001070750
+HPQ , HP Inc. , 0000047217
+HUM , Humana Inc. , 0000049071
+HBAN , Huntington Bancshares , 0000049196
+IDXX , IDEXX Laboratories , 0000874716
+ITW , Illinois Tool Works , 0000049826
+ILMN , Illumina Inc , 0001110803
+IR , Ingersoll-Rand PLC , 0001466258
+INTC , Intel Corp. , 0000050863
+ICE , Intercontinental Exchange , 0001571949
+IBM , International Business Machines , 0000051143
+INCY , Incyte , 0000879169
+IP , International Paper , 0000051434
+IPG , Interpublic Group , 0000051644
+IFF , Intl Flavors & Fragrances , 0000051253
+INTU , Intuit Inc. , 0000896878
+ISRG , Intuitive Surgical Inc. , 0001035267
+IVZ , Invesco Ltd. , 0000914208
+IRM , Iron Mountain Incorporated , 0001020569
+JEC , Jacobs Engineering Group , 0000052988
+JBHT , J. B. Hunt Transport Services , 0000728535
+SJM , JM Smucker , 0000091419
+JNJ , Johnson & Johnson , 0000200406
+JCI , Johnson Controls International , 0000833444
+JPM , JPMorgan Chase & Co. , 0000019617
+JNPR , Juniper Networks , 0001043604
+KSU , Kansas City Southern , 0000054480
+K , Kellogg Co. , 0000055067
+KEY , KeyCorp , 0000091576
+KMB , Kimberly-Clark , 0000055785
+KIM , Kimco Realty , 0000879101
+KMI , Kinder Morgan , 0001506307
+KLAC , KLA-Tencor Corp. , 0000319201
+KSS , Kohl's Corp. , 0000885639
+KHC , Kraft Heinz Co , 0001637459
+KR , Kroger Co. , 0000056873
+LB , L Brands Inc. , 0000701985
+LLL , L-3 Communications Holdings , 0001056239
+LH , Laboratory Corp. of America Holding , 0000920148
+LRCX , Lam Research , 0000707549
+LEG , Leggett & Platt , 0000058492
+LEN , Lennar Corp. , 0000920760
+LVLT , Level 3 Communications , 0000794323
+LUK , Leucadia National Corp. , 0000096223
+LLY , Lilly (Eli) & Co. , 0000059478
+LNC , Lincoln National , 0000059558
+LKQ , LKQ Corporation , 0001065696
+LMT , Lockheed Martin Corp. , 0000936468
+L , Loews Corp. , 0000060086
+LOW , Lowe's Cos. , 0000060667
+LYB , LyondellBasell , 0001489393
+MTB , M&T Bank Corp. , 0000036270
+MAC , Macerich , 0000912242
+M , Macy's Inc. , 0000794367
+MNK , Mallinckrodt Plc , 0001567892
+MRO , Marathon Oil Corp. , 0000101778
+MPC , Marathon Petroleum , 0001510295
+MAR , Marriott Int'l. , 0001048286
+MMC , Marsh & McLennan , 0000062709
+MLM , Martin Marietta Materials , 0000916076
+MAS , Masco Corp. , 0000062996
+MA , Mastercard Inc. , 0001141391
+MAT , Mattel Inc. , 0000063276
+MKC , McCormick & Co. , 0000063754
+MCD , McDonald's Corp. , 0000063908
+MCK , McKesson Corp. , 0000927653
+MJN , Mead Johnson , 0001452575
+MDT , Medtronic plc , 0000064670
+MRK , Merck & Co. , 0000310158
+MET , MetLife Inc. , 0001099219
+MTD , Mettler Toledo , 0001037646
+KORS , Michael Kors Holdings , 0001530721
+MCHP , Microchip Technology , 0000827054
+MU , Micron Technology , 0000723125
+MSFT , Microsoft Corp. , 0000789019
+MAA , Mid-America Apartments , 0000912595
+MHK , Mohawk Industries , 0000851968
+TAP , Molson Coors Brewing Company , 0000024545
+MDLZ , Mondelez International , 0001103982
+MON , Monsanto Co. , 0001110783
+MNST , Monster Beverage , 0000865752
+MCO , Moody's Corp , 0001059556
+MS , Morgan Stanley , 0000895421
+MOS , The Mosaic Company , 0001285785
+MSI , Motorola Solutions Inc. , 0000068505
+MUR , Murphy Oil , 0000717423
+MYL , Mylan N.V. , 0000069499
+NDAQ , Nasdaq, Inc. , 0001120193
+NOV , National Oilwell Varco Inc. , 0001021860
+NAVI , Navient , 0001593538
+NTAP , NetApp , 0001002047
+NFLX , Netflix Inc. , 0001065280
+NWL , Newell Brands , 0000814453
+NFX , Newfield Exploration Co , 0000912750
+NEM , Newmont Mining Corporation , 0001164727
+NWSA , News Corp. Class A , 0001564708
+NWS , News Corp. Class B , 0001564708
+NEE , NextEra Energy , 0000753308
+NLSN , Nielsen Holdings , 0001492633
+NKE , Nike , 0000320187
+NI , NiSource Inc. , 0001111711
+NBL , Noble Energy Inc , 0000072207
+JWN , Nordstrom , 0000072333
+NSC , Norfolk Southern Corp. , 0000702165
+NTRS , Northern Trust Corp. , 0000073124
+NOC , Northrop Grumman Corp. , 0001133421
+NRG , NRG Energy , 0001013871
+NUE , Nucor Corp. , 0000073309
+NVDA , Nvidia Corporation , 0001045810
+ORLY , O'Reilly Automotive , 0000898173
+OXY , Occidental Petroleum , 0000797468
+OMC , Omnicom Group , 0000029989
+OKE , ONEOK , 0001039684
+ORCL , Oracle Corp. , 0001341439
+PCAR , PACCAR Inc. , 0000075362
+PH , Parker-Hannifin , 0000076334
+PDCO , Patterson Companies , 0000891024
+PAYX , Paychex Inc. , 0000723531
+PYPL , PayPal , 0001633917
+PNR , Pentair Ltd. , 0000077360
+PBCT , People's United Financial , 0001378946
+PEP , PepsiCo Inc. , 0000077476
+PKI , PerkinElmer , 0000031791
+PRGO , Perrigo , 0001585364
+PFE , Pfizer Inc. , 0000078003
+PCG , PG&E Corp. , 0001004980
+PM , Philip Morris International , 0001413329
+PSX , Phillips 66 , 0001534701
+PNW , Pinnacle West Capital , 0000764622
+PXD , Pioneer Natural Resources , 0001038357
+PNC , PNC Financial Services , 0000713676
+RL , Polo Ralph Lauren Corp. , 0001037038
+PPG , PPG Industries , 0000079879
+PPL , PPL Corp. , 0000922224
+PX , Praxair Inc. , 0000884905
+PCLN , Priceline.com Inc , 0001075531
+PFG , Principal Financial Group , 0001126328
+PG , Procter & Gamble , 0000080424
+PGR , Progressive Corp. , 0000080661
+PLD , Prologis , 0001045609
+PRU , Prudential Financial , 0001137774
+PEG , Public Serv. Enterprise Inc. , 0000788784
+PSA , Public Storage , 0001393311
+PHM , Pulte Homes Inc. , 0000822416
+PVH , PVH Corp. , 0000078239
+QRVO , Qorvo , 0001604778
+PWR , Quanta Services Inc. , 0001050915
+QCOM , QUALCOMM Inc. , 0000804328
+DGX , Quest Diagnostics , 0001022079
+RRC , Range Resources Corp. , 0000315852
+RJF , Raymond James Financial Inc. , 0000720005
+RTN , Raytheon Co. , 0001047122
+O , Realty Income Corporation , 0000726728
+RHT , Red Hat Inc. , 0001087423
+REG , Regency Centers Corporation , 0000910606
+REGN , Regeneron , 0000872589
+RF , Regions Financial Corp. , 0001281761
+RSG , Republic Services Inc , 0001060391
+RAI , Reynolds American Inc. , 0001275283
+RHI , Robert Half International , 0000315213
+ROK , Rockwell Automation Inc. , 0001024478
+COL , Rockwell Collins , 0001137411
+ROP , Roper Technologies , 0000882835
+ROST , Ross Stores , 0000745732
+RCL , Royal Caribbean Cruises Ltd , 0000884887
+R , Ryder System , 0000085961
+CRM , Salesforce.com , 0001108524
+SCG , SCANA Corp , 0000754737
+SLB , Schlumberger Ltd. , 0000087347
+SNI , Scripps Networks Interactive Inc. , 0001430602
+STX , Seagate Technology , 0001137789
+SEE , Sealed Air , 0001012100
+SRE , Sempra Energy , 0001032208
+SHW , Sherwin-Williams , 0000089800
+SIG , Signet Jewelers , 0000832988
+SPG , Simon Property Group Inc , 0001063761
+SWKS , Skyworks Solutions , 0000004127
+SLG , SL Green Realty , 0001040971
+SNA , Snap-On Inc. , 0000091440
+SO , Southern Co. , 0000092122
+LUV , Southwest Airlines , 0000092380
+SPGI , S&P Global, Inc. , 0000064040
+SWK , Stanley Black & Decker , 0000093556
+SPLS , Staples Inc. , 0000791519
+SBUX , Starbucks Corp. , 0000829224
+STT , State Street Corp. , 0000093751
+SRCL , Stericycle Inc , 0000861878
+SYK , Stryker Corp. , 0000310764
+STI , SunTrust Banks , 0000750556
+SYMC , Symantec Corp. , 0000849399
+SYF , Synchrony Financial , 0001601712
+SNPS , Synopsys Inc. , 0000883241
+SYY , Sysco Corp. , 0000096021
+TROW , T. Rowe Price Group , 0001113169
+TGT , Target Corp. , 0000027419
+TEL , TE Connectivity Ltd. , 0001385157
+FTI , TechnipFMC , 0001681459
+TGNA , Tegna, Inc. , 0000039899
+TDC , Teradata Corp. , 0000816761
+TSO , Tesoro Petroleum Co. , 0000050104
+TXN , Texas Instruments , 0000097476
+TXT , Textron Inc. , 0000217346
+TMO , Thermo Fisher Scientific , 0000097745
+TIF , Tiffany & Co. , 0000098246
+TWX , Time Warner Inc. , 0001105705
+TJX , TJX Companies Inc. , 0000109198
+TMK , Torchmark Corp. , 0000320335
+TSS , Total System Services , 0000721683
+TSCO , Tractor Supply Company , 0000916365
+TDG , TransDigm Group , 0001260221
+RIG , Transocean , 0001451505
+TRV , The Travelers Companies Inc. , 0000086312
+TRIP , TripAdvisor , 0001526520
+FOXA , Twenty-First Century Fox Class A , 0001308161
+FOX , Twenty-First Century Fox Class B , 0001308161
+TSN , Tyson Foods , 0000100493
+UDR , UDR Inc , 0000074208
+ULTA , Ulta Salon Cosmetics & Fragrance Inc , 0001403568
+USB , U.S. Bancorp , 0000036104
+UA , Under Armour Class C , 0001336917
+UAA , Under Armour Class A , 0001336917
+UNP , Union Pacific , 0000100885
+UAL , United Continental Holdings , 0000100517
+UNH , United Health Group Inc. , 0000731766
+UPS , United Parcel Service , 0001090727
+URI , United Rentals, Inc. , 0001067701
+UTX , United Technologies , 0000101829
+UHS , Universal Health Services, Inc. , 0000352915
+UNM , Unum Group , 0000005513
+VFC , V.F. Corp. , 0000103379
+VLO , Valero Energy , 0001035002
+VAR , Varian Medical Systems , 0000203527
+VTR , Ventas Inc , 0000740260
+VRSN , Verisign Inc. , 0001014473
+VRSK , Verisk Analytics , 0001442145
+VZ , Verizon Communications , 0000732712
+VRTX , Vertex Pharmaceuticals Inc , 0000875320
+VIAB , Viacom Inc. , 0001339947
+V , Visa Inc. , 0001403161
+VNO , Vornado Realty Trust , 0000899689
+VMC , Vulcan Materials , 0001396009
+WMT , Wal-Mart Stores , 0000104169
+WBA , Walgreens Boots Alliance , 0001618921
+DIS , The Walt Disney Company , 0001001039
+WM , Waste Management Inc. , 0000823768
+WAT , Waters Corporation , 0001000697
+WEC , Wec Energy Group Inc , 0000783325
+WFC , Wells Fargo , 0000072971
+HCN , Welltower Inc. , 0000766704
+WDC , Western Digital , 0000106040
+WU , Western Union Co , 0001365135
+WRK , WestRock Company , 0001636023
+WY , Weyerhaeuser Corp. , 0000106535
+WHR , Whirlpool Corp. , 0000106640
+WFM , Whole Foods Market , 0000865436
+WMB , Williams Cos. , 0000107263
+WLTW , Willis Towers Watson , 0001140536
+WYN , Wyndham Worldwide , 0001361658
+WYNN , Wynn Resorts Ltd , 0001174922
+XEL , Xcel Energy Inc , 0000072903
+XRX , Xerox Corp. , 0000108772
+XLNX , Xilinx Inc , 0000743988
+XL , XL Capital , 0000875159
+XYL , Xylem Inc. , 0001524472
+YHOO , Yahoo Inc. , 0001011006
+YUM , Yum! Brands Inc , 0001041061
+ZBH , Zimmer Biomet Holdings , 0001136869
+ZION , Zions Bancorp , 0000109380
+ZTS , Zoetis , 0001555280

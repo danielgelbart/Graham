@@ -3163,6 +3163,11 @@ Parser::extractLongTermDebt(XmlElement* tree, DMMM::O_BalanceSheet& balance_data
                                 balance_data, writeLongTermDebtToBalance )))
         LOG_INFO<<" Successfully found Long Term Debt us-gaap_ConvertibleLongTermNotesPayable (5th)";
 
+    // Used by ORCL us-gaap_LongTermNotesPayable
+    defref.assign("us-gaap_ConvertibleLongTermNotesPayable");
+    if (( foundLTD |= findDefref(trIt, defref, num_pattern, units,
+                                balance_data, writeLongTermDebtToBalance )))
+        LOG_INFO<<" Successfully found Long Term Debt us-gaap_ConvertibleLongTermNotesPayable (6th)";
 
     // "other" long term debt
     defref.assign("us-gaap_OtherLongTermDebtNoncurrent");

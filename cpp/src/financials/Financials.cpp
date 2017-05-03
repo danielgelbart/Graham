@@ -438,7 +438,7 @@ bool
 EdgarData::addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
                                    string revenue, string income, float eps,
                                    string shares, bool shares_diluted,
-                                   bool eps_diluted, const string& source)
+                                   bool eps_diluted, string report_date, const string& source)
 {
     LOG_INFO << "\nGoing to try to insert earnings record to DB for "
              << stock._ticker() << " for year " << to_string(year) 
@@ -451,6 +451,7 @@ EdgarData::addEarningsRecordToDB( O_Stock& stock, size_t year, size_t quarter,
     incomeS._eps() = eps;
     incomeS._shares() = shares;
     incomeS._shares_diluted() = shares_diluted;
+    incomeS._report_date() = report_date;
     incomeS._source() = source;
         
     return addEarningsRecordToDB(stock, incomeS);
@@ -694,6 +695,7 @@ EdgarData::createFourthQuarter(O_Stock& stock, size_t year)
                             to_string(numshares),  
                             annual_ep._shares_diluted(),
                             annual_ep._eps_diluted(),
+                            annual_ep._report_date(),
                             "calculated"/*source*/);
 
     createTtmEps(stock);
@@ -740,7 +742,8 @@ EdgarData::createTtmEps(O_Stock& stock)
                                 latest_annual_ep._revenue(), latest_annual_ep._net_income(),
                                 latest_annual_ep._eps(), latest_annual_ep._shares(),
                                 latest_annual_ep._shares_diluted(),
-                                latest_annual_ep._eps_diluted(), "calculated");
+                                latest_annual_ep._eps_diluted(),
+                                latest_annual_ep._report_date(), "calculated");
         return;
     }
 
@@ -790,6 +793,7 @@ EdgarData::createTtmEps(O_Stock& stock)
                             to_string(numshares),
                             qrts.front()._shares_diluted(),
                             qrts.front()._eps_diluted(),
+                            qrts.front()._report_date(),
                             "calculated");
 }
 
