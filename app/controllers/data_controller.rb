@@ -152,7 +152,8 @@ require 'csv'
     case params[:sort]
     when "E"
       @comp_data.sort_by! { |s| -s.ttm_earnings }
-    when "R"
+   # when "R"
+   #   @comp_data.sort_by! { |s| s.latest_eps.revenue.to_i }
     when "PE"
       @comp_data.sort_by! { |s| s.market_pe }
     else

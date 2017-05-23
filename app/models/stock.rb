@@ -210,9 +210,14 @@ class Stock < ActiveRecord::Base
     return 1000000 if historic_eps(10).nil? || ttm_eps.nil?
     return historic_eps(3) * 28 if historic_eps(10).to_i == 0 # historic eps returns string!
     lim = max( historic_eps(10) * 26, ttm_eps*40 )
+    if  historic_eps(3) == "Do not have 3 of earnings for #{ticker}"
+      return 1000000
+    end
+
     lim = max( historic_eps(3) * 28, lim ) # second criteria from page 182
     return 1000000 if lim.nil?
-    lim
+    return 1000000 if lim.to_i == 0
+    lim.to_i
   end
 
   def overpriced?
@@ -613,7 +618,6 @@ class Stock < ActiveRecord::Base
   end
 
   # Retruns 4 quarters most recent BEFORE
-
   def ttm_to_date(date)
 
 
