@@ -315,7 +315,7 @@ class Stock < ActiveRecord::Base
       2013 => 1.01717,
       2014 => 1.01606,
       2015 => 1.02216,
-      2016 => 1.02 # Updated with data up to Nov 1st 2016
+      2016 => 1.01883
     }
 
     # Now muliply the earnings from a given year, by all the years AFTER it

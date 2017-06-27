@@ -62,6 +62,11 @@
       = "index PE #{ short_float @index_price / @divisor_earnings.to_f }"
 
 
+%div.container
+  %div.row
+    %div.col-md-12
+      =render 'data/pe_histogram'
+
 - count = 0
 %table.stock-list.sortable
   %thead
@@ -71,6 +76,10 @@
       Ticker
     %th
       ttm Earning
+    %th
+      Revenue
+    %th
+      Margin
     %th
       ttm Eps   
     %th
@@ -93,6 +102,14 @@
         %td
           = is_to_s d.ttm_earnings
         %td
+          = is_to_s d.revenue
+        %td
+          - if d.margin.to_i < 20
+            = d.margin.to_i
+          - else
+            .green
+              = d.margin.to_i
+        %td
           = short_float d.ttm_eps
         %td
           = is_to_s d.num_shares
@@ -101,7 +118,11 @@
         %td
           = is_to_s d.market_cap
         %td
-          = short_float d.market_pe
+          - if d.market_pe < (@total_market_cap / @total_earnings.to_f)*0.75 && d.market_pe > 0   
+            .green
+              = short_float d.market_pe
+          - else
+            = short_float d.market_pe
         %td
           = short_float d.pe
         %td

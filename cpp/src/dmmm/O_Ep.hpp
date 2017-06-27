@@ -96,10 +96,10 @@ O_Ep(const I_Ep& id)
         _f_quarter._dirty = true; 
         return _f_quarter._base; 
     }
-    const F_Time::Base& _report_date() const { 
+    const F_Date::Base& _report_date() const { 
         return _f_report_date._base; 
     }
-    F_Time::Base& _report_date() { 
+    F_Date::Base& _report_date() { 
         _f_report_date._dirty = true; 
         return _f_report_date._base; 
     }
@@ -275,7 +275,7 @@ private:
     F_String _f_revenue;
     F_String _f_net_income;
     F_Fixnum _f_quarter;
-    F_Time _f_report_date;
+    F_Date _f_report_date;
     F_String _f_shares;
     F_Object _f_shares_diluted;
     F_Object _f_eps_diluted;

@@ -1,0 +1,89 @@
+%script{ :type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $(function() {
+      /**
+      * Make histogram count
+      * @param   {Array} data  Array 
+      * @param   {Number} step Resolution for the histogram
+      * @returns {Array}       Histogram data
+      */
+      function histogram(data, step) {
+        var histo = {},
+        x,
+        i,
+        arr = [];
+
+        // Group down
+        for (i = 0; i < data.length; i++) {
+          x = Math.floor(data[i]/ step) * step;
+
+          if (x<0) {
+            x = -10;  
+          } 
+          if (x>50) {
+            if (x>150) {
+              x = 150;
+            } else if (x>100) {
+              x = 100;
+            } else {
+              x = 50;
+            }
+          }
+                     
+          if (!histo[x]) {
+            histo[x] = 0;
+          }
+          histo[x]++;
+        }
+
+        // Make the histo group into an array
+        for (x in histo) {
+          if (histo.hasOwnProperty((x))) {
+            arr.push([parseFloat(x), histo[x]]);
+          }
+        }
+
+        // Finally, sort the array
+        arr.sort(function (a, b) {
+          return a[0] - b[0];
+        });
+
+        return arr;
+      }
+      new Highcharts.Chart({
+        chart: {
+          renderTo: "pe_histo",
+          type: 'column'
+        },
+        title: {
+          text: 'Highcharts Histogram'
+        },
+        xAxis: {
+          categories: #{ @pes.keys }
+        },
+        yAxis: [{
+          title: {
+            text: 'PE Histogram'
+          },
+          opposite: true
+        },{        // For cumulative function
+          title: {
+            text: 'Cumuluative'
+          }
+        }],
+        series: [{
+          name: 'Histogram',
+          type: 'column',
+          data: #{ @pes.values },
+          pointPadding: 0,
+          groupPadding: 0,
+          pointPlacement: 'between'
+        }, {
+          name: 'Cumulitive',
+          type: 'line',
+          data: #{ @comulper.values },
+          yAxis: 1
+        }]
+      });
+    });
+#pe_histo{ :style => "width:860px; height:460px;"}

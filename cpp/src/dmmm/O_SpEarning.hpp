@@ -135,6 +135,13 @@ O_SpEarning(const I_SpEarning& id)
         _f_updated_at._dirty = true; 
         return _f_updated_at._base; 
     }
+    const F_String::Base& _index_market_cap() const { 
+        return _f_index_market_cap._base; 
+    }
+    F_String::Base& _index_market_cap() { 
+        _f_index_market_cap._dirty = true; 
+        return _f_index_market_cap._base; 
+    }
 
     bool update(){
         std::map<std::string, std::string> field2Val;
@@ -186,6 +193,9 @@ O_SpEarning(const I_SpEarning& id)
 
         field2Val["updated_at"] = "NOW()";
 
+        if (_f_index_market_cap._dirty)
+            field2Val["index_market_cap"] = 
+                toSQLString(_f_index_market_cap._base);
         std::string where =
             "id=" + toSQLString(_f_id._base);
         if (DBFace::instance()->update("sp_earnings", 
@@ -207,6 +217,7 @@ O_SpEarning(const I_SpEarning& id)
             _f_notes._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
+            _f_index_market_cap._dirty = false;
             return true;
         }
         else
@@ -263,6 +274,9 @@ O_SpEarning(const I_SpEarning& id)
         if (_f_updated_at._dirty)
             field2Val["updated_at"] = 
                 toSQLString(_f_updated_at._base);
+        if (_f_index_market_cap._dirty)
+            field2Val["index_market_cap"] = 
+                toSQLString(_f_index_market_cap._base);
 
         
         if (DBFace::instance()->
@@ -285,6 +299,7 @@ O_SpEarning(const I_SpEarning& id)
             _f_notes._dirty = false;
             _f_created_at._dirty = false;
             _f_updated_at._dirty = false;
+            _f_index_market_cap._dirty = false;
             return true;
         }
         else
@@ -308,6 +323,7 @@ private:
     F_String _f_notes;
     F_Time _f_created_at;
     F_Time _f_updated_at;
+    F_String _f_index_market_cap;
 
     friend class T_SpEarning;
 };

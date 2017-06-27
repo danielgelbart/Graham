@@ -12,6 +12,48 @@ require 'csv'
     str
   end
 
+  def map_to_hist_categories( arr )
+    histo = {-10=>0, 60=>0, 100=>0, 150=>0}
+
+    arr.each do |pe|
+      pe = pe.round
+
+      if pe <= 0
+        pe = -10
+      end
+
+      if pe >= 60
+        if pe >= 150
+          pe = 150
+        else
+          if pe >= 100
+            pe = 100
+          else
+            pe = 60
+          end
+        end
+      end
+
+      if !histo[pe]
+        histo[pe] = 0
+      end
+      histo[pe] += 1
+    end
+
+    histo = Hash[histo.sort]
+  end
+
+  def histohash_to_comulitive(histo)
+    comul = Hash[histo]
+    kk = histo.values
+    total = kk.inject(0){ |total,x| total+x }
+    run_sum = 0
+    histo.each do |k,v|
+      run_sum += histo[k]
+      comul[k] = ((run_sum.to_f/total) * 500).round
+    end
+    comul
+  end
 
   def sppe
     #read file
@@ -93,6 +135,7 @@ require 'csv'
 
       #new
       net_income = ep.net_income.to_i
+      revenue = ep.revenue.to_i
       ttm_eps = stock.ttm_eps
 
       #make sure share_of_float does as you think
@@ -107,6 +150,7 @@ require 'csv'
                        price,
                        ttm_eps,
                        net_income,
+                       revenue,
                        num_shares)
 
       @index_market_cap += sc.nil? ? stock.public_market_cap : sc.market_cap
@@ -148,12 +192,18 @@ require 'csv'
                           notes: "created from data_controller#sppe")
 
     @spe.save if (params[:save] == "Y")
+    @pes = @comp_data.map{ |d| d.pe }
+
+    @pes = map_to_hist_categories(@pes)
+    @comulper = histohash_to_comulitive(@pes)
 
     case params[:sort]
     when "E"
       @comp_data.sort_by! { |s| -s.ttm_earnings }
-   # when "R"
-   #   @comp_data.sort_by! { |s| s.latest_eps.revenue.to_i }
+    when "R"
+      @comp_data.sort_by! { |s| -s.revenue }
+    when "M"
+      @comp_data.sort_by! { |s| -s.margin }
     when "PE"
       @comp_data.sort_by! { |s| s.market_pe }
     else

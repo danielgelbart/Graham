@@ -232,6 +232,19 @@ public:
     static E_updated_at _updated_at(){ 
         return E_updated_at();
     }
+    struct E_index_market_cap{
+        E_index_market_cap() 
+        {  
+            _field = "sp_earnings.index_market_cap";
+        }
+        std::string _field;
+        typedef T_SpEarning::Condition ConditionType;
+        typedef F_String::Base ComparerType;
+    };
+
+    static E_index_market_cap _index_market_cap(){ 
+        return E_index_market_cap();
+    }
     
 
     std::vector<std::string> getFields()
@@ -254,6 +267,7 @@ public:
         ret.push_back("notes");
         ret.push_back("created_at");
         ret.push_back("updated_at");
+        ret.push_back("index_market_cap");
         return ret;
     }
 
@@ -300,6 +314,8 @@ public:
                 UTILS::fromString<F_Time::Base>(res[i]["created_at"]);
             ret[i]._f_updated_at._base =
                 UTILS::fromString<F_Time::Base>(res[i]["updated_at"]);
+            ret[i]._f_index_market_cap._base =
+                UTILS::fromString<F_String::Base>(res[i]["index_market_cap"]);
         }
         return ret;
     }
@@ -406,6 +422,9 @@ public:
         
 
         fields.push_back(std::string("updated_at"));
+        
+
+        fields.push_back(std::string("index_market_cap"));
 	std::vector<std::vector<std::string> > rows;
 	for (; begin != end; ++begin){
 	    const O_SpEarning& r = *begin;
@@ -440,6 +459,8 @@ public:
             row.push_back(toSQLString(r._created_at()));
             
             row.push_back(toSQLString(r._updated_at()));
+            
+            row.push_back(toSQLString(r._index_market_cap()));
 	    rows.push_back(row);
 	}
         return DBFace::instance()->insert("sp_earnings",
@@ -546,6 +567,12 @@ public:
             if (it->_f_updated_at._dirty){
                 fields.push_back(std::string("updated_at"));
                 row.push_back(toSQLString(it->_updated_at()));
+            }
+            
+
+            if (it->_f_index_market_cap._dirty){
+                fields.push_back(std::string("index_market_cap"));
+                row.push_back(toSQLString(it->_index_market_cap()));
             }
             fields2Rows[fields].push_back(row);
 	}

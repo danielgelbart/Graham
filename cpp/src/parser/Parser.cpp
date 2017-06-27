@@ -672,8 +672,10 @@ Parser::getReportDocNames(string& filingSummary,map<ReportType,string>* reports_
         if( (reports_map->find(ReportType::INCOME)) == reports_map->end() ){
             LOG_INFO<<"------------------------Could NOT find Income statement, searching AGAIN (3)------------\n";
             filingReportsIt.resetToStart();
-            // For CPGX, and MDLZ 2016
-            income_pattern.assign("(Statements of Consolidated and Combined Operations)|(Consolidated Statements of Comprehensive Earnings)",
+            // For: CPGX,
+            // MDLZ 2016,
+            // MSFT 2016
+            income_pattern.assign("(Statements of Consolidated and Combined Operations)|(Consolidated Statements of Comprehensive Earnings)|(income statements)",
                                   regex_constants::icase);
             reportsIterationExtraction(filingReportsIt, reports_map, cover_pattern, income_pattern, balance_pattern);
         }

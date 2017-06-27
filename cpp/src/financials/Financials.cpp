@@ -1030,6 +1030,7 @@ EdgarData::addIncomeStatmentToDB(string& incomeStr, O_Stock& stock,
     ep._report_date() = report_date;
     ep._shares_diluted() = false;
     ep._eps_diluted() = false;
+
     _parser.parseIncomeTree(tree, ep, rep_end_date);
     postParseEarningsFix( stock, ep);
 }

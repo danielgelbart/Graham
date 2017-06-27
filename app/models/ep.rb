@@ -12,7 +12,7 @@
 #  revenue        :string(255)
 #  net_income     :string(255)
 #  quarter        :integer(4)      default(0)
-#  report_date    :datetime
+#  report_date    :date
 #  shares         :string(255)
 #  shares_diluted :boolean(1)      default(FALSE)
 #  eps_diluted    :boolean(1)      default(FALSE)

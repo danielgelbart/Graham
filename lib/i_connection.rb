@@ -40,6 +40,7 @@ module IConnection
     ex = "NASDAQ:" if (ticker == "AAL")
     ex = "NASDAQ:" if (ticker == "CHTR")
     ex = "NASDAQ:" if (ticker == "SNPS")
+    ex = "NASDAQ:" if (ticker == "MNST")
     #Google currently (Dec 2016) incorectly supplies UAA value for UA
     # These are two diff share classes. UA is class 'C'. (UAA is class 'A')
     ex = "NYSE:" if (ticker == "UA")

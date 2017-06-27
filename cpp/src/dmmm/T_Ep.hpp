@@ -168,7 +168,7 @@ public:
         }
         std::string _field;
         typedef T_Ep::Condition ConditionType;
-        typedef F_Time::Base ComparerType;
+        typedef F_Date::Base ComparerType;
     };
 
     static E_report_date _report_date(){ 
@@ -268,7 +268,7 @@ public:
             ret[i]._f_quarter._base =
                 UTILS::fromString<F_Fixnum::Base>(res[i]["quarter"]);
             ret[i]._f_report_date._base =
-                UTILS::fromString<F_Time::Base>(res[i]["report_date"]);
+                UTILS::fromString<F_Date::Base>(res[i]["report_date"]);
             ret[i]._f_shares._base =
                 UTILS::fromString<F_String::Base>(res[i]["shares"]);
             ret[i]._f_shares_diluted._base =

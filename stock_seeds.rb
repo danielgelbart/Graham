@@ -1735,3 +1735,4 @@ Stock.create('name'=>'DISH Network CORP','ticker'=>'DISH','cik'=>1001082,'fiscal
 Stock.create('name'=>'INCYTE CORP','ticker'=>'INCY','cik'=>879169,'fiscal_year_end'=>'12-31')
 Stock.create('name'=>'SYNOPSYS INC','ticker'=>'SNPS','cik'=>883241,'fiscal_year_end'=>'10-31')
 Stock.create('name'=>'DXC Technology','ticker'=>'DXC','cik'=>1688568,'fiscal_year_end'=>'03-31')
+Stock.create('name'=>'IHS Markit Ltd.','ticker'=>'INFO','cik'=>1598014,'fiscal_year_end'=>'11-30')
