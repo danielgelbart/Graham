@@ -1096,3 +1096,22 @@ scb = ShareClass.create( stock_id:stock.id,
                          note: "Identicle to class A, except for voting. Class B carry 35% of total voting power")
 puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
 sca = scb = nil
+
+stock = Stock.find_by_ticker("BHGE")
+sca = ShareClass.create( stock_id:stock.id,
+                         ticker:'BHGE',
+                         sclass:"A",
+                         nshares: "428031276",
+                         float_date: "2017-07-24",
+                         votes:1,
+                         note:"")
+puts "#{stock.ticker}: Added share class #{sca.sclass}" if sca.persisted?
+scb = ShareClass.create( stock_id:stock.id,
+                         ticker:'-',
+                         sclass:"B",
+                         nshares: "717110722",
+                         float_date: "2017-07-24",
+                         votes:1,
+                         note: "All shares (62.5% of company) owned by GE. Exchangeable to class A shares. Economic rights?" )
+puts "#{stock.ticker}: Addes share class #{scb.sclass}" if scb.persisted?
+sca = scb = nil

@@ -1736,3 +1736,7 @@ Stock.create('name'=>'INCYTE CORP','ticker'=>'INCY','cik'=>879169,'fiscal_year_e
 Stock.create('name'=>'SYNOPSYS INC','ticker'=>'SNPS','cik'=>883241,'fiscal_year_end'=>'10-31')
 Stock.create('name'=>'DXC Technology','ticker'=>'DXC','cik'=>1688568,'fiscal_year_end'=>'03-31')
 Stock.create('name'=>'IHS Markit Ltd.','ticker'=>'INFO','cik'=>1598014,'fiscal_year_end'=>'11-30')
+Stock.create('name'=>'ALIGN Technology Inc.','ticker'=>'ALGN','cik'=>1097149,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'ANSYS Inc.','ticker'=>'ANSS','cik'=>1013462,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'Baker Hughes a GE Co','ticker'=>'BHGE','cik'=>1701605,'fiscal_year_end'=>'12-31')
+Stock.create('name'=>'Hilton Worldwide Holdings Inc.','ticker'=>'HLT','cik'=>1585689,'fiscal_year_end'=>'12-31')

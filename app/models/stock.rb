@@ -208,7 +208,14 @@ class Stock < ActiveRecord::Base
   # Set a price at wich a stock is overvalued to the point of concidering to sell it
   def valuation_limit
     return 1000000 if historic_eps(10).nil? || ttm_eps.nil?
-    return historic_eps(3) * 28 if historic_eps(10).to_i == 0 # historic eps returns string!
+    if historic_eps(10).to_i == 0 # historic eps returns string!
+      ret = historic_eps(3)
+      if ret.to_i == 0
+        return 1
+      else
+        return ret * 28
+      end
+    end
     lim = max( historic_eps(10) * 26, ttm_eps*40 )
     if  historic_eps(3) == "Do not have 3 of earnings for #{ticker}"
       return 1000000
@@ -548,6 +555,7 @@ class Stock < ActiveRecord::Base
   end
 
   def earnings_up_to_date?
+    return true if newest_quarter.nil?
     newest_quarter.date_of > 3.months.ago.to_date
   end
 

@@ -35,6 +35,8 @@ module IConnection
     ex = "NYSE:" if (ticker == "PNR")
     ex = "NYSE:" if (ticker == "UBP")
     ex = "NYSE:" if (ticker == "D")
+    ex = "NYSE:" if (ticker == "IRM")
+    ex = "NYSE:" if (ticker == "BHGE")
     ex = "NASDAQ:" if (ticker == "NWSA")
     ex = "NASDAQ:" if (ticker == "FOXA")
     ex = "NASDAQ:" if (ticker == "AAL")
