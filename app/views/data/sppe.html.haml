@@ -52,6 +52,17 @@
       %span.bold.col-md-4
         = short_float @index_market_cap / @total_earnings.to_f
   %li.list-group-item.row
+    %div.row
+      %div.col-md-8
+        Companies with Loss 
+      %span.bold.col-md-4
+        = "#{short_float @spe.losing_percent}%"
+    %div.row
+      %div.col-md-8
+        Median PE 
+      %span.bold.col-md-4
+        = @spe.median_pe
+  %li.list-group-item.row
     %div.col-md-3
       = "Using inferred divisor #{@inferred_divisor.to_i}"
     %span.bold.col-md-3

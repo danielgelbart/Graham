@@ -102,3 +102,5 @@ FIX getting of dividends and splits
 8. Refactor sp500 list, as a query on Stock, 
    Move sppe method to stocks controller
    Use Stock objects instead of SpData in sppe results
+
+** Some error with getting correct date for PRGO reports

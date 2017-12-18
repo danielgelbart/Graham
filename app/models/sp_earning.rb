@@ -53,5 +53,9 @@ class SpEarning < ActiveRecord::Base
     s.get_price("INDEXSP%3A.INX")
   end
 
+  def losing_percent
+    (losers.to_f / num_included.to_f) * 100
+  end
+
 end
 

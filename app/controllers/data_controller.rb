@@ -23,14 +23,10 @@ require 'csv'
       end
 
       if pe >= 60
-        if pe >= 150
-          pe = 150
+        if pe >= 100
+          pe = 100
         else
-          if pe >= 100
-            pe = 100
-          else
-            pe = 60
-          end
+          pe = 60
         end
       end
 
@@ -50,10 +46,17 @@ require 'csv'
     run_sum = 0
     histo.each do |k,v|
       run_sum += histo[k]
-      comul[k] = ((run_sum.to_f/total) * 500).round
+      comul[k] = ((run_sum.to_f/total) ).round(2)
     end
     comul
   end
+
+  def find_median_pe(comu)
+    comu.each do |k,v|
+      return k if v >= 0.5
+    end
+  end
+
 
   def sppe
     #read file
@@ -113,9 +116,14 @@ require 'csv'
         end
       end
 
+      # Stocks that do not have yet 4 quarters worth of datat
+      # As of Sep 1 2017:
+      # BHGE, BHF, DWDP, DXC, INFO,
+
+
       # Get more recent data if needed!
       if params[:update] == "Y"
-        if ticker != "PRGO"
+        if ticker !="PRGO"
           stock.update_financials if !stock.earnings_up_to_date?
         end
       end
@@ -191,11 +199,15 @@ require 'csv'
                           divisor_pe: (@index_price / @divisor_earnings),
                           notes: "created from data_controller#sppe")
 
-    @spe.save if (params[:save] == "Y")
+
     @pes = @comp_data.map{ |d| d.pe }
 
     @pes = map_to_hist_categories(@pes)
     @comulper = histohash_to_comulitive(@pes)
+
+    @spe.losers = @pes[-10]
+    @spe.median_pe = find_median_pe(@comulper)
+    @spe.save if (params[:save] == "Y")
 
     case params[:sort]
     when "E"

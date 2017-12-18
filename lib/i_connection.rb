@@ -37,6 +37,7 @@ module IConnection
     ex = "NYSE:" if (ticker == "D")
     ex = "NYSE:" if (ticker == "IRM")
     ex = "NYSE:" if (ticker == "BHGE")
+    ex = "NYSE:" if (ticker == "Q")
     ex = "NASDAQ:" if (ticker == "NWSA")
     ex = "NASDAQ:" if (ticker == "FOXA")
     ex = "NASDAQ:" if (ticker == "AAL")
@@ -48,12 +49,12 @@ module IConnection
     ex = "NYSE:" if (ticker == "UA")
 
 
-    url = "https://www.google.com/finance?q=#{ex}#{ticker}"
+    url = "https://finance.google.com/finance?q=#{ex}#{ticker}"
     price = retrive_url(url)
 
     if !price.nil? && price < 0.1
       ex = "NYSE:"
-      url = "https://www.google.com/finance?q=#{ex}#{ticker}"
+      url = "https://finance.google.com/finance?q=#{ex}#{ticker}"
       price = retrive_url(url)
     end
 
