@@ -297,7 +297,7 @@ class Stock < ActiveRecord::Base
   def inflation_ratio_for(year)
 
     #please UPDATE!
-    #Last updated: March 2015
+    #Last updated: Dec 2016
     # uses inflation from every year, so that I don't need to update
     # Calculated as change in CPI, from jan 1 to jan 1, durring the given year,
     # i.e data for 2013 is for change ending jan 1 2014.
@@ -322,7 +322,8 @@ class Stock < ActiveRecord::Base
       2013 => 1.01717,
       2014 => 1.01606,
       2015 => 1.02216,
-      2016 => 1.01883
+      2016 => 1.01949,
+      2017 => 1.01483
     }
 
     # Now muliply the earnings from a given year, by all the years AFTER it
