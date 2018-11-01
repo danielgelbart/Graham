@@ -197,6 +197,11 @@ class Stock < ActiveRecord::Base
     price.to_f / book_value_per_share.to_f
   end
 
+  # Simplifiying to Joel Greenblat's 2 criteria
+  # 1) High return on book - Earnings to Book
+  # 2) Low price - Earnings to Market cap /PE
+  # *) Buy all the best (a lot)
+
 
   # / End, Defensive buy breackdown---------------------------------------
 
@@ -266,6 +271,8 @@ class Stock < ActiveRecord::Base
       update_attributes!(:latest_price => p)
       @price = p
     end
+    share_classes.map(&:update_price)
+
     price
   end
 

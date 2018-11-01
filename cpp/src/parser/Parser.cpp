@@ -39,7 +39,7 @@ unitsToInt(string& units)
 bool
 containsNoData(string& dataText )
 {
-    boost::regex pattern("&#xA0;");
+    boost::regex pattern("(&#xA0;)|(&#160;)");
 
     if ( boost::regex_search(dataText, pattern) )
         return true;
@@ -1671,9 +1671,6 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
          }
      }// Banks
 
-
-
-
     // If compnay is a REIT - they report interest income
     // e.g. NLY, ANH
     if ( _stock._company_type() == EnumStockCOMPANY_TYPE::REIT)
@@ -1714,8 +1711,6 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
         }
     } // PIPELINE
 
-
-
     LOG_INFO << "Could not find REVENUE using defref. Going to use heuristics" ;
 
     trIt.resetToStart();
@@ -1739,11 +1734,28 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
             if (foundRev)
                 break;
         }
+        // AGR
+        rev_pattern.assign("Consolidated revenue",boost::regex::icase);
+        if (regex_search( trtext, rev_pattern)){
+            foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                         num_pattern, earnings_data, writeRevenueToEarnings);
+            if (foundRev)
+                break;
+        }
+        // HFC
+        rev_pattern.assign("sales and other revenues",boost::regex::icase);
+        if (regex_search( trtext, rev_pattern)){
+            foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                         num_pattern, earnings_data, writeRevenueToEarnings);
+            if (foundRev)
+                break;
+        }
 
     } // while loop over table
 
     // if not found - iterate in block search mode
     trIt.resetToStart();
+    foundRevBlock = false;
     if(!foundRev){
         LOG_INFO << "Looking for revenue by block strocture";
         while( (trp = trIt.nextTr()) != NULL )
@@ -1751,6 +1763,7 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
             string trtext = trp->text();
             if(!foundRevBlock)
             {
+                LOG_INFO << "Looking at header line: "<< trtext << "\n";
                 // DE Block
                 regex block_pattern("Sales and Revenues",regex::icase);
                 if((foundRevBlock = testBlock(trtext,block_pattern)))
@@ -1759,8 +1772,9 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                 block_pattern.assign("^((\\s|:)*Revenues?)",regex::icase);
                 if((foundRevBlock = testBlock(trtext,block_pattern)))
                     continue;
-                // AHC block
-                block_pattern.assign("operating Revenue",regex::icase);
+                // AHC DAL block
+
+                block_pattern.assign("Operating Revenue",regex::icase);
                 if((foundRevBlock = testBlock(trtext,block_pattern)))
                     continue;
                 // ALG, A, ACO block
@@ -1769,6 +1783,7 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                     continue;
 
             } else {
+                LOG_INFO << "Found block header, now searchng for Line\n" << trtext <<"\n";
                 // We are searching WITHIN block, so test if entered a new block
                 if( (!regex_search(trtext,num_pattern)) &&
                     containsNoData(trtext) )
@@ -1791,8 +1806,14 @@ Parser::extractTotalRevenue(XmlElement* tree, DMMM::O_Ep& earnings_data,
                         num_pattern, earnings_data, writeRevenueToEarnings)))
                     break;
 
-                // ATO Pattern
-                rev_pattern.assign("operating revenues", boost::regex::icase );
+                // EXPD Pattern
+                rev_pattern.assign("Revenue from Contract with Customer, Excluding Assessed Tax", boost::regex::icase );
+                if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
+                        num_pattern, earnings_data, writeRevenueToEarnings)))
+                    break;
+
+                // ATO DAL Pattern
+                rev_pattern.assign("operating revenues?", boost::regex::icase );
                 if ((foundRev = checkTrPattern( trtext, rev_pattern, units, trp,
                         num_pattern, earnings_data, writeRevenueToEarnings)))
                     break;
@@ -3615,8 +3636,8 @@ Parser::trToAcn( XmlElement* tr )
     if ( boost::regex_search(text, match0, amend_pattern) )
     {
         LOG_INFO << "\n This is an AMEND to a previous statement: "<< text;
-        // This is a BAD sign for the company...
-        return NULL;
+        // Previously, I would return null, but maybe leave it for now
+        // return NULL;
     }
 
     boost::regex acn_pattern("(\\d+-\\d\\d-\\d+)");

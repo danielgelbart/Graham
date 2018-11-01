@@ -45,12 +45,15 @@ module IConnection
   end
 
   def get_price(ex="",ticker="")
-    #    get_price_from_google(ex="",ticker="")
-    get_price_from_yahoo(ex="",ticker="")
+    #    get_price_from_google(ex,ticker)
+    get_price_from_yahoo(ex,ticker)
   end
 
   def get_price_from_yahoo(ex="",ticker="")
     ticker = self.ticker if ticker == ""
+    ticker = "BRK-A" if ticker == "BRK.A"
+    ticker = "BRK-B" if ticker == "BRK.B"
+
     url = "https://finance.yahoo.com/quote/#{ticker}"
     price = ya_retrive_url(url)
   end

@@ -276,6 +276,7 @@ EdgarData::getAnnuals(O_Stock& stock)
     string page = getEdgarSearchResultsPage(stock,StatementType::K10);
     vector<Acn*> qAcns = _parser.getAcnsFromSearchResults( page, 4,/*limit*/
                                                           StatementType::K10 );
+    bool update_share_class_float = !stock._share_classes().empty();
     bool updated(false);
     for(auto it = qAcns.begin() ; it != qAcns.end(); ++it)
     {
@@ -292,9 +293,16 @@ EdgarData::getAnnuals(O_Stock& stock)
             string page = getEdgarFiling( stock, *(*it));
 
             bool gotAnnual = extract10kToDisk( page, stock, (*it)->_year );
-            if (gotAnnual)
+            if (gotAnnual){
                 createFourthQuarter( stock,(*it)->_year );
+                if (update_share_class_float){
+                    // Add method to call _parser.get_share_clsses_from_cover_reprot();
+                    update_share_class_float = false;
+                }
+            }
             updated = (updated || gotAnnual);
+
+
         } else {
             string message = "Not going to download, since stock already contains this info";
             LOG_INFO << message;

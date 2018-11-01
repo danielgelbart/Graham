@@ -50,7 +50,7 @@ class SpEarning < ActiveRecord::Base
 
   def self.get_index_price
     s = Stock.new
-    s.get_price("INDEXSP%3A.INX")
+    s.get_price("","%5EGSPC")
   end
 
   def losing_percent
