@@ -3,7 +3,9 @@ module InflationRatio
   # every year is taken at that date as well
   # taken from goverment report March 2010
 
-# this should be changed to use YEARLY data, and not from then undil now
+# THIS IS DEPRICATED: now in stock.rb model
+
+  #his should be changed to use YEARLY data, and not from then undil now
 
   inflation_ratio_by_year = {
     2000 => 1.026,
@@ -16,7 +18,7 @@ module InflationRatio
     2007 => 1.2129,
     2008 => 1.2155,
     2009 => 1.25174
-#   2010 => 
+#   2010 =>
 #   2011 =>
   }
 
