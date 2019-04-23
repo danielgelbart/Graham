@@ -304,12 +304,13 @@ class Stock < ActiveRecord::Base
   def inflation_ratio_for(year)
 
     #please UPDATE!
-    #Last updated: Dec 2016
+    #Last updated: Jan 2019
     # uses inflation from every year, so that I don't need to update
     # Calculated as change in CPI, from jan 1 to jan 1, durring the given year,
     # i.e data for 2013 is for change ending jan 1 2014.
     # using "ALL Urban Consumers LESS Food & Energy (i.e. CORE inflation)
     # Source: https://research.stlouisfed.org/fred2/release?rid=10
+    # Or: https://fred.stlouisfed.org/series/CPILFENS
     # Saved to file localy
     #
     ir = {
@@ -330,7 +331,8 @@ class Stock < ActiveRecord::Base
       2014 => 1.01606,
       2015 => 1.02216,
       2016 => 1.01949,
-      2017 => 1.01483
+      2017 => 1.01389,
+      2018 => 1.02171
     }
 
     # Now muliply the earnings from a given year, by all the years AFTER it
