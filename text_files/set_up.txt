@@ -42,11 +42,27 @@ $ rvm install 1.9.2
 
 -- hook up local host to point to application and install appache
 in etc/hosts I added (needed to sudo emacs for this):
-127.0.0.1 graham.local
+127.0.0.1 localhosts
+(should be there by default)
+
 $ gem install passenger
 $ rvm update --head && rvm reload && rvm repair all
 $ passenger-install-apache2-module
-$ sudo apt-get install libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-dev libapr1-dev libaprutil1-dev 
+$ sudo apt-get install libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-dev libapr1-dev libaprutil1-dev
+
+2019: Installation
+passenger isntaller told me to install the following with sudo:
+$ apt-get install libcurl4-openssl-dev
+$ apt-get install apache2-mpm-worker -did not work!:
+But apperantly the 'worker mpm' is included in apache 2 so I did:
+$ sudo apt-get install apache2
+$ apt-get install libapr1-dev
+$ apt-get install libaprutil1-dev
+
+Then:
+$ apt-get install libssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev 
+// apapach2-threaded-dev didnt work, did apache2-dev instaed
+
 -- Added the following lines produced by the install process 
 to etc/apache2/apach2.conf
 
@@ -54,20 +70,39 @@ to etc/apache2/apach2.conf
    PassengerRoot /home/daniel/.rvm/gems/ruby-1.9.2-p180@rails238/gems/passenger-3.0.7
    PassengerRuby /home/daniel/.rvm/wrappers/ruby-1.9.2-p180@rails238/ruby
 
-*Here, remember to change path correctly
- <VirtualHost *:80>
-      ServerName graham.local
+2019: Asked me to add the lines:
+LoadModule passenger_module /home/daniel/.rvm/gems/ruby-1.9.2-p320@rails320/gems/passenger-4.0.52/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /home/daniel/.rvm/gems/ruby-1.9.2-p320@rails320/gems/passenger-4.0.52
+     PassengerDefaultRuby /home/daniel/.rvm/gems/ruby-1.9.2-p320@rails320/wrappers/ruby
+   </IfModule>
+
+
+
+*Here, (in same file: /etc/apache2/apahche2.conf) Add these lines at the bottom, with correct path to
+In 2019 new computer, this is
+<VirtualHost *:80>
+      ServerName localhost
       DocumentRoot /home/dani/rails/Graham/public  
       RailsEnv development 
       <Directory home/dani/rails/Graham/public>
          AllowOverride all          
-         Options -MultiViews        
+         Options -MultiView
+         #Needed for apache >= 2.4
+	 Require all granted
       </Directory>
  </VirtualHost>
 
 ---------Set up sql-------------------
 * create the 3 databasess in mysql: 'create database graham_dev'
 // or with rake db:setup
+
+
+2019//
+Ran into error for mysql DB connection:
+Access denied for user 'root'@'localhost'
+
+google found this
 
 --- Get rails 2.3.5 to work with bundler
 To get rake tasks to work, must load the bundler environment, so do:
@@ -90,9 +125,42 @@ $  rvm --default use 1.9.2
 -----------------------------------------------
 Get emacs to work with ruby
 emacs configuration is in ~/emacs.d 
-So added lines to that file
+Add to that folder the file ruby-electric.el
+
+
+
 
 
 ----------------------------------------------
 Highcharts.
 There is a href injected into the bottom of the chart. this is done in the highcharts.js file. I did not remove it but instead replaced it with the text "--" to point to my name.
+
+
+# 2019 #
+Set up on new computer. After removing 'socket' for mysql, and using user 'daniel' instead of root as specified here:
+https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost
+
+runnning rake db:setup
+
+produced the error:
+rake aborted!
+Mysql2::Error: All parts of a PRIMARY KEY must be NOT NULL; if ...
+
+following solution here:
+https://stackoverflow.com/questions/40758226/mysql2error-all-parts-of-a-primary-key-must-be-not-null-if-you-need-null-in
+
+created a file called:
+config/initializers/abstract_mysql2_adapter.rb
+
+with the content:
+require 'active_record/connection_adapters/mysql2_adapter'
+
+class ActiveRecord::ConnectionAdapters::Mysql2Adapter
+  NATIVE_DATABASE_TYPES[:primary_key] = "int(11) auto_increment PRIMARY KEY"
+end
+
+This overcame the error, but my seed.rb file couldn't seed because there it only adds share classes, but there are no stocks yet in the db. So need to load db:
+
+$ mysql -u daniel graham_dev < databackup 
+
+

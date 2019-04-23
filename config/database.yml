@@ -14,9 +14,9 @@ development:
   reconnect: false
   database: graham_dev
   pool: 5
-  username: root
+  username: daniel
   password:
-  socket: /var/run/mysqld/mysqld.sock
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,9 +27,9 @@ test:
   reconnect: false
   database: graham_test
   pool: 5
-  username: root
+  username: daniel
   password:
-  socket: /var/run/mysqld/mysqld.sock
+
 
 production:
   adapter: mysql2
@@ -37,6 +37,6 @@ production:
   reconnect: false
   database: Graham_production
   pool: 5
-  username: root
+  username: daniel
   password:
-  socket: /var/run/mysqld/mysqld.sock
+
